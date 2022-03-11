@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "meddocan"
+version = "0.1.0"
+description = "Medical Document Anonymization Track"
+authors = ["ggelabert <ggelabert@serikat.es>"]
+license = "MIT License"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+flair = "^0.10"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+autoflake = "^1.4"
+mypy = "^0.931"
+pytest = "^7.0.1"
+coverage = "^6.3.2"
+pytest-coverage = "^0.0"
+Sphinx = "^4.4.0"
+recommonmark = "^0.7.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
