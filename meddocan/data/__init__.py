@@ -12,7 +12,6 @@ from typing import Iterator, NamedTuple, Tuple
 from zipfile import ZipFile, ZipInfo
 
 import meddocan
-from meddocan import cache_root
 
 
 class BratFilesPair(NamedTuple):
@@ -117,6 +116,12 @@ class MeddocanZip:
             yield getattr(self, attr)
 
     def brat_files(self, dir_name: ArchiveFolder) -> Iterator[BratFilesPair]:
+
+        # Save the zip files to disk if the files are not already present.
+
+        from meddocan.data.cached_files import cached_meddocan_zipfile
+
+        cached_meddocan_zipfile()
 
         # The desired zip file from which the files must be yield.
 
