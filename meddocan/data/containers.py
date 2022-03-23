@@ -263,7 +263,7 @@ class BratDocs:
 
     def write(self, output: Path, sentences: bool = False) -> None:
         for i, brat_doc in enumerate(self):
-            mode = "a"
+            mode = "w"
             if i:
-                mode = "w"
+                mode = "a"
             brat_doc.write(output, mode, sentences=sentences)
