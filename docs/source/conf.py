@@ -10,21 +10,23 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-import os
-import sys
+# import os
+# import sys
+#
+# sys.path.insert(0, os.path.abspath('.'))
 
-from numpy import source
-sys.path.insert(0, os.path.abspath('.'))
-
+from meddocan import __version__
 
 # -- Project information -----------------------------------------------------
 
-project = 'MedDocAn'
+project = 'Meddocan'
 copyright = '2022, Guillaume Gelabert'
 author = 'Guillaume Gelabert'
 
-# The full version, including alpha/beta/rc tags
-release = '0.1.0'
+# The short X.Y version.
+version = __version__
+# The full version, including alpha/beta/rc tags.
+release = __version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -36,8 +38,14 @@ release = '0.1.0'
 extensions = [
     'sphinx.ext.autodoc',
     'recommonmark',  # For conversion from markdown to html.
-    'sphinx.ext.napoleon'  # For google style docs.
+    'sphinx.ext.napoleon',  # For google style docs.
+    'sphinx.ext.autosummary',  # To add first docstring line.
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.viewcode',  # Add links to highlighted source code.
 ]
+
+# build the templated autosummary files
+autosummary_generate = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -47,6 +55,14 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+# The suffix(es) of source filenames.
+# You can specify multiple suffix as a list of string:
+#
+source_suffix = ['.rst', '.md']
+# source_suffix = '.rst'
+
+# The master toctree document.
+master_doc = 'index'
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -59,3 +75,20 @@ html_theme = 'alabaster'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# Theme options
+#
+html_theme_options = {
+    'github_user': 'GuiGel',
+    'github_repo': 'MedDocAn',
+    'description': 'Model trained on the Meddocan corpus',
+    'sidebar_collapse': True
+}
+
+# -- Options for Texinfo output -------------------------------------------
+
+# Example configuration for intersphinx: refer to the Python standard library.
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3.8/', None),
+    'numpy': ('https://numpy.org/doc/stable', None),
+}

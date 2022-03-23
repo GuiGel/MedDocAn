@@ -8,6 +8,7 @@ license = "MIT License"
 [tool.poetry.dependencies]
 python = "^3.8"
 flair = "^0.10"
+spacy = "^3.2.3"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
@@ -20,6 +21,8 @@ coverage = "^6.3.2"
 pytest-coverage = "^0.0"
 Sphinx = "^4.4.0"
 recommonmark = "^0.7.1"
+ipykernel = "^6.9.2"
+ipywidgets = "^7.7.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

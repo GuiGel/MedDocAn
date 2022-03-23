@@ -1,4 +1,4 @@
-# MedDocAn: Medical Document Anonymization Track
+# MEDDOCAN: Medical Document Anonymization Track
 
 The Medical Document Anonymization Track correspond to track 9 of the <abbr title="Iberian Languages Evaluation Forum 2019">[IberLEF 2019](http://ceur-ws.org/Vol-2421/)</abbr>.
 
