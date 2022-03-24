@@ -11,10 +11,21 @@ def cached_path(url_or_filename: str, cache_dir: str | Path) -> Path:
     determine which. If it's a URL, download the file and cache it, and
     return the path to the cached file. If it's already a local path,
     make sure the file exists and then return the path.
+
+    Args:
+        url_or_filename (str): Filename or link from which the file can be
+            downloaded.
+        cache_dir (str | Path): Path to the folder where the file is to be
+            downloaded.
+
+    Returns:
+        Path: Location of the downloaded file on disk.
     """
     import flair
 
-    # Patch ``cache_root`` to download files inside meddocan cache_root
+    # Patch ``flair.cache_root`` to download files inside
+    # ``meddocan.cache_root``.
+
     flair.cache_root = meddocan.cache_root
 
     from flair.data_fetcher import cached_path
@@ -26,7 +37,7 @@ def cached_meddocan_zipfile() -> Path:
     """Cached the meddocan files directly from their url and return the path to
     their root folder on disk.
 
-    The cached files are located in the ``$/.meddocan/data/meddocan``
+    The cached files are located in the ``~/.meddocan/data/meddocan``
     directory.
     """
     dir_name = meddocan_zip.base

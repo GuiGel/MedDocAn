@@ -10,6 +10,22 @@ from meddocan.data.containers import BratDocs
 
 
 class MEDDOCAN(ColumnCorpus):
+    """Flair column corpus that hold the train, dev and test sets.
+    Two options are available:
+
+    - The documents are not cut into lines but are presented as one long \
+        sentence.
+    - The documents are split into lines as is customary for sequence \
+        labeling tasks.
+
+    Args:
+        sentences (bool, optional): Divide the original documents into
+            sentences or group the document as a whole.  
+            Defaults to False.
+        in_memory (bool, optional): Keep the data into memory or not.  
+            Defaults to True.
+    """
+
     def __init__(
         self, sentences: bool = False, in_memory: bool = True, **corpusargs
     ):

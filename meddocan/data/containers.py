@@ -221,11 +221,53 @@ class BratDoc:
                 # just remplace it by "\n O" if we want to make docs with
                 # sentences in it.
 
+                # On sait que toutes les phrases dans les documents originaux se termine par un point et qu'il n'y a pas de phrase vide.
+                # Par contre il y a parfois des lignes qui commencent par des espaces.
+                # Or lorsque l'on crée l'oject ``BratAnnotation`` en utilisant sa method ``from_brat_file``, on utilise le parametre ``sep`` pour agrouper les lignes du fichier.txt afin de créer une seule chaine de charactère que l'on passera a spaCy.
+                # Une ligne à généralement la forme suivante: ``'Apellidos: Rivera Bueno.\n'``. Toutes les lignes se terminent par un passage à la ligne ``'\n'``.
+                # Le **``flair.datasets.ColumnCorpus``** de ``Flair``
+                # Instantiates a Corpus from CoNLL column-formatted task data such as CoNLL03 or CoNLL2000.
+                # Il lit des documents tokenizés depuis un fichier ``.txt``. Chaque ligne contient un mot ainsi que le tag ``BIO`` qui lui est associé séparé par un espace.
+                # Pour detecter si l'on est en présence d'une nouvelle phrase, **``Flair``** regarde juste si la ligne est un espace ou non:
+                # >>> "\n     ".isispace()
+                # True
+                # Dans notre case parfois la ligne suivante commence par un espace comme dans le cas suivant:
+                # "Nombre: Carlos Lopèz.\n"
+                # "  Tel: 645 394 261\n"
+                # Dans ce cas prècis lorsque l'on lira le text avec ``BratAnnotations.from_brat_files`` on obtiendra l'attribut ``txt`` suivant:
+                # "Nombre: Carlos Lopèz.\n  Tel: 645 394 261\n"
+                # Spacy au travers du pipeline ``meddocan_pipeline`` transformera alors le text en un document qui va regouper les espaces pour former un unique token:
+                # from meddocan.language.pipeline import meddocan_pipeline
+                # >>> lines = ["Nombre: Carlos Lopèz.\n", "     Tel: 645 394 261\n"]
+                # >>> text = "".join(lines)
+                # >>> nlp = meddocan_pipeline()
+                # >>> doc = nlp(text)
+                # >>> for token in doc:
+                # >>>     print(f"{token.text!r}")
+                # 'Nombre'
+                # ':'
+                # 'Carlos'
+                # 'Lopèz'
+                # '.'
+                # '\n     '
+                # 'Tel'
+                # ':'
+                # '645'
+                # '394'
+                # '261'
+                # '\n'
+
                 if "\n" in token.text:
                     if sentences:
                         f.write("\n")
-                    """else:
-                        f.write("\\n O\n")"""
+                    else:
+                        orth_ = token.text
+                        if "\n" == orth_:
+                            line = orth_.replace("\n", "\\n O\n")
+                        else:
+                            # We are in the case orth_ == "\n     ".
+                            line = orth_.replace("\n", "\\n O\n")
+                            line = f"{line} O\n"
                 else:
 
                     # https://stackoverflow.com/questions/17912307/u-ufeff-in-python-string
@@ -241,6 +283,26 @@ class BratDoc:
 
 @dataclass
 class BratDocs:
+    """BratDoc is an Iterable of BratDoc for a given
+    :class:`meddocan.data.ArchiveFolder`.
+    It is used with its method ``write`` to write all the data present in one
+    of the train, dev or test archive to a file in a column
+    format compatible with the ``CoNLL03`` or ``CoNLL2000`` task type as
+    required by the ``Flair.datasets.ColumnCorpus`` class.
+
+    >>> issubclass(BratDocs, Iterable)
+    True
+
+    Args:
+        archive_name: (ArchiveFolder): The name of the folder contained in the
+            zip file containing the compressed data.
+        sep (str): The separator used to paste the lines of each text file in
+            the archive together.
+
+    Yields:
+        BratDoc: The spacy documents with entity span with BIO notation.
+    """
+
     archive_name: ArchiveFolder
     sep: str = ""
 
@@ -262,13 +324,14 @@ class BratDocs:
             yield brat_doc
 
         if expanded_entities:
-            print(f"{'ORIGINAL ENTITY':>20} | {'EXPANDED ENTITY':<20}")
-            print(f"{'---------------':>20}{'---'}{'---------------':<20}")
+            print(f"{'ORIGINAL ENTITY':>40} | {'EXPANDED ENTITY'}")
+            print(f"{'---------------':>40}{'---'}{'---------------'}")
             for expanded_entity in expanded_entities:
                 print(
-                    f"{expanded_entity.original:>20}"
-                    f" | {expanded_entity.expanded:<20}"
+                    f"{expanded_entity.original:>40}"
+                    f" | {expanded_entity.expanded}"
                 )
+            print("\n")
 
     def write(self, output: Path, sentences: bool = False) -> None:
         for i, brat_doc in enumerate(self):
@@ -276,3 +339,25 @@ class BratDocs:
             if i:
                 mode = "a"
             brat_doc.write(output, mode, sentences=sentences)
+
+
+if __name__ == "__main__":
+    from flair.datasets import ColumnCorpus
+
+    from meddocan.data.corpus import flair
+
+    corpus: ColumnCorpus = flair.datasets.MEDDOCAN(sentences=True)
+
+    total_lines = 0
+    for dataset in ("test", "dev", "train"):
+        archive_folder = getattr(ArchiveFolder, dataset)
+        subtotal_lines = 0
+        for brat_files_pair in meddocan_zip.brat_files(archive_folder):
+            brat_annotations = BratAnnotations.from_brat_files(
+                brat_files_pair, sep=""
+            )
+            subtotal_lines += len(brat_annotations)
+        print(f"{archive_folder.value} had {subtotal_lines} lines.")
+        total_lines += subtotal_lines
+        assert len(getattr(corpus, dataset)) == subtotal_lines
+    print(f"The whole datasets contains {total_lines} lines.")
