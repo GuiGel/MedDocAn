@@ -20,8 +20,6 @@ class MEDDOCAN(ColumnCorpus):
                 ArchiveFolder.test,
             ):
                 output_pth: Path = Path(tmpdirname) / data_pth.value
-                msg = f"Write {data_pth} data to {output_pth=}".center(50, "=")
-                print(msg)
                 brat_docs = BratDocs(archive_name=data_pth)
                 brat_docs.write(output=output_pth, sentences=sentences)
 
