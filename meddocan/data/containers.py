@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterator, List, Literal, Tuple
+from typing import Iterator, List, Literal, NamedTuple, Tuple
 
 from spacy.tokens import Doc
 
@@ -110,6 +110,11 @@ class BratAnnotations:
         )
 
 
+class ExpandedEntity(NamedTuple):
+    original: str
+    expanded: str
+
+
 @dataclass
 class BratDoc:
     doc: Doc
@@ -134,14 +139,12 @@ class BratDoc:
 
         return BratDoc(doc)
 
-    def check_doc(self, brat_spans: List[BratSpan]) -> int:
+    def check_doc(self, brat_spans: List[BratSpan]) -> List[ExpandedEntity]:
         """No exception occurs if alignment_mode="expand".
         Let's check that the number of entities in the
         ``spacy.tokens.doc.Doc`` is the same as in the ``brat_spans``
         argument.
         """
-
-        missalignment_count = 0
 
         assert len(self.doc.ents) == len(brat_spans), (
             f"entities numbers {len(self.doc.ents)} != "
@@ -154,6 +157,8 @@ class BratDoc:
 
         brat_spans.sort(key=lambda brat_span: brat_span.start)
 
+        expanded_entities: List[ExpandedEntity] = []
+
         for ent, brat_span in zip(self.doc.ents, brat_spans):
 
             # Verify that the doc entity label is the same as the brat label.
@@ -164,13 +169,10 @@ class BratDoc:
             # Verify that the doc entity text is the same as the brat text.
 
             if ent.text != brat_span.text:
-                print(
-                    f"The selected entity '{ent.text}' expand the original "
-                    f"entity '{brat_span.text}'."
-                )
-                missalignment_count += 1
+                expanded_entity = ExpandedEntity(brat_span.text, ent.text)
+                expanded_entities.append(expanded_entity)
 
-        return missalignment_count
+        return expanded_entities
 
     def write(
         self,
@@ -247,19 +249,26 @@ class BratDocs:
 
         nlp = meddocan_pipeline()
 
-        missalignment_count = 0
+        expanded_entities: List[ExpandedEntity] = []
 
         for brat_files_pair in meddocan_zip.brat_files(self.archive_name):
             brat_annotations = BratAnnotations.from_brat_files(
                 brat_files_pair, sep=self.sep
             )
             brat_doc = BratDoc.from_brat_annotations(nlp, brat_annotations)
-            missalignment_count += brat_doc.check_doc(
+            expanded_entities += brat_doc.check_doc(
                 brat_annotations.brat_spans
             )
             yield brat_doc
 
-        print(f"{missalignment_count=}")
+        if expanded_entities:
+            print(f"{'ORIGINAL ENTITY':>20} | {'EXPANDED ENTITY':<20}")
+            print(f"{'---------------':>20}{'---'}{'---------------':<20}")
+            for expanded_entity in expanded_entities:
+                print(
+                    f"{expanded_entity.original:>20}"
+                    f" | {expanded_entity.expanded:<20}"
+                )
 
     def write(self, output: Path, sentences: bool = False) -> None:
         for i, brat_doc in enumerate(self):
