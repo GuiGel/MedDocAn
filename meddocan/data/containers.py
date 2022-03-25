@@ -117,12 +117,30 @@ class ExpandedEntity(NamedTuple):
 
 @dataclass
 class BratDoc:
+
+    # TODO Can have a NewType to specified that this doc as the entities
+    # attached?
+
     doc: Doc
 
     @classmethod
     def from_brat_annotations(
         cls, nlp: MeddocanLanguage, brat_annotations: BratAnnotations
     ) -> BratDoc:
+        """Instantiate a ``BratDoc`` directly from a ``BratAnnotations`` and
+        the ``MeddocanLanguage``. The created ``spacy.tokens.Doc`` has the
+        meddocan annotations set as entities.
+
+        Args:
+            nlp (MeddocanLanguage): A specific ``spacy.language.Language``
+                for the meddocan corpus.
+            brat_annotations (BratAnnotations): The ``dataclasses.dataclass``
+                that contains the ``BratAnnotations`` attributes.
+
+        Returns:
+            BratDoc: Container for a ``spacy.tokens.Doc`` with entities that
+                correspond to the offsets of the meddocan entities.
+        """
         doc = nlp(brat_annotations.text)
         spans = brat_annotations.brat_spans
         doc.set_ents(
@@ -136,7 +154,6 @@ class BratDoc:
                 for span in spans
             ]
         )
-
         return BratDoc(doc)
 
     def check_doc(self, brat_spans: List[BratSpan]) -> List[ExpandedEntity]:
