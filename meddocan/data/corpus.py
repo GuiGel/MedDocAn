@@ -35,6 +35,8 @@ class MEDDOCAN(ColumnCorpus):
                 ArchiveFolder.dev,
                 ArchiveFolder.test,
             ):
+                msg = f"{data_pth.value}".center(33, "-")
+                print(f"{msg:>58}")
                 output_pth: Path = Path(tmpdirname) / data_pth.value
                 brat_docs = BratDocs(archive_name=data_pth)
                 brat_docs.write(output=output_pth, sentences=sentences)
