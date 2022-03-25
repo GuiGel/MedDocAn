@@ -14,14 +14,31 @@ from meddocan.language.pipeline import MeddocanLanguage
 class BratSpan:
     """Container for a line of a ``.ann`` file in the BRAT format.
 
-    The line doesn't contains the ``\\n`` at the end.
+    .. note::
+        The ``ID``, ``TEXT``, and ``COMMENT`` fields are not used for any of
+        the evaluation metrics. The number in the ``ID`` field and the
+        ``COMMENT`` field are arbitrary, and the evaluation of the ``TEXT``
+        field is implicit in the offset evaluation, as the text is the same for
+        the GS and the systems.
+
+    Example:
+
+    >>> BratSpan(id=None, entity_type="LOC", start=8, end=14, text="Bilbao")
+    BratSpan(
+        id=None,
+        entity_type='LOC',
+        start=8,
+        end=14,
+        text='Bilbao',
+        entity=(8, 14, 'LOC'),
+    )
 
     Args:
-        id (str):
-        entity_type (str):
-        start (int):
-        end (int):
-        text (str):
+        id (str): ID of the entity.
+        entity_type (str): Entity type.
+        start (int): Start offset.
+        end (int): End offset.
+        text (str): Text snippet between the previous offsets.
     """
 
     id: str
@@ -38,17 +55,20 @@ class BratSpan:
     def from_bytes(cls, byte_line: bytes) -> BratSpan:
         """Read a line of a brat file and return a :py:class:`BratSpan` object.
 
+        The line doesn't contains the ``\\n`` at the end.
+
         Example:
 
         >>> line = "T1\tCALLE 2365 2391\tc/ del Abedul 5-7, 2º dcha"
         >>> byte_line = line.encode("utf-8")
-        >>> BratLine.from_bytes(byte_line)
+        >>> BratSpan.from_bytes(byte_line)
         BratSpan(
             id='T1',
             entity_type='CALLE',
             start=2365,
             end=2391,
-            text='c/ del Abedul 5-7, 2º dcha,
+            text='c/ del Abedul 5-7, 2º dcha',
+            entity=(2365, 2391, 'CALLE'),
         )
         """
         line = byte_line.decode("utf-8").strip()
@@ -67,7 +87,8 @@ class BratSpan:
 class BratAnnotations:
     """Container for a document annotated in the brat format.
 
-    TODO Document!
+    A :class:`BratAnnotations` object are construct by the classmethod
+    :method:`from_brat_files`
 
     Args:
         text (str): Document text.
@@ -76,7 +97,7 @@ class BratAnnotations:
 
     lines: List[str]
     brat_spans: List[BratSpan]
-    sep: str
+    sep: str = ""
     text: str = field(init=False)
     entities: List[Tuple[int, int, str]] = field(init=False)
 
@@ -197,8 +218,8 @@ class BratDoc:
         mode: Literal["a", "w"] = "w",
         sentences: bool = False,
     ) -> None:
-        """Write a SpacyBratDoc in a file. Write a new line at the end of each
-        document.
+        """Writes the BratDoc.doc attribute to the file provided in CONLL03
+        format, encoded with the ``BIO'' scheme.
 
         Args:
             file (Path): The file where the data must be written.
@@ -348,7 +369,10 @@ class BratDocs:
                     f"{expanded_entity.original:>40}"
                     f" | {expanded_entity.expanded}"
                 )
-            print("\n")
+            print(f"{'---------------':>40}{'---'}{'---------------'}")
+            msg = f"There is {len(expanded_entities)}"
+            print(f"{msg:>40} expanded entities")
+        print("\n")
 
     def write(self, output: Path, sentences: bool = False) -> None:
         for i, brat_doc in enumerate(self):
