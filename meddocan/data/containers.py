@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterator, List, Literal, NamedTuple, Tuple
 
-from spacy.tokens import Doc
+from spacy.tokens import Doc, Span
 
 from meddocan.data import ArchiveFolder, BratFilesPair, meddocan_zip
 from meddocan.language.pipeline import MeddocanLanguage
@@ -24,14 +24,8 @@ class BratSpan:
     Example:
 
     >>> BratSpan(id=None, entity_type="LOC", start=8, end=14, text="Bilbao")
-    BratSpan(
-        id=None,
-        entity_type='LOC',
-        start=8,
-        end=14,
-        text='Bilbao',
-        entity=(8, 14, 'LOC'),
-    )
+    BratSpan(id=None, entity_type='LOC', start=8, end=14, text='Bilbao', \
+entity=(8, 14, 'LOC'))
 
     Args:
         id (str): ID of the entity.
@@ -53,23 +47,17 @@ class BratSpan:
 
     @classmethod
     def from_bytes(cls, byte_line: bytes) -> BratSpan:
-        """Read a line of a brat file and return a :py:class:`BratSpan` object.
+        """Read a line of a brat file and return a :class:`BratSpan` object.
 
         The line doesn't contains the ``\\n`` at the end.
 
         Example:
 
-        >>> line = "T1\tCALLE 2365 2391\tc/ del Abedul 5-7, 2º dcha"
+        >>> line = "T1\\tCALLE 2365 2391\\tc/ del Abedul 5-7, 2º dcha"
         >>> byte_line = line.encode("utf-8")
         >>> BratSpan.from_bytes(byte_line)
-        BratSpan(
-            id='T1',
-            entity_type='CALLE',
-            start=2365,
-            end=2391,
-            text='c/ del Abedul 5-7, 2º dcha',
-            entity=(2365, 2391, 'CALLE'),
-        )
+        BratSpan(id='T1', entity_type='CALLE', start=2365, end=2391, \
+text='c/ del Abedul 5-7, 2º dcha', entity=(2365, 2391, 'CALLE'))
         """
         line = byte_line.decode("utf-8").strip()
         id, phi_start_end, text = line.split("\t")
@@ -81,6 +69,58 @@ class BratSpan:
             end=int(end),
             text=text,
         )
+
+    @classmethod
+    def from_spacy_span(cls, entity: Span, i: int) -> BratSpan:
+        """Create a BratSpan from a spacy Span.
+
+        Example:
+
+        >>> from spacy import blank
+        >>> es = blank("es")
+        >>> doc = es("Nombre: Ernesto.")
+        >>> doc.set_ents([doc.char_span(8, 15, "PERS")])
+        >>> entity = doc.ents[0]
+        >>> brat_span = BratSpan.from_spacy_span(entity, 0)
+        >>> print(brat_span)
+        BratSpan(id='T_0', entity_type='PERS', start=8, end=15, text='Ernesto', entity=(8, 15, 'PERS'))
+
+        Args:
+            entity (Span): spaCy Span.
+            i (int): The position of the ``spacy.tokens.Span`` among the other
+                Spans in the document from which they are taken.
+
+        Returns:
+            BratSpan: A new :class:``BratSpan`` object.
+        """
+        return BratSpan(
+            f"T_{i}",
+            entity_type=entity.label_,
+            start=entity.start_char,
+            end=entity.end_char,
+            text=entity.text,
+        )
+
+    def to_ann_line(self) -> str:
+        r"""Represent the :class:``BratSpan`` object as a line of a ``.ann``
+        file.
+
+        Example:
+
+        >>> BratSpan(
+        ...     id='T1',
+        ...     entity_type='CALLE',
+        ...     start=2365,
+        ...     end=2391,
+        ...     text='c/ del Abedul 5-7, 2º dcha',
+        ... ).to_ann_line()
+        ...
+        'T1\tCALLE 2365 2391\tc/ del Abedul 5-7, 2º dcha'
+
+        Returns:
+            str: A line of a ``.ann`` file.
+        """
+        return f"{self.id}\t{self.entity_type} {self.start} {self.end}\t{self.text}"
 
 
 @dataclass
@@ -218,15 +258,15 @@ class BratDoc:
         mode: Literal["a", "w"] = "w",
         sentences: bool = False,
     ) -> None:
-        """Writes the BratDoc.doc attribute to the file provided in CONLL03
-        format, encoded with the ``BIO'' scheme.
+        """Writes the BratDoc.doc attribute to the file provided in CONLL03 \
+        format, encoded with the ``BIO`` scheme.
 
         Args:
             file (Path): The file where the data must be written.
             mode (Literal["a", "w"], optional): Append or write text to the
                 given file. Defaults to "w".
             sentences (bool): If false, write the document as a whole with each
-                new line represented as ``"\\n O"``. It True, separate each
+                new line represented as ``"\\\\n O"``. If True, separate each
                 line of the document with each new line represented as
                 ``"\\n"``. Defaults to False.
         """
@@ -297,6 +337,12 @@ class BratDoc:
 
                 if "\n" in token.text:
                     if sentences:
+                        # Here spacy tokenize the following doc like this:
+                        # text = "w1\n   \tw2\n"
+                        # "|".join(f"{t.text!}" for t in nlp(text)) == "'w1'|'\n   \t'|'w2'|'\n'"
+                        # So the token "\n   \t" is replace by "\n".
+                        # The sentence becomes: "w1\nw2\n".
+                        # This choice strip the sentences for the training.
                         f.write("\n")
                     else:
                         orth_ = token.text
@@ -306,6 +352,7 @@ class BratDoc:
                             # We are in the case orth_ == "\n     ".
                             line = orth_.replace("\n", "\\n O\n")
                             line = f"{line} O\n"
+                        f.write(line)
                 else:
 
                     # https://stackoverflow.com/questions/17912307/u-ufeff-in-python-string
@@ -316,7 +363,9 @@ class BratDoc:
                     line = line.replace("\ufeff", "")
                     f.write(line)
                     assert line != "\n"
-            f.write("\n")
+            # The last line seems to be a \n.. How to detect it?
+            if not sentences:
+                f.write("\n")
 
 
 @dataclass
@@ -328,6 +377,7 @@ class BratDocs:
     format compatible with the ``CoNLL03`` or ``CoNLL2000`` task type as
     required by the ``Flair.datasets.ColumnCorpus`` class.
 
+    >>> from typing import Iterable
     >>> issubclass(BratDocs, Iterable)
     True
 
