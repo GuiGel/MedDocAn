@@ -13,7 +13,7 @@ class TestBratDoc:
         "text,lines,sentences,expected_lines",
         [
             (
-                ["Vivo en Bilbao.\n", "Me llamo Guillaume.\n"],
+                "Vivo en Bilbao.\nMe llamo Guillaume.\n",
                 ["T1\tLOC 8 14\tBilbao", "T2\tPERS 25 34\tGuillaume"],
                 True,
                 [
@@ -30,7 +30,7 @@ class TestBratDoc:
                 ],
             ),
             (
-                ["Vivo en Bilbao.\n", "Me llamo Guillaume.\n"],
+                "Vivo en Bilbao.\nMe llamo Guillaume.\n",
                 ["T1\tLOC 8 14\tBilbao", "T2\tPERS 25 34\tGuillaume"],
                 False,
                 [
@@ -48,7 +48,7 @@ class TestBratDoc:
                 ],
             ),
             (
-                ["Vivo en Bilbao.  \n", "   \tMe llamo Guillaume.\n"],
+                "Vivo en Bilbao.  \n   \tMe llamo Guillaume.\n",
                 ["T1\tLOC 8 14\tBilbao", "T2\tPERS 31 40\tGuillaume"],
                 True,
                 [
@@ -65,7 +65,7 @@ class TestBratDoc:
                 ],
             ),
             (
-                ["Vivo en Bilbao.  \n", "   \tMe llamo Guillaume.\n"],
+                "Vivo en Bilbao.  \n   \tMe llamo Guillaume.\n",
                 ["T1\tLOC 8 14\tBilbao", "T2\tPERS 31 40\tGuillaume"],
                 False,
                 [
@@ -87,7 +87,9 @@ class TestBratDoc:
         ],
     )
     def test_write(self, text, lines, sentences, expected_lines):
-        """Test that an annotated document in the BRAT format is written correctly."""
+        """Test that an annotated document in the BRAT format is written
+        correctly.
+        """
         nlp = blank("es")
         brat_spans = [
             BratSpan.from_bytes(line.encode("utf-8")) for line in lines
@@ -104,7 +106,9 @@ class TestBratDoc:
         m = mock_open()
 
         with patch("meddocan.data.containers.Path.open", m):
-            brat_doc.write(Path("test_file"), mode="w", sentences=sentences)
+            brat_doc.write_connl03(
+                Path("test_file"), mode="w", sentences=sentences
+            )
 
         m.assert_called_once_with(mode="w", encoding="utf-8", newline="\n")
 
