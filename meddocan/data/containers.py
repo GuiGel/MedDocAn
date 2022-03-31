@@ -1,13 +1,15 @@
 from __future__ import annotations
 
+from ctypes import Union
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterator, List, Literal, NamedTuple, Tuple
+from typing import Iterator, List, Literal, NamedTuple, Optional, Tuple
 
+import spacy.language
 from spacy.tokens import Doc, Span
 
 from meddocan.data import ArchiveFolder, BratFilesPair, meddocan_zip
-from meddocan.language.pipeline import MeddocanLanguage
+from meddocan.language.pipeline import MeddocanLanguage, meddocan_pipeline
 
 
 @dataclass
@@ -24,8 +26,7 @@ class BratSpan:
     Example:
 
     >>> BratSpan(id=None, entity_type="LOC", start=8, end=14, text="Bilbao")
-    BratSpan(id=None, entity_type='LOC', start=8, end=14, text='Bilbao', \
-entity=(8, 14, 'LOC'))
+    BratSpan(id=None, entity_type='LOC', start=8, end=14, text='Bilbao')
 
     Args:
         id (str): ID of the entity.
@@ -40,24 +41,22 @@ entity=(8, 14, 'LOC'))
     start: int
     end: int
     text: str
-    entity: Tuple[int, int, str] = field(init=False)
 
-    def __post_init__(self):
-        self.entity = (self.start, self.end, self.entity_type)
+    @property
+    def entity(self) -> Tuple[int, int, str]:
+        return (self.start, self.end, self.entity_type)
 
     @classmethod
     def from_bytes(cls, byte_line: bytes) -> BratSpan:
         """Read a line of a brat file and return a :class:`BratSpan` object.
 
-        The line doesn't contains the ``\\n`` at the end.
-
         Example:
 
-        >>> line = "T1\\tCALLE 2365 2391\\tc/ del Abedul 5-7, 2º dcha"
+        >>> line = "T1\\tCALLE 2365 2391\\tc/ del Abedul 5-7, 2º dcha\\n"
         >>> byte_line = line.encode("utf-8")
         >>> BratSpan.from_bytes(byte_line)
         BratSpan(id='T1', entity_type='CALLE', start=2365, end=2391, \
-text='c/ del Abedul 5-7, 2º dcha', entity=(2365, 2391, 'CALLE'))
+text='c/ del Abedul 5-7, 2º dcha')
         """
         line = byte_line.decode("utf-8").strip()
         id, phi_start_end, text = line.split("\t")
@@ -83,7 +82,7 @@ text='c/ del Abedul 5-7, 2º dcha', entity=(2365, 2391, 'CALLE'))
         >>> entity = doc.ents[0]
         >>> brat_span = BratSpan.from_spacy_span(entity, 0)
         >>> print(brat_span)
-        BratSpan(id='T_0', entity_type='PERS', start=8, end=15, text='Ernesto', entity=(8, 15, 'PERS'))
+        BratSpan(id='T_0', entity_type='PERS', start=8, end=15, text='Ernesto')
 
         Args:
             entity (Span): spaCy Span.
@@ -101,74 +100,87 @@ text='c/ del Abedul 5-7, 2º dcha', entity=(2365, 2391, 'CALLE'))
             text=entity.text,
         )
 
+    @property
     def to_ann_line(self) -> str:
         r"""Represent the :class:``BratSpan`` object as a line of a ``.ann``
-        file.
+        file. The line does contains the ``\\n`` at the end.
 
         Example:
 
-        >>> BratSpan(
+        >>> brat_span = BratSpan(
         ...     id='T1',
         ...     entity_type='CALLE',
         ...     start=2365,
         ...     end=2391,
         ...     text='c/ del Abedul 5-7, 2º dcha',
-        ... ).to_ann_line()
-        ...
-        'T1\tCALLE 2365 2391\tc/ del Abedul 5-7, 2º dcha'
+        ... )
+        >>> brat_span.to_ann_line
+        'T1\tCALLE 2365 2391\tc/ del Abedul 5-7, 2º dcha\n'
 
         Returns:
             str: A line of a ``.ann`` file.
         """
-        return f"{self.id}\t{self.entity_type} {self.start} {self.end}\t{self.text}"
+        return (
+            f"{self.id}\t{self.entity_type} {self.start} {self.end}\t"
+            f"{self.text}\n"
+        )
 
 
 @dataclass
 class BratAnnotations:
     """Container for a document annotated in the brat format.
 
-    A :class:`BratAnnotations` object are construct by the classmethod
+    :class:`BratAnnotations` object are construct by the classmethod
     :method:`from_brat_files`
 
     Args:
-        text (str): Document text.
+        lines (List[str]): Document lines.
         brat_spans (List[BratSpan]): Document annotations.
+        sep (str): Join lines with sep to produce the ``text`` attribute.
     """
 
-    lines: List[str]
+    # lines: List[str]
+    text: str
     brat_spans: List[BratSpan]
     sep: str = ""
-    text: str = field(init=False)
-    entities: List[Tuple[int, int, str]] = field(init=False)
 
     def __post_init__(self):
         """Verify that the str selected by the ``BratSpan.start`` and
         ``BratSpan.end`` attributes of each ``brat_spans`` element in the
-        ``text`` attribute identical to the ``BratSpan.text`` attribute."""
-
-        self.text = self.sep.join(self.lines)
-
+        ``text`` attribute identical to the ``BratSpan.text`` attribute.
+        """
         for brat_span in self.brat_spans:
-            assert self.text[brat_span.start : brat_span.end] == brat_span.text
-
-        self.entities = [bs.entity for bs in self.brat_spans]
+            assert (
+                self.text[brat_span.start : brat_span.end] == brat_span.text
+            ), f"{self.text[brat_span.start : brat_span.end]} != {brat_span.text}"
 
     def __len__(self):
-        return len(self.lines)
+        return len(self.text.split("\n") - 1)
 
     @classmethod
     def from_brat_files(
-        cls, brat_files_pair: BratFilesPair, sep: str
+        cls,
+        brat_files_pair: BratFilesPair,
+        sep: str = "",
     ) -> BratAnnotations:
         with brat_files_pair.ann.open() as archive:
             brat_spans = list(map(BratSpan.from_bytes, archive))
 
-        with brat_files_pair.txt.open() as archive:
-            brat_txt_lines = [line.decode("utf-8") for line in archive]
+        # with brat_files_pair.txt.open() as archive:
+        #     text = archive.read().decode("utf-8")
+        text = brat_files_pair.txt.read_text(encoding="utf-8")
 
-        return BratAnnotations(
-            lines=brat_txt_lines, brat_spans=brat_spans, sep=sep
-        )
+        return BratAnnotations(text=text, brat_spans=brat_spans, sep=sep)
+
+    @property
+    def to_ann_lines(self) -> List[str]:
+        """List of the :class:``BratAnnotations`` brat_spans ready to be
+        written to a file as lines.
+
+        Returns:
+            List[str]: list of a ``file.ann`` lines.
+        """
+        return [brat_span.to_ann_line for brat_span in self.brat_spans]
 
 
 class ExpandedEntity(NamedTuple):
@@ -183,6 +195,19 @@ class BratDoc:
     # attached?
 
     doc: Doc
+    _brat_files_pair: Optional[BratFilesPair] = field(
+        default=None,
+        init=False,
+        repr=False,
+    )
+
+    @property
+    def brat_files_pair(self) -> BratFilesPair:
+        return self._brat_files_pair
+
+    @brat_files_pair.setter
+    def brat_files_pair(self, value: BratFilesPair) -> None:
+        self._brat_files_pair = value
 
     @classmethod
     def from_brat_annotations(
@@ -216,6 +241,16 @@ class BratDoc:
             ]
         )
         return BratDoc(doc)
+
+    @classmethod
+    def from_brat_file(
+        cls,
+        nlp: MeddocanLanguage,
+        brat_files_pair: BratFilesPair,
+        sep: str = "",
+    ) -> BratDoc:
+        brat_annotations = BratAnnotations.from_brat_files(brat_files_pair)
+        return cls.from_brat_annotations(nlp, brat_annotations)
 
     def check_doc(self, brat_spans: List[BratSpan]) -> List[ExpandedEntity]:
         """No exception occurs if alignment_mode="expand".
@@ -252,12 +287,13 @@ class BratDoc:
 
         return expanded_entities
 
-    def write(
+    def write_connl03(
         self,
         file: Path,
         mode: Literal["a", "w"] = "w",
         sentences: bool = False,
     ) -> None:
+        # TODO Rename to: to_conll03_format
         """Writes the BratDoc.doc attribute to the file provided in CONLL03 \
         format, encoded with the ``BIO`` scheme.
 
@@ -367,6 +403,34 @@ class BratDoc:
             if not sentences:
                 f.write("\n")
 
+    def to_brat_annotations(self, sep: str = "") -> BratAnnotations:
+        """Create a :class:''BratAnnotations`` object from the ``BratDoc.doc``
+        attribute.
+
+        Args:
+            sep (str, optional): How to join lines given to
+                :class:``BratAnnotations`` in order to produce the original
+                text. Defaults to "".
+
+        Returns:
+            BratAnnotations: The :class:``BratAnnotations``.
+        """
+        brat_spans = [
+            BratSpan.from_spacy_span(entity, i)
+            for i, entity in enumerate(self.doc.ents)
+        ]
+        return BratAnnotations(self.doc.text, brat_spans, sep=sep)
+
+    def write_ann(self, file_path: Union[str, Path]) -> None:
+        """Write annotation to a file with ``.ann`` suffix.
+
+        Args:
+            file_path (Union[str, Path]): Location on disk of the ``file.ann``.
+        """
+        brat_annotations = self.to_brat_annotations(sep="")
+        with Path(file_path).open(mode="w", encoding="utf-8") as f:
+            f.writelines(brat_annotations.to_ann_lines)
+
 
 @dataclass
 class BratDocs:
@@ -391,13 +455,11 @@ class BratDocs:
         BratDoc: The spacy documents with entity span with BIO notation.
     """
 
+    nlp = meddocan_pipeline()
     archive_name: ArchiveFolder
     sep: str = ""
 
-    def __iter__(self) -> Iterator[BratDoc]:
-        from meddocan.language.pipeline import meddocan_pipeline
-
-        nlp = meddocan_pipeline()
+    def gold_doc(self, nlp: spacy.language.Language) -> Iterator[BratDoc]:
 
         expanded_entities: List[ExpandedEntity] = []
 
@@ -406,6 +468,11 @@ class BratDocs:
                 brat_files_pair, sep=self.sep
             )
             brat_doc = BratDoc.from_brat_annotations(nlp, brat_annotations)
+
+            # Set brat_files_pair attribute to brat_doc
+            brat_doc.brat_files_pair = brat_files_pair
+
+            # Check that the :class:``BratDoc.doc`` as the correct ents set.
             expanded_entities += brat_doc.check_doc(
                 brat_annotations.brat_spans
             )
@@ -424,12 +491,54 @@ class BratDocs:
             print(f"{msg:>40} expanded entities")
         print("\n")
 
-    def write(self, output: Path, sentences: bool = False) -> None:
+    def system_doc(self, nlp: spacy.language.Language) -> Iterator[BratDoc]:
+        for brat_files_pair in meddocan_zip.brat_files(self.archive_name):
+            brat_doc = BratDoc.from_brat_file(nlp, brat_files_pair)
+            brat_doc.brat_files_pair = brat_files_pair
+            yield brat_doc
+
+    def __iter__(self) -> Iterator[BratDoc]:
+        from meddocan.language.pipeline import meddocan_pipeline
+
+        nlp = meddocan_pipeline()
+
+        expanded_entities: List[ExpandedEntity] = []
+
+        for brat_files_pair in meddocan_zip.brat_files(self.archive_name):
+            brat_annotations = BratAnnotations.from_brat_files(
+                brat_files_pair, sep=self.sep
+            )
+            brat_doc = BratDoc.from_brat_annotations(nlp, brat_annotations)
+
+            # Set brat_files_pair attribute to brat_doc
+            brat_doc.brat_files_pair = brat_files_pair
+
+            # Check that the :class:``BratDoc.doc`` as the correct ents set.
+            expanded_entities += brat_doc.check_doc(
+                brat_annotations.brat_spans
+            )
+            yield brat_doc
+
+        if expanded_entities:
+            print(f"{'ORIGINAL ENTITY':>40} | {'EXPANDED ENTITY'}")
+            print(f"{'---------------':>40}{'---'}{'---------------'}")
+            for expanded_entity in expanded_entities:
+                print(
+                    f"{expanded_entity.original:>40}"
+                    f" | {expanded_entity.expanded}"
+                )
+            print(f"{'---------------':>40}{'---'}{'---------------'}")
+            msg = f"There is {len(expanded_entities)}"
+            print(f"{msg:>40} expanded entities")
+        print("\n")
+
+    def write_connl03(self, output: Path, sentences: bool = False) -> None:
+        # TODO change to conll03
         for i, brat_doc in enumerate(self):
             mode = "w"
             if i:
                 mode = "a"
-            brat_doc.write(output, mode, sentences=sentences)
+            brat_doc.write_connl03(output, mode, sentences=sentences)
 
 
 if __name__ == "__main__":

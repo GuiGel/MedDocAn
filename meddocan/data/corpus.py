@@ -39,7 +39,7 @@ class MEDDOCAN(ColumnCorpus):
                 print(f"{msg:>58}")
                 output_pth: Path = Path(tmpdirname) / data_pth.value
                 brat_docs = BratDocs(archive_name=data_pth)
-                brat_docs.write(output=output_pth, sentences=sentences)
+                brat_docs.write_connl03(output=output_pth, sentences=sentences)
 
             # Column format.
             columns = {0: "text", 1: "ner"}
