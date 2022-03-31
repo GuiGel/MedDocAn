@@ -1,15 +1,17 @@
-from typing import NewType
+from typing import NewType, Optional
 
 import spacy
 from spacy.language import Language
 
-from .splitter import missaligned_splitter  # To register the component.
+# TODO Set tokenizer as a language to use entry points
 from .tokenizer import meddocan_tokenizer
 
 MeddocanLanguage = NewType("MeddocanLanguage", Language)
 
 
-def meddocan_pipeline() -> MeddocanLanguage:
+def meddocan_pipeline(
+    model_loc: Optional[str] = None, mini_batch_size: int = 8
+) -> MeddocanLanguage:
     """Create meddocan language.
 
     Returns:
@@ -20,7 +22,12 @@ def meddocan_pipeline() -> MeddocanLanguage:
     nlp.tokenizer = meddocan_tokenizer(nlp)
     nlp.add_pipe(
         "missaligned_splitter",
-        config={"words": ["NºCol", "Correo", "años", "DR", "\.$"]},
+        config={"words": ["NºCol", "Correo", "años", "DR", "\.$", "\n"]},
+    )
+    nlp.add_pipe("line_sentencizer")
+    nlp.add_pipe(
+        "predictor",
+        config={"model_loc": model_loc, "mini_batch_size": mini_batch_size},
     )
     return MeddocanLanguage(nlp)
 

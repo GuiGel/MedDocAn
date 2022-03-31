@@ -58,7 +58,9 @@ class PredictorComponent:
             )
             flair_sentences.append(flair_sentence)
 
-        self.model.predict(flair_sentences, mini_batch_size=self.mini_batch_size)
+        self.model.predict(
+            flair_sentences, mini_batch_size=self.mini_batch_size
+        )
         return flair_sentences
 
     def set_ents(self, doc: spacy.tokens.Doc) -> spacy.tokens.Doc:
