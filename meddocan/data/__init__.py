@@ -2,14 +2,12 @@
 ``meddocan.data`` provides class and function to deals with the original
 meddocan datasets located on the web.
 """
-import zipfile
 from dataclasses import dataclass
 from enum import Enum
-from functools import partial
 from itertools import tee
 from pathlib import Path
-from typing import Iterator, NamedTuple, Tuple
-from zipfile import ZipFile, ZipInfo
+from typing import Iterator, NamedTuple
+from zipfile import Path as ZipPath
 
 import meddocan
 
@@ -18,14 +16,14 @@ class BratFilesPair(NamedTuple):
     """A pair of files composing the Brat format.
 
     Args:
-        ann (zipfile.Path): The ``file_name.ann`` file. This file contains the
+        ann (ZipPath): The ``file_name.ann`` file. This file contains the
             span information related to the ``file_name.txt`` file.
-        txt (zipfile.Path): The ``file_name.txt`` file. This file contains the
+        txt (ZipPath): The ``file_name.txt`` file. This file contains the
             text of a medical document.
     """
 
-    ann: zipfile.Path
-    txt: zipfile.Path
+    ann: ZipPath
+    txt: ZipPath
 
 
 class ArchiveFolder(Enum):
@@ -107,7 +105,7 @@ class MeddocanZip:
             value = self._get_loc(attr)
             self.__setattr__(attr, value)
 
-    def _get_loc(self, loc: str) -> str:
+    def _get_loc(self, loc: str) -> Path:
         dir_name = Path(getattr(meddocan_url, loc)).name
         return self.base / dir_name
 
@@ -125,9 +123,9 @@ class MeddocanZip:
 
         # The desired zip file from which the files must be yield.
 
-        zip_file = getattr(self, dir_name.value)
+        zip_file: str = getattr(self, dir_name.value)
 
-        zip_path = zipfile.Path(zip_file)
+        zip_path = ZipPath(zip_file)
 
         # The path to the directory named ``dir_name`` inside the ``.zip``
         # archive.
