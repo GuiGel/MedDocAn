@@ -5,16 +5,17 @@ and ends with the last character of a token.
 
 .. _spaCy: https://spacy.io/
 """
-from typing import NewType
+from typing import NewType, cast
 
 import spacy
 from spacy.symbols import ORTH
 from spacy.tokenizer import Tokenizer
+from spacy.language import Language
 
 MeddocanTokenizer = NewType("MeddocanTokenizer", Tokenizer)
 
 
-def meddocan_tokenizer(nlp: spacy.language.Language) -> MeddocanTokenizer:
+def meddocan_tokenizer(nlp: Language) -> MeddocanTokenizer:
     """Update `spaCy <https://spacy.io/>`_ tokenizer in order to align the
     entities offset with the token offsets.
 
@@ -22,13 +23,15 @@ def meddocan_tokenizer(nlp: spacy.language.Language) -> MeddocanTokenizer:
     `here <https://spacy.io/usage/linguistic-features#native-tokenizer-additions>`_
 
     Args:
-        nlp (spacy.language.Language): A spaCy language.
+        nlp (Language): A spaCy language.
         inplace (bool, optional): Update tokenizer inplace. Defaults to True.
 
     Returns:
-        Optional[spacy.language.Language]: If inplace is ``False``, return the
+        Optional[Language]: If inplace is ``False``, return the
         ``spaCy.language.Language`` with the new tokenizer.
     """
+    # TODO make some comments!
+    nlp.tokenizer = cast(Tokenizer, nlp.tokenizer)
 
     # Add special case rule
     # https://spacy.io/usage/linguistic-features#special-cases
@@ -52,19 +55,21 @@ def meddocan_tokenizer(nlp: spacy.language.Language) -> MeddocanTokenizer:
     # example, spacy is not able to read the tag as it make a confusion
     # with the "EE." part of the token.
 
-    nlp.tokenizer.rules.pop("EE. UU.")
-    nlp.tokenizer.rules.pop("Ee. Uu.")
+    if nlp.tokenizer.rules is not None:
+        for rule in ["EE. UU.", "Ee. Uu."]:
+            if rule in nlp.tokenizer.rules:
+                nlp.tokenizer.rules.pop(rule)
 
     # Add prefix to spaCy default prefix
-    prefixes = list(nlp.Defaults.prefixes)
-    if prefixes is not None:
+    if nlp.Defaults.prefixes is not None:
+        prefixes = list(nlp.Defaults.prefixes)
         prefixes += [r"\+"]
         prefix_regex = spacy.util.compile_prefix_regex(prefixes)
         nlp.tokenizer.prefix_search = prefix_regex.search
 
     # Add infixes to spaCy default infixes
-    infixes = list(nlp.Defaults.infixes)
-    if infixes is not None:
+    if nlp.Defaults.infixes is not None:
+        infixes = list(nlp.Defaults.infixes)
         infixes += [r"""[-:\.\)\+/]"""]
         infix_regex = spacy.util.compile_infix_regex(infixes)
         nlp.tokenizer.infix_finditer = infix_regex.finditer
