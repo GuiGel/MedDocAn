@@ -2,8 +2,7 @@
 sentences.   
 Sentences are split when the sentencizer encounters a new line marker "\n".
 In this way, when we load a meddocan file ``.txt.``, we can load the file as
-``spacy.tokens.Document`` and split the document into lines easily in this way
-in this way:  
+``spacy.tokens.Document`` and split the document into lines easily this way:
 
 ```python
 for sent in doc.sents:
