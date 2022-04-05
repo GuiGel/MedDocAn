@@ -10,6 +10,17 @@ from meddocan.data.containers import BratAnnotations, BratSpan
 
 
 class AlignmentMode(Enum):
+    """Enumeration that enumerate the possible parameters for
+    :function:`set_ents_from_brat_spans`.
+
+    Example:
+
+    >>> AlignmentMode.STRICT == AlignmentMode("strict")
+    True
+    >>> AlignmentMode.STRICT.value
+    'strict'
+    """
+
     STRICT = "strict"
     CONTRACT = "contract"
     EXPAND = "expand"
@@ -20,6 +31,27 @@ def set_ents_from_brat_spans(
     brat_spans: List[BratSpan],
     alignment_mode: AlignmentMode = AlignmentMode.EXPAND,
 ) -> Doc:
+    """Add entities to a ``spacy.tokens.Doc`` object from a list of
+    :class:`BratSpan`.
+
+    Example:
+
+    >>> from spacy import blank
+    >>> nlp = blank("es")
+    >>> doc = nlp("Vivo en Bilbao.")
+    >>> brat_spans = [BratSpan(None, "LOC", 8, 14, "Bilbao")]
+    >>> doc = set_ents_from_brat_spans(doc, brat_spans)
+    >>> doc.ents
+    (Bilbao,)
+
+    Args:
+        doc (Doc): _description_
+        brat_spans (List[BratSpan]): _description_
+        alignment_mode (AlignmentMode, optional): _description_. Defaults to AlignmentMode.EXPAND.
+
+    Returns:
+        Doc: _description_
+    """
     doc.set_ents(
         [
             doc.char_span(
@@ -35,7 +67,27 @@ def set_ents_from_brat_spans(
 
 
 def doc_to_ann(doc: Doc, file: Union[str, Path]) -> None:
+    """Writes the entities of the object ``spacy.tokens.Doc'' to a file in
+    ``ann'' format.
 
+    Example:
+
+    >>> import os
+    >>> from tempfile import NamedTemporaryFile
+    >>> from spacy import blank
+    >>> nlp = blank("es")
+    >>> doc = nlp("Vivo en Bilbao.")
+    >>> f = NamedTemporaryFile(delete=False)
+    >>> doc_to_ann(doc, f.name)
+    >>> f.close()
+    >>> os.unlink(f.name)
+    >>> os.path.exists(f.name)
+    False
+
+    Args:
+        doc (Doc): The ``Doc`` from which the entities are serialized.
+        file (Union[str, Path]): The file to write in.
+    """
     if isinstance(file, str):
         file = Path(file)
 
