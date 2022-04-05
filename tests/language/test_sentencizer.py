@@ -1,8 +1,6 @@
-# First test that the lines are split as expected
 from itertools import zip_longest
 
 import pytest
-from spacy import blank
 
 
 @pytest.mark.parametrize(
@@ -18,8 +16,15 @@ from spacy import blank
         )
     ],
 )
-def test_line_sentencizer(text, expected_sentences):
-    nlp = blank("es")
+def test_line_sentencizer(blank_language, text, expected_sentences):
+    """Test the ``line_sentencizer`` custom component.
+
+    1.  Create a blank language
+    2.  Add a the ``line_sentencizer`` component.
+    3.  Create the ``Doc`` from the given text
+    4.  Check that the sentences obtained are those expected.
+    """
+    nlp = blank_language
     nlp.add_pipe("line_sentencizer")
     doc = nlp(text)
     for sentence, expected_sentence in zip_longest(
