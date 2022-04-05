@@ -1,6 +1,6 @@
 from typing import NewType, Optional
 
-import spacy
+from spacy import blank
 from spacy.language import Language
 
 # TODO Set tokenizer as a language to use entry points
@@ -15,10 +15,10 @@ def meddocan_pipeline(
     """Create meddocan language.
 
     Returns:
-        MeddocanLanguage: A spacy.language.Language that preprocess the
+        MeddocanLanguage: A ``spacy.language.Language`` that preprocess the
             meddocan text in order to have alignment with the entities offsets.
     """
-    nlp = spacy.blank("es")
+    nlp = blank("es")
     nlp.tokenizer = meddocan_tokenizer(nlp)
     nlp.add_pipe(
         "missaligned_splitter",
