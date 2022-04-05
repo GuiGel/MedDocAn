@@ -3,10 +3,10 @@
 from typing import Callable, List, Optional
 
 import flair.data
-import spacy.tokens
 from flair.models import SequenceTagger
 from flair.tokenization import SpacyTokenizer
 from spacy.language import Language
+from spacy.tokens import Doc, Span
 
 
 class PredictorComponent:
@@ -15,8 +15,14 @@ class PredictorComponent:
     trained by the ``Flair`` library.
 
     If no model is passed as an argument, the component does nothing.
-    """
 
+    Args:
+        nlp (Language): spaCy Language.
+        model_loc (Optional[str], optional): Location of the
+        ``flair.models.SequenceTagger`` model on disk. Defaults to None.
+        mini_batch_size (int, optional): Batch size for the prediction.
+        Defaults to 8.
+    """
     def __init__(
         self,
         nlp: Language,
@@ -34,6 +40,11 @@ class PredictorComponent:
         # TODO How to avoid retokenize the doc using the SpacyTokenizer.
         self.tokenizer = SpacyTokenizer(nlp)
 
+        # Set that a prediction as been made on the doc.
+        Doc.set_extension(
+            name="predicted", default=False, force=True
+        )
+
     def _repr__(self):
         return (
             f"PredictorComponent(nlp={self.nlp}, model_loc={self.model_loc}, "
@@ -42,7 +53,7 @@ class PredictorComponent:
 
     def predict(
         self,
-        doc: spacy.tokens.Doc,
+        doc: Doc,
     ) -> List[flair.data.Sentence]:
         """Apply ``flair.models.SequenceTagger`` to spacy ``Doc`` sentence by
         sentence. We create from each sentence ``spacy.tokens.Span`` of the
@@ -63,22 +74,23 @@ class PredictorComponent:
         )
         return flair_sentences
 
-    def set_ents(self, doc: spacy.tokens.Doc) -> spacy.tokens.Doc:
-        """_summary_
+    def set_ents(self, doc: Doc) -> Doc:
+        """Transform each flair entity of type ''flair.data.Span`` to a
+        ``spacy.tokens.Span`` list with. Fill the ``spacy.tokens.Doc.ents``
+        list with the new ``Span``.
 
         Args:
-            doc (spacy.tokens.Doc): The spacy ``spacy.tokens.Doc`` to which the
+            doc (Doc): The spacy ``Doc`` to which the
                 method attaches entities.
 
         Returns:
-            spacy.tokens.Doc: The document with the added entities if they
+            Doc: The document with the added entities if they
                 exist.
         """
-        doc_spans: List[spacy.tokens.Span] = []
+        doc_spans: List[Span] = []
 
         flair_sentences = self.predict(doc)
 
-        doc_spans: List[spacy.tokens.Span] = []
         for flair_sentence in flair_sentences:
             flair_spans = flair_sentence.get_spans("ner")
             for flair_span in flair_spans:
@@ -95,9 +107,10 @@ class PredictorComponent:
         doc.set_ents(doc_spans)
         return doc
 
-    def __call__(self, doc: spacy.tokens.Doc) -> spacy.tokens.Doc:
+    def __call__(self, doc: Doc) -> Doc:
         if self.model is not None:
             self.set_ents(doc)
+            doc._.predicted = True
         return doc
 
 
@@ -105,9 +118,9 @@ class PredictorComponent:
     "predictor", default_config={"model_loc": None, "mini_batch_size": 8}
 )
 def create_predictor(
-    nlp: spacy.language.Language,
+    nlp: Language,
     name: str,
     model_loc: Optional[str],
     mini_batch_size: int = 8,
-) -> Callable[[spacy.tokens.Doc], spacy.tokens.Doc]:
+) -> Callable[[Doc], Doc]:
     return PredictorComponent(nlp, model_loc, mini_batch_size=mini_batch_size)
