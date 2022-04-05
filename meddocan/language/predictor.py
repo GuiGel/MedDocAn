@@ -23,6 +23,7 @@ class PredictorComponent:
         mini_batch_size (int, optional): Batch size for the prediction.
         Defaults to 8.
     """
+
     def __init__(
         self,
         nlp: Language,
@@ -41,9 +42,7 @@ class PredictorComponent:
         self.tokenizer = SpacyTokenizer(nlp)
 
         # Set that a prediction as been made on the doc.
-        Doc.set_extension(
-            name="predicted", default=False, force=True
-        )
+        Doc.set_extension(name="predicted", default=False, force=True)
 
     def _repr__(self):
         return (
