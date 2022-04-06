@@ -134,13 +134,11 @@ class BratAnnotations:
     Args:
         lines (List[str]): Document lines.
         brat_spans (List[BratSpan]): Document annotations.
-        sep (str): Join lines with sep to produce the ``text`` attribute.
     """
 
     # lines: List[str]
     text: str
     brat_spans: List[BratSpan]
-    sep: str = ""
 
     def __post_init__(self):
         """Verify that the str selected by the ``BratSpan.start`` and
@@ -159,7 +157,6 @@ class BratAnnotations:
     def from_brat_files(
         cls,
         brat_files_pair: BratFilesPair,
-        sep: str = "",
     ) -> BratAnnotations:
         with brat_files_pair.ann.open() as archive:
             brat_spans = list(map(BratSpan.from_bytes, archive))
@@ -181,7 +178,7 @@ class BratAnnotations:
         # if text[0].encode("utf-8") == codecs.BOM_UTF8  # b'\xef\xbb\xbf':
         #     print(f"UTF-8-SIG {text[0:2].encode('utf-8')}")
 
-        return BratAnnotations(text=text, brat_spans=brat_spans, sep=sep)
+        return BratAnnotations(text=text, brat_spans=brat_spans)
 
     @property
     def to_ann_lines(self) -> List[str]:
@@ -264,7 +261,6 @@ class BratDoc:
         cls,
         nlp: MeddocanLanguage,
         brat_files_pair: BratFilesPair,
-        sep: str = "",
     ) -> BratDoc:
         brat_annotations = BratAnnotations.from_brat_files(brat_files_pair)
         return cls.from_brat_annotations(nlp, brat_annotations)
@@ -418,14 +414,9 @@ class BratDoc:
             if not sentences:
                 f.write("\n")
 
-    def to_brat_annotations(self, sep: str = "") -> BratAnnotations:
+    def to_brat_annotations(self) -> BratAnnotations:
         """Create a :class:''BratAnnotations`` object from the ``BratDoc.doc``
         attribute.
-
-        Args:
-            sep (str, optional): How to join lines given to
-                :class:``BratAnnotations`` in order to produce the original
-                text. Defaults to "".
 
         Returns:
             BratAnnotations: The :class:``BratAnnotations``.
@@ -434,7 +425,7 @@ class BratDoc:
             BratSpan.from_spacy_span(entity, i)
             for i, entity in enumerate(self.doc.ents)
         ]
-        return BratAnnotations(self.doc.text, brat_spans, sep=sep)
+        return BratAnnotations(self.doc.text, brat_spans)
 
     def write_ann(self, file_path: Union[str, Path]) -> None:
         """Write annotation to a file with ``.ann`` suffix.
@@ -442,7 +433,7 @@ class BratDoc:
         Args:
             file_path (Union[str, Path]): Location on disk of the ``file.ann``.
         """
-        brat_annotations = self.to_brat_annotations(sep="")
+        brat_annotations = self.to_brat_annotations()
         with Path(file_path).open(mode="w", encoding="utf-8") as f:
             f.writelines(brat_annotations.to_ann_lines)
 
@@ -463,8 +454,6 @@ class BratDocs:
     Args:
         archive_name: (ArchiveFolder): The name of the folder contained in the
             zip file containing the compressed data.
-        sep (str): The separator used to paste the lines of each text file in
-            the archive together.
 
     Yields:
         BratDoc: The spacy documents with entity span with BIO notation.
@@ -472,16 +461,13 @@ class BratDocs:
 
     nlp = meddocan_pipeline()
     archive_name: ArchiveFolder
-    sep: str = ""
 
     def gold_doc(self, nlp: MeddocanLanguage) -> Iterator[BratDoc]:
 
         expanded_entities: List[ExpandedEntity] = []
 
         for brat_files_pair in meddocan_zip.brat_files(self.archive_name):
-            brat_annotations = BratAnnotations.from_brat_files(
-                brat_files_pair, sep=self.sep
-            )
+            brat_annotations = BratAnnotations.from_brat_files(brat_files_pair)
             brat_doc = BratDoc.from_brat_annotations(nlp, brat_annotations)
 
             # Set brat_files_pair attribute to brat_doc
@@ -520,9 +506,7 @@ class BratDocs:
         expanded_entities: List[ExpandedEntity] = []
 
         for brat_files_pair in meddocan_zip.brat_files(self.archive_name):
-            brat_annotations = BratAnnotations.from_brat_files(
-                brat_files_pair, sep=self.sep
-            )
+            brat_annotations = BratAnnotations.from_brat_files(brat_files_pair)
             brat_doc = BratDoc.from_brat_annotations(nlp, brat_annotations)
 
             # Set brat_files_pair attribute to brat_doc
@@ -568,9 +552,7 @@ if __name__ == "__main__":
         archive_folder = getattr(ArchiveFolder, dataset)
         subtotal_lines = 0
         for brat_files_pair in meddocan_zip.brat_files(archive_folder):
-            brat_annotations = BratAnnotations.from_brat_files(
-                brat_files_pair, sep=""
-            )
+            brat_annotations = BratAnnotations.from_brat_files(brat_files_pair)
             subtotal_lines += len(brat_annotations)
         print(f"{archive_folder.value} had {subtotal_lines} lines.")
         total_lines += subtotal_lines
