@@ -98,6 +98,6 @@ def doc_to_ann(doc: Doc, file: Union[str, Path]) -> None:
         BratSpan.from_spacy_span(entity, i)
         for i, entity in enumerate(doc.ents)
     ]
-    brat_annotations = BratAnnotations(doc.text, brat_spans, sep="")
+    brat_annotations = BratAnnotations(doc.text, brat_spans)
     with Path(file).open(mode="w", encoding="utf-8") as f:
         f.writelines(brat_annotations.to_ann_lines)
