@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-from ctypes import Union
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterator, List, Literal, NamedTuple, Optional, Tuple
+from typing import Iterator, List, Literal, NamedTuple, Optional, Tuple, Union
 
-import spacy.language
 from spacy.tokens import Doc, Span
 
 from meddocan.data import ArchiveFolder, BratFilesPair, meddocan_zip
@@ -131,7 +129,7 @@ class BratAnnotations:
     """Container for a document annotated in the brat format.
 
     :class:`BratAnnotations` object are construct by the classmethod
-    :method:`from_brat_files`
+    ``from_brat_files``.
 
     Args:
         lines (List[str]): Document lines.
@@ -155,7 +153,7 @@ class BratAnnotations:
             ), f"{self.text[brat_span.start : brat_span.end]} != {brat_span.text}"
 
     def __len__(self):
-        return len(self.text.split("\n") - 1)
+        return len(self.text.split("\n")) - 1
 
     @classmethod
     def from_brat_files(
@@ -179,7 +177,8 @@ class BratAnnotations:
 
         text = brat_files_pair.txt.read_text(encoding="utf-8")
 
-        # if text[0].encode("utf-8") == b'\xef\xbb\xbf':
+        # import codecs
+        # if text[0].encode("utf-8") == codecs.BOM_UTF8  # b'\xef\xbb\xbf':
         #     print(f"UTF-8-SIG {text[0:2].encode('utf-8')}")
 
         return BratAnnotations(text=text, brat_spans=brat_spans, sep=sep)
@@ -215,7 +214,13 @@ class BratDoc:
 
     @property
     def brat_files_pair(self) -> BratFilesPair:
-        return self._brat_files_pair
+        if self._brat_files_pair is None:
+            raise ValueError(
+                "brat_files_pair not set. Set brat_files_pair before calling "
+                "the brat_file_pair property."
+            )
+        else:
+            return self._brat_files_pair
 
     @brat_files_pair.setter
     def brat_files_pair(self, value: BratFilesPair) -> None:
@@ -347,42 +352,40 @@ class BratDoc:
                 # just remplace it by "\n O" if we want to make docs with
                 # sentences in it.
 
-                # On sait que toutes les phrases dans les documents originaux se termine par un point et qu'il n'y a pas de phrase vide.
-                # Par contre il y a parfois des lignes qui commencent par des espaces.
-                # Or lorsque l'on crée l'oject ``BratAnnotation`` en utilisant sa method ``from_brat_file``, on utilise le parametre ``sep`` pour agrouper les lignes du fichier.txt afin de créer une seule chaine de charactère que l'on passera a spaCy.
-                # Une ligne à généralement la forme suivante: ``'Apellidos: Rivera Bueno.\n'``. Toutes les lignes se terminent par un passage à la ligne ``'\n'``.
-                # Le **``flair.datasets.ColumnCorpus``** de ``Flair``
-                # Instantiates a Corpus from CoNLL column-formatted task data such as CoNLL03 or CoNLL2000.
-                # Il lit des documents tokenizés depuis un fichier ``.txt``. Chaque ligne contient un mot ainsi que le tag ``BIO`` qui lui est associé séparé par un espace.
-                # Pour detecter si l'on est en présence d'une nouvelle phrase, **``Flair``** regarde juste si la ligne est un espace ou non:
-                # >>> "\n     ".isispace()
-                # True
-                # Dans notre case parfois la ligne suivante commence par un espace comme dans le cas suivant:
-                # "Nombre: Carlos Lopèz.\n"
-                # "  Tel: 645 394 261\n"
-                # Dans ce cas prècis lorsque l'on lira le text avec ``BratAnnotations.from_brat_files`` on obtiendra l'attribut ``txt`` suivant:
-                # "Nombre: Carlos Lopèz.\n  Tel: 645 394 261\n"
-                # Spacy au travers du pipeline ``meddocan_pipeline`` transformera alors le text en un document qui va regouper les espaces pour former un unique token:
-                # from meddocan.language.pipeline import meddocan_pipeline
-                # >>> lines = ["Nombre: Carlos Lopèz.\n", "     Tel: 645 394 261\n"]
-                # >>> text = "".join(lines)
-                # >>> nlp = meddocan_pipeline()
-                # >>> doc = nlp(text)
-                # >>> for token in doc:
-                # >>>     print(f"{token.text!r}")
-                # 'Nombre'
-                # ':'
-                # 'Carlos'
-                # 'Lopèz'
-                # '.'
-                # '\n     '
-                # 'Tel'
-                # ':'
-                # '645'
-                # '394'
-                # '261'
-                # '\n'
-
+                """On sait que toutes les phrases dans les documents originaux se terminent par un point et qu'il n'y a pas de phrase vide.
+                Par contre il y a parfois des lignes qui commencent par des espaces.
+                Une ligne à généralement la forme suivante: ``'Apellidos: Rivera Bueno.\n'``. Toutes les lignes se terminent par un passage à la ligne ``'\n'``.
+                Le **``flair.datasets.ColumnCorpus``** de ``Flair``
+                Instantiates a Corpus from CoNLL column-formatted task data such as CoNLL03 or CoNLL2000.
+                Il lit des documents tokenizés depuis un fichier ``.txt``. Chaque ligne contient un mot ainsi que le tag ``BIO`` qui lui est associé séparé par un espace.
+                Pour detecter si l'on est en présence d'une nouvelle phrase, **``Flair``** regarde juste si la ligne est un espace ou non:
+                >>> "\n     ".isispace()
+                True
+                Dans notre case parfois la ligne suivante commence par un espace comme dans le cas suivant:
+                "Nombre: Carlos Lopèz.\n"
+                "  Tel: 645 394 261\n"
+                Dans ce cas prècis lorsque l'on lira le text avec ``BratAnnotations.from_brat_files`` on obtiendra l'attribut ``txt`` suivant:
+                "Nombre: Carlos Lopèz.\n  Tel: 645 394 261\n"
+                Spacy au travers du pipeline ``meddocan_pipeline`` transformera alors le text en un document qui va regouper les espaces pour former un unique token:
+                from meddocan.language.pipeline import meddocan_pipeline
+                >>> lines = ["Nombre: Carlos Lopèz.\n", "     Tel: 645 394 261\n"]
+                >>> text = "".join(lines)
+                >>> nlp = meddocan_pipeline()
+                >>> doc = nlp(text)
+                >>> for token in doc:
+                >>>     print(f"{token.text!r}")
+                'Nombre'
+                ':'
+                'Carlos'
+                'Lopèz'
+                '.'
+                '\n     '
+                'Tel'
+                ':'
+                '645'
+                '394'
+                '261'
+                '\n"""
                 if "\n" in token.text:
                     if sentences:
                         # Here spacy tokenize the following doc like this:
@@ -471,7 +474,7 @@ class BratDocs:
     archive_name: ArchiveFolder
     sep: str = ""
 
-    def gold_doc(self, nlp: spacy.language.Language) -> Iterator[BratDoc]:
+    def gold_doc(self, nlp: MeddocanLanguage) -> Iterator[BratDoc]:
 
         expanded_entities: List[ExpandedEntity] = []
 
@@ -503,7 +506,7 @@ class BratDocs:
             print(f"{msg:>40} expanded entities")
         print("\n")
 
-    def system_doc(self, nlp: spacy.language.Language) -> Iterator[BratDoc]:
+    def system_doc(self, nlp: MeddocanLanguage) -> Iterator[BratDoc]:
         for brat_files_pair in meddocan_zip.brat_files(self.archive_name):
             brat_doc = BratDoc.from_brat_file(nlp, brat_files_pair)
             brat_doc.brat_files_pair = brat_files_pair
@@ -546,8 +549,8 @@ class BratDocs:
 
     def write_connl03(self, output: Path, sentences: bool = False) -> None:
         # TODO change to conll03
+        mode: Literal["w", "a"] = "w"
         for i, brat_doc in enumerate(self):
-            mode = "w"
             if i:
                 mode = "a"
             brat_doc.write_connl03(output, mode, sentences=sentences)
@@ -571,5 +574,8 @@ if __name__ == "__main__":
             subtotal_lines += len(brat_annotations)
         print(f"{archive_folder.value} had {subtotal_lines} lines.")
         total_lines += subtotal_lines
-        assert len(getattr(corpus, dataset)) == subtotal_lines
+        corpus_len = len(getattr(corpus, dataset))
+        assert (
+            corpus_len == subtotal_lines
+        ), f"{corpus_len} != {subtotal_lines}"
     print(f"The whole datasets contains {total_lines} lines.")
