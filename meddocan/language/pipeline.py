@@ -23,16 +23,18 @@ def meddocan_pipeline(
     >>> doc
     Vivo en Bilbao.
 
-    The document has an immutable extension ``is_meddocan_doc`` that permit to
+    The document has an extension ``is_meddocan_doc`` that permit to
     know that the document has been produced by the ``meddocan_pipeline``.
 
     >>> doc._.is_meddocan_doc
     True
 
-    Verify for fun that the extension is immutable.
-    >>> doc._.is_meddocan_doc = False
+    Verify the default value of the extension
     >>> doc._.is_meddocan_doc
-    True
+    False
+
+    .. warning:
+        The ``is_meddocan_doc`` extension is mutable!
 
     Returns:
         MeddocanLanguage: A ``spacy.language.Language`` that preprocess the
@@ -40,9 +42,7 @@ def meddocan_pipeline(
     """
     nlp = blank("es")
 
-    # Add an immutable custom extension by using the getter argument.
-    Doc.set_extension("is_meddocan_doc", getter=lambda doc: True, force=True)
-
+    Doc.set_extension("is_meddocan_doc", default=False, force=True)
     nlp.tokenizer = meddocan_tokenizer(nlp)
     nlp.add_pipe(
         "missaligned_splitter",
