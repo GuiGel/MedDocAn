@@ -21,6 +21,11 @@ def test_entry_points():
             value="meddocan.language.predictor:create_predictor",
             group="spacy_factories",
         ),
+        metadata.EntryPoint(
+            "write_methods",
+            value="meddocan.language.method_extensions:create_write_methods",
+            group="spacy_factories",
+        ),
     )
 
     assert eps == entry_points, f"{eps} != {entry_points}"
