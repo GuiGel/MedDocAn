@@ -1,5 +1,4 @@
 import pytest
-import spacy
 
 from meddocan.language.tokenizer import meddocan_tokenizer
 
@@ -31,10 +30,10 @@ from meddocan.language.tokenizer import meddocan_tokenizer
         ("nhc/976421.", ["nhc", "/", "976421", "."]),
     ],
 )
-def test_meddocan_tokenizer(text, tokens):
+def test_meddocan_tokenizer(blank_language, text, tokens):
     """Test that the tokenizer works as expected, i.e that the given "text"
     is tokenize into the given "tokens".
     """
-    nlp = spacy.blank("es")
+    nlp = blank_language
     nlp.tokenizer = meddocan_tokenizer(nlp)
     assert [token.orth_ for token in nlp(text)] == tokens

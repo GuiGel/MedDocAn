@@ -1,5 +1,4 @@
 import pytest
-import spacy
 
 
 @pytest.mark.parametrize(
@@ -15,12 +14,12 @@ import spacy
         ("LolaLopezGarcia", "LolaLopezGarcia", "Lopez$"),
     ],
 )
-def test_missaligned_splitter(text, expected, regex):
+def test_missaligned_splitter(blank_language, text, expected, regex):
     """Test that the missaligned splitter works as expected, i.e that the given
     ``text`` argument is tokenize as indicated by ``expected`` and
     utilizing the ``regex`` value as split parameter.
     """
-    nlp = spacy.blank("es")
+    nlp = blank_language
     nlp.add_pipe("missaligned_splitter", config={"words": [regex]})
     doc = nlp(text)
     output = "|".join(token.text for token in doc)
