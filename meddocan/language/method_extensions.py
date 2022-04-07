@@ -34,22 +34,26 @@ class WriteMethods:
     def __init__(self, nlp: Language) -> None:
         self.nlp = nlp
 
-        # mypy complains about:
-        # Argument "method" to "set_extension" of "Doc" has incompatible type
-        # "Callable[[Doc, Union[str, Path], Union[Literal['w'], Literal['a']],
-        #  bool], None]"; expected "Optional[DocMethod]".
-        # The method argument accept a parameter of the type DocMethod defined
-        # by spaCy as a Protocol with a __call__ method that take a doc as
-        # first parameter.
+        # The ``method`` argument accept a parameter of the type ``DocMethod``
+        # defined by spaCy as a Protocol with a __call__ method that take a doc
+        # as first parameter.
         # As we want to attach the method and hide them in some
         # way there is not evident solution to this complains so we silent it.
 
         Doc.set_extension(
-            "to_connl03", method=self.__doc_to_connl03, force=True
-        )  # type: ignore[arg-type]
+            "to_connl03", method=self.__doc_to_connl03, force=True  # type: ignore[arg-type]
+        )
+        # error: error: Argument "method" to "set_extension" of "Doc" has
+        # incompatible type "Callable[[Doc, Union[str, Path],
+        # Union[Literal['w'], Literal['a']], bool], None]"; expected
+        # "Optional[DocMethod]"
+
         Doc.set_extension(
-            "to_ann", method=self.__doc_to_ann, force=True
-        )  # type: ignore[arg-type]
+            "to_ann", method=self.__doc_to_ann, force=True  # type: ignore[arg-type]
+        )
+        # Argument "method" to "set_extension" of "Doc" has incompatible type
+        # "Callable[[Doc, Union[str, Path]], None]"; expected
+        # "Optional[DocMethod]"
 
     @staticmethod
     def __doc_to_connl03(
