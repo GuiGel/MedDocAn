@@ -6,7 +6,7 @@ import flair.datasets
 from flair.datasets import ColumnCorpus
 
 from meddocan.data import ArchiveFolder
-from meddocan.data.containers import BratDocs
+from meddocan.data.docs_iterators import GsDocs
 
 
 class MEDDOCAN(ColumnCorpus):
@@ -28,7 +28,7 @@ class MEDDOCAN(ColumnCorpus):
 
     def __init__(
         self, sentences: bool = False, in_memory: bool = True, **corpusargs
-    ):
+    ) -> None:
         with tempfile.TemporaryDirectory() as tmpdirname:
             for data_pth in (
                 ArchiveFolder.train,
@@ -37,9 +37,12 @@ class MEDDOCAN(ColumnCorpus):
             ):
                 msg = f"{data_pth.value}".center(33, "-")
                 print(f"{msg:>58}")
+
                 output_pth: Path = Path(tmpdirname) / data_pth.value
-                brat_docs = BratDocs(archive_name=data_pth)
-                brat_docs.write_connl03(output=output_pth, sentences=sentences)
+                brat_docs = GsDocs(archive_name=data_pth)
+                brat_docs.to_connl03(
+                    file=output_pth, write_sentences=sentences
+                )
 
             # Column format.
             columns = {0: "text", 1: "ner"}
