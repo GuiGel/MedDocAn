@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterator, List, Literal, NamedTuple, Optional, Tuple, Union, Sized
+from typing import (Iterator, List, Literal, NamedTuple, Optional, Sized,
+                    Tuple, Union)
 
 from spacy.tokens import Doc, Span
 
@@ -122,6 +123,7 @@ text='c/ del Abedul 5-7, 2º dcha')
             f"{self.id}\t{self.entity_type} {self.start} {self.end}\t"
             f"{self.text}\n"
         )
+
 
 @dataclass
 class BratAnnotations(Sized):

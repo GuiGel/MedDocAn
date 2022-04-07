@@ -5,7 +5,7 @@ from an annotation file at the brat format.
 import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterator, List, NewType, Optional, Tuple, Union, cast
+from typing import Iterator, List, NewType, Optional, Tuple, Union
 
 from spacy.tokens import Doc
 
@@ -162,7 +162,9 @@ doc=Datos del ...)
                 file, mode=mode, write_sentences=write_sentences
             )
 
-    def to_gold_standard(self, parent: Union[str, Path], force: bool = False) -> None:
+    def to_gold_standard(
+        self, parent: Union[str, Path], force: bool = False
+    ) -> None:
         # Write all the files need for the evaluation process. We unzip the
         # zip archive and copy them to the parent folder.
         parent = Path(parent)
