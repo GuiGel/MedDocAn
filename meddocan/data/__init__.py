@@ -31,6 +31,18 @@ class ArchiveFolder(Enum):
 
     This Enumeration is for self-documentation purposes only.
 
+    Example:
+
+    >>> ArchiveFolder("train")
+    <ArchiveFolder.train: 'train'>
+
+    If we pass a folder that doesn't exist:
+
+    >>> ArchiveFolder("not_exist")
+    Traceback (most recent call last):
+    ...
+    ValueError: 'not_exist' is not a valid ArchiveFolder
+
     Args:
         train (str, optional): Defaults to "train"
         dev (str, optional): Defaults to "dev"
