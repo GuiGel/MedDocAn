@@ -162,7 +162,7 @@ doc=Datos del ...)
                 file, mode=mode, write_sentences=write_sentences
             )
 
-    def to_gold_standard(self, parent: Union[str, Path], force: bool = False):
+    def to_gold_standard(self, parent: Union[str, Path], force: bool = False) -> None:
         # Write all the files need for the evaluation process. We unzip the
         # zip archive and copy them to the parent folder.
         parent = Path(parent)
@@ -230,9 +230,6 @@ doc=Datos del ...)
             yield (brat_annotations.text, brat_files_pair)
 
     def __iter__(self) -> Iterator[SysDoc]:
-        # The __post_init__ method ensure that self.nlp is not None.
-        self.nlp = cast(MeddocanLanguage, self.nlp)
-
         for doc, brat_files_pair in self.nlp.pipe(
             self.__gen_brat_annotations_as_tuple(),
             as_tuples=True,
