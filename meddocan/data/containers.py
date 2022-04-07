@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterator, List, Literal, NamedTuple, Optional, Tuple, Union
+from typing import Iterator, List, Literal, NamedTuple, Optional, Tuple, Union, Sized
 
 from spacy.tokens import Doc, Span
 
@@ -123,9 +123,8 @@ text='c/ del Abedul 5-7, 2º dcha')
             f"{self.text}\n"
         )
 
-
 @dataclass
-class BratAnnotations:
+class BratAnnotations(Sized):
     """Container for a document annotated in the brat format.
 
     :class:`BratAnnotations` object are construct by the classmethod
@@ -140,7 +139,7 @@ class BratAnnotations:
     text: str
     brat_spans: List[BratSpan]
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         """Verify that the str selected by the ``BratSpan.start`` and
         ``BratSpan.end`` attributes of each ``brat_spans`` element in the
         ``text`` attribute identical to the ``BratSpan.text`` attribute.
@@ -150,7 +149,7 @@ class BratAnnotations:
                 self.text[brat_span.start : brat_span.end] == brat_span.text
             ), f"{self.text[brat_span.start : brat_span.end]} != {brat_span.text}"
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.text.split("\n")) - 1
 
     @classmethod
@@ -538,26 +537,3 @@ class BratDocs:
             if i:
                 mode = "a"
             brat_doc.write_connl03(output, mode, sentences=sentences)
-
-
-if __name__ == "__main__":
-    from flair.datasets import ColumnCorpus
-
-    from meddocan.data.corpus import flair
-
-    corpus: ColumnCorpus = flair.datasets.MEDDOCAN(sentences=True)
-
-    total_lines = 0
-    for dataset in ("test", "dev", "train"):
-        archive_folder = getattr(ArchiveFolder, dataset)
-        subtotal_lines = 0
-        for brat_files_pair in meddocan_zip.brat_files(archive_folder):
-            brat_annotations = BratAnnotations.from_brat_files(brat_files_pair)
-            subtotal_lines += len(brat_annotations)
-        print(f"{archive_folder.value} had {subtotal_lines} lines.")
-        total_lines += subtotal_lines
-        corpus_len = len(getattr(corpus, dataset))
-        assert (
-            corpus_len == subtotal_lines
-        ), f"{corpus_len} != {subtotal_lines}"
-    print(f"The whole datasets contains {total_lines} lines.")

@@ -8,9 +8,9 @@ and ends with the last character of a token.
 from typing import NewType, cast
 
 import spacy
+from spacy.language import Language
 from spacy.symbols import ORTH
 from spacy.tokenizer import Tokenizer
-from spacy.language import Language
 
 MeddocanTokenizer = NewType("MeddocanTokenizer", Tokenizer)
 
@@ -52,7 +52,7 @@ def meddocan_tokenizer(nlp: Language) -> MeddocanTokenizer:
     # the data from a line.
     # "UU. EE." is a special case that create a unique token "UU. EE." with a
     # space in it. When this token is written as a line "UU. EE. S-LOC" for
-    # example, spacy is not able to read the tag as it make a confusion
+    # example, ```Flair``` is not able to read the tag as it make a confusion
     # with the "EE." part of the token.
 
     if nlp.tokenizer.rules is not None:

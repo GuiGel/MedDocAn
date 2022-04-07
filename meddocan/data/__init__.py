@@ -100,7 +100,7 @@ class MeddocanZip:
     background: Path
     base = meddocan.cache_root / "datasets" / "meddocan"
 
-    def __init__(self):
+    def __init__(self) -> None:
         for attr in ["train", "dev", "test", "sample", "background"]:
             value = self._get_loc(attr)
             self.__setattr__(attr, value)

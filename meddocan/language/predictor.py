@@ -30,6 +30,7 @@ class PredictorComponent:
         model_loc: Optional[str] = None,
         mini_batch_size: int = 8,
     ) -> None:
+        self.nlp = nlp
         self.model_loc = model_loc  # Required by spacy
         if self.model_loc is not None:
             self.model = SequenceTagger.load(model_loc)
@@ -44,7 +45,7 @@ class PredictorComponent:
         # Set that a prediction as been made on the doc.
         Doc.set_extension(name="predicted", default=False, force=True)
 
-    def _repr__(self):
+    def _repr__(self) -> str:
         return (
             f"PredictorComponent(nlp={self.nlp}, model_loc={self.model_loc}, "
             f"mini_batch_size={self.mini_batch_size})"

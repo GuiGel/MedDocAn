@@ -12,10 +12,11 @@ for sent in doc.sents:
 Ref: https://spacy.io/usage/processing-pipelines#custom-components
 """
 from spacy.language import Language
+from spacy.tokens import Doc
 
 
 @Language.component("line_sentencizer")
-def line_sentencizer(doc):
+def line_sentencizer(doc: Doc) -> Doc:
     for i, token in enumerate(doc[:-2]):
         # Define sentence start if pipe + titlecase token
         if "\n" in token.text:
