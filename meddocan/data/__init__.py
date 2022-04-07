@@ -90,7 +90,7 @@ class MeddocanZip:
     >>> meddocan_zip = MeddocanZip()
     >>> base = meddocan.cache_root / "datasets" / "meddocan"
     >>> assert meddocan_zip.base == base
-    >>> assert meddocan_zip.train = base / "train-set.zip"
+    >>> assert meddocan_zip.train == base / "train-set.zip"
     """
 
     train: Path
