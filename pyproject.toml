@@ -28,6 +28,7 @@ ipywidgets = "^7.7.0"
 line_sentencizer = "meddocan.language.sentencizer:line_sentencizer"
 missaligned_splitter = "meddocan.language.splitter:missaligned_splitter"
 predictor = "meddocan.language.predictor:create_predictor"
+write_methods = "meddocan.language.method_extensions:create_write_methods"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
