@@ -27,7 +27,8 @@ from spacy.tokens import Doc, Token
 
 
 class WriteMethods:
-    """Add a set of methods to a ``spacy.tokens.Doc`` that write to a file."""
+    """Add a set of methods to a ``spacy.tokens.Doc`` that write relevant
+    information to a file."""
 
     name = "WriteMethods"
 
