@@ -16,6 +16,13 @@ class PredictorComponent:
 
     If no model is passed as an argument, the component does nothing.
 
+    Example:
+
+    >>> from spacy import blank
+    >>> nlp = blank("es")
+    >>> PredictorComponent(nlp)
+    PredictorComponent(nlp=Spanish, model_loc=None, mini_batch_size=8)
+
     Args:
         nlp (Language): spaCy Language.
         model_loc (Optional[str], optional): Location of the
@@ -45,9 +52,10 @@ class PredictorComponent:
         # Set that a prediction as been made on the doc.
         Doc.set_extension(name="predicted", default=False, force=True)
 
-    def _repr__(self) -> str:
+    def __repr__(self) -> str:
         return (
-            f"PredictorComponent(nlp={self.nlp}, model_loc={self.model_loc}, "
+            f"PredictorComponent(nlp={self.nlp.__class__.__qualname__}, "
+            f"model_loc={self.model_loc}, "
             f"mini_batch_size={self.mini_batch_size})"
         )
 
