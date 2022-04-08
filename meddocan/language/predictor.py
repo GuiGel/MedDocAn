@@ -1,5 +1,7 @@
-# Create a component to predict tags from ``flair.models.SequenceTagger``
-# https://spacy.io/usage/processing-pipelines#example-stateful-components
+"""Create a component to predict tags from ``flair.models.SequenceTagger``
+https://spacy.io/usage/processing-pipelines#example-stateful-components
+
+"""
 from typing import Callable, List, Optional
 
 import flair.data
@@ -45,9 +47,10 @@ class PredictorComponent:
         # Set that a prediction as been made on the doc.
         Doc.set_extension(name="predicted", default=False, force=True)
 
-    def _repr__(self) -> str:
+    def __repr__(self) -> str:
         return (
-            f"PredictorComponent(nlp={self.nlp}, model_loc={self.model_loc}, "
+            f"PredictorComponent(nlp={self.nlp.__class__.__qualname__}, "
+            f"model_loc={self.model_loc}, "
             f"mini_batch_size={self.mini_batch_size})"
         )
 
