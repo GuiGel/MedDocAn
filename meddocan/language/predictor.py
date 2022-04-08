@@ -1,5 +1,7 @@
-# Create a component to predict tags from ``flair.models.SequenceTagger``
-# https://spacy.io/usage/processing-pipelines#example-stateful-components
+"""Create a component to predict tags from ``flair.models.SequenceTagger``
+https://spacy.io/usage/processing-pipelines#example-stateful-components
+
+"""
 from typing import Callable, List, Optional
 
 import flair.data
@@ -15,13 +17,6 @@ class PredictorComponent:
     trained by the ``Flair`` library.
 
     If no model is passed as an argument, the component does nothing.
-
-    Example:
-
-    >>> from spacy import blank
-    >>> nlp = blank("es")
-    >>> PredictorComponent(nlp)
-    PredictorComponent(nlp=Spanish, model_loc=None, mini_batch_size=8)
 
     Args:
         nlp (Language): spaCy Language.
