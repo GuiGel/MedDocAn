@@ -6,7 +6,6 @@ from typing import Callable, List, Optional
 
 import flair.data
 from flair.models import SequenceTagger
-from flair.tokenization import SpacyTokenizer
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
@@ -40,10 +39,6 @@ class PredictorComponent:
             self.model = None
         self.mini_batch_size = mini_batch_size
 
-        # Tokenize words in order to create ``flair.data.Sentence``.
-        # TODO How to avoid retokenize the doc using the SpacyTokenizer.
-        self.tokenizer = SpacyTokenizer(nlp)
-
         # Set that a prediction as been made on the doc.
         Doc.set_extension(name="predicted", default=False, force=True)
 
@@ -54,28 +49,40 @@ class PredictorComponent:
             f"mini_batch_size={self.mini_batch_size})"
         )
 
-    def predict(
-        self,
-        doc: Doc,
-    ) -> List[flair.data.Sentence]:
-        """Apply ``flair.models.SequenceTagger`` to spacy ``Doc`` sentence by
-        sentence. We create from each sentence ``spacy.tokens.Span`` of the
-        ``spacy.tokens.Doc`` a ``flair.data.Sentence`` with prediction.
-        """
-        flair_sentences = []
-        for spacy_sentence in doc.sents:
-            flair_sentence = flair.data.Sentence(
-                spacy_sentence.text,
-                use_tokenizer=self.tokenizer,
-                language_code="es",
-                start_position=spacy_sentence[0].idx,
-            )
-            flair_sentences.append(flair_sentence)
+    @staticmethod
+    def flair_sentence(spacy_sentence: Span) -> flair.data.Sentence:
+        """Get a Flair Sentence from a spaCy sentence.
 
-        self.model.predict(
-            flair_sentences, mini_batch_size=self.mini_batch_size
-        )
-        return flair_sentences
+        Args:
+            spacy_sentence (Span): The spacy sentence.
+
+        Returns:
+            flair.data.Sentence: The obtained Flair sentence.
+        """
+        flair_sentence = flair.data.Sentence()
+        flair_sentence.language_code = "es"
+        flair_sentence.start_pos = spacy_sentence.start_char
+        flair_tokens: List[flair.data.Token] = []
+        previous_flair_token: Optional[flair.data.Token] = None
+        for spacy_token in spacy_sentence:
+            if spacy_token.text.isspace():
+                continue
+            else:
+                flair_token = flair.data.Token(
+                    text=spacy_token.text,
+                    start_position=spacy_token.idx,
+                    whitespace_after=True,
+                )
+                flair_tokens.append(flair_token)
+                if (previous_flair_token is not None) and (
+                    flair_token.start_pos
+                    == previous_flair_token.start_pos
+                    + len(previous_flair_token.text)
+                ):
+                    previous_flair_token.whitespace_after = False
+            previous_flair_token = flair_token
+            flair_sentence.add_token(flair_token)
+        return flair_sentence
 
     def set_ents(self, doc: Doc) -> Doc:
         """Transform each flair entity of type ''flair.data.Span`` to a
@@ -92,14 +99,15 @@ class PredictorComponent:
         """
         doc_spans: List[Span] = []
 
-        flair_sentences = self.predict(doc)
+        flair_sentences = list(map(self.flair_sentence, doc.sents))
+        self.model.predict(flair_sentences)
 
         for flair_sentence in flair_sentences:
             flair_spans = flair_sentence.get_spans("ner")
             for flair_span in flair_spans:
                 doc_span = doc.char_span(
-                    flair_sentence.start_pos + flair_span[0].start_pos,
-                    flair_sentence.start_pos + flair_span[-1].end_pos,
+                    flair_span[0].start_pos,
+                    flair_span[-1].end_pos,
                     flair_span.tag,
                     alignment_mode="strict",
                 )
