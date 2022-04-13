@@ -1,6 +1,29 @@
 """
 ``meddocan.data`` provides class and function to deals with the original
 meddocan datasets located on the web.
+
+This module also provides two instances of objects that are useful for the rest
+of the project.
+
+The :obj:`meddocan.data.meddocan_url` that contains the url link to reach the zipped data folders.
+
+    Examples:
+
+    >>> meddocan_url.train
+    'http://temu.bsc.es/meddocan/wp-content/uploads/2019/03/train-set.zip'
+
+The :obj:`meddocan.data.meddocan_zip` object which gets the brat file pair for
+a given folder in the cached dataset through its ``brat_files`` method.
+
+    Example:
+
+    >>> brat_files_pairs = meddocan_zip.brat_files(ArchiveFolder.train)
+    >>> next(brat_files_pairs)
+    BratFilesPair(ann=Path('/.../.meddocan/datasets/meddocan/train-set.zip', \
+'train/brat/S0004-06142005000500011-1.ann'), \
+txt=Path('/.../.meddocan/datasets/meddocan/train-set.zip', \
+'train/brat/S0004-06142005000500011-1.txt'))
+
 """
 from dataclasses import dataclass
 from enum import Enum
@@ -101,8 +124,18 @@ class MeddocanZip:
 
     >>> meddocan_zip = MeddocanZip()
     >>> base = meddocan.cache_root / "datasets" / "meddocan"
+    >>> base
+    PosixPath('/.../.meddocan/datasets/meddocan')
     >>> assert meddocan_zip.base == base
     >>> assert meddocan_zip.train == base / "train-set.zip"
+
+    You can also iterate over the MeddocanZip attributes:
+
+    >>> for folder_path in MeddocanZip():
+    ...     print(folder_path)
+    /home/wave/.meddocan/datasets/meddocan/train-set.zip
+    ...
+
     """
 
     train: Path
@@ -126,26 +159,42 @@ class MeddocanZip:
             yield getattr(self, attr)
 
     def brat_files(self, dir_name: ArchiveFolder) -> Iterator[BratFilesPair]:
+        """Yield :class:`BratFilesPair` given a
+        :class:`meddocan.data.ArchiveFolder`.
+
+        Example:
+
+        >>> brat_files_pairs = MeddocanZip().brat_files(ArchiveFolder.train)
+        >>> next(brat_files_pairs)
+        BratFilesPair(ann=Path('/.../.meddocan/datasets/meddocan/train-set.\
+zip', 'train/brat/S0004-06142005000500011-1.ann'), txt=Path('/.../\
+.meddocan/datasets/meddocan/train-set.zip', \
+'train/brat/S0004-06142005000500011-1.txt'))
+
+
+        Args:
+            dir_name (ArchiveFolder): Name of the folder inside the downloaded\
+                zip file.
+
+        Yields:
+            Iterator[BratFilesPair]: Pair of brat files.
+        """
 
         # Save the zip files to disk if the files are not already present.
 
         from meddocan.data.cached_files import cached_meddocan_zipfile
-
         cached_meddocan_zipfile()
 
         # The desired zip file from which the files must be yield.
 
         zip_file: str = getattr(self, dir_name.value)
-
         zip_path = ZipPath(zip_file)
 
         # The path to the directory named ``dir_name`` inside the ``.zip``
         # archive.
 
         train_brat_path = zip_path / dir_name.value / "brat"
-
         files_txt, files_ann = tee(train_brat_path.iterdir(), 2)
-
         ann_files = [
             file for file in files_ann if Path(file.name).suffix == ".ann"
         ]
@@ -155,8 +204,8 @@ class MeddocanZip:
 
         for ann_file, txt_file in zip(ann_files, txt_files):
 
-            # The file name must be the same to be sure that the brat
-            # annotation correspond to the wright txt file.
+            # The file name must be the same to ensure that the brat annotation
+            # matches the wright txt file.
 
             assert Path(ann_file.name).stem == Path(txt_file.name).stem
 
