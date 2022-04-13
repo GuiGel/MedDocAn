@@ -1,20 +1,20 @@
 """This module implements the methods that are attached to the Doc object
-produce by the meddocan_pipeline.
-By assigning a function that becomes accessible as its own method of a Doc
+produce by the :func:`meddocan_pipeline`.
+By assigning a function that becomes accessible as its own method of a |Doc|
 object, we have more reliable information about the type that can be passed as
 a parameter to the function.
-Indeed, if the method only accepts Docs produced by the meddocan_pipeline, this
+Indeed, if the method only accepts |Doc| s produced by the :func:`meddocan_pipeline`, this
 can only be made mandatory by attaching an extension of type ``_.meddocan_doc``
 to the document.
 
 The information needed to understand the adjunction of methods to the
-`spacy.tokens.Doc` object that are accessed through the personalize attribute
-can be found in the `spaCy`_ documentation.
+|Doc| object that are accessed through the personalize attribute
+can be found in the `custom components attributes`_ documentation.
 
 The information needed to understand how to create custom components can be
-found in the spaCy documentation `Creating custom pipeline components`_.
+found in the |spaCy| documentation `Creating custom pipeline components`_.
 
-.. _spaCy: https://spacy.io/usage/processing-pipelines#custom-components-attributes
+.. _custom components attributes: https://spacy.io/usage/processing-pipelines#custom-components-attributes
 .. _Creating custom pipeline components: https://spacy.io/usage/processing-pipelines#custom-components
 """
 import codecs
@@ -126,7 +126,7 @@ def create_write_methods(
     nlp: Language,
     name: str,
 ) -> Callable[[spacy.tokens.Doc], spacy.tokens.Doc]:
-    """`Component factory`_ that return an instance of the
+    """A Component factory that return an instance of the
     :class:`WriteMethods` custom components.
 
     Example:

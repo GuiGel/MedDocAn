@@ -1,9 +1,7 @@
-r"""The tokenizer module provide a tokenizer based on the `spaCy`_ library.
+r"""The tokenizer module provide a tokenizer based on the |spaCy| library.
 The tokenizer must allow for an alignment between the offsets of each entity
 and the tokens such that an entity begins with the first character of a token
 and ends with the last character of a token.
-
-.. _spaCy: https://spacy.io/
 """
 from typing import NewType, cast
 
@@ -16,7 +14,7 @@ MeddocanTokenizer = NewType("MeddocanTokenizer", Tokenizer)
 
 
 def meddocan_tokenizer(nlp: Language) -> MeddocanTokenizer:
-    """Update `spaCy <https://spacy.io/>`_ tokenizer in order to align the
+    """Update |spaCy| tokenizer in order to align the
     entities offset with the token offsets.
 
     Modifying spaCy tokenizer existing rules set. For more information look
