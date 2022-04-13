@@ -50,6 +50,9 @@ autosummary_generate = True
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
+# The name of the Pygments (syntax highlighting) style to use.
+pygments_style = 'sphinx'
+
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
@@ -72,6 +75,7 @@ rst_prolog = """
 .. |Doc| replace:: `Doc <https://spacy.io/api/doc>`__
 .. |Token| replace:: `Token <https://spacy.io/api/token>`__
 .. |Span| replace:: `Span <https://spacy.io/api/span>`__
+.. |spaCy| replace:: `spaCy <https://spacy.io>`__
 """
 
 # -- Options for HTML output -------------------------------------------------
