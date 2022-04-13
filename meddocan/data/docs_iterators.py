@@ -1,6 +1,7 @@
 """Module that contains the containers for a ``spacy.tokens.Doc`` produced
-by the :`meddocan_pipeline` with entities tagged by a trained model or tagger
-from an annotation file at the brat format.
+by the :func:`meddocan.language.pipeline.meddocan_pipeline` with entities
+tagged by a trained model or tagged from an annotation file at the brat format.
+
 """
 import warnings
 from dataclasses import dataclass, field
@@ -17,15 +18,36 @@ from meddocan.language.pipeline import MeddocanLanguage, meddocan_pipeline
 
 @dataclass
 class DocWithBratPair:
+    """:class:`Dataclass` containing a `spacy.tokens.Doc` object together with
+    the :class:`meddocan.data.BratFilePair` object from which the document has
+    been created.
+
+    This type of data allows us to correctly recreate the files that will be
+    used to evaluate the quality of the algorithms thanks to the evaluation
+    script provided by the library `MEDDOCAN-Evaluation-Script`_.
+
+    .. _MEDDOCAN-Evaluation-Script:
+        https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script
+    """
+
     brat_files_pair: BratFilesPair
     doc: Doc
 
 
-# GoldStandard document container.
 GsDoc = NewType("GsDoc", DocWithBratPair)
+"""Specific type for a DocWithBratPair that contains a GoldStandard
+``spacy.tokens.Doc``.
 
-# Sys document container
+.. Note::
+    Only create GsDoc using then :meth:``meddocan.data.docs_iterators.__iter__`` method.
+"""
+
 SysDoc = NewType("SysDoc", DocWithBratPair)
+"""Specific type for a DocWithBratPair that contains a System
+``spacy.tokens.Doc``.
+"""
+
+Context = Tuple[List[BratSpan], BratFilesPair]
 
 
 def get_expanded_entities(
@@ -33,6 +55,10 @@ def get_expanded_entities(
 ) -> List[ExpandedEntity]:
     """Get the missaligned entities that have been expanded to force the
     alignment.
+
+    This function is used exclusively to give information about the
+    tokenization process and verify that the alignment is good enough.
+
     """
     ents = doc.ents
 
@@ -82,12 +108,13 @@ doc=Datos del ...)
     True
 
     Args:
-        archive_name (ArchiveFolder):
+        archive_name (ArchiveFolder): Folder in the cached meddocan dataset.
         model (str, Optional): Path to a serialize ``flair.models.Sequence\
             Tagger`` model.
         nlp (MeddocanLanguage, Optional): A meddocan pipeline.
             The meddocan pipeline work with the given ``model`` only if \
             ``nlp`` is None.
+
     """
 
     archive_name: ArchiveFolder
@@ -124,7 +151,15 @@ doc=Datos del ...)
 
     def __gen_tuple_for_pipe(
         self,
-    ) -> Iterator[Tuple[str, Tuple[List[BratSpan], BratFilesPair]]]:
+    ) -> Iterator[Tuple[str, Context]]:
+        """Iterator that yield a Tuple to feed a
+        ``spacy.language.Language.pipe`` with.
+
+        Yields:
+            Iterator[Tuple[str, Context]]:Iterator that yield a str that permit
+                to create a ``spacy.tokens.Doc`` and a context to keep track
+                of relevant information.
+        """
         brat_files_pairs = meddocan_zip.brat_files(self.archive_name)
         for brat_files_pair in brat_files_pairs:
             brat_annotations = BratAnnotations.from_brat_files(brat_files_pair)
@@ -156,17 +191,72 @@ doc=Datos del ...)
     def to_connl03(
         self, file: Union[str, Path], write_sentences: bool = True
     ) -> None:
+        """Method that write the file contains in archive_name arguments to
+        the given file at the ConNL03 format.
+
+        Example:
+
+        .. code-block:: python
+
+          gs_docs = GsDocs(ArchiveFolder.train)
+          gs_docs.to_connl03(file=...)
+
+        The obtained file contains the following lines: ::
+
+            Datos O
+            del O
+            paciente O
+            . O
+
+            Nombre O
+            : O
+            Pedro B-NOMBRE_SUJETO_ASISTENCIA
+            . O
+
+            Apellidos O
+            : O
+            De B-NOMBRE_SUJETO_ASISTENCIA
+            Miguel I-NOMBRE_SUJETO_ASISTENCIA
+            Rivera I-NOMBRE_SUJETO_ASISTENCIA
+            . O
+
+            ...
+
+        Args:
+            file (Union[str, Path]): _description_
+            write_sentences (bool, optional): _description_. Defaults to True.
+        """
         for i, gs_doc in enumerate(self):
             (mode := "a") if i else (mode := "w")
             gs_doc.doc._.to_connl03(
                 file, mode=mode, write_sentences=write_sentences
             )
 
-    def to_gold_standard(
-        self, parent: Union[str, Path], force: bool = False
-    ) -> None:
-        # Write all the files need for the evaluation process. We unzip the
-        # zip archive and copy them to the parent folder.
+    def to_gold_standard(self, parent: Union[str, Path]) -> None:
+        """Write all the files needed for the evaluation process. We unzip the
+        zip archive and copy the unzipped files into the parent folder.
+
+        Example:
+
+        .. code-block:: python
+
+          gs_docs = GsDocs(ArchiveFolder.train)
+          gs_docs.to_gold_standard(parent="gold_standard")
+
+        The previous example create a folder called ``gold_standard`` in the
+        current folder with the following hierarchy: ::
+
+            gold_standard
+            gold_standard.train
+            gold_standard.train.brat
+            gold_standard.train.brat.S0004-06142005000500011-1.ann
+            gold_standard.train.brat.S0004-06142005000500011-1.txt
+            ...            
+
+        Args:
+            parent (Union[str, Path]): The folder where the gold standard \
+                evaluation files must be located.
+        """
         parent = Path(parent)
 
         for brat_files_pair in meddocan_zip.brat_files(self.archive_name):

@@ -183,6 +183,7 @@ zip', 'train/brat/S0004-06142005000500011-1.ann'), txt=Path('/.../\
         # Save the zip files to disk if the files are not already present.
 
         from meddocan.data.cached_files import cached_meddocan_zipfile
+
         cached_meddocan_zipfile()
 
         # The desired zip file from which the files must be yield.

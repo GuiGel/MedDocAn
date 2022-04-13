@@ -2,8 +2,8 @@
 neural network on the medical document anonymisation track. This track
 corresponds to track 9 of the `Iberian Language Evaluation Forum 2019`_..
 
-.. _Iberian Languages Evaluation Forum 2019:
-    http://ceur-ws.org/Vol-2421/
+.. _`Iberian Language Evaluation Forum 2019`:
+   http://ceur-ws.org/Vol-2421/
 """
 import os
 from pathlib import Path

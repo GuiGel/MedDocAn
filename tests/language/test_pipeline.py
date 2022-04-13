@@ -187,7 +187,7 @@ class TestMeddocanPipeline:
         expected,
     ):
         """Test that the ``spacy.tokens.Doc`` object produce by the
-        ``meddocan.language.pipeline.MedocanPipeline`` is write correctly to
+        ``meddocan.language.pipeline.MedocanPipeline`` is written correctly to
         the desire ``CoNNL03`` format by the method ``to_connl03`` that is
         attached to the ``spacy.tokens.Doc`` object by the pipeline.
 

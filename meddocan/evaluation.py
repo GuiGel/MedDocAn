@@ -2,9 +2,10 @@
 ``flair.models.SequenceTagger`` object.
 
 The evaluation process can then be made using the command line available in the
-converter script ``library``_.
+converter script `library`_.
 
-.. libray:_``https://github.com/PlanTL-GOB-ES/MEDDOCAN-Format-Converter-Script``
+.. _`library`:
+   https://github.com/PlanTL-GOB-ES/MEDDOCAN-Format-Converter-Script
 """
 from pathlib import Path
 from typing import Union

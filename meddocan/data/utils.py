@@ -1,4 +1,4 @@
-"""Module that implements utils functions.
+"""Module that implements utility functions.
 """
 from enum import Enum
 from pathlib import Path
@@ -11,7 +11,9 @@ from meddocan.data.containers import BratAnnotations, BratSpan
 
 class AlignmentMode(Enum):
     """Enumeration that enumerate the possible parameters for
-    :function:`set_ents_from_brat_spans`.
+    :func:`meddocan.data.utils.set_ents_from_brat_spans`.
+
+    Define how character indices snap to token boundaries.
 
     Example:
 
@@ -22,8 +24,14 @@ class AlignmentMode(Enum):
     """
 
     STRICT = "strict"
+    """no snapping
+    """
     CONTRACT = "contract"
+    """span of all tokens completely within the character span
+    """
     EXPAND = "expand"
+    """span of all tokens at least partially covered by the character span
+    """
 
 
 def set_ents_from_brat_spans(
@@ -31,8 +39,8 @@ def set_ents_from_brat_spans(
     brat_spans: List[BratSpan],
     alignment_mode: AlignmentMode = AlignmentMode.EXPAND,
 ) -> Doc:
-    """Add entities to a ``spacy.tokens.Doc`` object from a list of
-    :class:`BratSpan`.
+    """Add entities to a |Doc| object from a list of
+    :class:`meddocan.data.containers.BratSpan`.
 
     Example:
 
@@ -45,12 +53,14 @@ def set_ents_from_brat_spans(
     (Bilbao,)
 
     Args:
-        doc (Doc): _description_
-        brat_spans (List[BratSpan]): _description_
-        alignment_mode (AlignmentMode, optional): _description_. Defaults to AlignmentMode.EXPAND.
+        doc (Doc): A spaCy |Doc|.
+        brat_spans (List[BratSpan]): The :class:`BratSPan`\s objects.
+        alignment_mode (AlignmentMode, optional): Option for the alignment \
+            between the Tokens of the Doc object and the BratSpan. \
+            How character indices snap to token boundaries. Options: "strict" (no snapping), "contract" (span of all tokens completely within the character span), "expand" (span of all tokens at least partially covered by the character span). Defaults to "strict".Defaults to AlignmentMode.EXPAND.
 
     Returns:
-        Doc: _description_
+        Doc: An object |Doc| to which entities have been added.
     """
     doc.set_ents(
         [
@@ -67,8 +77,7 @@ def set_ents_from_brat_spans(
 
 
 def doc_to_ann(doc: Doc, file: Union[str, Path]) -> None:
-    """Writes the entities of the object ``spacy.tokens.Doc'' to a file in
-    ``ann'' format.
+    """Writes the entities of the |Doc| object to a file in ``ann`` format.
 
     Example:
 
@@ -85,7 +94,7 @@ def doc_to_ann(doc: Doc, file: Union[str, Path]) -> None:
     False
 
     Args:
-        doc (Doc): The ``Doc`` from which the entities are serialized.
+        doc (Doc): The |Doc| from which the entities are serialized.
         file (Union[str, Path]): The file to write in.
     """
     if isinstance(file, str):

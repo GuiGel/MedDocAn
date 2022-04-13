@@ -264,12 +264,14 @@ class TestPredictorComponent:
         ``meddocan.language.predictor.Predictor`` class.
 
         1. Create ``spacy.tokens.Doc`` object given the argument pass to\
-            ``spacy_text_space_sentstart_label``. The Doc object will be pass to the
-            ``Predictor.set_ents`` method in order to predict the entities.
+            ``spacy_text_space_sentstart_label``. The Doc object will be pass\
+            to the ``Predictor.set_ents`` method in order to predict the\
+            entities.
         2. To predict the entities we need to use the flair model. As we don't\
-        want to load a model to slow down the tests, we use a mock that create\
-        a fake model. To create predictions we use the function ``add_tags``\
-        to which we pass the appropriate labels via the ``flair_text_label``\
+            want to load a model to slow down the tests, we use a mock that\
+            create a fake model. To create predictions we use the function\
+            ``add_tags`` to which we pass the appropriate labels via the\
+            ``flair_text_label``\
         parameter.
         3. Finally we check that the entities added to the ``Doc`` object are\
         the ones with the help of the ``expected_ents`` parameter.
@@ -297,9 +299,6 @@ class TestPredictorComponent:
 
                 # Test that the predicted entities are the expected ones.
                 for predict_ent, expected_ent in zip(doc.ents, expected_ents):
-                    print(f"{expected_ents=}")
-                    print(f"{expected_ent=}")
-                    print(f"{predict_ent=}")
                     text, start_char, end_char, label = expected_ent
                     assert predict_ent.text == text
                     assert predict_ent.start_char == start_char
