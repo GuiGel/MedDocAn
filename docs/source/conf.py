@@ -64,6 +64,13 @@ source_suffix = ['.rst', '.md']
 # The master toctree document.
 master_doc = 'index'
 
+# RestructuredText that will be include at the beginning of every source file.
+rst_prolog = """
+.. |Doc| replace:: `Doc <https://spacy.io/api/doc>`__
+.. |Token| replace:: `Token <https://spacy.io/api/token>`__
+.. |Span| replace:: `Span <https://spacy.io/api/span>`__
+"""
+
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
