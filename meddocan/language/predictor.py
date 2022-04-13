@@ -1,6 +1,9 @@
-"""Create a component to predict tags from ``flair.models.SequenceTagger``
-https://spacy.io/usage/processing-pipelines#example-stateful-components
+"""Create a component to predict tags on the |Doc| with a
+``flair.models.SequenceTagger`` object.
 
+Look the spaCy `stateful components`_ example for more information.
+
+.. _stateful components: https://spacy.io/usage/processing-pipelines#example-stateful-components
 """
 from typing import Callable, List, Optional
 
@@ -11,8 +14,8 @@ from spacy.tokens import Doc, Span
 
 
 class PredictorComponent:
-    """A custom component that adds entities (``spacy.tokens.Span``) to a
-    ``spacy.tokens.Doc`` based on predictions made by an entity detection model
+    """A custom component that adds |Span| entities  to a
+    |Doc| based on predictions made by an entity detection model
     trained by the ``Flair`` library.
 
     If no model is passed as an argument, the component does nothing.

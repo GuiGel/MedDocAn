@@ -1,15 +1,16 @@
-"""This module implements a custom spacy component that splits a document into
-sentences.   
-Sentences are split when the sentencizer encounters a new line marker "\n".
-In this way, when we load a meddocan file ``.txt.``, we can load the file as
-``spacy.tokens.Document`` and split the document into lines easily this way:
+r"""This module implements a custom a spaCy `custom component`_ that splits a
+document into sentences.   
+Sentences are split when the sentencizer encounters a new line marker "\\n".
+In this way, when we load a ``meddocan`` file ``.txt``, we can load the file as
+|Doc| and split the document into lines easily this way:
 
-```python
-for sent in doc.sents:
-    ... # Do some stuff on the sentence
-```
+.. code-block:: python
 
-Ref: https://spacy.io/usage/processing-pipelines#custom-components
+    for sent in doc.sents:
+        ...
+
+.. _`custom component`:
+  https://spacy.io/usage/processing-pipelines#custom-components
 """
 from spacy.language import Language
 from spacy.tokens import Doc
