@@ -7,8 +7,8 @@ __pycache__/
 
 # Sphinx documentation
 docs/build/
-docs/source/_build/*
-docs/source/api/generated/*
+docs/source/_build
+docs/source/api/generated
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -25,4 +25,8 @@ docs/source/api/generated/*
 # VScode
 .vscode/
 
+# working directories
 /data
+/developement
+/evaluation
+/docs
