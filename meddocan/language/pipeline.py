@@ -22,16 +22,11 @@ def meddocan_pipeline(
     >>> doc = nlp("Vivo en Bilbao.")
     >>> doc
     Vivo en Bilbao.
-
-    The document has an extension ``is_meddocan_doc`` that permit to
-    know that the document has been produced by the ``meddocan_pipeline``.
-
     >>> doc._.is_meddocan_doc
     True
 
-    Verify the default value of the extension
-    >>> doc._.is_meddocan_doc
-    False
+    The document has an extension ``is_meddocan_doc`` that permit to
+    know that the document has been produced by the ``meddocan_pipeline``.
 
     .. warning:
         The ``is_meddocan_doc`` extension is mutable!

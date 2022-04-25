@@ -116,6 +116,7 @@ class WriteMethods:
         doc_to_ann(doc, file)
 
     def __call__(self, doc: Doc) -> Doc:
+        doc._.is_meddocan_doc = True
         return doc
 
 
