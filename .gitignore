@@ -30,3 +30,7 @@ docs/source/api/generated
 /developement
 /evaluation
 /docs
+
+# models and results
+*.pt
+*weights.txt
