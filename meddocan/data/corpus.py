@@ -1,3 +1,4 @@
+import logging
 import tempfile
 from pathlib import Path
 
@@ -7,6 +8,8 @@ from flair.datasets import ColumnCorpus
 
 from meddocan.data import ArchiveFolder
 from meddocan.data.docs_iterators import GsDocs
+
+logger = logging.getLogger(__name__)
 
 
 class MEDDOCAN(ColumnCorpus):
@@ -36,7 +39,7 @@ class MEDDOCAN(ColumnCorpus):
                 ArchiveFolder.test,
             ):
                 msg = f"{data_pth.value}".center(33, "-")
-                print(f"{msg:>58}")
+                logger.info(f"{msg:>58}")
 
                 output_pth: Path = Path(tmpdirname) / data_pth.value
                 brat_docs = GsDocs(archive_name=data_pth)

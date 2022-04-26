@@ -3,6 +3,7 @@ by the :func:`meddocan.language.pipeline.meddocan_pipeline` with entities
 tagged by a trained model or tagged from an annotation file at the brat format.
 
 """
+import logging
 import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -14,6 +15,8 @@ from meddocan.data import ArchiveFolder, BratFilesPair, meddocan_zip
 from meddocan.data.containers import BratAnnotations, BratSpan, ExpandedEntity
 from meddocan.data.utils import set_ents_from_brat_spans
 from meddocan.language.pipeline import MeddocanLanguage, meddocan_pipeline
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -79,7 +82,7 @@ def get_expanded_entities(
         # Verify that the doc entity label is the same as the brat label.
 
         if ent.label_ != brat_span.entity_type:
-            print(f"{ent.label_=} != {brat_span.entity_type=}")
+            logger.info(f"{ent.label_=} != {brat_span.entity_type=}")
 
         # Verify that the doc entity text is the same as the brat text.
 
@@ -138,16 +141,16 @@ doc=Datos del ...)
     def print_expanded_entities(
         expanded_entities: List[ExpandedEntity],
     ) -> None:
-        print(f"{'ORIGINAL ENTITY':>40} | {'EXPANDED ENTITY'}")
-        print(f"{'---------------':>40}{'---'}{'---------------'}")
+        logger.info(f"{'ORIGINAL ENTITY':>40} | {'EXPANDED ENTITY'}")
+        logger.info(f"{'---------------':>40}{'---'}{'---------------'}")
         for expanded_entity in expanded_entities:
-            print(
+            logger.info(
                 f"{expanded_entity.original:>40}"
                 f" | {expanded_entity.expanded}"
             )
-        print(f"{'---------------':>40}{'---'}{'---------------'}")
+        logger.info(f"{'---------------':>40}{'---'}{'---------------'}")
         msg = f"There is {len(expanded_entities)}"
-        print(f"{msg:>40} expanded entities")
+        logger.info(f"{msg:>40} expanded entities")
 
     def __gen_tuple_for_pipe(
         self,
@@ -186,7 +189,7 @@ doc=Datos del ...)
 
         if expanded_entities:
             self.print_expanded_entities(expanded_entities)
-            print("\n")
+            logger.info("\n")
 
     def to_connl03(
         self, file: Union[str, Path], write_sentences: bool = True
