@@ -7,20 +7,46 @@ The evaluation process can then be made using the command line available in the
 .. _`MEDDOCAN Evaluation Script`:
    https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script
 """
+import logging
 from pathlib import Path
-from typing import Union
 
 from meddocan.data import ArchiveFolder
 from meddocan.data.docs_iterators import GsDocs, SysDocs
 
+from .utils import Arg, Opt, app
 
+logger = logging.getLogger(__name__)
+
+COMMAND_NAME = "generate-evaluation-data"
+
+
+@app.command(
+    name=COMMAND_NAME,
+    no_args_is_help=False,
+    help=(
+        "Generate the files required by the MEDDOCAN Evaluation script to "
+        "perform the model evaluation."
+    ),
+)
 def generate_evaluation_data(
-    model: str,
-    name: str,
-    evaluation_root: Union[str, Path],
-    force: bool = False,
+    model: str = Arg(..., help="Path to the Flair model to evaluate."),
+    name: str = Arg(
+        ...,
+        help=(
+            "Name of the folder that will holds the resuts produced by "
+            "the ``Flair`` model."
+        ),
+    ),
+    evaluation_root: Path = Arg(
+        ...,
+        help="Path to the root folder where the results will be stored.",
+    ),
+    force: bool = Opt(
+        default=False,
+        help="Force to create again the golds standard files.",
+    ),
 ) -> None:
-    """Create the files necessary for the ``evaluation.py'' script to produce
+    """Create the files necessary for the ``evaluation.py`` script to produce
     the files that allow the MEDDOCAN team to compare the results obtained by
     the different participants.
 
@@ -54,8 +80,6 @@ def generate_evaluation_data(
         force (bool, optional): Force to create again the golds standard files.
             Defaults to False.
     """
-    evaluation_root = Path(evaluation_root)
-
     # Cf: Evaluation process on web.
     golds_loc = evaluation_root / "golds"
     sys_loc = evaluation_root / f"{name}"

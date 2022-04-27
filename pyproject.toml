@@ -4,11 +4,13 @@ version = "0.1.0"
 description = "Medical Document Anonymization Track"
 authors = ["ggelabert <ggelabert@serikat.es>"]
 license = "MIT License"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
 flair = "^0.10"
 spacy = "^3.2.3"
+typer = {extras = ["all"], version = "^0.4.1"}
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
