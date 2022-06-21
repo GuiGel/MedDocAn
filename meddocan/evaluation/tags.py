@@ -17,18 +17,23 @@
 #             [+]IDTag
 #             [+]OtherTag
 
+from __future__ import annotations
+
 from collections import OrderedDict
+from typing import Any, Callable, Dict, List, Type
+from xml.etree.ElementTree import Element
 
 
-class Tag(object):
+class Tag:
     """Base Tag object"""
 
-    attributes = OrderedDict()
+    attributes: Dict[str, Callable[[str], bool]] = OrderedDict()
+    key: List[str] = []
 
-    def __init__(self, element):
+    def __init__(self, element: Element) -> None:
         self.name = element.tag
         try:
-            self.id = element.attrib["id"]
+            self.id: str = element.attrib["id"]
         except KeyError:
             self.id = ""
 
@@ -44,17 +49,19 @@ class Tag(object):
             and other._get_key() == self._get_key()
         )
 
-    def _key_hash(self):
+    def _key_hash(self) -> int:
         return hash(self._get_key())
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Tag):
+            return NotImplemented
         return self._key_equality(other)
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return self._key_hash()
 
 
-def isint(x):
+def isint(x: Any) -> bool:
     try:
         int(x)
         return True
@@ -78,7 +85,7 @@ class AnnotatorTag(Tag):
 
     key = ["name"]
 
-    def __init__(self, element):
+    def __init__(self, element: Element):
         super(AnnotatorTag, self).__init__(element)
         self.id = None
 
@@ -106,13 +113,13 @@ class AnnotatorTag(Tag):
 
                 setattr(self, k, "")
 
-    def get_start(self):
+    def get_start(self) -> int:
         try:
             return int(self.start)
         except TypeError:
             return self.start
 
-    def get_end(self):
+    def get_end(self) -> int:
         try:
             return int(self.end)
         except TypeError:
@@ -157,6 +164,8 @@ class PHITag(AnnotatorTag):
     attributes["TYPE"] = lambda v: v in PHITag.valid_TYPE
 
     key = AnnotatorTag.key + ["start", "end", "TYPE"]
+
+    tag_types: Dict[str, Type[PHITag]]
 
 
 class NameTag(PHITag):
@@ -235,17 +244,21 @@ class OtherTag(PHITag):
     attributes["TYPE"] = lambda v: v in OtherTag.valid_TYPE
 
 
-PHITag.tag_types = {
-    "PHI": PHITag,
-    "NAME": NameTag,
-    "PROFESSION": ProfessionTag,
-    "LOCATION": LocationTag,
-    "AGE": AgeTag,
-    "DATE": DateTag,
-    "CONTACT": ContactTag,
-    "ID": IDTag,
-    "OTHER": OtherTag,
-}
+setattr(
+    PHITag,
+    "tag_types",
+    {
+        "PHI": PHITag,
+        "NAME": NameTag,
+        "PROFESSION": ProfessionTag,
+        "LOCATION": LocationTag,
+        "AGE": AgeTag,
+        "DATE": DateTag,
+        "CONTACT": ContactTag,
+        "ID": IDTag,
+        "OTHER": OtherTag,
+    },
+)
 
 
 PHI_TAG_CLASSES = [

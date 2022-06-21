@@ -65,12 +65,16 @@
 import argparse
 import os
 from collections import defaultdict
+from typing import Any, Dict, List, Union
 
 from meddocan.evaluation.classes import (BratAnnotation, NER_Evaluation,
                                          Span_Evaluation, i2b2Annotation)
 
 
-def get_document_dict_by_system_id(system_dirs, annotation_format):
+def get_document_dict_by_system_id(
+    system_dirs: List[str],
+    annotation_format: Union[BratAnnotation, i2b2Annotation],
+):
     """Takes a list of directories and returns annotations."""
 
     documents = defaultdict(lambda: defaultdict(int))
@@ -84,7 +88,13 @@ def get_document_dict_by_system_id(system_dirs, annotation_format):
     return documents
 
 
-def evaluate(gs, system, annotation_format, subtrack, **kwargs):
+def evaluate(
+    gs: str,
+    system: List[str],
+    annotation_format: Union[BratAnnotation, i2b2Annotation],
+    subtrack: Union[NER_Evaluation, Span_Evaluation],  # MeddocanEvaluation
+    **kwargs: Dict[str, Any],
+):
     """Evaluate the system by calling either NER_evaluation or Span_Evaluation.
     'system' can be a list containing either one file,  or one or more
     directories. 'gs' can be a file or a directory."""
