@@ -21,7 +21,12 @@ T = TypeVar("T", Ner, PHITag)
 
 
 class Annotation(abc.ABC):
-    def __init__(self, file_name: str, root: str = "root") -> None:
+    def __init__(
+        self,
+        file_name: str,
+        root: str = "root",
+        sentences_loc: str = "samples/annotated_corpora/sentence_splitted/",
+    ) -> None:
         self.text: Optional[str] = None
         self.num_sentences: Optional[int] = None
         self.root = root
@@ -36,6 +41,7 @@ class Annotation(abc.ABC):
         self.parse_text_and_tags(file_name)
         self.parse_text_and_spans(file_name)
         self.file_name = file_name
+        self.sentences_loc = sentences_loc
 
     @property
     def id(self) -> str:
@@ -55,11 +61,7 @@ class Annotation(abc.ABC):
             try:
                 self.num_sentences = sum(
                     1
-                    for line in open(
-                        "annotated_corpora/sentence_splitted/"
-                        + self.doc_id
-                        + ".ann"
-                    )
+                    for line in open(self.sentences_loc + self.doc_id + ".ann")
                 )
             except IOError:
                 print(

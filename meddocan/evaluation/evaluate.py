@@ -65,7 +65,7 @@
 import argparse
 import os
 from collections import defaultdict
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Optional, Union
 
 from meddocan.evaluation.classes import (BratAnnotation, NER_Evaluation,
                                          Span_Evaluation, i2b2Annotation)
@@ -93,6 +93,7 @@ def evaluate(
     system: List[str],
     annotation_format: Union[BratAnnotation, i2b2Annotation],
     subtrack: Union[NER_Evaluation, Span_Evaluation],  # MeddocanEvaluation
+    sentences_loc: Optional[str] = None,
     **kwargs: Dict[str, Any],
 ):
     """Evaluate the system by calling either NER_evaluation or Span_Evaluation.
