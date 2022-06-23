@@ -32,7 +32,7 @@ def generate_evaluation_data(
     - evaluation_root.golds.test.brat.file-1.txt
     - ...
     - evaluation_root.golds.test.brat.file-n.ann
-    - evaluation_root.golds.test.brat.file-n.ann
+    - evaluation_root.golds.test.brat.file-n.txt
     - evaluation_root.name.test.brat
     - evaluation_root.name.test.brat.file-1.ann
     - evaluation_root.name.test.brat.file-1.txt
@@ -47,7 +47,7 @@ def generate_evaluation_data(
 
     Args:
         model (Union[str, Path]): Path to the ``Flair`` model to evaluate.
-        name (str): Name of the folder that will holds the resuts produced by
+        name (str): Name of the folder that will holds the results produced by
             the ``Flair`` model.
         evaluation_root (Union[str, Path]): Path to the root folder where the
             results will be stored.
