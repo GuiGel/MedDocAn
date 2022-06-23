@@ -28,7 +28,7 @@ def cached_path(url_or_filename: str, cache_dir: str | Path) -> Path:
 
     flair.cache_root = meddocan.cache_root
 
-    from flair.data_fetcher import cached_path as flair_cached_path
+    from flair.file_utils import cached_path as flair_cached_path
 
     return flair_cached_path(url_or_filename, cache_dir)
 
