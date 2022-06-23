@@ -2,10 +2,10 @@
 ``flair.models.SequenceTagger`` object.
 
 The evaluation process can then be made using the command line available in the
-converter script `library`_.
+`MEDDOCAN Evaluation Script`_ library.
 
-.. _`library`:
-   https://github.com/PlanTL-GOB-ES/MEDDOCAN-Format-Converter-Script
+.. _`MEDDOCAN Evaluation Script`:
+   https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script
 """
 from pathlib import Path
 from typing import Union
@@ -14,15 +14,15 @@ from meddocan.data import ArchiveFolder
 from meddocan.data.docs_iterators import GsDocs, SysDocs
 
 
-def produce_evaluation_data(
+def eval(
     model: str,
     name: str,
     evaluation_root: Union[str, Path],
     force: bool = False,
 ) -> None:
     """Create the files necessary for the ``evaluation.py'' script to produce
-    the results allowing MEDDOCAN to make a comparison of the results obtained
-    by the different participants.
+    the files that allow the MEDDOCAN team to compare the results obtained by
+    the different participants.
 
     The function produce the following folder hierarchy:
 
@@ -32,7 +32,7 @@ def produce_evaluation_data(
     - evaluation_root.golds.test.brat.file-1.txt
     - ...
     - evaluation_root.golds.test.brat.file-n.ann
-    - evaluation_root.golds.test.brat.file-n.ann
+    - evaluation_root.golds.test.brat.file-n.txt
     - evaluation_root.name.test.brat
     - evaluation_root.name.test.brat.file-1.ann
     - evaluation_root.name.test.brat.file-1.txt
@@ -47,11 +47,11 @@ def produce_evaluation_data(
 
     Args:
         model (Union[str, Path]): Path to the ``Flair`` model to evaluate.
-        name (str): Name of the folder that will holds the resuts produced by
+        name (str): Name of the folder that will holds the results produced by
             the ``Flair`` model.
         evaluation_root (Union[str, Path]): Path to the root folder where the
             results will be stored.
-        force (bool, optional): Force to create agin the golds standard files.
+        force (bool, optional): Force to create again the golds standard files.
             Defaults to False.
     """
     evaluation_root = Path(evaluation_root)
