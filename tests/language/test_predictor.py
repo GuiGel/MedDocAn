@@ -8,7 +8,7 @@ from typing import Iterator, List, Tuple
 from unittest.mock import patch
 
 import pytest
-from flair.data import Label, Sentence
+from flair.data import Sentence
 from spacy.tokens import Doc
 from spacy.vocab import Vocab
 
@@ -54,8 +54,7 @@ def add_tags(sentences: List[Sentence], tags: List[List[Tuple[str, str]]]):
     for flair_sentence, flair_tags in zip(sentences, tags):
         for flair_token, text, value in zip(flair_sentence, *zip(*flair_tags)):
             assert flair_token.text == text
-            label = Label(value)
-            flair_token.add_tag_label("ner", label)
+            flair_token.add_label("ner", value)
 
 
 class TestPredictorComponent:
