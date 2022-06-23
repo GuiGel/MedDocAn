@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-flair = "^0.10"
+flair = "^0.11"
 spacy = "^3.2.3"
 typer = {extras = ["all"], version = "^0.4.1"}
 pandas = "^1.4.2"
