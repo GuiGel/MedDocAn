@@ -14,7 +14,7 @@ from meddocan.data import ArchiveFolder
 from meddocan.data.docs_iterators import GsDocs, SysDocs
 
 
-def generate_evaluation_data(
+def eval(
     model: str,
     name: str,
     evaluation_root: Union[str, Path],

@@ -27,7 +27,7 @@ flair.device = torch.device("cuda:1")
 
 logger = logging.getLogger(__name__)
 
-COMMAND_NAME = "generate-evaluation-data"
+COMMAND_NAME = "eval"
 
 
 class Subtrack(str, Enum):
@@ -35,15 +35,17 @@ class Subtrack(str, Enum):
     SPANS: str = "spans"
 
 
+"""help=(
+    "Generate the files required by the MEDDOCAN Evaluation script to "
+    "perform the model evaluation."
+),"""
+
+
 @app.command(
     name=COMMAND_NAME,
     no_args_is_help=False,
-    help=(
-        "Generate the files required by the MEDDOCAN Evaluation script to "
-        "perform the model evaluation."
-    ),
 )
-def generate_evaluation_data(
+def eval(
     model: str = Arg(..., help="Path to the Flair model to evaluate."),
     name: str = Arg(
         ...,
@@ -52,8 +54,8 @@ def generate_evaluation_data(
             "the ``Flair`` model."
         ),
     ),
-    evaluation_root: Path = Arg(
-        ...,
+    evaluation_root: Path = Opt(
+        default=None,
         help="Path to the root folder where the results will be stored.",
     ),
     sentence_splitting: Path = Opt(
@@ -63,30 +65,54 @@ def generate_evaluation_data(
             "compute the `leak score` evaluation metric."
         ),
     ),
-    force: bool = Opt(
-        default=False,
-        help="Force to create again the golds standard files.",
-    ),
 ) -> None:
-    """Create the files necessary for the ``evaluation.py`` script to produce
-    the files that allow the MEDDOCAN team to compare the results obtained by
-    the different participants.
+    """Evaluate the model with the `meddocan` metrics.
+    
+    Compute f1-score for Ner (start, end, tag), Span (start, end) and merged
+    span if not there is no number or letter between consecutive span.
 
-    The function produce the following folder hierarchy:
+    The function produce the following temporary folder hierarchy:
 
-    - evaluation_root
-    - evaluation_root.golds.test.brat
-    - evaluation_root.golds.test.brat.file-1.ann
-    - evaluation_root.golds.test.brat.file-1.txt
-    - ...
-    - evaluation_root.golds.test.brat.file-n.ann
-    - evaluation_root.golds.test.brat.file-n.ann
-    - evaluation_root.name.test.brat
-    - evaluation_root.name.test.brat.file-1.ann
-    - evaluation_root.name.test.brat.file-1.txt
-    - ...
-    - evaluation_root.name.test.brat.file-n.ann
-    - evaluation_root.name.test.brat.file-n.ann
+    evaluation_root
+    ├── golds
+    │   ├── dev
+    |   |    └── brat
+    |   |       ├── file-1.ann
+    |   |       ├── file-1.txt
+    |   |       ├── ...
+    |   |       └── file-n.ann
+    |   └── test
+    |        └── brat
+    |           ├── file-1.ann
+    |           ├── file-1.txt
+    |           ├── ...
+    |           └── file-n.ann
+    │       
+    └── name
+        ├── dev
+        |    └── brat
+        |       ├── file-1.ann
+        |       ├── file-1.txt
+        |       ├── ...
+        |       └── file-n.ann
+        └── test
+             └── brat
+                ├── file-1.ann
+                ├── file-1.txt
+                ├── ...
+                └── file-n.ann
+
+    Then the model is evaluate producing the following files:
+
+    evaluation_root/name
+    ├── dev
+    │   ├── ner
+    │   └── spans
+    └── test
+        ├── ner
+        └── spans
+
+    And the temporary folder are removed.
 
     Example:
 
@@ -94,10 +120,10 @@ def generate_evaluation_data(
     loading a model?
 
     Args:
-        model (Union[str, Path]): Path to the ``Flair`` model to evaluate.
-        name (str): Name of the folder that will holds the results produced by
+        model (str): Path to the ``Flair`` model to evaluate.
+        name (str): Name of the folder that will holds the results produced by\
             the ``Flair`` model.
-        evaluation_root (Union[str, Path]): Path to the root folder where the
+        evaluation_root (str): Path to the root folder where the
             results will be stored.
         sentence_splitting (Path): Path to the sub-directory
             `sentence_splitting`. This directory is mandatory to compute the
@@ -105,6 +131,9 @@ def generate_evaluation_data(
         force (bool, optional): Force to create again the golds standard files.
             Defaults to False.
     """
+    if evaluation_root is None:
+        evaluation_root = Path(model).parent
+
     # Cf: Evaluation process on web.
     golds_loc = evaluation_root / "golds"
     sys_loc = evaluation_root / f"{name}"
