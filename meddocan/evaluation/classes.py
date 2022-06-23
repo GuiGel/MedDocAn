@@ -1,6 +1,6 @@
 import abc
 import os
-from typing import Any, Dict, List, NamedTuple, Optional, Set, TypeVar, Union
+from typing import Dict, List, NamedTuple, Optional, Set, TypeVar, Union
 from xml.etree import ElementTree
 
 from meddocan.evaluation.tags import PHITag
@@ -114,6 +114,9 @@ class Annotation(abc.ABC):
         Args:
             file_name (str): Name of the file to parse
         """
+
+
+TypeAnnotation = TypeVar("TypeAnnotation", bound=Annotation)
 
 
 class i2b2Annotation(Annotation):
@@ -239,8 +242,8 @@ class Evaluate:
 
     def __init__(
         self,
-        sys_ann: Dict[str, Annotation],
-        gs_ann: Dict[str, Annotation],
+        sys_ann: Dict[str, TypeAnnotation],
+        gs_ann: Dict[str, TypeAnnotation],
     ) -> None:
         # https://stackoverflow.com/questions/58906541/incompatible-types-in-assignment-expression-has-type-listnothing-variabl
         self.tp: Union[List[Set[Ner]], List[Set[Span]]] = []  # type: ignore[assignment]
@@ -255,19 +258,19 @@ class Evaluate:
 
     @staticmethod
     def get_tagset_ner(
-        annotation: Annotation,
+        annotation: TypeAnnotation,
     ) -> List[Ner]:
         return annotation.get_phi()
 
     @staticmethod
     def get_tagset_span(
-        annotation: Annotation,
+        annotation: TypeAnnotation,
     ) -> List[Span]:
         return annotation.get_phi_spans()
 
     @staticmethod
     def get_tagset_span_merged(
-        annotation: Annotation,
+        annotation: TypeAnnotation,
     ) -> List[Span]:
         return annotation.get_phi_spans_merged()
 
@@ -409,8 +412,8 @@ class EvaluateSubtrack1(Evaluate):
 
     def __init__(
         self,
-        sys_sas: Dict[str, Annotation],
-        gs_sas: Dict[str, Annotation],
+        sys_sas: Dict[str, TypeAnnotation],
+        gs_sas: Dict[str, TypeAnnotation],
     ) -> None:
         self.tp: List[Set[Ner]] = []
         self.fp: List[Set[Ner]] = []
@@ -436,7 +439,7 @@ class EvaluateSubtrack1(Evaluate):
             self.doc_ids.append(doc_id)
 
     @staticmethod
-    def get_num_sentences(annotation: Annotation) -> Optional[int]:
+    def get_num_sentences(annotation: TypeAnnotation) -> Optional[int]:
         return annotation.get_number_sentences()
 
     @staticmethod
@@ -532,8 +535,8 @@ class EvaluateSubtrack2(Evaluate):
 
     def __init__(
         self,
-        sys_sas: Dict[str, Annotation],
-        gs_sas: Dict[str, Annotation],
+        sys_sas: Dict[str, TypeAnnotation],
+        gs_sas: Dict[str, TypeAnnotation],
     ):
         self.tp: List[Set[Span]] = []
         self.fp: List[Set[Span]] = []
@@ -560,8 +563,8 @@ class EvaluateSubtrack2merged(Evaluate):
 
     def __init__(
         self,
-        sys_sas: Dict[str, Annotation],
-        gs_sas: Dict[str, Annotation],
+        sys_sas: Dict[str, TypeAnnotation],
+        gs_sas: Dict[str, TypeAnnotation],
     ) -> None:
         self.tp: List[Set[Span]] = []
         self.fp: List[Set[Span]] = []
@@ -627,15 +630,14 @@ class NER_Evaluation(MeddocanEvaluation):
 
     def __init__(
         self,
-        annotator_cas: Dict[str, Annotation],
-        gold_cas: Dict[str, Annotation],
-        **kwargs: Dict[str, Any],
+        annotator_cas: Dict[str, TypeAnnotation],
+        gold_cas: Dict[str, TypeAnnotation],
     ) -> None:
         self.evaluations = []
 
         # Basic Evaluation
         self.add_eval(
-            EvaluateSubtrack1(annotator_cas, gold_cas, **kwargs),
+            EvaluateSubtrack1(annotator_cas, gold_cas),
             label="SubTrack 1 [NER]",
         )
 
@@ -646,18 +648,17 @@ class Span_Evaluation(MeddocanEvaluation):
 
     def __init__(
         self,
-        annotator_cas: Dict[str, Annotation],
-        gold_cas: Dict[str, Annotation],
-        **kwargs: Dict[str, Any],
+        annotator_cas: Dict[str, TypeAnnotation],
+        gold_cas: Dict[str, TypeAnnotation],
     ):
         self.evaluations = []
 
         self.add_eval(
-            EvaluateSubtrack2(annotator_cas, gold_cas, **kwargs),
+            EvaluateSubtrack2(annotator_cas, gold_cas),
             label="SubTrack 2 [strict]",
         )
 
         self.add_eval(
-            EvaluateSubtrack2merged(annotator_cas, gold_cas, **kwargs),
+            EvaluateSubtrack2merged(annotator_cas, gold_cas),
             label="SubTrack 2 [merged]",
         )

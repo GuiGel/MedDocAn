@@ -20,7 +20,7 @@
 from __future__ import annotations
 
 from collections import OrderedDict
-from typing import Any, Callable, Dict, List, Type
+from typing import Any, Callable, Dict, List, Tuple, Type
 from xml.etree.ElementTree import Element
 
 
@@ -37,13 +37,13 @@ class Tag:
         except KeyError:
             self.id = ""
 
-    def _get_key(self):
+    def _get_key(self) -> Tuple[str, ...]:
         key = []
         for k in self.key:
             key.append(getattr(self, k))
         return tuple(key)
 
-    def _key_equality(self, other):
+    def _key_equality(self, other: Tag) -> bool:
         return (
             self._get_key() == other._get_key()
             and other._get_key() == self._get_key()
@@ -76,7 +76,7 @@ class AnnotatorTag(Tag):
     rather than specific positional information.
     """
 
-    attributes = OrderedDict()
+    attributes: Dict[str, Callable[[str], bool]] = OrderedDict()
     attributes["id"] = lambda v: True
     attributes["docid"] = lambda v: True
     attributes["start"] = isint
@@ -87,7 +87,9 @@ class AnnotatorTag(Tag):
 
     def __init__(self, element: Element):
         super(AnnotatorTag, self).__init__(element)
-        self.id = None
+
+        self.start: int
+        self.end: int
 
         for k, validp in self.attributes.items():
             if k in element.attrib.keys():

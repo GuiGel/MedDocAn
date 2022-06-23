@@ -65,19 +65,22 @@
 import argparse
 import os
 from collections import defaultdict
-from typing import Any, Dict, List, Optional, Union
+from typing import DefaultDict, Dict, List, Optional, Type, TypeVar
 
 from meddocan.evaluation.classes import (BratAnnotation, NER_Evaluation,
-                                         Span_Evaluation, i2b2Annotation)
+                                         Span_Evaluation, TypeAnnotation,
+                                         i2b2Annotation)
+
+V = TypeVar("V", NER_Evaluation, Span_Evaluation)
 
 
 def get_document_dict_by_system_id(
     system_dirs: List[str],
-    annotation_format: Union[BratAnnotation, i2b2Annotation],
-):
+    annotation_format: Type[TypeAnnotation],
+) -> Dict[str, Dict[str, TypeAnnotation]]:
     """Takes a list of directories and returns annotations."""
 
-    documents = defaultdict(lambda: defaultdict(int))
+    documents: DefaultDict[str, Dict[str, TypeAnnotation]] = defaultdict(dict)
 
     for d in system_dirs:
         for fn in os.listdir(d):
@@ -89,12 +92,12 @@ def get_document_dict_by_system_id(
 
 
 def evaluate(
-    gs: str,
+    gold: str,
     system: List[str],
-    annotation_format: Union[BratAnnotation, i2b2Annotation],
-    subtrack: Union[NER_Evaluation, Span_Evaluation],  # MeddocanEvaluation
+    annotation_format: Type[TypeAnnotation],
+    subtrack: Type[V],  # MeddocanEvaluation
     sentences_loc: Optional[str] = None,
-    **kwargs: Dict[str, Any],
+    verbose: bool = False,
 ):
     """Evaluate the system by calling either NER_evaluation or Span_Evaluation.
     'system' can be a list containing either one file,  or one or more
@@ -103,37 +106,30 @@ def evaluate(
     gold_ann = {}
     evaluations = []
 
-    # Strip verbose keyword if it exists
-    try:
-        verbose = kwargs["verbose"]
-        del kwargs["verbose"]
-    except KeyError:
-        verbose = False
-
     # Handle if two files were passed on the command line
-    if os.path.isfile(system[0]) and os.path.isfile(gs):
-        if (system[0].endswith(".ann") and gs.endswith(".ann")) or (
-            system[0].endswith(".xml") or gs.endswith(".xml")
+    if os.path.isfile(system[0]) and os.path.isfile(gold):
+        if (system[0].endswith(".ann") and gold.endswith(".ann")) or (
+            system[0].endswith(".xml") or gold.endswith(".xml")
         ):
-            gs = annotation_format(gs)
+            gs = annotation_format(gold)
             sys = annotation_format(system[0])
-            e = subtrack({sys.id: sys}, {gs.id: gs}, **kwargs)
+            e = subtrack({sys.id: sys}, {gs.id: gs})
             e.print_docs()
             evaluations.append(e)
 
     # Handle the case where 'gs' is a directory and 'system' is a list of directories.
-    elif all([os.path.isdir(sys) for sys in system]) and os.path.isdir(gs):
+    elif all([os.path.isdir(sys) for sys in system]) and os.path.isdir(gold):
         # Get a dict of gold annotations indexed by id
 
-        for filename in os.listdir(gs):
+        for filename in os.listdir(gold):
             if filename.endswith(".ann") or filename.endswith(".xml"):
-                annotations = annotation_format(os.path.join(gs, filename))
+                annotations = annotation_format(os.path.join(gold, filename))
                 gold_ann[annotations.id] = annotations
 
         for system_id, system_ann in sorted(
             get_document_dict_by_system_id(system, annotation_format).items()
         ):
-            e = subtrack(system_ann, gold_ann, **kwargs)
+            e = subtrack(system_ann, gold_ann)
             e.print_report(verbose=verbose)
             evaluations.append(e)
 
@@ -171,7 +167,7 @@ if __name__ == "__main__":
     evaluate(
         args.gs_dir,
         args.sys_dir,
-        i2b2Annotation if args.format == "i2b2" else BratAnnotation,
-        NER_Evaluation if args.subtrack == "ner" else Span_Evaluation,
+        i2b2Annotation if args.format == "i2b2" else BratAnnotation,  # type: ignore[misc]
+        NER_Evaluation if args.subtrack == "ner" else Span_Evaluation,  # type: ignore[type-var]
         verbose=args.verbose,
     )
