@@ -192,7 +192,10 @@ doc=Datos del ...)
             logger.info("\n")
 
     def to_connl03(
-        self, file: Union[str, Path], write_sentences: bool = True
+        self,
+        file: Union[str, Path],
+        write_sentences: bool = True,
+        document_separator_token: str = None,
     ) -> None:
         """Method that write the file contains in archive_name arguments to
         the given file at the ConNL03 format.
@@ -227,12 +230,19 @@ doc=Datos del ...)
 
         Args:
             file (Union[str, Path]): _description_
-            write_sentences (bool, optional): _description_. Defaults to True.
+            write_sentences (bool, optional): If True, write each file new line
+                as a `Flair` sentence. If False, glue all the lines of the file
+                as a unique `Flair`sentence. Defaults to True.
+        document_separator_token (str = optional): Separate each document by
+            new line for `Flert` architecture. Defaults to None.
         """
         for i, gs_doc in enumerate(self):
             (mode := "a") if i else (mode := "w")
             gs_doc.doc._.to_connl03(
-                file, mode=mode, write_sentences=write_sentences
+                file,
+                mode=mode,
+                write_sentences=write_sentences,
+                document_separator_token=document_separator_token,
             )
 
     def to_gold_standard(self, parent: Union[str, Path]) -> None:

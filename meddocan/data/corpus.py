@@ -27,10 +27,17 @@ class MEDDOCAN(ColumnCorpus):
             Defaults to False.
         in_memory (bool, optional): Keep the data into memory or not.  
             Defaults to True.
+        document_separator_token (str = optional): Separate each document by
+            new line for `Flert` architecture. Usually *-DOCSTART-* in `FLair`.
+            Defaults to None.
     """
 
     def __init__(
-        self, sentences: bool = False, in_memory: bool = True, **corpusargs
+        self,
+        sentences: bool = False,
+        in_memory: bool = True,
+        document_separator_token: str = None,
+        **corpusargs,
     ) -> None:
         with tempfile.TemporaryDirectory() as tmpdirname:
             for data_pth in (
@@ -44,7 +51,9 @@ class MEDDOCAN(ColumnCorpus):
                 output_pth: Path = Path(tmpdirname) / data_pth.value
                 brat_docs = GsDocs(archive_name=data_pth)
                 brat_docs.to_connl03(
-                    file=output_pth, write_sentences=sentences
+                    file=output_pth,
+                    write_sentences=sentences,
+                    document_separator_token=document_separator_token,
                 )
 
             # Column format.

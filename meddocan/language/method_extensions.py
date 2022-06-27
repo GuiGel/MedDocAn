@@ -62,6 +62,7 @@ class WriteMethods:
         file: Union[str, Path],
         mode: Literal["w", "a"] = "w",
         write_sentences: bool = True,
+        document_separator_token: str = None,
     ) -> None:
         # ----------- Write a Doc to the given file at the CoNLL03 format.
         if isinstance(file, str):
@@ -99,7 +100,7 @@ class WriteMethods:
                 if write_sentences:
                     line = "\n"
                 else:
-                    line = "\\n O"
+                    line = "\\n O\n"
                 lines.append(line)
 
             if write_sentences:
@@ -107,6 +108,9 @@ class WriteMethods:
             else:
                 joined_lines = "".join((*lines, "\n"))
                 f.write(joined_lines)
+            if document_separator_token is not None:
+                document_separator_line = f"{document_separator_token} O\n\n"
+                f.write(document_separator_line)
 
     @staticmethod
     def __doc_to_ann(doc: Doc, file: Union[str, Path]) -> None:
