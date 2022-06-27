@@ -30,7 +30,11 @@ docs/source/api/generated
 /developement
 /evaluation
 /docs
+/_experiments
+/experiments
 
 # models and results
 *.pt
 *weights.txt
+*dev.tsv
+*test.tsv
