@@ -62,7 +62,7 @@ class PredictorComponent:
         Returns:
             flair.data.Sentence: The obtained Flair sentence.
         """
-        flair_sentence = flair.data.Sentence()
+        flair_sentence = flair.data.Sentence("")
         flair_sentence.language_code = "es"
         flair_sentence.start_pos = spacy_sentence.start_char
         flair_tokens: List[flair.data.Token] = []
