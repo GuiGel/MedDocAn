@@ -11,9 +11,12 @@ class Parameter(Enum):
     WORD_DROPOUT = "word_dropout"
     LOCKED_DROPOUT = "locked_dropout"
     LEARNING_RATE = "learning_rate"
+    WARMUP_FRACTION = "warmup_fraction"
     MINI_BATCH_SIZE = "mini_batch_size"
     ANNEAL_FACTOR = "anneal_factor"
     ANNEAL_WITH_RESTARTS = "anneal_with_restarts"
+    ANNEAL_WITH_PRESTARTS = "anneal_with_prestarts"
+    BATCH_GROWTH_ANNEALING = "batch_growth_annealing"
     PATIENCE = "patience"
     OPTIMIZER = "optimizer"
     MOMENTUM = "momentum"
@@ -26,6 +29,7 @@ class Parameter(Enum):
     TRANSFORMER_MODEL = "model"
     LAYERS = "LAYERS"
     SCHEDULER = "scheduler"
+    USE_AMP = "use_amp"
 
 
 TRAINING_PARAMETERS = [
@@ -43,6 +47,10 @@ TRAINING_PARAMETERS = [
     Parameter.BETAS.value,
     Parameter.EPS.value,
     Parameter.SCHEDULER.value,
+    Parameter.WARMUP_FRACTION.value,
+    Parameter.ANNEAL_WITH_PRESTARTS.value,
+    Parameter.BATCH_GROWTH_ANNEALING.value,
+    Parameter.USE_AMP.value,
 ]
 
 
