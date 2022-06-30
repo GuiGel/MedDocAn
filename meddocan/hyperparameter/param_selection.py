@@ -2,7 +2,7 @@ import logging
 from abc import abstractmethod
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, Union
+from typing import Any, Dict, NamedTuple, Union
 
 import flair.nn
 import numpy as np
@@ -14,7 +14,8 @@ from hyperopt import fmin, hp, tpe
 
 from meddocan.hyperparameter.parameter import (SEQUENCE_TAGGER_PARAMETERS,
                                                TRAINING_PARAMETERS, Parameter)
-from meddocan.hyperparameter.utils import get_tensorboard_dirname
+from meddocan.hyperparameter.utils import (get_model_card,
+                                           get_tensorboard_dirname)
 
 log = logging.getLogger("flair")
 
@@ -22,6 +23,12 @@ log = logging.getLogger("flair")
 class OptimizationValue(Enum):
     DEV_LOSS = "loss"
     DEV_SCORE = "score"
+
+
+class HpMetrics(NamedTuple):
+    hp_dev_score: int
+    hp_dev_score_var: int
+    hp_test_score: int
 
 
 class SearchSpace(object):
@@ -44,6 +51,7 @@ class ParamSelector(object):
         evaluation_metric: EvaluationMetric,
         training_runs: int,
         optimization_value: OptimizationValue,
+        tensorboard_logdir: str = None,
     ) -> None:
         if isinstance(base_path, str):
             base_path = Path(base_path)
@@ -59,6 +67,7 @@ class ParamSelector(object):
         self.param_selection_file = init_output_file(
             base_path, "param_selection.txt"
         )
+        self.tensorboard_logdir = tensorboard_logdir
 
     @abstractmethod
     def _set_up_model(self, params: dict) -> flair.nn.Model:
@@ -95,7 +104,11 @@ class ParamSelector(object):
 
             trainer: ModelTrainer = ModelTrainer(model, self.corpus)
 
-            tbd_base_dir = self.base_path / "tensorboard_logdir"
+            if self.tensorboard_logdir is not None:
+                tbd_base_dir = self.base_path / self.tensorboard_logdir
+            else:
+                tbd_base_dir = self.base_path
+
             tbd_training_name = get_tensorboard_dirname(params)
             tbd_log_dir = tbd_base_dir / tbd_training_name
 
@@ -129,7 +142,11 @@ class ParamSelector(object):
                 comment=tensorboard_comment,
             ) as writer:
 
-                # ------ Take the average over the last three scores of training
+                # ------- Write model card
+                model_card = get_model_card(trainer.model)
+                writer.add_text("model_card", model_card)
+
+                # ------ Average the last three training scores
                 if self.optimization_value == OptimizationValue.DEV_LOSS:
                     curr_scores = result["dev_loss_history"][-3:]
                 else:
@@ -138,7 +155,7 @@ class ParamSelector(object):
                     )
 
                 # ----- Compute scores for the current training run
-                score = sum(curr_scores) / float(len(curr_scores))
+                score = np.mean(curr_scores)
                 var = np.var(curr_scores)
                 scores.append(score)
                 vars.append(var)
@@ -157,17 +174,11 @@ class ParamSelector(object):
 
                 # ----- Hyperopt minimize
                 if self.optimization_value != OptimizationValue.DEV_LOSS:
-                    metrics_dict = {
-                        "score_dev": 1 - score,
-                        "score_dev_var": var,
-                        "score_test": result["test_score"],
-                    }
+                    hp_metrics = HpMetrics(
+                        1 - score, var, result["test_score"]
+                    )
                 else:
-                    metrics_dict = {
-                        "score_dev": score,
-                        "score_dev_var": var,
-                        "test_score": result["test_score"],
-                    }
+                    hp_metrics = HpMetrics(score, var, result["test_score"])
 
                 # for epoch, epoch_loss in enumerate(result["dev_loss_history"]):
                 #     writer.add_scalar("dev_loss", epoch_loss, epoch + 1)
@@ -177,20 +188,16 @@ class ParamSelector(object):
                 # ----- Add hyperparameters to tensorboard
                 writer.add_hparams(
                     get_hparam_dict(params),
-                    metrics_dict,
+                    hp_metrics._asdict(),
                     run_name=f"run_{i}",
                 )
 
         # ------ Take average over the scores from the different training runs
-        final_score = sum(scores) / float(len(scores))
-        final_var = sum(vars) / float(len(vars))
+        final_score = np.mean(scores)
+        final_var = np.var(scores)
         final_test_score = sum(test_score) / float(len(test_score))
 
-        metrics_dict = {
-            "score_dev": 1 - final_score,
-            "score_dev_var": final_var,
-            "test_score": final_test_score,
-        }
+        hp_metrics = HpMetrics(1 - final_score, final_var, final_test_score)
 
         # ----- Write the final runs result to tensorboard
 
@@ -200,7 +207,7 @@ class ParamSelector(object):
         ) as writer:
             writer.add_hparams(
                 get_hparam_dict(params),
-                metrics_dict,
+                hp_metrics._asdict(),
                 run_name="final",
             )
 
@@ -270,6 +277,7 @@ class SequenceTaggerParamSelector(ParamSelector):
         evaluation_metric: EvaluationMetric = EvaluationMetric.MICRO_F1_SCORE,
         training_runs: int = 1,
         optimization_value: OptimizationValue = OptimizationValue.DEV_LOSS,
+        tensorboard_logdir: str = None,
     ) -> None:
         """
         :param corpus: the corpus
@@ -279,6 +287,9 @@ class SequenceTaggerParamSelector(ParamSelector):
         :param evaluation_metric: evaluation metric used during training
         :param training_runs: number of training runs per evaluation run
         :param optimization_value: value to optimize
+        :param tensorboard_logdir: Tensorboard log folder name. The logs are
+            located in base_path / tensorboard_logdir if a logdir is given
+            else base_path directly.
         """
         super().__init__(
             corpus,
@@ -287,6 +298,7 @@ class SequenceTaggerParamSelector(ParamSelector):
             evaluation_metric,
             training_runs,
             optimization_value,
+            tensorboard_logdir=tensorboard_logdir,
         )
 
         self.tag_type = tag_type

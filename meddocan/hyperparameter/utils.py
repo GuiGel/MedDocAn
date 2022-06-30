@@ -2,6 +2,7 @@ from typing import Any, Dict, List
 
 from click import BadParameter
 from flair.embeddings import StackedEmbeddings
+from flair.nn.model import Model
 
 from meddocan.hyperparameter.parameter import Parameter
 
@@ -49,3 +50,37 @@ def get_tensorboard_dirname(params: Dict[str, Any]) -> str:
         names.append(name)
 
     return "_".join(names)
+
+
+def get_model_card(model: Model) -> str:
+    if hasattr(model, "model_card"):
+        param_out = "\n------------------------------------\n"
+        param_out += "--------- Flair Model Card ---------\n"
+        param_out += "------------------------------------\n"
+        param_out += "- this Flair model was trained with:  \n"
+        param_out += f"- Flair version {model.model_card['flair_version']}\n"
+        param_out += (
+            f"- PyTorch version {model.model_card['pytorch_version']}\n"
+        )
+        if "transformers_version" in model.model_card:
+            param_out += (
+                "- Transformers version "
+                f"{model.model_card['transformers_version']}\n"
+            )
+        param_out += "------------------------------------\n"
+
+        param_out += "------- Training Parameters: -------\n"
+        param_out += "------------------------------------\n"
+        training_params = "\n".join(
+            f'- {param} = {model.model_card["training_parameters"][param]}'
+            for param in model.model_card["training_parameters"]
+        )
+        param_out += training_params + "\n"
+        param_out += "------------------------------------\n"
+
+    else:
+        param_out = (
+            "This model has no model card (likely because it is not yet "
+            "trained or was trained with Flair version < 0.9.1)"
+        )
+    return param_out
