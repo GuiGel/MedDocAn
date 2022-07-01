@@ -7,6 +7,7 @@ from typing import Any, Dict, NamedTuple, Union
 import flair.nn
 import numpy as np
 from flair.data import Corpus
+from flair.embeddings import StackedEmbeddings
 from flair.models import SequenceTagger
 from flair.trainers import ModelTrainer
 from flair.training_utils import EvaluationMetric, init_output_file, log_line
@@ -51,7 +52,7 @@ class ParamSelector(object):
         evaluation_metric: EvaluationMetric,
         training_runs: int,
         optimization_value: OptimizationValue,
-        tensorboard_logdir: str = None,
+        tensorboard_logdir: Union[str, Path] = None,
     ) -> None:
         if isinstance(base_path, str):
             base_path = Path(base_path)
@@ -104,10 +105,10 @@ class ParamSelector(object):
 
             trainer: ModelTrainer = ModelTrainer(model, self.corpus)
 
-            if self.tensorboard_logdir is not None:
-                tbd_base_dir = self.base_path / self.tensorboard_logdir
+            if self.tensorboard_logdir is None:
+                tbd_base_dir = self.base_path / "tensorboard_logdir"
             else:
-                tbd_base_dir = self.base_path
+                tbd_base_dir = self.tensorboard_logdir
 
             tbd_training_name = get_tensorboard_dirname(params)
             tbd_log_dir = tbd_base_dir / tbd_training_name
@@ -131,7 +132,7 @@ class ParamSelector(object):
                     ("macro avg", "precision"),
                     ("macro avg", "recall"),
                 ],
-                embeddings_storage_mode="cpu",
+                embeddings_storage_mode="gpu",
                 **training_params,
             )
 
@@ -165,10 +166,30 @@ class ParamSelector(object):
                 def get_hparam_dict(params) -> dict:
                     hparam_dict = {}
                     for key, val in params.items():
-                        if not type(val) in [str, int, float]:
-                            _val = str(params[key])
-                        else:
+                        if type(val) in [str, int, float]:
                             _val = val
+                        else:
+                            if hasattr(val, "__name__"):
+                                _val = val.__name__
+                            elif hasattr(val, "name"):
+
+                                def get_emb_name(emb):
+                                    return emb.name.split("/")[-1]
+
+                                if isinstance(val, StackedEmbeddings):
+                                    e = ", ".join(
+                                        [
+                                            f"{i}_{get_emb_name(emb)}"
+                                            for i, emb in enumerate(
+                                                val.embeddings
+                                            )
+                                        ]
+                                    )
+                                    _val = f"{val.name}({e})"
+                                else:
+                                    _val = f"{get_emb_name(val)}"
+                            else:
+                                _val = val
                         hparam_dict[key] = str(_val)
                     return hparam_dict
 
@@ -277,7 +298,7 @@ class SequenceTaggerParamSelector(ParamSelector):
         evaluation_metric: EvaluationMetric = EvaluationMetric.MICRO_F1_SCORE,
         training_runs: int = 1,
         optimization_value: OptimizationValue = OptimizationValue.DEV_LOSS,
-        tensorboard_logdir: str = None,
+        tensorboard_logdir: Union[str, Path] = None,
     ) -> None:
         """
         :param corpus: the corpus
@@ -288,8 +309,8 @@ class SequenceTaggerParamSelector(ParamSelector):
         :param training_runs: number of training runs per evaluation run
         :param optimization_value: value to optimize
         :param tensorboard_logdir: Tensorboard log folder name. The logs are
-            located in base_path / tensorboard_logdir if a logdir is given
-            else base_path directly.
+            located in base_path / tensorboard_logdir if a not `logdir` is
+            given else use tensorboard_logdir.
         """
         super().__init__(
             corpus,
