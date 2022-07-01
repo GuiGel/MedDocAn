@@ -6,6 +6,7 @@ class Parameter(Enum):
     HIDDEN_SIZE = "hidden_size"
     USE_CRF = "use_crf"
     USE_RNN = "use_rnn"
+    REPROJECT_EMBEDDINGS = "reproject_embeddings"
     RNN_LAYERS = "rnn_layers"
     DROPOUT = "dropout"
     WORD_DROPOUT = "word_dropout"
@@ -30,6 +31,9 @@ class Parameter(Enum):
     LAYERS = "LAYERS"
     SCHEDULER = "scheduler"
     USE_AMP = "use_amp"
+    MINI_BATCH_CHUNK_SIZE = "mini_batch_chunk_size"
+    NUM_WORKERS = "num_workers"
+    EMBEDDINGS_STORAGE_MODE = "embeddings_storage_mode"
 
 
 TRAINING_PARAMETERS = [
@@ -51,6 +55,9 @@ TRAINING_PARAMETERS = [
     Parameter.ANNEAL_WITH_PRESTARTS.value,
     Parameter.BATCH_GROWTH_ANNEALING.value,
     Parameter.USE_AMP.value,
+    Parameter.MINI_BATCH_CHUNK_SIZE.value,
+    Parameter.NUM_WORKERS.value,
+    Parameter.EMBEDDINGS_STORAGE_MODE.value,
 ]
 
 
@@ -63,6 +70,7 @@ SEQUENCE_TAGGER_PARAMETERS = [
     Parameter.DROPOUT.value,
     Parameter.LOCKED_DROPOUT.value,
     Parameter.WORD_DROPOUT.value,
+    Parameter.REPROJECT_EMBEDDINGS.value,
 ]
 
 
