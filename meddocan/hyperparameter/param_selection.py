@@ -132,7 +132,6 @@ class ParamSelector(object):
                     ("macro avg", "precision"),
                     ("macro avg", "recall"),
                 ],
-                embeddings_storage_mode="gpu",
                 **training_params,
             )
 

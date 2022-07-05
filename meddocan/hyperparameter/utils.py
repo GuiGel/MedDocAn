@@ -4,7 +4,7 @@ from click import BadParameter
 from flair.embeddings import StackedEmbeddings
 from flair.nn.model import Model
 
-from meddocan.hyperparameter.parameter import Parameter
+from meddocan.hyperparameter.parameter import Parameter, ParameterName
 
 
 def get_tensorboard_dirname(params: Dict[str, Any]) -> str:
@@ -27,27 +27,32 @@ def get_tensorboard_dirname(params: Dict[str, Any]) -> str:
                 f"Key must be in one of {admissible_params}."
             )
 
-        if hasattr(v, "__name__"):
-            name = f"{k}_{v.__name__}"
-        elif hasattr(v, "name"):
+        k = getattr(ParameterName, k).value  # reduce k length
 
-            def get_emb_name(emb):
-                return emb.name.split("/")[-1]
+        # ---- Included only the ParameterName that are not None
+        if k is not None:
 
-            if isinstance(v, StackedEmbeddings):
-                e = ", ".join(
-                    [
-                        f"{i}_{get_emb_name(emb)}"
-                        for i, emb in enumerate(v.embeddings)
-                    ]
-                )
-                name = f"{k}_{v.name}({e})"
+            if hasattr(v, "__name__"):
+                name = f"{k}_{v.__name__}"
+            elif hasattr(v, "name"):
+
+                def get_emb_name(emb):
+                    return emb.name.split("/")[-1]
+
+                if isinstance(v, StackedEmbeddings):
+                    e = ", ".join(
+                        [
+                            f"{i}_{get_emb_name(emb)}"
+                            for i, emb in enumerate(v.embeddings)
+                        ]
+                    )
+                    name = f"{k}_{v.name}({e})"
+                else:
+                    name = f"{k}_{get_emb_name(v)}"
             else:
-                name = f"{k}_{get_emb_name(v)}"
-        else:
-            name = f"{k}_{v}"
+                name = f"{k}_{v}"
 
-        names.append(name)
+            names.append(name)
 
     return "_".join(names)
 

@@ -36,6 +36,41 @@ class Parameter(Enum):
     EMBEDDINGS_STORAGE_MODE = "embeddings_storage_mode"
 
 
+class ParameterName(Enum):
+    embeddings = "emb"
+    hidden_size = "hdn_sz"
+    use_crf = "use_crf"
+    use_rnn = "use_rnn"
+    reproject_embeddings = "pjct_emb"
+    rnn_layers = "rnn_ly"
+    dropout = "dpt"
+    word_dropout = "wd_dpt"
+    locked_dropout = "lck_dpt"
+    learning_rate = "lr"
+    warmup_fraction = "wup"
+    mini_batch_size = "bs"
+    anneal_factor = "an_fr"
+    anneal_with_restarts = "an_wh_rs"
+    anneal_with_prestarts = "an_wh_ps"
+    batch_growth_annealing = "bs_gh_an"
+    patience = "pa"
+    optimizer = "opti"
+    momentum = "momentum"
+    dampening = "damp"
+    weight_decay = "wt_dcy"
+    nesterov = "nstv"
+    amsgrad = "amsgd"
+    betas = "betas"
+    eps = "eps"
+    model = "model"
+    LAYERS = "LAYERS"
+    scheduler = "sdl"
+    use_amp = "amp"
+    mini_batch_chunk_size = None
+    num_workers = None
+    embeddings_storage_mode = None
+
+
 TRAINING_PARAMETERS = [
     Parameter.LEARNING_RATE.value,
     Parameter.MINI_BATCH_SIZE.value,
@@ -78,3 +113,6 @@ TEXT_CLASSIFICATION_PARAMETERS = [
     Parameter.LAYERS.value,
     Parameter.TRANSFORMER_MODEL.value,
 ]
+
+if __name__ == "__main__":
+    print(getattr(ParameterName, "mini_batch_size").value)
