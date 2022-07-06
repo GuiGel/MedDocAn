@@ -114,8 +114,7 @@ class WriteMethods:
 
     @staticmethod
     def __doc_to_ann(doc: Doc, file: Union[str, Path]) -> None:
-        # To avoid circular import
-        from meddocan.data.utils import doc_to_ann
+        from meddocan.data.utils import doc_to_ann  # To avoid circular import
 
         doc_to_ann(doc, file)
 
