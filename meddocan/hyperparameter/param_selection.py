@@ -48,7 +48,6 @@ class ParamSelector(object):
         self,
         corpus: Corpus,
         base_path: Union[str, Path],
-        max_epochs: int,
         evaluation_metric: EvaluationMetric,
         training_runs: int,
         optimization_value: OptimizationValue,
@@ -58,7 +57,7 @@ class ParamSelector(object):
             base_path = Path(base_path)
 
         self.corpus = corpus
-        self.max_epochs = max_epochs
+        # self.max_epochs = max_epochs
         self.base_path = base_path
         self.evaluation_metric = evaluation_metric
         self.run = 1
@@ -119,7 +118,6 @@ class ParamSelector(object):
 
             result = trainer.train(
                 self.base_path,
-                max_epochs=self.max_epochs,
                 param_selection_mode=True,
                 tensorboard_comment=tensorboard_comment,
                 use_tensorboard=True,
@@ -293,7 +291,6 @@ class SequenceTaggerParamSelector(ParamSelector):
         corpus: Corpus,
         tag_type: str,
         base_path: Union[str, Path],
-        max_epochs: int = 50,
         evaluation_metric: EvaluationMetric = EvaluationMetric.MICRO_F1_SCORE,
         training_runs: int = 1,
         optimization_value: OptimizationValue = OptimizationValue.DEV_LOSS,
@@ -314,7 +311,6 @@ class SequenceTaggerParamSelector(ParamSelector):
         super().__init__(
             corpus,
             base_path,
-            max_epochs,
             evaluation_metric,
             training_runs,
             optimization_value,

@@ -34,6 +34,7 @@ class Parameter(Enum):
     MINI_BATCH_CHUNK_SIZE = "mini_batch_chunk_size"
     NUM_WORKERS = "num_workers"
     EMBEDDINGS_STORAGE_MODE = "embeddings_storage_mode"
+    MAX_EPOCHS = "max_epochs"
 
 
 class ParameterName(Enum):
@@ -69,6 +70,7 @@ class ParameterName(Enum):
     mini_batch_chunk_size = None
     num_workers = None
     embeddings_storage_mode = None
+    max_epochs = "it"
 
 
 TRAINING_PARAMETERS = [
@@ -93,6 +95,7 @@ TRAINING_PARAMETERS = [
     Parameter.MINI_BATCH_CHUNK_SIZE.value,
     Parameter.NUM_WORKERS.value,
     Parameter.EMBEDDINGS_STORAGE_MODE.value,
+    Parameter.MAX_EPOCHS.value,
 ]
 
 
