@@ -25,7 +25,7 @@ class TokenElements:
 
 
 @dataclass
-class DocElements:
+class MockDoc:
     tokens: List[TokenElements]
     """``spacy.tokens.Doc`` raw tokens attribute"""
 
@@ -33,7 +33,7 @@ class DocElements:
         """Create a ``spacy.tokens.Doc``.
 
         Returns:
-            Doc: The doc created from ``DocElements.tokens``attribute.
+            Doc: The doc created from ``MockDoc.tokens``attribute.
         """
         words = [t.word for t in self.tokens]
 
@@ -50,8 +50,8 @@ class DocElements:
         )
 
 
-class TestDocElements:
-    """Test :class:`DocElements`."""
+class TestMockDoc:
+    """Test :class:`MockDoc`."""
 
     @pytest.mark.parametrize(
         argnames="tokens, expected_text, expected_sents, expected_ents",
@@ -101,21 +101,17 @@ class TestDocElements:
         if expected_ents is not None:
             _expected_ents = expected_ents
 
-        doc = DocElements(tokens).get_spacy_doc()
+        doc = MockDoc(tokens).get_spacy_doc()
 
         # text spaces and str are rendered correctly
         assert doc.text == expected_text
 
         # sentences are correct
-        for found_sent, expected_sent in it.zip_longest(
-            doc.sents, _expected_sents
-        ):
+        for found_sent, expected_sent in it.zip_longest(doc.sents, _expected_sents):
             assert found_sent.text == expected_sent
 
         # entities are correct
-        for found_ent, expected_ent in it.zip_longest(
-            doc.ents, _expected_ents
-        ):
+        for found_ent, expected_ent in it.zip_longest(doc.ents, _expected_ents):
             assert found_ent.text == expected_ent
 
 
@@ -201,7 +197,7 @@ class TestWriteMethods:
         expected: Tuple[str, ...],
     ) -> None:
 
-        doc = DocElements(tokens).get_spacy_doc()
+        doc = MockDoc(tokens).get_spacy_doc()
 
         m = mock_open()
         with patch("pathlib.Path.open", m):
