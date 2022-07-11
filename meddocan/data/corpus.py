@@ -67,6 +67,7 @@ class MEDDOCAN(ColumnCorpus):
                 column_format=columns,
                 tag_to_bioes="ner",
                 in_memory=in_memory,
+                document_separator_token=document_separator_token,
                 **corpusargs,
             )
 
