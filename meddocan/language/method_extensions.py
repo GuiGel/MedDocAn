@@ -19,7 +19,7 @@ found in the |spaCy| documentation `Creating custom pipeline components`_.
 """
 import codecs
 from pathlib import Path
-from typing import Callable, List, Literal, Union
+from typing import Callable, List, Literal, Optional, Union
 
 import spacy.tokens
 from spacy.language import Language
@@ -62,7 +62,7 @@ class WriteMethods:
         file: Union[str, Path],
         mode: Literal["w", "a"] = "w",
         write_sentences: bool = True,
-        document_separator_token: str = None,
+        document_separator_token: Optional[str] = None,
     ) -> None:
         # ----------- Write a Doc to the given file at the CoNLL03 format.
         if isinstance(file, str):

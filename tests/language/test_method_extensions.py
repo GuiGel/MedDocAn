@@ -26,7 +26,7 @@ class TokenElements:
 
 @dataclass
 class DocElements:
-    tokens: Optional[List[TokenElements]]
+    tokens: List[TokenElements]
     """``spacy.tokens.Doc`` raw tokens attribute"""
 
     def get_spacy_doc(self) -> Doc:
@@ -35,17 +35,19 @@ class DocElements:
         Returns:
             Doc: The doc created from ``DocElements.tokens``attribute.
         """
-        if self.tokens is not None:
-            words = [t.word for t in self.tokens]
-            return Doc(
-                Vocab(strings=words),
-                words=words,
-                spaces=[t.space for t in self.tokens],
-                sent_starts=[t.sent_start for t in self.tokens],
-                ents=[t.iob for t in self.tokens],
-            )
-        else:
-            return Doc()
+        words = [t.word for t in self.tokens]
+
+        spaces = None
+        if None not in (_spaces := [t.space for t in self.tokens]):
+            spaces = _spaces
+
+        return Doc(
+            Vocab(strings=words),
+            words=words,
+            spaces=spaces,  # type: ignore[arg-type]
+            sent_starts=[t.sent_start for t in self.tokens],
+            ents=[t.iob for t in self.tokens],
+        )
 
 
 class TestDocElements:
@@ -67,15 +69,19 @@ class TestDocElements:
                     TokenElements(".", False, False),
                 ],
                 "Me llamo Pedro Fuerte! Vivo en Salamanca.",
-                ("Me llamo Pedro Fuerte!", "Vivo en Salamanca."),
-                ("Pedro Fuerte", "Salamanca"),
+                ["Me llamo Pedro Fuerte!", "Vivo en Salamanca."],
+                ["Pedro Fuerte", "Salamanca"],
             ),
             ([TokenElements("Bilbao")], "Bilbao", ("Bilbao",), None),
             (
                 [TokenElements("Bilbao", iob="B-LOC")],
                 "Bilbao",
-                ("Bilbao",),
-                ("Bilbao",),
+                [
+                    "Bilbao",
+                ],
+                [
+                    "Bilbao",
+                ],
             ),
         ),
     )
@@ -83,15 +89,17 @@ class TestDocElements:
         self,
         tokens: List[TokenElements],
         expected_text: str,
-        expected_sents: Optional[Tuple[str, ...]],
-        expected_ents: Optional[Tuple[str, ...]],
+        expected_sents: Optional[List[str]],
+        expected_ents: Optional[List[str]],
     ) -> None:
 
-        if expected_sents is None:
-            expected_sents = []
+        _expected_sents: List[str] = []
+        if expected_sents is not None:
+            _expected_sents = expected_sents
 
-        if expected_ents is None:
-            expected_ents = []
+        _expected_ents: List[str] = []
+        if expected_ents is not None:
+            _expected_ents = expected_ents
 
         doc = DocElements(tokens).get_spacy_doc()
 
@@ -100,12 +108,14 @@ class TestDocElements:
 
         # sentences are correct
         for found_sent, expected_sent in it.zip_longest(
-            doc.sents, expected_sents
+            doc.sents, _expected_sents
         ):
             assert found_sent.text == expected_sent
 
         # entities are correct
-        for found_ent, expected_ent in it.zip_longest(doc.ents, expected_ents):
+        for found_ent, expected_ent in it.zip_longest(
+            doc.ents, _expected_ents
+        ):
             assert found_ent.text == expected_ent
 
 
@@ -126,13 +136,13 @@ class TestWriteMethods:
             ],
         ),
     )
+    @pytest.mark.parametrize("mode", ("a", "w"))
     @pytest.mark.parametrize(
-        argnames="write_sentences, document_separator_token, mode, expected",
+        argnames="write_sentences, document_separator_token, expected",
         argvalues=(
             (
                 True,
                 None,
-                "w",
                 (
                     "Me O\n",
                     "llamo O\n",
@@ -150,7 +160,6 @@ class TestWriteMethods:
             (
                 True,
                 "-DOCSTART-",
-                "w",
                 (
                     "Me O\n",
                     "llamo O\n",
@@ -168,7 +177,6 @@ class TestWriteMethods:
             (
                 False,
                 None,
-                "w",
                 (
                     "Me O\nllamo O\nPedro B-PERS\nFuerte I-PERS\n!"
                     " O\n\\n O\nVivo O\nen O\nSalamanca B-LOC\n. O\n\\n O\n\n"
@@ -177,7 +185,6 @@ class TestWriteMethods:
             (
                 False,
                 "-DOCSTART-",
-                "w",
                 (
                     "Me O\nllamo O\nPedro B-PERS\nFuerte I-PERS\n!"
                     " O\n\\n O\nVivo O\nen O\nSalamanca B-LOC\n. O\n\\n O\n\n"
@@ -191,15 +198,14 @@ class TestWriteMethods:
         write_sentences: bool,
         document_separator_token: Optional[str],
         mode: Literal["w", "a"],
-        expected: Tuple(str, ...),
+        expected: Tuple[str, ...],
     ) -> None:
-        # for doc in docs:
 
         doc = DocElements(tokens).get_spacy_doc()
 
         m = mock_open()
         with patch("pathlib.Path.open", m):
-            WriteMethods._WriteMethods__doc_to_connl03(
+            WriteMethods._WriteMethods__doc_to_connl03(  # type: ignore[attr-defined]  # private method
                 doc,
                 file="file.tsv",
                 write_sentences=write_sentences,
