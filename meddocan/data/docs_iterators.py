@@ -233,8 +233,8 @@ doc=Datos del ...)
             write_sentences (bool, optional): If True, write each file new line
                 as a `Flair` sentence. If False, glue all the lines of the file
                 as a unique `Flair`sentence. Defaults to True.
-        document_separator_token (str = optional): Separate each document by
-            new line for `Flert` architecture. Defaults to None.
+            document_separator_token (str = optional): Separate each document
+                by new line for `Flert` architecture. Defaults to None.
         """
         for i, gs_doc in enumerate(self):
             (mode := "a") if i else (mode := "w")

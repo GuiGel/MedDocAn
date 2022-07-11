@@ -107,11 +107,15 @@ class TestMockDoc:
         assert doc.text == expected_text
 
         # sentences are correct
-        for found_sent, expected_sent in it.zip_longest(doc.sents, _expected_sents):
+        for found_sent, expected_sent in it.zip_longest(
+            doc.sents, _expected_sents
+        ):
             assert found_sent.text == expected_sent
 
         # entities are correct
-        for found_ent, expected_ent in it.zip_longest(doc.ents, _expected_ents):
+        for found_ent, expected_ent in it.zip_longest(
+            doc.ents, _expected_ents
+        ):
             assert found_ent.text == expected_ent
 
 

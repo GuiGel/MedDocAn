@@ -1,19 +1,14 @@
-from turtle import right
-from typing import List, Iterator, Tuple, Union
-from unittest.mock import patch, Mock
-import pytest
+"""Module where we test that the MEDDOCAN corpus implementation is correct.
+"""
+from typing import List, Tuple, Union
+from unittest.mock import patch
 
+import pytest
 from flair.data import Sentence
 
 from meddocan.data.corpus import MEDDOCAN
+from meddocan.data.docs_iterators import GsDocs
 from tests.language.test_method_extensions import MockDoc, TokenElements
-
-from meddocan.data.docs_iterators import (
-    GsDocs,
-    BratFilesPair,
-    DocWithBratPair,
-    GsDoc,
-)
 
 
 class MockBratDocs:
@@ -33,7 +28,9 @@ class MockBratDocs:
 
 
 class TestMeddocan:
-    """
+    """In order to test if the corpus is implemented correctly,
+    we look at the ``flair.data.Sentence.left_context`` and
+    ``flair.data.Sentence.right_context`` output.
 
     An example of how we can test this class:
     Cf: https://docs.python.org/3/library/unittest.mock.html#patch
