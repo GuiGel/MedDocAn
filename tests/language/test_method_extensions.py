@@ -220,16 +220,16 @@ class TestWriteMethods:
         # Verify that the written lines are the expected ones.
         if write_sentences:
             # Verify that writelines methods is call with the expected lines
-            assert handle.writelines.call_args == call(list(expected))
             if document_separator_token is not None:
                 assert handle.write.call_args == call(
                     f"{document_separator_token} O\n\n"
                 )
+            assert handle.writelines.call_args == call(list(expected))
         else:
             if document_separator_token is not None:
                 assert handle.write.call_args_list == [
-                    call(expected),
                     call(f"{document_separator_token} O\n\n"),
+                    call(expected),
                 ]
             else:
                 assert handle.write.call_args == call(expected)

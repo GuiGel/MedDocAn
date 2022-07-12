@@ -89,6 +89,11 @@ class WriteMethods:
 
         with file.open(mode=mode, encoding="utf-8", newline="\n") as f:
             lines: List[str] = []
+
+            if document_separator_token is not None:
+                document_separator_line = f"{document_separator_token} O\n\n"
+                f.write(document_separator_line)
+
             for sent in doc.sents:
                 for token in sent:
                     if token.is_space:
@@ -108,9 +113,6 @@ class WriteMethods:
             else:
                 joined_lines = "".join((*lines, "\n"))
                 f.write(joined_lines)
-            if document_separator_token is not None:
-                document_separator_line = f"{document_separator_token} O\n\n"
-                f.write(document_separator_line)
 
     @staticmethod
     def __doc_to_ann(doc: Doc, file: Union[str, Path]) -> None:
