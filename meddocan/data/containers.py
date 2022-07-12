@@ -165,9 +165,9 @@ class BratAnnotations(Sized):
         # TODO Talks about the BOM (Byte Ordering Mark). Cf: Fluent Python.
         # Some file contains the BOM and other not. If we remove the BOM
         # Manually or reading file with ``UTF-8-SIG`` encoding, with have
-        # missalignment between the spans and the text entities. This suggest
+        # misalignment between the spans and the text entities. This suggest
         # that the annotations process has been saved on file with BOM.
-        # A solution is to remove the BOM manually when writting file or remove
+        # A solution is to remove the BOM manually when writing file or remove
         # 1 to all the offsets in the corresponding brat_span.
 
         text = brat_files_pair.txt.read_text(encoding="utf-8")
