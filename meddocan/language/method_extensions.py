@@ -19,7 +19,7 @@ found in the |spaCy| documentation `Creating custom pipeline components`_.
 """
 import codecs
 from pathlib import Path
-from typing import Callable, List, Literal, Union
+from typing import Callable, List, Literal, Optional, Union
 
 import spacy.tokens
 from spacy.language import Language
@@ -62,8 +62,9 @@ class WriteMethods:
         file: Union[str, Path],
         mode: Literal["w", "a"] = "w",
         write_sentences: bool = True,
+        document_separator_token: Optional[str] = None,
     ) -> None:
-        # ----------- Write a Doc to the given file at the CoNLL03 format.
+        # ----------- Write a Doc to the given file at the CoNNL03 format.
         if isinstance(file, str):
             file = Path(file)
 
@@ -88,6 +89,11 @@ class WriteMethods:
 
         with file.open(mode=mode, encoding="utf-8", newline="\n") as f:
             lines: List[str] = []
+
+            if document_separator_token is not None:
+                document_separator_line = f"{document_separator_token} O\n\n"
+                f.write(document_separator_line)
+
             for sent in doc.sents:
                 for token in sent:
                     if token.is_space:
@@ -99,7 +105,7 @@ class WriteMethods:
                 if write_sentences:
                     line = "\n"
                 else:
-                    line = "\\n O"
+                    line = "\\n O\n"
                 lines.append(line)
 
             if write_sentences:
@@ -110,8 +116,7 @@ class WriteMethods:
 
     @staticmethod
     def __doc_to_ann(doc: Doc, file: Union[str, Path]) -> None:
-        # To avoid circular import
-        from meddocan.data.utils import doc_to_ann
+        from meddocan.data.utils import doc_to_ann  # To avoid circular import
 
         doc_to_ann(doc, file)
 
