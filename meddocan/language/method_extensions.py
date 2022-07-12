@@ -64,7 +64,7 @@ class WriteMethods:
         write_sentences: bool = True,
         document_separator_token: Optional[str] = None,
     ) -> None:
-        # ----------- Write a Doc to the given file at the CoNLL03 format.
+        # ----------- Write a Doc to the given file at the CoNNL03 format.
         if isinstance(file, str):
             file = Path(file)
 
