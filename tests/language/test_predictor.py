@@ -96,7 +96,7 @@ def add_tags(sentences: List[Sentence], tags: List[List[Tuple[str, str]]]):
     >>> sentences = [Sentence("Vivo en Bilbo.")]
     >>> add_tags(sentences, [[("Vivo", "O"), ("en", "O"), ("Bilbo", "B-LOC"), (".", "O")]])
     >>> sentences[0].get_labels("ner")
-    [Span[2:3]: "Bilbo" → LOC (1.0)]
+    ['Span[2:3]: "Bilbo"'/'LOC' (1.0)]
 
     Args:
         sentences (List[Sentence]): A list of flair sentence to tag.
@@ -127,8 +127,6 @@ def add_tags(sentences: List[Sentence], tags: List[List[Tuple[str, str]]]):
             span.add_label(
                 "ner", value=predicted_span[2], score=predicted_span[1]
             )
-
-        print(f"{flair_sentence.get_spans('ner')=}")
 
 
 @pytest.mark.parametrize(
