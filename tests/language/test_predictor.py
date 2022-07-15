@@ -7,7 +7,8 @@ from typing import Iterator, List, Literal, Tuple
 from unittest.mock import patch
 
 import pytest
-from flair.data import Sentence
+from flair.data import Sentence, Span
+from flair.models.sequence_tagger_utils.bioes import get_spans_from_bio
 from spacy.tokens import Doc
 from spacy.vocab import Vocab
 
@@ -92,10 +93,10 @@ def add_tags(sentences: List[Sentence], tags: List[List[Tuple[str, str]]]):
 
     Example:
 
-    >>> sentences = [Sentence("Vivo en Bilbo")]
-    >>> add_tags(sentences, [[("Vivo", "O"), ("en", "O"), ("Bilbo", "B-LOC")]])
+    >>> sentences = [Sentence("Vivo en Bilbo.")]
+    >>> add_tags(sentences, [[("Vivo", "O"), ("en", "O"), ("Bilbo", "B-LOC"), (".", "O")]])
     >>> sentences[0].get_labels("ner")
-    [LOC [Bilbao (3)] (1.0)]
+    [Span[2:3]: "Bilbo" → LOC (1.0)]
 
     Args:
         sentences (List[Sentence]): A list of flair sentence to tag.
@@ -104,17 +105,38 @@ def add_tags(sentences: List[Sentence], tags: List[List[Tuple[str, str]]]):
             Each tuple has the form (text, bio_tag-label)
     """
     for flair_sentence, flair_tags in zip(sentences, tags):
-        for flair_token, text, value in zip(flair_sentence, *zip(*flair_tags)):
-            assert flair_token.text == text
-            flair_token.add_label("ner", value)
+        sentence_strings, sentence_tags = zip(*flair_tags)
+
+        # Verify text is set correctly
+        original_sentence_strings = tuple(
+            [t.text for t in flair_sentence.tokens]
+        )
+        assert (
+            original_sentence_strings == sentence_strings
+        ), f"{original_sentence_strings} != {sentence_strings}"
+
+        # Set scores to 1.0 for this test.
+        sentence_scores = [1.0 for _ in flair_tags]
+        predicted_spans = get_spans_from_bio(
+            list(sentence_tags), sentence_scores
+        )
+        for predicted_span in predicted_spans:
+            span: Span = flair_sentence[
+                predicted_span[0][0] : predicted_span[0][-1] + 1
+            ]
+            span.add_label(
+                "ner", value=predicted_span[2], score=predicted_span[1]
+            )
+
+        print(f"{flair_sentence.get_spans('ner')=}")
 
 
 @pytest.mark.parametrize(
     "sentences, tags, expected",
     [
         (
-            [Sentence("Vivo en Bilbao")],
-            [[("Vivo", "O"), ("en", "O"), ("Bilbao", "B-LOC")]],
+            [Sentence("Vivo en Bilbao.")],
+            [[("Vivo", "O"), ("en", "O"), ("Bilbao", "B-LOC"), (".", "O")]],
             "['Span[2:3]: \"Bilbao\"'/'LOC' (1.0)]",
         )
     ],
@@ -125,7 +147,6 @@ def test_add_tags(
     expected: str,
 ) -> None:
     add_tags(sentences, tags)
-    print(sentences)
     assert str(sentences[0].get_labels("ner")) == expected
 
 
