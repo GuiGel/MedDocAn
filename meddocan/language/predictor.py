@@ -109,14 +109,19 @@ class PredictorComponent:
             flair_spans = flair_sentence.get_spans("ner")
             for flair_span in flair_spans:
                 doc_span = doc.char_span(
-                    flair_span[0].start_pos,
-                    flair_span[-1].end_pos,
+                    flair_span.start_position,
+                    flair_span.end_position,
                     flair_span.tag,
                     alignment_mode="strict",
                 )
-                assert (
-                    doc_span.text == flair_span.to_original_text()
-                ), f"{doc_span.text!r} == {flair_span.to_original_text()!r}"
+                # `doc_span.text` doesn't all the times equal to
+                # `flair_span.text` because flair tokens can't be spaces.
+                # That occurs for example if the orignal text is
+                # "Me llamo Ramos   Perez". In this case, the flair tokens
+                # will be ["Me", "llamo", "Ramos", "Perez"] but spacy tokens
+                # are ["Me", "llamo", "Ramos", "  ", "Perez"].
+                # The implementation take care of this too.
+                # The important things is that the `doc_spans` are correct.
                 doc_spans.append(doc_span)
         doc.set_ents(doc_spans)
         return doc

@@ -375,10 +375,13 @@ class TestPredictorComponent:
         docs = get_docs([list(zip(texts, spaces, sents_starts))])
 
         for doc, tags in zip(docs, flair_text_label):
+            print(f"------------ {doc=}")
+            print(f"------------ {tags=}")
             # tag_flair_sentence = partial(add_tags, tags)
             with patch(
                 "meddocan.language.predictor.SequenceTagger"
             ) as MockSequenceTagger:
+
                 # Instantiate the MockSequenceTagger object and set methods
                 mst = MockSequenceTagger.return_value
                 MockSequenceTagger.load.return_value = mst
