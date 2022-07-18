@@ -3,35 +3,88 @@
 """
 from __future__ import annotations
 
-import itertools as it
-from typing import Iterator, List, Tuple
+from typing import Iterator, List, Literal, Tuple
 from unittest.mock import patch
 
 import pytest
-from flair.data import Sentence
+from flair.data import Sentence, Span
+from flair.models.sequence_tagger_utils.bioes import get_spans_from_bio
 from spacy.tokens import Doc
 from spacy.vocab import Vocab
 
 from meddocan.language.predictor import PredictorComponent
 
 
-def get_docs(attrs: List[List[Tuple[str, bool, bool]]]) -> Iterator[Doc]:
-    strings = list(
-        it.chain(
-            *it.islice(
-                it.chain(*map(lambda m: zip(*m), attrs)), None, None, 3
-            ),
-        ),
-    )
+def get_doc(
+    words: List[str],
+    spaces: List[bool],
+    sent_starts: List[Literal[1, -1]],
+) -> None:
+    """Create a ``spacy.tokens.Doc`` object.
 
-    vocab = Vocab(strings=strings)
+    Example:
+
+    >>> words = ["Vivo", "en", "Bilbao", "."]
+    >>> spaces = [True, True, False, False]
+    >>> sent_starts = [True, False, False, False]
+    >>> doc = get_doc(words=words, spaces=spaces, sent_starts=sent_starts)
+    >>> for sent in doc.sents:
+    ...     print(f"{sent=}")
+    sent=Vivo en Bilbao.
+
+    Args:
+        words (List[str]): The words that will be represent as a
+            ``spacy.tokens.Token`` object
+        spaces (List[bool]): The spaces associated with the ``Token``.
+        sent_starts (List[Literal[-1, 1]]): The token is a sentence start or not
+
+    Returns:
+        _type_: _description_
+    """
+    vocab = Vocab(strings=words)
+    doc = Doc(vocab, words=words, spaces=spaces, sent_starts=sent_starts)
+    return doc
+
+
+def get_docs(
+    attrs: List[List[Tuple[str, bool, Literal[-1, 1]]]]
+) -> Iterator[Doc]:
+    """
+
+    Example:
+
+    >>> docs = get_docs(
+    ...     [
+    ...         [
+    ...             ["Vivo", False, 1],
+    ...             ["en", True, -1],
+    ...             ["Bilbao", False, -1],
+    ...             [".", False, -1],
+    ...         ],
+    ...     ]
+    ... )
+    >>> for doc1 in docs:
+    ...     for sent in doc1.sents:
+    ...         print(f"{sent=}")
+    sent=Vivoen Bilbao.
+
+    Args:
+        attrs (List[List[Tuple[str, bool, Literal[-1, 1]]]): Each tuple must
+            contains a string (the future token), a bool indicating if there
+            is a space after the token or not and a literal that indicate if
+            1 that the token is a sentence start and if -1 that no sentence
+            begins.
+
+    Yields:
+        Iterator[Doc]: The created ``spacy.tokens.Doc`` objects.
+    """
     for attr in attrs:
         (
             words,
             spaces,
-            sents_start,
+            sent_starts,
         ) = map(list, zip(*attr))
-        doc = Doc(vocab, words=words, spaces=spaces, sent_starts=sents_start)
+        doc = get_doc(words, spaces, sent_starts)
         yield doc
 
 
@@ -40,10 +93,10 @@ def add_tags(sentences: List[Sentence], tags: List[List[Tuple[str, str]]]):
 
     Example:
 
-    >>> sentences = [Sentence("Vivo en Bilbo")]
-    >>> add_tags(sentences, [[("Vivo", "O"), ("en", "O"), ("Bilbo", "B-LOC")]])
+    >>> sentences = [Sentence("Vivo en Bilbo.")]
+    >>> add_tags(sentences, [[("Vivo", "O"), ("en", "O"), ("Bilbo", "B-LOC"), (".", "O")]])
     >>> sentences[0].get_labels("ner")
-    [LOC [Bilbao (3)] (1.0)]
+    ['Span[2:3]: "Bilbo"'/'LOC' (1.0)]
 
     Args:
         sentences (List[Sentence]): A list of flair sentence to tag.
@@ -52,9 +105,47 @@ def add_tags(sentences: List[Sentence], tags: List[List[Tuple[str, str]]]):
             Each tuple has the form (text, bio_tag-label)
     """
     for flair_sentence, flair_tags in zip(sentences, tags):
-        for flair_token, text, value in zip(flair_sentence, *zip(*flair_tags)):
-            assert flair_token.text == text
-            flair_token.add_label("ner", value)
+        sentence_strings, sentence_tags = zip(*flair_tags)
+
+        # Verify text is set correctly
+        original_sentence_strings = tuple(
+            [t.text for t in flair_sentence.tokens]
+        )
+        assert (
+            original_sentence_strings == sentence_strings
+        ), f"{original_sentence_strings} != {sentence_strings}"
+
+        # Set scores to 1.0 for this test.
+        sentence_scores = [1.0 for _ in flair_tags]
+        predicted_spans = get_spans_from_bio(
+            list(sentence_tags), sentence_scores
+        )
+        for predicted_span in predicted_spans:
+            span: Span = flair_sentence[
+                predicted_span[0][0] : predicted_span[0][-1] + 1
+            ]
+            span.add_label(
+                "ner", value=predicted_span[2], score=predicted_span[1]
+            )
+
+
+@pytest.mark.parametrize(
+    "sentences, tags, expected",
+    [
+        (
+            [Sentence("Vivo en Bilbao.")],
+            [[("Vivo", "O"), ("en", "O"), ("Bilbao", "B-LOC"), (".", "O")]],
+            "['Span[2:3]: \"Bilbao\"'/'LOC' (1.0)]",
+        )
+    ],
+)
+def test_add_tags(
+    sentences: List[Sentence],
+    tags: List[List[Tuple[str, str]]],
+    expected: str,
+) -> None:
+    add_tags(sentences, tags)
+    assert str(sentences[0].get_labels("ner")) == expected
 
 
 class TestPredictorComponent:
@@ -271,9 +362,9 @@ class TestPredictorComponent:
             create a fake model. To create predictions we use the function\
             ``add_tags`` to which we pass the appropriate labels via the\
             ``flair_text_label``\
-        parameter.
+            parameter.
         3. Finally we check that the entities added to the ``Doc`` object are\
-        the ones with the help of the ``expected_ents`` parameter.
+            the expected ones with the help of the ``expected_ents`` parameter.
         """
         # Use flair_text_label to mock prediction with the ``add_tags`` function.
         texts, spaces, sents_starts, labels = zip(
@@ -282,10 +373,13 @@ class TestPredictorComponent:
         docs = get_docs([list(zip(texts, spaces, sents_starts))])
 
         for doc, tags in zip(docs, flair_text_label):
+            print(f"------------ {doc=}")
+            print(f"------------ {tags=}")
             # tag_flair_sentence = partial(add_tags, tags)
             with patch(
                 "meddocan.language.predictor.SequenceTagger"
             ) as MockSequenceTagger:
+
                 # Instantiate the MockSequenceTagger object and set methods
                 mst = MockSequenceTagger.return_value
                 MockSequenceTagger.load.return_value = mst
