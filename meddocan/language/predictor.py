@@ -109,14 +109,11 @@ class PredictorComponent:
             flair_spans = flair_sentence.get_spans("ner")
             for flair_span in flair_spans:
                 doc_span = doc.char_span(
-                    flair_span[0].start_pos,
-                    flair_span[-1].end_pos,
+                    flair_span.start_position,
+                    flair_span.end_position,
                     flair_span.tag,
                     alignment_mode="strict",
                 )
-                assert (
-                    doc_span.text == flair_span.to_original_text()
-                ), f"{doc_span.text!r} == {flair_span.to_original_text()!r}"
                 doc_spans.append(doc_span)
         doc.set_ents(doc_spans)
         return doc
