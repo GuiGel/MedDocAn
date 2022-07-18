@@ -35,22 +35,6 @@ class TestMeddocan:
 
     An example of how we can test this class:
     Cf: https://docs.python.org/3/library/unittest.mock.html#patch
-
-        >>> from unittest.mock import patch
-        >>> class Class:
-        ...     def __iter__(self):
-        ...         for a in [1, 2, 3]:
-        ...             yield a
-        ...
-        >>> def function():
-        ...     return sum(a for a in Class())
-        ...
-        >>> with patch("__main__.Class") as MockClass:
-        ...     instance = MockClass.return_value
-        ...     instance.__iter__.return_value = [1, 2, 3]
-        ...     assert Class() is instance
-        ...     assert [a for a in Class()] == [1, 2, 3]
-        ...     assert function() == 6
     """
 
     @pytest.mark.parametrize(
@@ -192,11 +176,11 @@ class TestMeddocan:
                 For Example:
 
                 >>> expected_contexts = (
-                ... ["Me", "llamo", Bertrand", "."],
-                ... "Vivo en Aix .",
-                ... ["Es", "una", "ciudad", "bonita", "."],
-                ... (2, 3, "LOC"),
-                ... ]
+                ...     ["Me", "llamo", "Bertrand", "."],
+                ...     "Vivo en Aix .",
+                ...     ["Es", "una", "ciudad", "bonita", "."],
+                ...     (2, 3, "LOC"),
+                ... )
         """
         with patch.object(
             GsDocs, "__iter__", new_callable=lambda: MockBratDocs(docs)
