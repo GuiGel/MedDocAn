@@ -41,7 +41,7 @@ def meddocan_pipeline(
     nlp.tokenizer = meddocan_tokenizer(nlp)
     nlp.add_pipe(
         "missaligned_splitter",
-        config={"words": ["NºCol", "Correo", "años", "DR", "\.$", "\n"]},
+        config={"words": ["NºCol", "Correo", "años", "DR", r"\.$", "\n"]},
     )
     nlp.add_pipe("line_sentencizer")
     nlp.add_pipe(
