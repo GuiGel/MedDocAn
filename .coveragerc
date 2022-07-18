@@ -1,0 +1,7 @@
+[run]
+
+source =
+    meddocan
+    tests
+
+parallel = True
