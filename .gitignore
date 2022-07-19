@@ -13,9 +13,6 @@ docs/source/api/generated
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# pyenv
-.python-version
-
 # Environments
 .venv
 
