@@ -1,5 +1,6 @@
-from flair.nn.model import Model as Model
 from typing import Any, Dict
+
+from flair.nn.model import Model as Model
 
 def get_tensorboard_dirname(params: Dict[str, Any]) -> str: ...
 def get_model_card(model: Model) -> str: ...

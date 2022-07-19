@@ -1,10 +1,12 @@
 import abc
 from enum import Enum
-from flair.data import Corpus as Corpus
-from flair.training_utils import EvaluationMetric
-from meddocan.hyperparameter.parameter import Parameter
 from pathlib import Path
 from typing import Any, Callable, NamedTuple, Union
+
+from flair.data import Corpus as Corpus
+from flair.training_utils import EvaluationMetric
+
+from meddocan.hyperparameter.parameter import Parameter
 
 log: Any
 
@@ -20,7 +22,9 @@ class HpMetrics(NamedTuple):
 class SearchSpace:
     search_space: Any
     def __init__(self) -> None: ...
-    def add(self, parameter: Parameter, func: Callable[..., Any], **kwargs) -> None: ...
+    def add(
+        self, parameter: Parameter, func: Callable[..., Any], **kwargs
+    ) -> None: ...
     def get_search_space(self): ...
 
 class ParamSelector(metaclass=abc.ABCMeta):
@@ -32,10 +36,27 @@ class ParamSelector(metaclass=abc.ABCMeta):
     optimization_value: Any
     param_selection_file: Any
     tensorboard_logdir: Any
-    def __init__(self, corpus: Corpus, base_path: Union[str, Path], evaluation_metric: EvaluationMetric, training_runs: int, optimization_value: OptimizationValue, tensorboard_logdir: Union[str, Path] = ...) -> None: ...
+    def __init__(
+        self,
+        corpus: Corpus,
+        base_path: Union[str, Path],
+        evaluation_metric: EvaluationMetric,
+        training_runs: int,
+        optimization_value: OptimizationValue,
+        tensorboard_logdir: Union[str, Path] = ...,
+    ) -> None: ...
     def optimize(self, space: SearchSpace, max_evals: int = ...) -> None: ...
 
 class SequenceTaggerParamSelector(ParamSelector):
     tag_type: Any
     tag_dictionary: Any
-    def __init__(self, corpus: Corpus, tag_type: str, base_path: Union[str, Path], evaluation_metric: EvaluationMetric = ..., training_runs: int = ..., optimization_value: OptimizationValue = ..., tensorboard_logdir: Union[str, Path] = ...) -> None: ...
+    def __init__(
+        self,
+        corpus: Corpus,
+        tag_type: str,
+        base_path: Union[str, Path],
+        evaluation_metric: EvaluationMetric = ...,
+        training_runs: int = ...,
+        optimization_value: OptimizationValue = ...,
+        tensorboard_logdir: Union[str, Path] = ...,
+    ) -> None: ...

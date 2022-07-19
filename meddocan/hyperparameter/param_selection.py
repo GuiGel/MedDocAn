@@ -36,7 +36,9 @@ class SearchSpace(object):
     def __init__(self) -> None:
         self.search_space: Dict[str, Any] = {}
 
-    def add(self, parameter: Parameter, func: Callable[..., Any], **kwargs) -> None:
+    def add(
+        self, parameter: Parameter, func: Callable[..., Any], **kwargs
+    ) -> None:
         self.search_space[parameter.value] = func(parameter.value, **kwargs)
 
     def get_search_space(self):
