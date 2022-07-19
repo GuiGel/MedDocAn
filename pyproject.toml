@@ -54,6 +54,7 @@ addopts = [
 ]
 filterwarnings = [
     "ignore::DeprecationWarning:scipy.*",
+    "ignore::DeprecationWarning:past.*",
     "ignore:numpy.ufunc size changed",
 ]
 
