@@ -179,8 +179,10 @@ def eval(
                 eval_results = evaluate(
                     f"{str(golds_loc)}/{data.value}/brat/",
                     [f"{str(sys_loc)}/{data.value}/brat/"],
-                    sentences_loc=sentence_splitting,  # TODO Create it by default when downloading datas
-                    annotation_format=i2b2Annotation
+                    sentences_loc=str(
+                        sentence_splitting
+                    ),  # TODO Create it by default when downloading datas
+                    annotation_format=i2b2Annotation  # type: ignore  # https://github.com/python/mypy/issues/4717
                     if format == "i2b2"
                     else BratAnnotation,
                     subtrack=NER_Evaluation
@@ -202,7 +204,7 @@ def eval(
                 sys.stdout = original_stdout
 
         # Path to ../test/brat or /dev/brat
-        subfolder = Path(next(iter(sys_docs)).brat_files_pair.txt.at).parent
+        subfolder = Path(next(iter(sys_docs)).brat_files_pair.txt.at).parent  # type: ignore[attr-defined]
         if remove_inference:
             shutil.rmtree(golds_loc)
             shutil.rmtree(sys_loc / subfolder)

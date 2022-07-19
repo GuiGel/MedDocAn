@@ -608,7 +608,11 @@ class EvaluateSubtrack2merged(Evaluate):
 class MeddocanEvaluation:
     """Base class for running the evaluations."""
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        annotator_cas: Dict[str, TypeAnnotation],
+        gold_cas: Dict[str, TypeAnnotation],
+    ) -> None:
         self.evaluations: List[Evaluate] = []
 
     def add_eval(self, e: Evaluate, label: str = "") -> None:

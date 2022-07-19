@@ -2,7 +2,7 @@ import logging
 from abc import abstractmethod
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, NamedTuple, Union
+from typing import Any, Callable, Dict, NamedTuple, Union
 
 import flair.nn
 import numpy as np
@@ -27,16 +27,16 @@ class OptimizationValue(Enum):
 
 
 class HpMetrics(NamedTuple):
-    hp_dev_score: int
-    hp_dev_score_var: int
-    hp_test_score: int
+    hp_dev_score: float
+    hp_dev_score_var: float
+    hp_test_score: float
 
 
 class SearchSpace(object):
     def __init__(self) -> None:
-        self.search_space = {}
+        self.search_space: Dict[str, Any] = {}
 
-    def add(self, parameter: Parameter, func, **kwargs) -> None:
+    def add(self, parameter: Parameter, func: Callable[..., Any], **kwargs) -> None:
         self.search_space[parameter.value] = func(parameter.value, **kwargs)
 
     def get_search_space(self):
@@ -107,7 +107,7 @@ class ParamSelector(object):
             if self.tensorboard_logdir is None:
                 tbd_base_dir = self.base_path / "tensorboard_logdir"
             else:
-                tbd_base_dir = self.tensorboard_logdir
+                tbd_base_dir = Path(self.tensorboard_logdir)
 
             tbd_training_name = get_tensorboard_dirname(params)
             tbd_log_dir = tbd_base_dir / tbd_training_name

@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Any, List
 
 
 class Parameter(Enum):
@@ -73,7 +74,7 @@ class ParameterName(Enum):
     max_epochs = "it"
 
 
-TRAINING_PARAMETERS = [
+TRAINING_PARAMETERS: List[str] = [
     Parameter.LEARNING_RATE.value,
     Parameter.MINI_BATCH_SIZE.value,
     Parameter.OPTIMIZER.value,
@@ -99,7 +100,7 @@ TRAINING_PARAMETERS = [
 ]
 
 
-SEQUENCE_TAGGER_PARAMETERS = [
+SEQUENCE_TAGGER_PARAMETERS: List[str] = [
     Parameter.EMBEDDINGS.value,
     Parameter.HIDDEN_SIZE.value,
     Parameter.RNN_LAYERS.value,
@@ -112,10 +113,7 @@ SEQUENCE_TAGGER_PARAMETERS = [
 ]
 
 
-TEXT_CLASSIFICATION_PARAMETERS = [
+TEXT_CLASSIFICATION_PARAMETERS: List[str] = [
     Parameter.LAYERS.value,
     Parameter.TRANSFORMER_MODEL.value,
 ]
-
-if __name__ == "__main__":
-    print(getattr(ParameterName, "mini_batch_size").value)
