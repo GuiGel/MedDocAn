@@ -1,0 +1,45 @@
+name: Test
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - master
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version-file: '.python-version' # Read python version from a file
+          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+          cache: 'poetry'
+
+      - name: Install dependencies
+        run: |
+          poetry run pip install -U pip
+          poetry install
+
+      - name: Test coverage
+        run: |
+          poetry run bash scripts/test-cov.sh
+
+      - name: Test doctest
+        run: |
+          poetry run bash scripts/test-doctest.sh
+
+      - name: Linter
+        run: |
+          poetry run bash scripts/lint.sh
+        continue-on-error: true
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
