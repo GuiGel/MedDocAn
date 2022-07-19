@@ -16,6 +16,9 @@ docs/source/api/generated
 # Environments
 .venv
 
+# Coverage
+coverage.xml
+
 # mypy
 .mypy_cache/
 
