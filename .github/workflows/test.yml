@@ -26,11 +26,6 @@ jobs:
         with:
           virtualenvs-in-project: true
 
-      # - name: Install dependencies
-      #   run: |
-      #     poetry run pip install -U pip
-      #     poetry install
-
       - name: Test coverage
         run: |
           poetry run bash scripts/test-cov.sh
