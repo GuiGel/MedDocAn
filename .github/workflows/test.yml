@@ -15,6 +15,12 @@ jobs:
       - name: Check out repository
       - uses: actions/checkout@v3
 
+      - uses: actions/setup-python@v4
+        with:
+          python-version-file: '.python-version' # Read python version from a file
+          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
+          cache: 'poetry'
+
       - name: Install and configure Poetry
       - uses: snok/install-poetry@v1
         with:
@@ -23,12 +29,6 @@ jobs:
           virtualenvs-in-project: true
           virtualenvs-path: {cache-dir}/virtualenvs
           installer-parallel: true
-
-      - uses: actions/setup-python@v4
-        with:
-          python-version-file: '.python-version' # Read python version from a file
-          architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
-          cache: 'poetry'
 
       - name: Install dependencies
         run: |
