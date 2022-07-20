@@ -68,3 +68,7 @@ jobs:
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3
+        with:
+          override_branch: action_test_workflow
+          files: ./coverage.xml
+          verbose: true
