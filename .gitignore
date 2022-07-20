@@ -3,6 +3,8 @@ __pycache__/
 
 # Unit test / coverage reports
 .coverage
+coverage.xml
+/htmlcov
 .pytest_cache/
 
 # Sphinx documentation
@@ -15,9 +17,6 @@ docs/source/api/generated
 
 # Environments
 .venv
-
-# Coverage
-coverage.xml
 
 # mypy
 .mypy_cache/
@@ -38,3 +37,9 @@ coverage.xml
 *weights.txt
 *dev.tsv
 *test.tsv
+
+# apex if needed
+/apex
+
+# sample
+/samples/.git/*
