@@ -1,31 +1,31 @@
+import importlib.metadata
 import itertools as it
 import logging
-from importlib import metadata
 
 logger = logging.getLogger(__name__)
 
 
 def test_entry_points():
     """Test that the custom spacy components have been correctly installed."""
-    existing_eps = metadata.entry_points()["spacy_factories"]
+    existing_eps = importlib.metadata.entry_points()["spacy_factories"]
 
     expected_eps = (
-        metadata.EntryPoint(
+        importlib.metadata.EntryPoint(
             "line_sentencizer",
             value="meddocan.language.sentencizer:line_sentencizer",
             group="spacy_factories",
         ),
-        metadata.EntryPoint(
+        importlib.metadata.EntryPoint(
             "missaligned_splitter",
             value="meddocan.language.splitter:missaligned_splitter",
             group="spacy_factories",
         ),
-        metadata.EntryPoint(
+        importlib.metadata.EntryPoint(
             "predictor",
             value="meddocan.language.predictor:create_predictor",
             group="spacy_factories",
         ),
-        metadata.EntryPoint(
+        importlib.metadata.EntryPoint(
             "write_methods",
             value="meddocan.language.method_extensions:create_write_methods",
             group="spacy_factories",
@@ -42,3 +42,7 @@ def test_entry_points():
         logger.info(f"{existing_ep=}")
         logger.info(f"{expected_ep=}")
     # assert eps == entry_points, f"{eps} != {entry_points}"
+
+
+if __name__ == "__main__":
+    test_entry_points()
