@@ -104,7 +104,10 @@ class MissalignedSplitter:
                     # Here token_start and token_end are the start en end value
                     # inside the span.
 
-                    token_start, token_end = match.start(), match.end()
+                    token_start, token_end = (
+                        match.start(),
+                        match.end(),
+                    )
 
                     tokens = [
                         span.text[:token_start],

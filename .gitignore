@@ -3,6 +3,8 @@ __pycache__/
 
 # Unit test / coverage reports
 .coverage
+coverage.xml
+/htmlcov
 .pytest_cache/
 
 # Sphinx documentation
@@ -12,9 +14,6 @@ docs/source/api/generated
 
 # Jupyter Notebook
 .ipynb_checkpoints
-
-# pyenv
-.python-version
 
 # Environments
 .venv
@@ -38,3 +37,9 @@ docs/source/api/generated
 *weights.txt
 *dev.tsv
 *test.tsv
+
+# apex if needed
+/apex
+
+# sample
+/samples/.git/*

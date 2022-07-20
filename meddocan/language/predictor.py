@@ -126,7 +126,8 @@ class PredictorComponent:
 
 
 @Language.factory(
-    "predictor", default_config={"model_loc": None, "mini_batch_size": 8}
+    "predictor",
+    default_config={"model_loc": None, "mini_batch_size": 8},
 )
 def create_predictor(
     nlp: Language,

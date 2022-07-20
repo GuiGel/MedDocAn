@@ -15,7 +15,10 @@ class TestMeddocanPipeline:
     @pytest.mark.parametrize(
         "text,expected",
         [
-            ("NºCol FerrándezCorreo", ["NºCol", "Ferrández", "Correo"]),
+            (
+                "NºCol FerrándezCorreo",
+                ["NºCol", "Ferrández", "Correo"],
+            ),
             ("NºColMartínez", ["NºCol", "Martínez"]),
             ("H.", ["H", "."]),
             ("M.", ["M", "."]),
@@ -38,7 +41,15 @@ class TestMeddocanPipeline:
             ),
             (
                 "E-mail.hleonbrito@hotmail.com",
-                ["E", "-", "mail", ".", "hleonbrito@hotmail", ".", "com"],
+                [
+                    "E",
+                    "-",
+                    "mail",
+                    ".",
+                    "hleonbrito@hotmail",
+                    ".",
+                    "com",
+                ],
             ),
             ("nhc/976421.", ["nhc", "/", "976421", "."]),
             ("    \n   ", ["    ", "\n", "   "]),

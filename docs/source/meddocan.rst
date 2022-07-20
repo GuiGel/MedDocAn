@@ -7,19 +7,10 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   meddocan.cli
    meddocan.data
+   meddocan.evaluation
    meddocan.language
-
-Submodules
-----------
-
-meddocan.evaluation module
---------------------------
-
-.. automodule:: meddocan.evaluation
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 Module contents
 ---------------

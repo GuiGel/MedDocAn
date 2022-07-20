@@ -145,7 +145,11 @@ class i2b2Annotation(Annotation):
                         # self.phi.append(cls(element))
                         tag = cls(element)
                         self.phi.append(
-                            Ner(tag.name, tag.get_start(), tag.get_end())
+                            Ner(
+                                tag.name,
+                                tag.get_start(),
+                                tag.get_end(),
+                            )
                         )
 
     def parse_text_and_spans(self, file_name: str) -> None:
@@ -439,7 +443,9 @@ class EvaluateSubtrack1(Evaluate):
             self.doc_ids.append(doc_id)
 
     @staticmethod
-    def get_num_sentences(annotation: TypeAnnotation) -> Optional[int]:
+    def get_num_sentences(
+        annotation: TypeAnnotation,
+    ) -> Optional[int]:
         return annotation.get_number_sentences()
 
     @staticmethod
@@ -608,7 +614,11 @@ class EvaluateSubtrack2merged(Evaluate):
 class MeddocanEvaluation:
     """Base class for running the evaluations."""
 
-    def __init__(self) -> None:
+    def __init__(
+        self,
+        annotator_cas: Dict[str, TypeAnnotation],
+        gold_cas: Dict[str, TypeAnnotation],
+    ) -> None:
         self.evaluations: List[Evaluate] = []
 
     def add_eval(self, e: Evaluate, label: str = "") -> None:

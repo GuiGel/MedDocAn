@@ -14,8 +14,8 @@ Welcome to MedDocAn's documentation!
    :titlesonly:
    :caption: Python-API:
 
-   api/language
-   api/data
+   meddocan.data
+   meddocan.language
 
 Indices and tables
 ==================

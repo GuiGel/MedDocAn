@@ -67,11 +67,16 @@ import os
 from collections import defaultdict
 from typing import DefaultDict, Dict, List, Optional, Type, TypeVar
 
-from meddocan.evaluation.classes import (BratAnnotation, NER_Evaluation,
-                                         Span_Evaluation, TypeAnnotation,
-                                         i2b2Annotation)
+from meddocan.evaluation.classes import (
+    BratAnnotation,
+    MeddocanEvaluation,
+    NER_Evaluation,
+    Span_Evaluation,
+    TypeAnnotation,
+    i2b2Annotation,
+)
 
-V = TypeVar("V", NER_Evaluation, Span_Evaluation)
+V = TypeVar("V", bound=MeddocanEvaluation)  # NER_Evaluation, Span_Evaluation)
 
 
 def get_document_dict_by_system_id(
@@ -135,8 +140,7 @@ def evaluate(
 
     else:
         raise Exception(
-            "Must pass file file or [directory/]+ directory/"
-            "on command line!"
+            "Must pass file or [directory/]+ directory/" "on command line!"
         )
 
     return evaluations[0] if len(evaluations) == 1 else evaluations

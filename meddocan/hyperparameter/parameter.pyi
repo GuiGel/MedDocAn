@@ -1,0 +1,76 @@
+from enum import Enum
+from typing import Any, List
+
+class Parameter(Enum):
+    EMBEDDINGS: str
+    HIDDEN_SIZE: str
+    USE_CRF: str
+    USE_RNN: str
+    REPROJECT_EMBEDDINGS: str
+    RNN_LAYERS: str
+    DROPOUT: str
+    WORD_DROPOUT: str
+    LOCKED_DROPOUT: str
+    LEARNING_RATE: str
+    WARMUP_FRACTION: str
+    MINI_BATCH_SIZE: str
+    ANNEAL_FACTOR: str
+    ANNEAL_WITH_RESTARTS: str
+    ANNEAL_WITH_PRESTARTS: str
+    BATCH_GROWTH_ANNEALING: str
+    PATIENCE: str
+    OPTIMIZER: str
+    MOMENTUM: str
+    DAMPENING: str
+    WEIGHT_DECAY: str
+    NESTEROV: str
+    AMSGRAD: str
+    BETAS: str
+    EPS: str
+    TRANSFORMER_MODEL: str
+    LAYERS: str
+    SCHEDULER: str
+    USE_AMP: str
+    MINI_BATCH_CHUNK_SIZE: str
+    NUM_WORKERS: str
+    EMBEDDINGS_STORAGE_MODE: str
+    MAX_EPOCHS: str
+
+class ParameterName(Enum):
+    embeddings: str
+    hidden_size: str
+    use_crf: str
+    use_rnn: str
+    reproject_embeddings: str
+    rnn_layers: str
+    dropout: str
+    word_dropout: str
+    locked_dropout: str
+    learning_rate: str
+    warmup_fraction: str
+    mini_batch_size: str
+    anneal_factor: str
+    anneal_with_restarts: str
+    anneal_with_prestarts: str
+    batch_growth_annealing: str
+    patience: str
+    optimizer: str
+    momentum: str
+    dampening: str
+    weight_decay: str
+    nesterov: str
+    amsgrad: str
+    betas: str
+    eps: str
+    model: str
+    LAYERS: str
+    scheduler: str
+    use_amp: str
+    mini_batch_chunk_size: Any
+    num_workers: Any
+    embeddings_storage_mode: Any
+    max_epochs: str
+
+TRAINING_PARAMETERS: List[str]
+SEQUENCE_TAGGER_PARAMETERS: List[str]
+TEXT_CLASSIFICATION_PARAMETERS: List[str]

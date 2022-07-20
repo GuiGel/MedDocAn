@@ -1,11 +1,17 @@
-from importlib import metadata
+# import importlib.metadata
+import itertools as it
+import logging
+
+import importlib_metadata as metadata
+
+logger = logging.getLogger(__name__)
 
 
 def test_entry_points():
     """Test that the custom spacy components have been correctly installed."""
-    eps = metadata.entry_points()["spacy_factories"]
+    existing_eps = metadata.entry_points().select(group="spacy_factories")
 
-    entry_points = (
+    expected_eps = (
         metadata.EntryPoint(
             "line_sentencizer",
             value="meddocan.language.sentencizer:line_sentencizer",
@@ -28,4 +34,18 @@ def test_entry_points():
         ),
     )
 
-    assert eps == entry_points, f"{eps} != {entry_points}"
+    for existing_ep, expected_ep in it.zip_longest(existing_eps, expected_eps):
+        assert existing_ep.__class__.__name__ == expected_ep.__class__.__name__
+        for existing_attr, expected_attr in it.zip_longest(
+            existing_ep, expected_ep
+        ):
+            assert existing_attr == expected_attr
+        assert existing_ep == expected_ep
+
+    # NOTE:
+    # assert eps == entry_points, f"{eps} != {entry_points}" works on local
+    # but fails on Github Actions...
+
+
+if __name__ == "__main__":
+    test_entry_points()

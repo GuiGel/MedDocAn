@@ -133,7 +133,7 @@ class MeddocanZip:
 
     >>> for folder_path in MeddocanZip():
     ...     print(folder_path)
-    /home/wave/.meddocan/datasets/meddocan/train-set.zip
+    /.../.meddocan/datasets/meddocan/train-set.zip
     ...
 
     """

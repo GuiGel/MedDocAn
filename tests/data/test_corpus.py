@@ -35,10 +35,6 @@ class TestMeddocan:
 
     An example of how we can test this class:
     Cf: https://docs.python.org/3/library/unittest.mock.html#patch
-
-    In order to do that we patch the
-    :meth:``meddocan.data.docs_iterators.GsDocs.__iter__`` methods with the new
-    callable :class:``MockBratDocs``.
     """
 
     @pytest.mark.parametrize(
@@ -162,8 +158,8 @@ class TestMeddocan:
         is then internally copied to a temporary file by the custom
         :meth:`~meddocan.language.method_extensions.WriteMethods.__doc_to_connl03`
         of the Doc object. This is possible because the ``meddocan`` language
-        set the |Doc| custom extensions `to_connl03` and thus allow to use it
-        on the mocked documents.
+        set the |Doc| extensions `to_connl03` and thus allow to use it on the
+        mocked documents.
 
         Args:
             docs (Union[List[MockDoc], MockDoc]): The documents retrieve by
@@ -187,7 +183,9 @@ class TestMeddocan:
                 ... )
         """
         with patch.object(
-            GsDocs, "__iter__", new_callable=lambda: MockBratDocs(docs)
+            GsDocs,
+            "__iter__",
+            new_callable=lambda: MockBratDocs(docs),
         ):
             # Cf: https://docs.python.org/3/library/unittest.mock.html#where-to-patch
             # nonlocal expected

@@ -17,6 +17,7 @@ tensorboard = "^2.9.1"
 torch-tb-profiler = "^0.4.0"
 sacremoses = "^0.0.53"
 spacy-streamlit = "^1.0.4"
+importlib-metadata = "^4.12.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
@@ -43,6 +44,9 @@ missaligned_splitter = "meddocan.language.splitter:missaligned_splitter"
 predictor = "meddocan.language.predictor:create_predictor"
 write_methods = "meddocan.language.method_extensions:create_write_methods"
 
+[tool.isort]
+profile = "black"
+
 [tool.pytest.ini_options]
 testpaths = [
     "tests", 
@@ -54,6 +58,7 @@ addopts = [
 ]
 filterwarnings = [
     "ignore::DeprecationWarning:scipy.*",
+    "ignore::DeprecationWarning:past.*",
     "ignore:numpy.ufunc size changed",
 ]
 
