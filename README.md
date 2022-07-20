@@ -6,7 +6,7 @@
     <img src="https://github.com/GuiGel/MedDocAn/workflows/Test/badge.svg" alt="Test">
 </a>
 <a href="https://codecov.io/gh/GuiGel/MedDocAn" target="_blank">
-    <img src="https://img.shields.io/codecov/c/github/GuiGel/MedDocAn/branch/action_test_workflow?color=%2334D058" alt="Coverage">
+    <img src="https://img.shields.io/codecov/c/github/GuiGel/MedDocAn/branch/dev?color=%2334D058" alt="Coverage">
 </a>
 
 *Our results on the Medical Document Anonymization Track (track 9 of the <abbr title="Iberian Languages Evaluation Forum 2019"> [IberLEF 2019](http://ceur-ws.org/Vol-2421/)).</abbr>*
