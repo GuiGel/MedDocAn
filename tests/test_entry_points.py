@@ -1,7 +1,8 @@
-#import importlib.metadata
-import importlib_metadata as metadata
+# import importlib.metadata
 import itertools as it
 import logging
+
+import importlib_metadata as metadata
 
 logger = logging.getLogger(__name__)
 
@@ -34,15 +35,16 @@ def test_entry_points():
     )
 
     for existing_ep, expected_ep in it.zip_longest(existing_eps, expected_eps):
-        assert existing_ep.__class__ == expected_ep.__class__
+        assert existing_ep.__class__.__name__ == expected_ep.__class__.__name__
         for existing_attr, expected_attr in it.zip_longest(
             existing_ep, expected_ep
         ):
             assert existing_attr == expected_attr
         assert existing_ep == expected_ep
-        logger.info(f"{existing_ep=}")
-        logger.info(f"{expected_ep=}")
-    # assert eps == entry_points, f"{eps} != {entry_points}"
+
+    # NOTE:
+    # assert eps == entry_points, f"{eps} != {entry_points}" works on local
+    # but fails on Github Actions...
 
 
 if __name__ == "__main__":
