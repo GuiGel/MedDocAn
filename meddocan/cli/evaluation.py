@@ -19,8 +19,12 @@ import torch
 from meddocan.cli.utils import Arg, Opt, app
 from meddocan.data import ArchiveFolder
 from meddocan.data.docs_iterators import GsDocs, SysDocs
-from meddocan.evaluation.classes import (BratAnnotation, NER_Evaluation,
-                                         Span_Evaluation, i2b2Annotation)
+from meddocan.evaluation.classes import (
+    BratAnnotation,
+    NER_Evaluation,
+    Span_Evaluation,
+    i2b2Annotation,
+)
 from meddocan.evaluation.evaluate import evaluate
 
 flair.device = torch.device("cuda:1")

@@ -67,9 +67,14 @@ import os
 from collections import defaultdict
 from typing import DefaultDict, Dict, List, Optional, Type, TypeVar
 
-from meddocan.evaluation.classes import (BratAnnotation, MeddocanEvaluation,
-                                         NER_Evaluation, Span_Evaluation,
-                                         TypeAnnotation, i2b2Annotation)
+from meddocan.evaluation.classes import (
+    BratAnnotation,
+    MeddocanEvaluation,
+    NER_Evaluation,
+    Span_Evaluation,
+    TypeAnnotation,
+    i2b2Annotation,
+)
 
 V = TypeVar("V", bound=MeddocanEvaluation)  # NER_Evaluation, Span_Evaluation)
 

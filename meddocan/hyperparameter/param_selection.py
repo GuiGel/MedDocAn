@@ -13,10 +13,15 @@ from flair.trainers import ModelTrainer
 from flair.training_utils import EvaluationMetric, init_output_file, log_line
 from hyperopt import fmin, hp, tpe
 
-from meddocan.hyperparameter.parameter import (SEQUENCE_TAGGER_PARAMETERS,
-                                               TRAINING_PARAMETERS, Parameter)
-from meddocan.hyperparameter.utils import (get_model_card,
-                                           get_tensorboard_dirname)
+from meddocan.hyperparameter.parameter import (
+    SEQUENCE_TAGGER_PARAMETERS,
+    TRAINING_PARAMETERS,
+    Parameter,
+)
+from meddocan.hyperparameter.utils import (
+    get_model_card,
+    get_tensorboard_dirname,
+)
 
 log = logging.getLogger("flair")
 
@@ -151,7 +156,10 @@ class ParamSelector(object):
                     curr_scores = result["dev_loss_history"][-3:]
                 else:
                     curr_scores = list(
-                        map(lambda s: 1 - s, result["dev_score_history"][-3:])
+                        map(
+                            lambda s: 1 - s,
+                            result["dev_score_history"][-3:],
+                        )
                     )
 
                 # ----- Compute scores for the current training run

@@ -6,8 +6,11 @@ from typing import List, Optional
 import torch
 from flair.embeddings import TransformerWordEmbeddings
 from flair.models import SequenceTagger
-from flair.optim import (ExpAnnealLR, LinearSchedulerWithWarmup,
-                         ReduceLROnPlateau)
+from flair.optim import (
+    ExpAnnealLR,
+    LinearSchedulerWithWarmup,
+    ReduceLROnPlateau,
+)
 from flair.trainers import ModelTrainer
 from flair.training_utils import AnnealOnPlateau
 from torch.optim.adamw import AdamW
@@ -106,7 +109,8 @@ def train_flert(
         help=("If True, training data is evaluated at end of each epoch."),
     ),
     monitor_test: bool = Opt(
-        False, help="If True, test data is evaluated at end of each epoch."
+        False,
+        help="If True, test data is evaluated at end of each epoch.",
     ),
     main_evaluation_metric: List[str] = Opt(
         ["micro avg", "f1-score"],
@@ -139,7 +143,8 @@ def train_flert(
     ),
     initial_extra_patience: int = Opt(0, help=""),
     optimizer: Optimizer = Opt(
-        Optimizer.ADAMW, help="The optimizer to use (typically SGD or Adam)"
+        Optimizer.ADAMW,
+        help="The optimizer to use (typically SGD or Adam)",
     ),
     cycle_momentum: bool = Opt(
         False,
@@ -164,7 +169,8 @@ def train_flert(
         ),
     ),
     checkpoint: bool = Opt(
-        False, help="If True, a full checkpoint is saved at end of each epoch"
+        False,
+        help="If True, a full checkpoint is saved at end of each epoch",
     ),
     save_final_model: bool = Opt(True, help="If True, final model is saved"),
     anneal_with_restarts: bool = Opt(
@@ -242,7 +248,8 @@ def train_flert(
         False, help="Number of workers in your data loader."
     ),
     tensorboard_log_dir=Opt(
-        None, help="Directory into which tensorboard log files will be written"
+        None,
+        help="Directory into which tensorboard log files will be written",
     ),
     metrics_for_tensorboard: List[str] = Opt(
         [],

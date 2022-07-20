@@ -171,7 +171,10 @@ class PHITag(AnnotatorTag):
 
 
 class NameTag(PHITag):
-    valid_TYPE = ["NOMBRE_SUJETO_ASISTENCIA", "NOMBRE_PERSONAL_SANITARIO"]
+    valid_TYPE = [
+        "NOMBRE_SUJETO_ASISTENCIA",
+        "NOMBRE_PERSONAL_SANITARIO",
+    ]
     attributes = OrderedDict(PHITag.attributes.items())
     attributes["TYPE"] = lambda v: v in NameTag.valid_TYPE
 

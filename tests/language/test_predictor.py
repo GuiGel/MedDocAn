@@ -125,7 +125,9 @@ def add_tags(sentences: List[Sentence], tags: List[List[Tuple[str, str]]]):
                 predicted_span[0][0] : predicted_span[0][-1] + 1
             ]
             span.add_label(
-                "ner", value=predicted_span[2], score=predicted_span[1]
+                "ner",
+                value=predicted_span[2],
+                score=predicted_span[1],
             )
 
 
@@ -134,7 +136,14 @@ def add_tags(sentences: List[Sentence], tags: List[List[Tuple[str, str]]]):
     [
         (
             [Sentence("Vivo en Bilbao.")],
-            [[("Vivo", "O"), ("en", "O"), ("Bilbao", "B-LOC"), (".", "O")]],
+            [
+                [
+                    ("Vivo", "O"),
+                    ("en", "O"),
+                    ("Bilbao", "B-LOC"),
+                    (".", "O"),
+                ]
+            ],
             "['Span[2:3]: \"Bilbao\"'/'LOC' (1.0)]",
         )
     ],
@@ -286,7 +295,10 @@ class TestPredictorComponent:
                         ],
                     ],
                 ),
-                (("Mariano", 8, 15, "PERS"), ("Oscar", 38, 43, "PERS")),
+                (
+                    ("Mariano", 8, 15, "PERS"),
+                    ("Oscar", 38, 43, "PERS"),
+                ),
             ),
             (
                 (
@@ -318,7 +330,10 @@ class TestPredictorComponent:
                         ],
                     ],
                 ),
-                (("Ramos Baez", 11, 21, "PERS"), ("2594890", 29, 36, "NUM")),
+                (
+                    ("Ramos Baez", 11, 21, "PERS"),
+                    ("2594890", 29, 36, "NUM"),
+                ),
             ),
             (
                 (

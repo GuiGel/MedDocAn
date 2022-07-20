@@ -183,7 +183,9 @@ class TestMeddocan:
                 ... )
         """
         with patch.object(
-            GsDocs, "__iter__", new_callable=lambda: MockBratDocs(docs)
+            GsDocs,
+            "__iter__",
+            new_callable=lambda: MockBratDocs(docs),
         ):
             # Cf: https://docs.python.org/3/library/unittest.mock.html#where-to-patch
             # nonlocal expected

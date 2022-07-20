@@ -46,7 +46,10 @@ def meddocan_pipeline(
     nlp.add_pipe("line_sentencizer")
     nlp.add_pipe(
         "predictor",
-        config={"model_loc": model_loc, "mini_batch_size": mini_batch_size},
+        config={
+            "model_loc": model_loc,
+            "mini_batch_size": mini_batch_size,
+        },
     )
     nlp.add_pipe("write_methods")
     return MeddocanLanguage(nlp)
