@@ -59,6 +59,7 @@ jobs:
       - name: Test doctest
         run: |
           poetry run bash scripts/test-doctest.sh
+        continue-on-error: true
 
       - name: Linter
         run: |
