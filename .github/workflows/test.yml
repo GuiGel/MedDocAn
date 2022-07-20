@@ -27,7 +27,7 @@ jobs:
         with:
           virtualenvs-in-project: true
 
-#----------------------------------------------
+      #----------------------------------------------
       #       load cached venv if cache exists
       #----------------------------------------------
       - name: Load cached venv
@@ -54,17 +54,14 @@ jobs:
         run: |
           source .venv/bin/activate
           bash scripts/test-cov.sh
-        continue-on-error: true
 
       - name: Test doctest
         run: |
           poetry run bash scripts/test-doctest.sh
-        continue-on-error: true
 
       - name: Linter
         run: |
           poetry run bash scripts/lint.sh
-        continue-on-error: true
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3
