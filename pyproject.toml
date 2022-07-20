@@ -43,6 +43,9 @@ missaligned_splitter = "meddocan.language.splitter:missaligned_splitter"
 predictor = "meddocan.language.predictor:create_predictor"
 write_methods = "meddocan.language.method_extensions:create_write_methods"
 
+[tool.isort]
+profile = "black"
+
 [tool.pytest.ini_options]
 testpaths = [
     "tests", 
