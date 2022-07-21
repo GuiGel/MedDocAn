@@ -1,15 +1,14 @@
 # import importlib.metadata
 import itertools as it
 import logging
-
-import importlib_metadata as metadata
+from importlib import metadata
 
 logger = logging.getLogger(__name__)
 
 
 def test_entry_points():
     """Test that the custom spacy components have been correctly installed."""
-    existing_eps = metadata.entry_points().select(group="spacy_factories")
+    existing_eps = metadata.entry_points()["spacy_factories"]
 
     expected_eps = (
         metadata.EntryPoint(
