@@ -28,6 +28,25 @@ class MockBratDocs:
         return self.__iter__()
 
 
+def test_mock_brat_docs():
+    mock_doc = MockDoc(
+        [
+            TokenElements("Vivo", True, True),
+            TokenElements("en", True, False),
+            TokenElements("Aix", True, False, "B-LOC"),
+            TokenElements("en", True, False, "I-LOC"),
+            TokenElements("Provence", False, False, "I-LOC"),
+            TokenElements("!", True, False),
+            TokenElements("Soy", True, True),
+            TokenElements("Eric", True, False, "B-PERS"),
+            TokenElements("Laffont", False, False, "I-PERS"),
+            TokenElements(".", True, False),
+        ]
+    )
+    mock_brat_docs = MockBratDocs(mock_doc)
+    assert isinstance(mock_brat_docs.docs, list)
+
+
 class TestMeddocan:
     """In order to test if the corpus is implemented correctly,
     we look at the ``flair.data.Sentence.left_context`` and
@@ -212,30 +231,3 @@ class TestMeddocan:
                 assert sentence.left_context(6) == left_context
                 assert sentence.right_context(6) == right_context
                 assert sentence.get_labels() == labels
-
-
-if __name__ == "__main__":
-    # TestMeddocan().test_init()
-    from flair.data import Sentence
-
-    sentence = Sentence("Vivo en Aix!")
-    print(
-        sentence.to_original_text(),
-        [token.start_position for token in sentence],
-    )
-
-    from flair.data import Sentence
-    from flair.datasets import CONLL_03
-
-    from meddocan import cache_root
-
-    corpus = CONLL_03(cache_root / "datasets")
-    # corpus = CONLL_03_SPANISH()
-    sentence: Sentence
-    for i, sentence in enumerate(corpus.train):
-        if i < 100:
-            print(sentence)
-            print("\t", " ".join(sentence.left_context(4)))
-            print("\t", " ".join(sentence.right_context(4)))
-        else:
-            break
