@@ -45,7 +45,3 @@ def test_entry_points():
     # NOTE:
     # assert eps == entry_points, f"{eps} != {entry_points}" works on local
     # but fails on Github Actions...
-
-
-if __name__ == "__main__":
-    test_entry_points()

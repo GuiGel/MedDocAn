@@ -12,4 +12,3 @@ def meddocan_cli(command_string: str) -> str:
     result = runner.invoke(app, command_list)
     output = result.stdout.rstrip()
     return output
-
