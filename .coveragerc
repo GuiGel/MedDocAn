@@ -9,5 +9,12 @@ omit =
     meddocan/evaluation/evaluate.py
     meddocan/evaluation/tags.py
     meddocan/evaluation/classes.py
+    meddocan/__main__.py
+
 
 parallel = True
+
+[report]
+
+exclude_lines = 
+    if __name__ == "__main__":
