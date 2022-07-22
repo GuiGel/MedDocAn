@@ -6,6 +6,7 @@ on:
     branches:
       - dev
       - master
+      - displayed-codecov-to-branch
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -70,3 +71,4 @@ jobs:
         with:
           files: ./coverage.xml
           verbose: true
+          overide_branch: displayed-codecov-to-branch
