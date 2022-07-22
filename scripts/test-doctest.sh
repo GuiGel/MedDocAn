@@ -3,4 +3,4 @@
 set -e
 set -x
 
-pytest --doctest-modules meddocan tests
+pytest --doctest-modules meddocan

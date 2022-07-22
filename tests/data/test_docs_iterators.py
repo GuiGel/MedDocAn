@@ -3,7 +3,9 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 import itertools as it
+from io import StringIO
 from typing import List
+from unittest.mock import patch
 
 import pytest
 from spacy.tokens import Doc
@@ -40,7 +42,21 @@ class TestDocWithBratPair:
         )
         brat_file_pair = next(meddocan_zip.brat_files(ArchiveFolder.train))
         doc_with_brat_pair = DocWithBratPair(brat_file_pair, doc)
-        assert doc_with_brat_pair.__str__() == "DocWithBratPair(brat_files_pair=BratFilesPair(ann=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.ann'), txt=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.txt')), doc=(Vivo en Aix en Provence! Soy Eric Laffont. ,))"
+
+        expected_stdout = (
+            "DocWithBratPair(brat_files_pair=BratFilesPair("
+            "ann=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
+            "'train/brat/S0004-06142005000500011-1.ann'), "
+            "txt=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
+            "'train/brat/S0004-06142005000500011-1.txt')), "
+            "doc=(Vivo en Aix en Provence! Soy Eric Laffont. ,))"
+        )
+
+        with patch("sys.stdout", new_callable=StringIO) as mock_stdout:
+            print(doc_with_brat_pair)
+            assert mock_stdout.getvalue() == f"{expected_stdout}\n"
+
+        # assert doc_with_brat_pair.__str__() == "DocWithBratPair(brat_files_pair=BratFilesPair(ann=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.ann'), txt=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.txt')), doc=(Vivo en Aix en Provence! Soy Eric Laffont. ,))"
 
 
 @pytest.mark.parametrize(
@@ -187,16 +203,3 @@ class GsDoc:
     @pytest.mark.parametrize("text,expected_lines")
     def test_to_connl03(self, text, expected_lines):
         assert True
-
-
-if __name__ == "__main__":
-    a = (
-            "DocWithBratPair("
-            "brat_files_pair=BratFilesPair("
-            "ann=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
-            "'train/brat/S0004-06142005000500011-1.ann'), "
-            "txt=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
-            "'train/brat/S0004-06142005000500011-1.txt')), "
-            "doc=(Vivo en Aix en Provence! Soy Eric Laffont. ,))"
-        )
-    print(a == a.strip())

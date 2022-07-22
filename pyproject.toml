@@ -54,7 +54,6 @@ testpaths = [
 addopts = [
     "--numprocesses=auto",
     "-ra",
-    "--doctest-modules",
 ]
 filterwarnings = [
     "ignore::DeprecationWarning:scipy.*",
