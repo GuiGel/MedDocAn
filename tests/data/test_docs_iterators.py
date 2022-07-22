@@ -40,7 +40,7 @@ class TestDocWithBratPair:
         )
         brat_file_pair = next(meddocan_zip.brat_files(ArchiveFolder.train))
         doc_with_brat_pair = DocWithBratPair(brat_file_pair, doc)
-        assert str(doc_with_brat_pair) == (
+        assert str(doc_with_brat_pair).strip() == (
             "DocWithBratPair("
             "brat_files_pair=BratFilesPair("
             "ann=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
@@ -48,7 +48,7 @@ class TestDocWithBratPair:
             "txt=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
             "'train/brat/S0004-06142005000500011-1.txt')), "
             "doc=(Vivo en Aix en Provence! Soy Eric Laffont. ,))"
-        )
+        ).strip()
 
 
 @pytest.mark.parametrize(
@@ -195,3 +195,16 @@ class GsDoc:
     @pytest.mark.parametrize("text,expected_lines")
     def test_to_connl03(self, text, expected_lines):
         assert True
+
+
+if __name__ == "__main__":
+    a = (
+            "DocWithBratPair("
+            "brat_files_pair=BratFilesPair("
+            "ann=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
+            "'train/brat/S0004-06142005000500011-1.ann'), "
+            "txt=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
+            "'train/brat/S0004-06142005000500011-1.txt')), "
+            "doc=(Vivo en Aix en Provence! Soy Eric Laffont. ,))"
+        )
+    print(a == a.strip())
