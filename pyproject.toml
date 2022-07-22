@@ -60,6 +60,7 @@ filterwarnings = [
     "ignore::DeprecationWarning:scipy.*",
     "ignore::DeprecationWarning:past.*",
     "ignore:numpy.ufunc size changed",
+    "ignore:Construction of dict of EntryPoints is deprecated",
 ]
 
 [build-system]
