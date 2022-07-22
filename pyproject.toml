@@ -54,12 +54,13 @@ testpaths = [
 addopts = [
     "--numprocesses=auto",
     "-ra",
-    "--doctest-modules",
 ]
 filterwarnings = [
     "ignore::DeprecationWarning:scipy.*",
     "ignore::DeprecationWarning:past.*",
     "ignore:numpy.ufunc size changed",
+    "ignore:Construction of dict of EntryPoints is deprecated",
+    'ignore:invalid escape sequence \\s',
 ]
 
 [build-system]

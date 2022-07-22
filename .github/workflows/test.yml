@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - dev
+      - master
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -54,6 +55,7 @@ jobs:
         run: |
           source .venv/bin/activate
           bash scripts/test-cov.sh
+        continue-on-error: true
 
       - name: Test doctest
         run: |
