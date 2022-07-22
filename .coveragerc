@@ -1,0 +1,20 @@
+[run]
+
+source =
+    meddocan
+    tests
+
+omit =
+    # Omit file coming from the conll03 evaluation library.
+    meddocan/evaluation/evaluate.py
+    meddocan/evaluation/tags.py
+    meddocan/evaluation/classes.py
+    meddocan/__main__.py
+
+
+parallel = True
+
+[report]
+
+exclude_lines = 
+    if __name__ == "__main__":

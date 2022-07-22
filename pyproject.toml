@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "meddocan"
+version = "0.1.0"
+description = "Medical Document Anonymization Track"
+authors = ["ggelabert <ggelabert@serikat.es>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+flair = "^0.11"
+spacy = "^3.2.3"
+typer = {extras = ["all"], version = "^0.4.1"}
+pandas = "^1.4.2"
+Pillow = "^9.1.1"
+tensorboard = "^2.9.1"
+torch-tb-profiler = "^0.4.0"
+sacremoses = "^0.0.53"
+spacy-streamlit = "^1.0.4"
+importlib-metadata = "^4.12.0"
+
+[tool.poetry.dev-dependencies]
+black = "^22.1.0"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+autoflake = "^1.4"
+mypy = "^0.931"
+pytest = "^7.0.1"
+coverage = "^6.3.2"
+pytest-coverage = "^0.0"
+Sphinx = "^4.4.0"
+recommonmark = "^0.7.1"
+ipykernel = "^6.9.2"
+ipywidgets = "^7.7.0"
+line-profiler = "^3.5.1"
+pytest-xdist = "^2.5.0"
+
+[tool.poetry.scripts]
+meddocan = "meddocan.__main__:app"
+
+[tool.poetry.plugins."spacy_factories"]
+line_sentencizer = "meddocan.language.sentencizer:line_sentencizer"
+missaligned_splitter = "meddocan.language.splitter:missaligned_splitter"
+predictor = "meddocan.language.predictor:create_predictor"
+write_methods = "meddocan.language.method_extensions:create_write_methods"
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+testpaths = [
+    "tests", 
+]
+addopts = [
+    "--numprocesses=auto",
+    "-ra",
+]
+filterwarnings = [
+    "ignore::DeprecationWarning:scipy.*",
+    "ignore::DeprecationWarning:past.*",
+    "ignore:numpy.ufunc size changed",
+    "ignore:Construction of dict of EntryPoints is deprecated",
+    'ignore:invalid escape sequence \\s',
+]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
