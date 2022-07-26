@@ -51,7 +51,7 @@ def eval(
             the ``Flair`` model.
         evaluation_root (Union[str, Path]): Path to the root folder where the
             results will be stored.
-        force (bool, optional): Force to create again the golds standard files.
+        force (bool, optional): Force to create again the gold standard files.
             Defaults to False.
     """
     evaluation_root = Path(evaluation_root)
