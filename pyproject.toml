@@ -63,6 +63,10 @@ filterwarnings = [
     'ignore:invalid escape sequence \\s',
 ]
 
+markers =[
+    "integration: Test that run with real data"
+]
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
