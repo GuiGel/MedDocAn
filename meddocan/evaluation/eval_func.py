@@ -20,7 +20,7 @@ def eval(
     evaluation_root: Union[str, Path],
     force: bool = False,
 ) -> None:
-    """Create the files necessary for the ``evaluation.py'' script to produce
+    """Create the files necessary for the ``evaluation.py`` script to produce
     the files that allow the MEDDOCAN team to compare the results obtained by
     the different participants.
 
