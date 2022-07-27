@@ -27,8 +27,6 @@ from meddocan.evaluation.classes import (
 )
 from meddocan.evaluation.evaluate import evaluate
 
-flair.device = torch.device("cuda:1")
-
 logger = logging.getLogger(__name__)
 
 COMMAND_NAME = "eval"
@@ -68,6 +66,10 @@ def eval(
             "The sub-directory `sentence_splitting` is mandatory to "
             "compute the `leak score` evaluation metric."
         ),
+    ),
+    device: str = Opt(
+        default="cuda:0",
+        help="Device to use.",
     ),
 ) -> None:
     """Evaluate the model with the `meddocan` metrics.
@@ -135,6 +137,9 @@ def eval(
         force (bool, optional): Force to create again the golds standard files.
             Defaults to False.
     """
+    if device is not None:
+        flair.device = torch.device(device)
+
     if evaluation_root is None:
         evaluation_root = Path(model).parent
 
