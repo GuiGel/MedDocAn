@@ -20,7 +20,7 @@ def eval(
     evaluation_root: Union[str, Path],
     force: bool = False,
 ) -> None:
-    """Create the files necessary for the ``evaluation.py'' script to produce
+    """Create the files necessary for the ``evaluation.py`` script to produce
     the files that allow the MEDDOCAN team to compare the results obtained by
     the different participants.
 
@@ -51,7 +51,7 @@ def eval(
             the ``Flair`` model.
         evaluation_root (Union[str, Path]): Path to the root folder where the
             results will be stored.
-        force (bool, optional): Force to create again the golds standard files.
+        force (bool, optional): Force to create again the gold standard files.
             Defaults to False.
     """
     evaluation_root = Path(evaluation_root)
