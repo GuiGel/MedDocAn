@@ -204,6 +204,7 @@ class TestGsDocs:
     """Class that group all the tests for the
     :class:`~meddocan.data.docs_iterators.GsDocs` object.
     """
+
     @pytest.mark.integration
     def test___iter__(self):
         gs_docs = GsDocs(ArchiveFolder.train)
