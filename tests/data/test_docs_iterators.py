@@ -4,6 +4,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 import itertools as it
 from io import StringIO
+from pathlib import Path
 from typing import List
 from unittest.mock import call, mock_open, patch
 
@@ -31,9 +32,9 @@ class TestDocWithBratPair:
 
         expected_stdout = (
             "DocWithBratPair(brat_files_pair=BratFilesPair("
-            "ann=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
+            f"ann=Path('{Path.home()}/.meddocan/datasets/meddocan/train-set.zip', "
             "'train/brat/S0004-06142005000500011-1.ann'), "
-            "txt=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', "
+            f"txt=Path('{Path.home()}/.meddocan/datasets/meddocan/train-set.zip', "
             "'train/brat/S0004-06142005000500011-1.txt')), "
             "doc=(Vivo en Aix en Provence! Soy Eric Laffont. ,))"
         )
@@ -153,7 +154,7 @@ class TestGsDocs:
         gs_docs = GsDocs(ArchiveFolder.train)
         gs_doc = next(iter(gs_docs))
 
-        expected_stdout = expected_stdout = """DocWithBratPair(brat_files_pair=BratFilesPair(ann=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.ann'), txt=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.txt')), doc=Datos del paciente.
+        expected_stdout = expected_stdout = f"""DocWithBratPair(brat_files_pair=BratFilesPair(ann=Path('{Path.home()}/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.ann'), txt=Path('{Path.home()}/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.txt')), doc=Datos del paciente.
 Nombre:  Ernesto.
 Apellidos: Rivera Bueno.
 NHC: 368503.
@@ -263,7 +264,7 @@ class TestSysDocs:
     def test___iter__(self):
         sys_docs = SysDocs(ArchiveFolder.train, model=None)
         sys_doc = next(iter(sys_docs))
-        expected_stdout = expected_stdout = """DocWithBratPair(brat_files_pair=BratFilesPair(ann=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.ann'), txt=Path('/home/wave/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.txt')), doc=Datos del paciente.
+        expected_stdout = f"""DocWithBratPair(brat_files_pair=BratFilesPair(ann=Path('{Path.home()}/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.ann'), txt=Path('{Path.home()}/.meddocan/datasets/meddocan/train-set.zip', 'train/brat/S0004-06142005000500011-1.txt')), doc=Datos del paciente.
 Nombre:  Ernesto.
 Apellidos: Rivera Bueno.
 NHC: 368503.
