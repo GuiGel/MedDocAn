@@ -59,6 +59,7 @@ class ParamSelector(object):
         training_runs: int,
         optimization_value: OptimizationValue,
         tensorboard_logdir: Union[str, Path] = None,
+        save_model: bool = False,
     ) -> None:
         if isinstance(base_path, str):
             base_path = Path(base_path)
@@ -75,6 +76,7 @@ class ParamSelector(object):
             base_path, "param_selection.txt"
         )
         self.tensorboard_logdir = tensorboard_logdir
+        self.save_model = save_model
 
     @abstractmethod
     def _set_up_model(self, params: dict) -> flair.nn.Model:
@@ -123,9 +125,16 @@ class ParamSelector(object):
             if not tbd_log_dir.exists():
                 tbd_log_dir.mkdir(parents=True)
 
+            if self.save_model:
+                base_path = self.base_path / tbd_training_name / f"{i}"
+                param_selection_mode = False
+            else:
+                base_path = self.base_path
+                param_selection_mode = True
+
             result = trainer.train(
-                self.base_path,
-                param_selection_mode=True,
+                base_path,
+                param_selection_mode=param_selection_mode,
                 tensorboard_comment=tensorboard_comment,
                 use_tensorboard=True,
                 tensorboard_log_dir=tbd_log_dir / f"run_{i}",
@@ -305,6 +314,7 @@ class SequenceTaggerParamSelector(ParamSelector):
         training_runs: int = 1,
         optimization_value: OptimizationValue = OptimizationValue.DEV_LOSS,
         tensorboard_logdir: Union[str, Path] = None,
+        save_model: bool = False,
     ) -> None:
         """
         :param corpus: the corpus
@@ -325,6 +335,7 @@ class SequenceTaggerParamSelector(ParamSelector):
             training_runs,
             optimization_value,
             tensorboard_logdir=tensorboard_logdir,
+            save_model=save_model,
         )
 
         self.tag_type = tag_type
