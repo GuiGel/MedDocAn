@@ -66,6 +66,28 @@ text='c/ del Abedul 5-7, 2º dcha')
         )
 
     @classmethod
+    def from_txt(cls, line: str) -> BratSpan:
+        """Read a line of a brat file and return a :class:`BratSpan` object.
+
+        Example:
+
+        >>> line = "T1\\tCALLE 2365 2391\\tc/ del Abedul 5-7, 2º dcha\\n"
+        >>> BratSpan.from_txt(line)
+        BratSpan(id='T1', entity_type='CALLE', start=2365, end=2391, \
+text='c/ del Abedul 5-7, 2º dcha')
+        """
+        line = line.strip()
+        id, phi_start_end, text = line.split("\t")
+        entity_type, start, end = phi_start_end.split(" ")
+        return BratSpan(
+            id=id,
+            entity_type=entity_type,
+            start=int(start),
+            end=int(end),
+            text=text,
+        )
+
+    @classmethod
     def from_spacy_span(cls, entity: Span, i: int) -> BratSpan:
         """Create a BratSpan from a spacy Span.
 
