@@ -12,6 +12,7 @@ import shutil
 import sys
 from enum import Enum
 from pathlib import Path
+from zipfile import Path as ZipPath
 
 import flair
 import torch
@@ -213,7 +214,12 @@ def eval(
                 sys.stdout = original_stdout
 
         # Path to ../test/brat or /dev/brat
-        subfolder = Path(next(iter(sys_docs)).brat_files_pair.txt.at).parent  # type: ignore[attr-defined]
+        sys_doc = next(iter(sys_docs))
+
+        txt_file = sys_doc.brat_files_pair.txt
+        assert isinstance(txt_file, ZipPath)
+        subfolder = Path(txt_file.at).parent  # type: ignore[attr-defined]
+        # subfolder = Path(next(iter(sys_docs)).brat_files_pair.txt.at).parent  # type: ignore[attr-defined]
         if remove_inference:
             shutil.rmtree(golds_loc)
             shutil.rmtree(sys_loc / subfolder)

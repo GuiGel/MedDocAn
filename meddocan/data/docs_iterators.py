@@ -8,6 +8,7 @@ import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterator, List, NewType, Optional, Tuple, Union
+from zipfile import Path as ZipPath
 
 from spacy.tokens import Doc
 
@@ -275,7 +276,17 @@ doc=Datos del ...)
         for brat_files_pair in meddocan_zip.brat_files(self.archive_name):
             for brat_file_path in brat_files_pair:
                 content = brat_file_path.read_text()
-                file: Path = parent / brat_file_path.at  # type: ignore[attr-defined]
+                if isinstance(brat_file_path, ZipPath):
+                    file: Path = parent / brat_file_path.at  # type: ignore[attr-defined]
+                else:
+
+                    # The function is only for the file coming from a the zip
+                    # folder where are located the meddocan data.
+
+                    raise TypeError(
+                        f"brat_file_path must be a zipfile.Path objet but is "
+                        f"of type {type(brat_file_path)}"
+                    )
                 if not file.parent.exists():
                     file.parent.mkdir(parents=True, exist_ok=True)
                 file.write_text(content)
@@ -357,7 +368,7 @@ doc=Datos del ...)
         # process.
 
         for sys_doc in self:
-            file: Path = parent / sys_doc.brat_files_pair.ann.at  # type: ignore[attr-defined]
+            file: Path = parent / sys_doc.brat_files_pair.ann.at  # type: ignore[union-attr]
             sys_doc.doc._.to_ann(file)
 
     def to_txt(self, parent: Path) -> None:
@@ -366,7 +377,7 @@ doc=Datos del ...)
             parent = Path(parent)
 
         for sys_doc in self:
-            file: Path = parent / sys_doc.brat_files_pair.txt.at  # type: ignore[attr-defined]
+            file: Path = parent / sys_doc.brat_files_pair.txt.at  # type: ignore[union-attr]
             text = sys_doc.brat_files_pair.txt.read_text()
             assert sys_doc.doc.text == text
             file.write_text(text)

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from io import TextIOWrapper
 from typing import List, NamedTuple, Sized, Tuple
+from zipfile import ZipExtFile
 
 from spacy.tokens import Span
 
@@ -179,10 +181,15 @@ class BratAnnotations(Sized):
         brat_files_pair: BratFilesPair,
     ) -> BratAnnotations:
         with brat_files_pair.ann.open() as archive:
-            brat_spans = list(map(BratSpan.from_bytes, archive))
-
-        # with brat_files_pair.txt.open() as archive:
-        #     text = archive.read().decode("utf-8")
+            if isinstance(archive, ZipExtFile):
+                brat_spans = list(map(BratSpan.from_bytes, archive))
+            elif isinstance(archive, TextIOWrapper):
+                brat_spans = list(map(BratSpan.from_txt, archive))
+            else:
+                raise TypeError(
+                    f"archive {archive} must be an instance of"
+                    "BytesIO or TextIOWrapper"
+                )
 
         # TODO Talks about the BOM (Byte Ordering Mark). Cf: Fluent Python.
         # Some file contains the BOM and other not. If we remove the BOM
