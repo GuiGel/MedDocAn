@@ -2,6 +2,24 @@
 by the :func:`meddocan.language.pipeline.meddocan_pipeline` with entities
 tagged by a trained model or tagged from an annotation file at the brat format.
 
+To create a ``spacy.tokens.Doc`` with entities comming from the meddocan
+archive: 
+
+1. Choose the desired folder:
+>>> gs_docs = GsDocs(ArchiveFolder.test)
+
+2. Recover the documents present in the archive and selecty the first one:
+>>> gsdocs = iter(gs_docs)
+>>> gsdoc = next(gsdocs)
+
+3. Look at the entities present in the document:
+>>> gsdoc.doc.ents
+(Ignacio, Rico Pedroza, 5467980, Av. Beniarda, 13, Valencia, 46271, \
+11/02/1970, España, 46 años, H, 28/05/2016, Ignacio Rubio Tortosa, \
+46 28 52938, 46 años, Ignacio Rubio Tortosa, Hospital Dr. Peset, \
+Avda. Gaspar Aguilar, 90, 46017, Valencia, España, nachorutor@hotmail.com)
+
+
 """
 import logging
 import warnings
