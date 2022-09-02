@@ -5,12 +5,15 @@ Look the spaCy `stateful components`_ example for more information.
 
 .. _stateful components: https://spacy.io/usage/processing-pipelines#example-stateful-components
 """
+import logging
 from typing import Callable, List, Optional
 
 import flair.data
 from flair.models import SequenceTagger
 from spacy.language import Language
 from spacy.tokens import Doc, Span
+
+from meddocan.language.logutils import all_logging_disabled
 
 
 class PredictorComponent:
@@ -62,7 +65,8 @@ class PredictorComponent:
         Returns:
             flair.data.Sentence: The obtained Flair sentence.
         """
-        flair_sentence = flair.data.Sentence("")
+        with all_logging_disabled(logging.WARNING):
+            flair_sentence = flair.data.Sentence("")
         flair_sentence.language_code = "es"
         flair_sentence.start_pos = spacy_sentence.start_char
         flair_tokens: List[flair.data.Token] = []
