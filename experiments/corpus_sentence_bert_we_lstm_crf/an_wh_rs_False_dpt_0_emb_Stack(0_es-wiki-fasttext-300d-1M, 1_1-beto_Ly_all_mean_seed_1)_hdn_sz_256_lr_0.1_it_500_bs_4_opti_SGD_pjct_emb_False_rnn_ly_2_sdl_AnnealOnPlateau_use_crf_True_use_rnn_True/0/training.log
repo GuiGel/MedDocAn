@@ -1,0 +1,1646 @@
+2022-09-11 09:06:50,229 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:06:50,230 Model: "SequenceTagger(
+  (embeddings): StackedEmbeddings(
+    (list_embedding_0): WordEmbeddings(
+      'es'
+      (embedding): Embedding(985667, 300)
+      (layer_norm): LayerNorm((300,), eps=1e-05, elementwise_affine=False)
+    )
+    (list_embedding_1): TransformerWordEmbeddings(
+      (model): BertModel(
+        (embeddings): BertEmbeddings(
+          (word_embeddings): Embedding(31002, 768, padding_idx=1)
+          (position_embeddings): Embedding(512, 768)
+          (token_type_embeddings): Embedding(2, 768)
+          (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (encoder): BertEncoder(
+          (layer): ModuleList(
+            (0): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (1): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (2): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (3): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (4): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (5): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (6): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (7): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (8): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (9): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (10): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (11): BertLayer(
+              (attention): BertAttention(
+                (self): BertSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): BertSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): BertIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): BertOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+        )
+        (pooler): BertPooler(
+          (dense): Linear(in_features=768, out_features=768, bias=True)
+          (activation): Tanh()
+        )
+      )
+    )
+  )
+  (word_dropout): WordDropout(p=0.05)
+  (locked_dropout): LockedDropout(p=0.5)
+  (rnn): LSTM(1068, 256, num_layers=2, batch_first=True, dropout=0.5, bidirectional=True)
+  (linear): Linear(in_features=512, out_features=91, bias=True)
+  (loss_function): ViterbiLoss()
+  (crf): CRF()
+)"
+2022-09-11 09:06:50,230 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:06:50,231 Corpus: "Corpus: 10311 train + 5268 dev + 5155 test sentences"
+2022-09-11 09:06:50,231 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:06:50,231 Parameters:
+2022-09-11 09:06:50,231  - learning_rate: "0.100000"
+2022-09-11 09:06:50,231  - mini_batch_size: "4"
+2022-09-11 09:06:50,231  - patience: "3"
+2022-09-11 09:06:50,231  - anneal_factor: "0.5"
+2022-09-11 09:06:50,231  - max_epochs: "500"
+2022-09-11 09:06:50,231  - shuffle: "True"
+2022-09-11 09:06:50,231  - train_with_dev: "False"
+2022-09-11 09:06:50,231  - batch_growth_annealing: "False"
+2022-09-11 09:06:50,231 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:06:50,231 Model training base path: "experiments_2/corpus_sentence_bert_we_lstm_crf/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-beto_Ly_all_mean_seed_1)_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0"
+2022-09-11 09:06:50,231 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:06:50,231 Device: cuda:1
+2022-09-11 09:06:50,231 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:06:50,231 Embeddings storage mode: gpu
+2022-09-11 09:06:50,231 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:07:09,830 epoch 1 - iter 257/2578 - loss 0.53017904 - samples/sec: 52.49 - lr: 0.100000
+2022-09-11 09:07:30,034 epoch 1 - iter 514/2578 - loss 0.37632747 - samples/sec: 50.91 - lr: 0.100000
+2022-09-11 09:07:59,272 epoch 1 - iter 771/2578 - loss 0.28369708 - samples/sec: 35.18 - lr: 0.100000
+2022-09-11 09:08:26,826 epoch 1 - iter 1028/2578 - loss 0.23708382 - samples/sec: 37.32 - lr: 0.100000
+2022-09-11 09:08:48,365 epoch 1 - iter 1285/2578 - loss 0.21315080 - samples/sec: 47.75 - lr: 0.100000
+2022-09-11 09:09:14,870 epoch 1 - iter 1542/2578 - loss 0.19460973 - samples/sec: 38.80 - lr: 0.100000
+2022-09-11 09:09:39,157 epoch 1 - iter 1799/2578 - loss 0.17824493 - samples/sec: 42.35 - lr: 0.100000
+2022-09-11 09:10:07,554 epoch 1 - iter 2056/2578 - loss 0.16229726 - samples/sec: 36.22 - lr: 0.100000
+2022-09-11 09:10:35,107 epoch 1 - iter 2313/2578 - loss 0.15095732 - samples/sec: 37.33 - lr: 0.100000
+2022-09-11 09:10:56,282 epoch 1 - iter 2570/2578 - loss 0.14599088 - samples/sec: 48.58 - lr: 0.100000
+2022-09-11 09:10:57,173 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:10:57,173 EPOCH 1 done: loss 0.1456 - lr 0.100000
+2022-09-11 09:12:24,789 Evaluating as a multi-label problem: False
+2022-09-11 09:12:24,837 DEV : loss 0.056119974702596664 - f1-score (micro avg)  0.8824
+2022-09-11 09:12:24,936 BAD EPOCHS (no improvement): 0
+2022-09-11 09:12:24,937 saving best model
+2022-09-11 09:12:28,284 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:12:45,486 epoch 2 - iter 257/2578 - loss 0.07202749 - samples/sec: 59.81 - lr: 0.100000
+2022-09-11 09:13:06,439 epoch 2 - iter 514/2578 - loss 0.05850655 - samples/sec: 49.09 - lr: 0.100000
+2022-09-11 09:13:25,462 epoch 2 - iter 771/2578 - loss 0.06064358 - samples/sec: 54.08 - lr: 0.100000
+2022-09-11 09:13:44,060 epoch 2 - iter 1028/2578 - loss 0.05584397 - samples/sec: 55.31 - lr: 0.100000
+2022-09-11 09:14:00,519 epoch 2 - iter 1285/2578 - loss 0.05610901 - samples/sec: 62.50 - lr: 0.100000
+2022-09-11 09:14:17,552 epoch 2 - iter 1542/2578 - loss 0.05370075 - samples/sec: 60.40 - lr: 0.100000
+2022-09-11 09:14:37,386 epoch 2 - iter 1799/2578 - loss 0.05334809 - samples/sec: 51.86 - lr: 0.100000
+2022-09-11 09:14:53,347 epoch 2 - iter 2056/2578 - loss 0.05208615 - samples/sec: 64.46 - lr: 0.100000
+2022-09-11 09:15:10,278 epoch 2 - iter 2313/2578 - loss 0.05219764 - samples/sec: 60.76 - lr: 0.100000
+2022-09-11 09:15:29,706 epoch 2 - iter 2570/2578 - loss 0.05226479 - samples/sec: 52.95 - lr: 0.100000
+2022-09-11 09:15:30,441 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:15:30,441 EPOCH 2 done: loss 0.0521 - lr 0.100000
+2022-09-11 09:16:14,143 Evaluating as a multi-label problem: False
+2022-09-11 09:16:14,192 DEV : loss 0.037239015102386475 - f1-score (micro avg)  0.9287
+2022-09-11 09:16:14,291 BAD EPOCHS (no improvement): 0
+2022-09-11 09:16:14,291 saving best model
+2022-09-11 09:16:25,781 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:16:42,889 epoch 3 - iter 257/2578 - loss 0.03262012 - samples/sec: 60.14 - lr: 0.100000
+2022-09-11 09:17:02,560 epoch 3 - iter 514/2578 - loss 0.03702325 - samples/sec: 52.29 - lr: 0.100000
+2022-09-11 09:17:21,519 epoch 3 - iter 771/2578 - loss 0.03806718 - samples/sec: 54.26 - lr: 0.100000
+2022-09-11 09:17:38,411 epoch 3 - iter 1028/2578 - loss 0.03695436 - samples/sec: 60.90 - lr: 0.100000
+2022-09-11 09:17:56,343 epoch 3 - iter 1285/2578 - loss 0.04023113 - samples/sec: 57.37 - lr: 0.100000
+2022-09-11 09:18:14,595 epoch 3 - iter 1542/2578 - loss 0.04042070 - samples/sec: 56.36 - lr: 0.100000
+2022-09-11 09:18:34,705 epoch 3 - iter 1799/2578 - loss 0.03837870 - samples/sec: 51.15 - lr: 0.100000
+2022-09-11 09:18:52,690 epoch 3 - iter 2056/2578 - loss 0.03851251 - samples/sec: 57.20 - lr: 0.100000
+2022-09-11 09:19:10,106 epoch 3 - iter 2313/2578 - loss 0.03718310 - samples/sec: 59.07 - lr: 0.100000
+2022-09-11 09:19:28,082 epoch 3 - iter 2570/2578 - loss 0.03779608 - samples/sec: 57.23 - lr: 0.100000
+2022-09-11 09:19:28,438 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:19:28,438 EPOCH 3 done: loss 0.0378 - lr 0.100000
+2022-09-11 09:20:12,017 Evaluating as a multi-label problem: False
+2022-09-11 09:20:12,065 DEV : loss 0.02956126630306244 - f1-score (micro avg)  0.9398
+2022-09-11 09:20:12,165 BAD EPOCHS (no improvement): 0
+2022-09-11 09:20:12,165 saving best model
+2022-09-11 09:20:23,752 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:20:43,056 epoch 4 - iter 257/2578 - loss 0.02550668 - samples/sec: 53.29 - lr: 0.100000
+2022-09-11 09:20:59,644 epoch 4 - iter 514/2578 - loss 0.03002172 - samples/sec: 62.02 - lr: 0.100000
+2022-09-11 09:21:17,759 epoch 4 - iter 771/2578 - loss 0.03169228 - samples/sec: 56.79 - lr: 0.100000
+2022-09-11 09:21:36,416 epoch 4 - iter 1028/2578 - loss 0.03242642 - samples/sec: 55.14 - lr: 0.100000
+2022-09-11 09:21:53,840 epoch 4 - iter 1285/2578 - loss 0.03208777 - samples/sec: 59.04 - lr: 0.100000
+2022-09-11 09:22:11,053 epoch 4 - iter 1542/2578 - loss 0.03059321 - samples/sec: 59.76 - lr: 0.100000
+2022-09-11 09:22:29,122 epoch 4 - iter 1799/2578 - loss 0.03136780 - samples/sec: 56.93 - lr: 0.100000
+2022-09-11 09:22:46,031 epoch 4 - iter 2056/2578 - loss 0.03204314 - samples/sec: 60.84 - lr: 0.100000
+2022-09-11 09:23:05,658 epoch 4 - iter 2313/2578 - loss 0.03129676 - samples/sec: 52.41 - lr: 0.100000
+2022-09-11 09:23:26,456 epoch 4 - iter 2570/2578 - loss 0.03066661 - samples/sec: 49.46 - lr: 0.100000
+2022-09-11 09:23:27,145 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:23:27,146 EPOCH 4 done: loss 0.0306 - lr 0.100000
+2022-09-11 09:24:11,040 Evaluating as a multi-label problem: False
+2022-09-11 09:24:11,088 DEV : loss 0.025132257491350174 - f1-score (micro avg)  0.9538
+2022-09-11 09:24:11,187 BAD EPOCHS (no improvement): 0
+2022-09-11 09:24:11,187 saving best model
+2022-09-11 09:24:22,704 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:24:40,377 epoch 5 - iter 257/2578 - loss 0.02238492 - samples/sec: 58.21 - lr: 0.100000
+2022-09-11 09:24:57,462 epoch 5 - iter 514/2578 - loss 0.02526256 - samples/sec: 60.21 - lr: 0.100000
+2022-09-11 09:25:16,753 epoch 5 - iter 771/2578 - loss 0.02721193 - samples/sec: 53.32 - lr: 0.100000
+2022-09-11 09:25:33,224 epoch 5 - iter 1028/2578 - loss 0.02733936 - samples/sec: 62.46 - lr: 0.100000
+2022-09-11 09:25:50,710 epoch 5 - iter 1285/2578 - loss 0.02814977 - samples/sec: 58.83 - lr: 0.100000
+2022-09-11 09:26:08,313 epoch 5 - iter 1542/2578 - loss 0.02720788 - samples/sec: 58.44 - lr: 0.100000
+2022-09-11 09:26:26,889 epoch 5 - iter 1799/2578 - loss 0.02704917 - samples/sec: 55.38 - lr: 0.100000
+2022-09-11 09:26:46,188 epoch 5 - iter 2056/2578 - loss 0.02652488 - samples/sec: 53.30 - lr: 0.100000
+2022-09-11 09:27:06,979 epoch 5 - iter 2313/2578 - loss 0.02608497 - samples/sec: 49.47 - lr: 0.100000
+2022-09-11 09:27:24,615 epoch 5 - iter 2570/2578 - loss 0.02703547 - samples/sec: 58.33 - lr: 0.100000
+2022-09-11 09:27:25,431 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:27:25,431 EPOCH 5 done: loss 0.0270 - lr 0.100000
+2022-09-11 09:28:09,287 Evaluating as a multi-label problem: False
+2022-09-11 09:28:09,336 DEV : loss 0.02251664362847805 - f1-score (micro avg)  0.9531
+2022-09-11 09:28:09,435 BAD EPOCHS (no improvement): 1
+2022-09-11 09:28:09,436 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:28:28,733 epoch 6 - iter 257/2578 - loss 0.02592155 - samples/sec: 53.31 - lr: 0.100000
+2022-09-11 09:28:47,095 epoch 6 - iter 514/2578 - loss 0.02203525 - samples/sec: 56.02 - lr: 0.100000
+2022-09-11 09:29:04,333 epoch 6 - iter 771/2578 - loss 0.02094904 - samples/sec: 59.68 - lr: 0.100000
+2022-09-11 09:29:19,895 epoch 6 - iter 1028/2578 - loss 0.02297165 - samples/sec: 66.11 - lr: 0.100000
+2022-09-11 09:29:39,637 epoch 6 - iter 1285/2578 - loss 0.02279361 - samples/sec: 52.10 - lr: 0.100000
+2022-09-11 09:29:58,116 epoch 6 - iter 1542/2578 - loss 0.02227510 - samples/sec: 55.67 - lr: 0.100000
+2022-09-11 09:30:16,883 epoch 6 - iter 1799/2578 - loss 0.02205435 - samples/sec: 54.81 - lr: 0.100000
+2022-09-11 09:30:32,916 epoch 6 - iter 2056/2578 - loss 0.02203217 - samples/sec: 64.17 - lr: 0.100000
+2022-09-11 09:30:52,670 epoch 6 - iter 2313/2578 - loss 0.02282461 - samples/sec: 52.07 - lr: 0.100000
+2022-09-11 09:31:12,288 epoch 6 - iter 2570/2578 - loss 0.02354919 - samples/sec: 52.43 - lr: 0.100000
+2022-09-11 09:31:12,543 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:31:12,543 EPOCH 6 done: loss 0.0236 - lr 0.100000
+2022-09-11 09:31:56,253 Evaluating as a multi-label problem: False
+2022-09-11 09:31:56,301 DEV : loss 0.02181917056441307 - f1-score (micro avg)  0.9549
+2022-09-11 09:31:56,401 BAD EPOCHS (no improvement): 0
+2022-09-11 09:31:56,402 saving best model
+2022-09-11 09:32:07,962 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:32:24,813 epoch 7 - iter 257/2578 - loss 0.01775111 - samples/sec: 61.05 - lr: 0.100000
+2022-09-11 09:32:44,526 epoch 7 - iter 514/2578 - loss 0.01944204 - samples/sec: 52.18 - lr: 0.100000
+2022-09-11 09:33:04,384 epoch 7 - iter 771/2578 - loss 0.02136673 - samples/sec: 51.80 - lr: 0.100000
+2022-09-11 09:33:25,260 epoch 7 - iter 1028/2578 - loss 0.02090667 - samples/sec: 49.27 - lr: 0.100000
+2022-09-11 09:33:43,781 epoch 7 - iter 1285/2578 - loss 0.02170392 - samples/sec: 55.54 - lr: 0.100000
+2022-09-11 09:34:00,652 epoch 7 - iter 1542/2578 - loss 0.02163263 - samples/sec: 60.98 - lr: 0.100000
+2022-09-11 09:34:18,574 epoch 7 - iter 1799/2578 - loss 0.02217757 - samples/sec: 57.40 - lr: 0.100000
+2022-09-11 09:34:37,187 epoch 7 - iter 2056/2578 - loss 0.02152935 - samples/sec: 55.27 - lr: 0.100000
+2022-09-11 09:34:53,909 epoch 7 - iter 2313/2578 - loss 0.02064260 - samples/sec: 61.52 - lr: 0.100000
+2022-09-11 09:35:11,484 epoch 7 - iter 2570/2578 - loss 0.02064646 - samples/sec: 58.53 - lr: 0.100000
+2022-09-11 09:35:11,936 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:35:11,936 EPOCH 7 done: loss 0.0206 - lr 0.100000
+2022-09-11 09:35:55,795 Evaluating as a multi-label problem: False
+2022-09-11 09:35:55,843 DEV : loss 0.02030741237103939 - f1-score (micro avg)  0.9582
+2022-09-11 09:35:55,943 BAD EPOCHS (no improvement): 0
+2022-09-11 09:35:55,943 saving best model
+2022-09-11 09:36:07,517 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:36:26,275 epoch 8 - iter 257/2578 - loss 0.01300969 - samples/sec: 54.84 - lr: 0.100000
+2022-09-11 09:36:44,952 epoch 8 - iter 514/2578 - loss 0.01563120 - samples/sec: 55.08 - lr: 0.100000
+2022-09-11 09:37:01,264 epoch 8 - iter 771/2578 - loss 0.01661127 - samples/sec: 63.07 - lr: 0.100000
+2022-09-11 09:37:19,100 epoch 8 - iter 1028/2578 - loss 0.01890059 - samples/sec: 57.67 - lr: 0.100000
+2022-09-11 09:37:36,859 epoch 8 - iter 1285/2578 - loss 0.01965087 - samples/sec: 57.93 - lr: 0.100000
+2022-09-11 09:37:53,370 epoch 8 - iter 1542/2578 - loss 0.01911277 - samples/sec: 62.31 - lr: 0.100000
+2022-09-11 09:38:11,680 epoch 8 - iter 1799/2578 - loss 0.01831079 - samples/sec: 56.18 - lr: 0.100000
+2022-09-11 09:38:29,911 epoch 8 - iter 2056/2578 - loss 0.01914490 - samples/sec: 56.42 - lr: 0.100000
+2022-09-11 09:38:48,714 epoch 8 - iter 2313/2578 - loss 0.01984961 - samples/sec: 54.71 - lr: 0.100000
+2022-09-11 09:39:08,488 epoch 8 - iter 2570/2578 - loss 0.01980099 - samples/sec: 52.02 - lr: 0.100000
+2022-09-11 09:39:09,209 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:39:09,210 EPOCH 8 done: loss 0.0198 - lr 0.100000
+2022-09-11 09:39:52,912 Evaluating as a multi-label problem: False
+2022-09-11 09:39:52,960 DEV : loss 0.018371332436800003 - f1-score (micro avg)  0.9648
+2022-09-11 09:39:53,059 BAD EPOCHS (no improvement): 0
+2022-09-11 09:39:53,059 saving best model
+2022-09-11 09:40:04,594 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:40:24,653 epoch 9 - iter 257/2578 - loss 0.01983994 - samples/sec: 51.29 - lr: 0.100000
+2022-09-11 09:40:44,625 epoch 9 - iter 514/2578 - loss 0.02036427 - samples/sec: 51.50 - lr: 0.100000
+2022-09-11 09:40:59,296 epoch 9 - iter 771/2578 - loss 0.01949001 - samples/sec: 70.13 - lr: 0.100000
+2022-09-11 09:41:16,413 epoch 9 - iter 1028/2578 - loss 0.01837025 - samples/sec: 60.10 - lr: 0.100000
+2022-09-11 09:41:35,517 epoch 9 - iter 1285/2578 - loss 0.01794478 - samples/sec: 53.84 - lr: 0.100000
+2022-09-11 09:41:52,917 epoch 9 - iter 1542/2578 - loss 0.01812023 - samples/sec: 59.12 - lr: 0.100000
+2022-09-11 09:42:13,007 epoch 9 - iter 1799/2578 - loss 0.01742399 - samples/sec: 51.20 - lr: 0.100000
+2022-09-11 09:42:29,858 epoch 9 - iter 2056/2578 - loss 0.01794611 - samples/sec: 61.05 - lr: 0.100000
+2022-09-11 09:42:48,633 epoch 9 - iter 2313/2578 - loss 0.01855518 - samples/sec: 54.79 - lr: 0.100000
+2022-09-11 09:43:06,539 epoch 9 - iter 2570/2578 - loss 0.01789481 - samples/sec: 57.45 - lr: 0.100000
+2022-09-11 09:43:07,301 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:43:07,302 EPOCH 9 done: loss 0.0178 - lr 0.100000
+2022-09-11 09:43:50,058 Evaluating as a multi-label problem: False
+2022-09-11 09:43:50,105 DEV : loss 0.019007287919521332 - f1-score (micro avg)  0.9633
+2022-09-11 09:43:50,205 BAD EPOCHS (no improvement): 1
+2022-09-11 09:43:50,206 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:44:07,437 epoch 10 - iter 257/2578 - loss 0.01285062 - samples/sec: 59.71 - lr: 0.100000
+2022-09-11 09:44:25,266 epoch 10 - iter 514/2578 - loss 0.01475486 - samples/sec: 57.70 - lr: 0.100000
+2022-09-11 09:44:42,316 epoch 10 - iter 771/2578 - loss 0.01448619 - samples/sec: 60.33 - lr: 0.100000
+2022-09-11 09:45:00,709 epoch 10 - iter 1028/2578 - loss 0.01720785 - samples/sec: 55.93 - lr: 0.100000
+2022-09-11 09:45:18,917 epoch 10 - iter 1285/2578 - loss 0.01867897 - samples/sec: 56.50 - lr: 0.100000
+2022-09-11 09:45:35,139 epoch 10 - iter 1542/2578 - loss 0.01771816 - samples/sec: 63.42 - lr: 0.100000
+2022-09-11 09:45:55,271 epoch 10 - iter 1799/2578 - loss 0.01682132 - samples/sec: 51.09 - lr: 0.100000
+2022-09-11 09:46:13,664 epoch 10 - iter 2056/2578 - loss 0.01664430 - samples/sec: 55.93 - lr: 0.100000
+2022-09-11 09:46:32,810 epoch 10 - iter 2313/2578 - loss 0.01711027 - samples/sec: 53.72 - lr: 0.100000
+2022-09-11 09:46:53,261 epoch 10 - iter 2570/2578 - loss 0.01639148 - samples/sec: 50.30 - lr: 0.100000
+2022-09-11 09:46:53,659 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:46:53,660 EPOCH 10 done: loss 0.0164 - lr 0.100000
+2022-09-11 09:47:36,724 Evaluating as a multi-label problem: False
+2022-09-11 09:47:36,772 DEV : loss 0.020415229722857475 - f1-score (micro avg)  0.9627
+2022-09-11 09:47:36,871 BAD EPOCHS (no improvement): 2
+2022-09-11 09:47:36,872 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:47:55,668 epoch 11 - iter 257/2578 - loss 0.01445157 - samples/sec: 54.73 - lr: 0.100000
+2022-09-11 09:48:13,794 epoch 11 - iter 514/2578 - loss 0.01653483 - samples/sec: 56.75 - lr: 0.100000
+2022-09-11 09:48:33,219 epoch 11 - iter 771/2578 - loss 0.01628561 - samples/sec: 52.95 - lr: 0.100000
+2022-09-11 09:48:51,038 epoch 11 - iter 1028/2578 - loss 0.01537319 - samples/sec: 57.73 - lr: 0.100000
+2022-09-11 09:49:10,114 epoch 11 - iter 1285/2578 - loss 0.01516465 - samples/sec: 53.92 - lr: 0.100000
+2022-09-11 09:49:27,247 epoch 11 - iter 1542/2578 - loss 0.01522736 - samples/sec: 60.05 - lr: 0.100000
+2022-09-11 09:49:44,044 epoch 11 - iter 1799/2578 - loss 0.01492266 - samples/sec: 61.24 - lr: 0.100000
+2022-09-11 09:50:01,779 epoch 11 - iter 2056/2578 - loss 0.01549951 - samples/sec: 58.00 - lr: 0.100000
+2022-09-11 09:50:19,034 epoch 11 - iter 2313/2578 - loss 0.01567471 - samples/sec: 59.62 - lr: 0.100000
+2022-09-11 09:50:38,851 epoch 11 - iter 2570/2578 - loss 0.01636270 - samples/sec: 51.91 - lr: 0.100000
+2022-09-11 09:50:39,160 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:50:39,160 EPOCH 11 done: loss 0.0163 - lr 0.100000
+2022-09-11 09:51:23,025 Evaluating as a multi-label problem: False
+2022-09-11 09:51:23,073 DEV : loss 0.017282823100686073 - f1-score (micro avg)  0.9676
+2022-09-11 09:51:23,173 BAD EPOCHS (no improvement): 0
+2022-09-11 09:51:23,173 saving best model
+2022-09-11 09:51:34,710 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:51:54,741 epoch 12 - iter 257/2578 - loss 0.01410098 - samples/sec: 51.36 - lr: 0.100000
+2022-09-11 09:52:11,723 epoch 12 - iter 514/2578 - loss 0.01293500 - samples/sec: 60.58 - lr: 0.100000
+2022-09-11 09:52:28,972 epoch 12 - iter 771/2578 - loss 0.01275088 - samples/sec: 59.64 - lr: 0.100000
+2022-09-11 09:52:48,411 epoch 12 - iter 1028/2578 - loss 0.01297933 - samples/sec: 52.92 - lr: 0.100000
+2022-09-11 09:53:07,179 epoch 12 - iter 1285/2578 - loss 0.01326130 - samples/sec: 54.81 - lr: 0.100000
+2022-09-11 09:53:23,564 epoch 12 - iter 1542/2578 - loss 0.01270559 - samples/sec: 62.79 - lr: 0.100000
+2022-09-11 09:53:43,726 epoch 12 - iter 1799/2578 - loss 0.01345150 - samples/sec: 51.02 - lr: 0.100000
+2022-09-11 09:54:00,761 epoch 12 - iter 2056/2578 - loss 0.01391360 - samples/sec: 60.39 - lr: 0.100000
+2022-09-11 09:54:18,207 epoch 12 - iter 2313/2578 - loss 0.01451872 - samples/sec: 58.97 - lr: 0.100000
+2022-09-11 09:54:36,224 epoch 12 - iter 2570/2578 - loss 0.01479511 - samples/sec: 57.09 - lr: 0.100000
+2022-09-11 09:54:36,982 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:54:36,982 EPOCH 12 done: loss 0.0147 - lr 0.100000
+2022-09-11 09:55:21,001 Evaluating as a multi-label problem: False
+2022-09-11 09:55:21,050 DEV : loss 0.017490873113274574 - f1-score (micro avg)  0.9647
+2022-09-11 09:55:21,150 BAD EPOCHS (no improvement): 1
+2022-09-11 09:55:21,151 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:55:38,429 epoch 13 - iter 257/2578 - loss 0.01324370 - samples/sec: 59.54 - lr: 0.100000
+2022-09-11 09:55:56,586 epoch 13 - iter 514/2578 - loss 0.01428215 - samples/sec: 56.66 - lr: 0.100000
+2022-09-11 09:56:16,257 epoch 13 - iter 771/2578 - loss 0.01295020 - samples/sec: 52.29 - lr: 0.100000
+2022-09-11 09:56:32,571 epoch 13 - iter 1028/2578 - loss 0.01324621 - samples/sec: 63.06 - lr: 0.100000
+2022-09-11 09:56:51,100 epoch 13 - iter 1285/2578 - loss 0.01363553 - samples/sec: 55.52 - lr: 0.100000
+2022-09-11 09:57:09,280 epoch 13 - iter 1542/2578 - loss 0.01368823 - samples/sec: 56.59 - lr: 0.100000
+2022-09-11 09:57:28,808 epoch 13 - iter 1799/2578 - loss 0.01337300 - samples/sec: 52.68 - lr: 0.100000
+2022-09-11 09:57:46,669 epoch 13 - iter 2056/2578 - loss 0.01340071 - samples/sec: 57.59 - lr: 0.100000
+2022-09-11 09:58:05,394 epoch 13 - iter 2313/2578 - loss 0.01327810 - samples/sec: 54.94 - lr: 0.100000
+2022-09-11 09:58:22,711 epoch 13 - iter 2570/2578 - loss 0.01402376 - samples/sec: 59.40 - lr: 0.100000
+2022-09-11 09:58:23,604 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:58:23,604 EPOCH 13 done: loss 0.0140 - lr 0.100000
+2022-09-11 09:59:07,335 Evaluating as a multi-label problem: False
+2022-09-11 09:59:07,383 DEV : loss 0.01714567467570305 - f1-score (micro avg)  0.9694
+2022-09-11 09:59:07,482 BAD EPOCHS (no improvement): 0
+2022-09-11 09:59:07,483 saving best model
+2022-09-11 09:59:18,938 ----------------------------------------------------------------------------------------------------
+2022-09-11 09:59:35,678 epoch 14 - iter 257/2578 - loss 0.01519642 - samples/sec: 61.46 - lr: 0.100000
+2022-09-11 09:59:56,478 epoch 14 - iter 514/2578 - loss 0.01489411 - samples/sec: 49.45 - lr: 0.100000
+2022-09-11 10:00:12,195 epoch 14 - iter 771/2578 - loss 0.01364260 - samples/sec: 65.46 - lr: 0.100000
+2022-09-11 10:00:30,407 epoch 14 - iter 1028/2578 - loss 0.01282498 - samples/sec: 56.48 - lr: 0.100000
+2022-09-11 10:00:48,876 epoch 14 - iter 1285/2578 - loss 0.01348307 - samples/sec: 55.70 - lr: 0.100000
+2022-09-11 10:01:04,708 epoch 14 - iter 1542/2578 - loss 0.01339762 - samples/sec: 64.98 - lr: 0.100000
+2022-09-11 10:01:23,268 epoch 14 - iter 1799/2578 - loss 0.01306696 - samples/sec: 55.42 - lr: 0.100000
+2022-09-11 10:01:42,796 epoch 14 - iter 2056/2578 - loss 0.01295766 - samples/sec: 52.68 - lr: 0.100000
+2022-09-11 10:02:01,422 epoch 14 - iter 2313/2578 - loss 0.01347494 - samples/sec: 55.23 - lr: 0.100000
+2022-09-11 10:02:20,564 epoch 14 - iter 2570/2578 - loss 0.01343660 - samples/sec: 53.74 - lr: 0.100000
+2022-09-11 10:02:21,114 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:02:21,115 EPOCH 14 done: loss 0.0134 - lr 0.100000
+2022-09-11 10:03:05,100 Evaluating as a multi-label problem: False
+2022-09-11 10:03:05,148 DEV : loss 0.019302621483802795 - f1-score (micro avg)  0.9658
+2022-09-11 10:03:05,247 BAD EPOCHS (no improvement): 1
+2022-09-11 10:03:05,247 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:03:21,554 epoch 15 - iter 257/2578 - loss 0.02125887 - samples/sec: 63.09 - lr: 0.100000
+2022-09-11 10:03:38,171 epoch 15 - iter 514/2578 - loss 0.01474634 - samples/sec: 61.91 - lr: 0.100000
+2022-09-11 10:03:57,467 epoch 15 - iter 771/2578 - loss 0.01281251 - samples/sec: 53.31 - lr: 0.100000
+2022-09-11 10:04:14,126 epoch 15 - iter 1028/2578 - loss 0.01275607 - samples/sec: 61.75 - lr: 0.100000
+2022-09-11 10:04:33,426 epoch 15 - iter 1285/2578 - loss 0.01206147 - samples/sec: 53.29 - lr: 0.100000
+2022-09-11 10:04:52,422 epoch 15 - iter 1542/2578 - loss 0.01225655 - samples/sec: 54.15 - lr: 0.100000
+2022-09-11 10:05:11,293 epoch 15 - iter 1799/2578 - loss 0.01188788 - samples/sec: 54.51 - lr: 0.100000
+2022-09-11 10:05:29,607 epoch 15 - iter 2056/2578 - loss 0.01267092 - samples/sec: 56.17 - lr: 0.100000
+2022-09-11 10:05:48,650 epoch 15 - iter 2313/2578 - loss 0.01235905 - samples/sec: 54.02 - lr: 0.100000
+2022-09-11 10:06:07,444 epoch 15 - iter 2570/2578 - loss 0.01240615 - samples/sec: 54.73 - lr: 0.100000
+2022-09-11 10:06:07,853 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:06:07,853 EPOCH 15 done: loss 0.0125 - lr 0.100000
+2022-09-11 10:06:51,742 Evaluating as a multi-label problem: False
+2022-09-11 10:06:51,789 DEV : loss 0.01744343340396881 - f1-score (micro avg)  0.9671
+2022-09-11 10:06:51,889 BAD EPOCHS (no improvement): 2
+2022-09-11 10:06:51,890 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:07:10,155 epoch 16 - iter 257/2578 - loss 0.01451553 - samples/sec: 56.33 - lr: 0.100000
+2022-09-11 10:07:30,680 epoch 16 - iter 514/2578 - loss 0.01167428 - samples/sec: 50.11 - lr: 0.100000
+2022-09-11 10:07:45,541 epoch 16 - iter 771/2578 - loss 0.01204361 - samples/sec: 69.23 - lr: 0.100000
+2022-09-11 10:08:05,561 epoch 16 - iter 1028/2578 - loss 0.01124300 - samples/sec: 51.38 - lr: 0.100000
+2022-09-11 10:08:23,100 epoch 16 - iter 1285/2578 - loss 0.01336482 - samples/sec: 58.65 - lr: 0.100000
+2022-09-11 10:08:41,627 epoch 16 - iter 1542/2578 - loss 0.01316659 - samples/sec: 55.52 - lr: 0.100000
+2022-09-11 10:09:00,471 epoch 16 - iter 1799/2578 - loss 0.01310736 - samples/sec: 54.59 - lr: 0.100000
+2022-09-11 10:09:18,472 epoch 16 - iter 2056/2578 - loss 0.01305188 - samples/sec: 57.15 - lr: 0.100000
+2022-09-11 10:09:35,938 epoch 16 - iter 2313/2578 - loss 0.01277870 - samples/sec: 58.90 - lr: 0.100000
+2022-09-11 10:09:54,326 epoch 16 - iter 2570/2578 - loss 0.01267538 - samples/sec: 55.94 - lr: 0.100000
+2022-09-11 10:09:55,077 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:09:55,077 EPOCH 16 done: loss 0.0127 - lr 0.100000
+2022-09-11 10:10:38,916 Evaluating as a multi-label problem: False
+2022-09-11 10:10:38,965 DEV : loss 0.01944488100707531 - f1-score (micro avg)  0.9661
+2022-09-11 10:10:39,064 BAD EPOCHS (no improvement): 3
+2022-09-11 10:10:39,064 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:10:55,651 epoch 17 - iter 257/2578 - loss 0.00598797 - samples/sec: 62.03 - lr: 0.100000
+2022-09-11 10:11:14,109 epoch 17 - iter 514/2578 - loss 0.00956820 - samples/sec: 55.73 - lr: 0.100000
+2022-09-11 10:11:31,530 epoch 17 - iter 771/2578 - loss 0.00876759 - samples/sec: 59.05 - lr: 0.100000
+2022-09-11 10:11:52,045 epoch 17 - iter 1028/2578 - loss 0.01121106 - samples/sec: 50.14 - lr: 0.100000
+2022-09-11 10:12:09,111 epoch 17 - iter 1285/2578 - loss 0.01123914 - samples/sec: 60.28 - lr: 0.100000
+2022-09-11 10:12:26,363 epoch 17 - iter 1542/2578 - loss 0.01093606 - samples/sec: 59.63 - lr: 0.100000
+2022-09-11 10:12:44,937 epoch 17 - iter 1799/2578 - loss 0.01124935 - samples/sec: 55.38 - lr: 0.100000
+2022-09-11 10:13:06,792 epoch 17 - iter 2056/2578 - loss 0.01187012 - samples/sec: 47.06 - lr: 0.100000
+2022-09-11 10:13:24,507 epoch 17 - iter 2313/2578 - loss 0.01191665 - samples/sec: 58.07 - lr: 0.100000
+2022-09-11 10:13:42,754 epoch 17 - iter 2570/2578 - loss 0.01158411 - samples/sec: 56.38 - lr: 0.100000
+2022-09-11 10:13:43,255 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:13:43,255 EPOCH 17 done: loss 0.0116 - lr 0.100000
+2022-09-11 10:14:27,233 Evaluating as a multi-label problem: False
+2022-09-11 10:14:27,282 DEV : loss 0.01944327913224697 - f1-score (micro avg)  0.9649
+2022-09-11 10:14:27,381 Epoch    17: reducing learning rate of group 0 to 5.0000e-02.
+2022-09-11 10:14:27,382 BAD EPOCHS (no improvement): 4
+2022-09-11 10:14:27,382 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:14:48,712 epoch 18 - iter 257/2578 - loss 0.00967330 - samples/sec: 48.23 - lr: 0.050000
+2022-09-11 10:15:05,507 epoch 18 - iter 514/2578 - loss 0.01068306 - samples/sec: 61.25 - lr: 0.050000
+2022-09-11 10:15:23,138 epoch 18 - iter 771/2578 - loss 0.01029980 - samples/sec: 58.35 - lr: 0.050000
+2022-09-11 10:15:39,718 epoch 18 - iter 1028/2578 - loss 0.00936135 - samples/sec: 62.05 - lr: 0.050000
+2022-09-11 10:15:57,718 epoch 18 - iter 1285/2578 - loss 0.00955217 - samples/sec: 57.15 - lr: 0.050000
+2022-09-11 10:16:17,138 epoch 18 - iter 1542/2578 - loss 0.00992487 - samples/sec: 52.97 - lr: 0.050000
+2022-09-11 10:16:35,549 epoch 18 - iter 1799/2578 - loss 0.00945218 - samples/sec: 55.87 - lr: 0.050000
+2022-09-11 10:16:50,798 epoch 18 - iter 2056/2578 - loss 0.01019177 - samples/sec: 67.47 - lr: 0.050000
+2022-09-11 10:17:10,484 epoch 18 - iter 2313/2578 - loss 0.00980517 - samples/sec: 52.25 - lr: 0.050000
+2022-09-11 10:17:30,119 epoch 18 - iter 2570/2578 - loss 0.00985666 - samples/sec: 52.39 - lr: 0.050000
+2022-09-11 10:17:30,574 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:17:30,574 EPOCH 18 done: loss 0.0098 - lr 0.050000
+2022-09-11 10:18:14,528 Evaluating as a multi-label problem: False
+2022-09-11 10:18:14,577 DEV : loss 0.017107971012592316 - f1-score (micro avg)  0.971
+2022-09-11 10:18:14,676 BAD EPOCHS (no improvement): 0
+2022-09-11 10:18:14,676 saving best model
+2022-09-11 10:18:26,364 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:18:46,616 epoch 19 - iter 257/2578 - loss 0.00804102 - samples/sec: 50.80 - lr: 0.050000
+2022-09-11 10:19:04,917 epoch 19 - iter 514/2578 - loss 0.00842264 - samples/sec: 56.21 - lr: 0.050000
+2022-09-11 10:19:23,394 epoch 19 - iter 771/2578 - loss 0.00958640 - samples/sec: 55.67 - lr: 0.050000
+2022-09-11 10:19:40,041 epoch 19 - iter 1028/2578 - loss 0.00958419 - samples/sec: 61.80 - lr: 0.050000
+2022-09-11 10:19:57,437 epoch 19 - iter 1285/2578 - loss 0.00890895 - samples/sec: 59.14 - lr: 0.050000
+2022-09-11 10:20:17,327 epoch 19 - iter 1542/2578 - loss 0.00888915 - samples/sec: 51.72 - lr: 0.050000
+2022-09-11 10:20:34,959 epoch 19 - iter 1799/2578 - loss 0.00930427 - samples/sec: 58.34 - lr: 0.050000
+2022-09-11 10:20:51,942 epoch 19 - iter 2056/2578 - loss 0.00917645 - samples/sec: 60.57 - lr: 0.050000
+2022-09-11 10:21:09,164 epoch 19 - iter 2313/2578 - loss 0.00903087 - samples/sec: 59.73 - lr: 0.050000
+2022-09-11 10:21:27,981 epoch 19 - iter 2570/2578 - loss 0.00887795 - samples/sec: 54.67 - lr: 0.050000
+2022-09-11 10:21:28,281 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:21:28,281 EPOCH 19 done: loss 0.0089 - lr 0.050000
+2022-09-11 10:22:12,253 Evaluating as a multi-label problem: False
+2022-09-11 10:22:12,301 DEV : loss 0.016409004107117653 - f1-score (micro avg)  0.9701
+2022-09-11 10:22:12,401 BAD EPOCHS (no improvement): 1
+2022-09-11 10:22:12,401 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:22:29,161 epoch 20 - iter 257/2578 - loss 0.01038433 - samples/sec: 61.39 - lr: 0.050000
+2022-09-11 10:22:49,365 epoch 20 - iter 514/2578 - loss 0.00807497 - samples/sec: 50.91 - lr: 0.050000
+2022-09-11 10:23:09,127 epoch 20 - iter 771/2578 - loss 0.00874280 - samples/sec: 52.05 - lr: 0.050000
+2022-09-11 10:23:26,143 epoch 20 - iter 1028/2578 - loss 0.00867310 - samples/sec: 60.46 - lr: 0.050000
+2022-09-11 10:23:44,272 epoch 20 - iter 1285/2578 - loss 0.00894680 - samples/sec: 56.74 - lr: 0.050000
+2022-09-11 10:24:01,405 epoch 20 - iter 1542/2578 - loss 0.00845637 - samples/sec: 60.04 - lr: 0.050000
+2022-09-11 10:24:20,360 epoch 20 - iter 1799/2578 - loss 0.00842705 - samples/sec: 54.27 - lr: 0.050000
+2022-09-11 10:24:36,063 epoch 20 - iter 2056/2578 - loss 0.00867862 - samples/sec: 65.51 - lr: 0.050000
+2022-09-11 10:24:54,132 epoch 20 - iter 2313/2578 - loss 0.00857011 - samples/sec: 56.93 - lr: 0.050000
+2022-09-11 10:25:13,737 epoch 20 - iter 2570/2578 - loss 0.00876087 - samples/sec: 52.47 - lr: 0.050000
+2022-09-11 10:25:14,153 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:25:14,154 EPOCH 20 done: loss 0.0087 - lr 0.050000
+2022-09-11 10:25:57,880 Evaluating as a multi-label problem: False
+2022-09-11 10:25:57,928 DEV : loss 0.016989924013614655 - f1-score (micro avg)  0.9719
+2022-09-11 10:25:58,028 BAD EPOCHS (no improvement): 0
+2022-09-11 10:25:58,028 saving best model
+2022-09-11 10:26:09,568 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:26:26,391 epoch 21 - iter 257/2578 - loss 0.00690902 - samples/sec: 61.16 - lr: 0.050000
+2022-09-11 10:26:43,338 epoch 21 - iter 514/2578 - loss 0.00718733 - samples/sec: 60.70 - lr: 0.050000
+2022-09-11 10:27:03,474 epoch 21 - iter 771/2578 - loss 0.00575487 - samples/sec: 51.08 - lr: 0.050000
+2022-09-11 10:27:22,529 epoch 21 - iter 1028/2578 - loss 0.00576619 - samples/sec: 53.98 - lr: 0.050000
+2022-09-11 10:27:41,012 epoch 21 - iter 1285/2578 - loss 0.00635264 - samples/sec: 55.66 - lr: 0.050000
+2022-09-11 10:27:58,155 epoch 21 - iter 1542/2578 - loss 0.00678216 - samples/sec: 60.01 - lr: 0.050000
+2022-09-11 10:28:16,596 epoch 21 - iter 1799/2578 - loss 0.00684703 - samples/sec: 55.78 - lr: 0.050000
+2022-09-11 10:28:35,441 epoch 21 - iter 2056/2578 - loss 0.00701015 - samples/sec: 54.59 - lr: 0.050000
+2022-09-11 10:28:51,944 epoch 21 - iter 2313/2578 - loss 0.00760806 - samples/sec: 62.34 - lr: 0.050000
+2022-09-11 10:29:10,393 epoch 21 - iter 2570/2578 - loss 0.00776452 - samples/sec: 55.76 - lr: 0.050000
+2022-09-11 10:29:11,323 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:29:11,323 EPOCH 21 done: loss 0.0077 - lr 0.050000
+2022-09-11 10:29:55,392 Evaluating as a multi-label problem: False
+2022-09-11 10:29:55,441 DEV : loss 0.017003843560814857 - f1-score (micro avg)  0.9711
+2022-09-11 10:29:55,541 BAD EPOCHS (no improvement): 1
+2022-09-11 10:29:55,541 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:30:16,099 epoch 22 - iter 257/2578 - loss 0.00605583 - samples/sec: 50.04 - lr: 0.050000
+2022-09-11 10:30:34,992 epoch 22 - iter 514/2578 - loss 0.00806727 - samples/sec: 54.45 - lr: 0.050000
+2022-09-11 10:30:57,046 epoch 22 - iter 771/2578 - loss 0.00762960 - samples/sec: 46.64 - lr: 0.050000
+2022-09-11 10:31:15,000 epoch 22 - iter 1028/2578 - loss 0.00791863 - samples/sec: 57.29 - lr: 0.050000
+2022-09-11 10:31:30,978 epoch 22 - iter 1285/2578 - loss 0.00826855 - samples/sec: 64.39 - lr: 0.050000
+2022-09-11 10:31:47,979 epoch 22 - iter 1542/2578 - loss 0.00809638 - samples/sec: 60.51 - lr: 0.050000
+2022-09-11 10:32:05,371 epoch 22 - iter 1799/2578 - loss 0.00786532 - samples/sec: 59.15 - lr: 0.050000
+2022-09-11 10:32:22,940 epoch 22 - iter 2056/2578 - loss 0.00804058 - samples/sec: 58.55 - lr: 0.050000
+2022-09-11 10:32:40,251 epoch 22 - iter 2313/2578 - loss 0.00796916 - samples/sec: 59.43 - lr: 0.050000
+2022-09-11 10:32:58,070 epoch 22 - iter 2570/2578 - loss 0.00773072 - samples/sec: 57.73 - lr: 0.050000
+2022-09-11 10:32:58,469 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:32:58,469 EPOCH 22 done: loss 0.0078 - lr 0.050000
+2022-09-11 10:33:42,472 Evaluating as a multi-label problem: False
+2022-09-11 10:33:42,520 DEV : loss 0.01660551130771637 - f1-score (micro avg)  0.9712
+2022-09-11 10:33:42,620 BAD EPOCHS (no improvement): 2
+2022-09-11 10:33:42,620 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:33:59,835 epoch 23 - iter 257/2578 - loss 0.00685728 - samples/sec: 59.77 - lr: 0.050000
+2022-09-11 10:34:18,116 epoch 23 - iter 514/2578 - loss 0.00635420 - samples/sec: 56.27 - lr: 0.050000
+2022-09-11 10:34:37,227 epoch 23 - iter 771/2578 - loss 0.00722341 - samples/sec: 53.82 - lr: 0.050000
+2022-09-11 10:34:54,264 epoch 23 - iter 1028/2578 - loss 0.00788863 - samples/sec: 60.38 - lr: 0.050000
+2022-09-11 10:35:12,280 epoch 23 - iter 1285/2578 - loss 0.00790705 - samples/sec: 57.10 - lr: 0.050000
+2022-09-11 10:35:30,699 epoch 23 - iter 1542/2578 - loss 0.00759787 - samples/sec: 55.85 - lr: 0.050000
+2022-09-11 10:35:53,524 epoch 23 - iter 1799/2578 - loss 0.00713761 - samples/sec: 45.06 - lr: 0.050000
+2022-09-11 10:36:10,646 epoch 23 - iter 2056/2578 - loss 0.00696751 - samples/sec: 60.08 - lr: 0.050000
+2022-09-11 10:36:30,764 epoch 23 - iter 2313/2578 - loss 0.00679305 - samples/sec: 51.13 - lr: 0.050000
+2022-09-11 10:36:45,432 epoch 23 - iter 2570/2578 - loss 0.00689396 - samples/sec: 70.14 - lr: 0.050000
+2022-09-11 10:36:45,651 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:36:45,651 EPOCH 23 done: loss 0.0069 - lr 0.050000
+2022-09-11 10:37:29,763 Evaluating as a multi-label problem: False
+2022-09-11 10:37:29,811 DEV : loss 0.01679934374988079 - f1-score (micro avg)  0.9711
+2022-09-11 10:37:29,911 BAD EPOCHS (no improvement): 3
+2022-09-11 10:37:29,911 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:37:49,074 epoch 24 - iter 257/2578 - loss 0.00710696 - samples/sec: 53.68 - lr: 0.050000
+2022-09-11 10:38:06,207 epoch 24 - iter 514/2578 - loss 0.00701214 - samples/sec: 60.04 - lr: 0.050000
+2022-09-11 10:38:26,749 epoch 24 - iter 771/2578 - loss 0.00769485 - samples/sec: 50.07 - lr: 0.050000
+2022-09-11 10:38:45,209 epoch 24 - iter 1028/2578 - loss 0.00794933 - samples/sec: 55.73 - lr: 0.050000
+2022-09-11 10:39:02,799 epoch 24 - iter 1285/2578 - loss 0.00820968 - samples/sec: 58.48 - lr: 0.050000
+2022-09-11 10:39:19,133 epoch 24 - iter 1542/2578 - loss 0.00815691 - samples/sec: 62.98 - lr: 0.050000
+2022-09-11 10:39:38,610 epoch 24 - iter 1799/2578 - loss 0.00783177 - samples/sec: 52.81 - lr: 0.050000
+2022-09-11 10:39:56,682 epoch 24 - iter 2056/2578 - loss 0.00789834 - samples/sec: 56.92 - lr: 0.050000
+2022-09-11 10:40:12,570 epoch 24 - iter 2313/2578 - loss 0.00774045 - samples/sec: 64.75 - lr: 0.050000
+2022-09-11 10:40:30,085 epoch 24 - iter 2570/2578 - loss 0.00740680 - samples/sec: 58.73 - lr: 0.050000
+2022-09-11 10:40:31,438 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:40:31,438 EPOCH 24 done: loss 0.0074 - lr 0.050000
+2022-09-11 10:41:14,270 Evaluating as a multi-label problem: False
+2022-09-11 10:41:14,319 DEV : loss 0.016564488410949707 - f1-score (micro avg)  0.9734
+2022-09-11 10:41:14,418 BAD EPOCHS (no improvement): 0
+2022-09-11 10:41:14,419 saving best model
+2022-09-11 10:41:25,980 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:41:46,382 epoch 25 - iter 257/2578 - loss 0.00878280 - samples/sec: 50.42 - lr: 0.050000
+2022-09-11 10:42:05,003 epoch 25 - iter 514/2578 - loss 0.00769542 - samples/sec: 55.24 - lr: 0.050000
+2022-09-11 10:42:22,142 epoch 25 - iter 771/2578 - loss 0.00931152 - samples/sec: 60.02 - lr: 0.050000
+2022-09-11 10:42:39,492 epoch 25 - iter 1028/2578 - loss 0.00913239 - samples/sec: 59.29 - lr: 0.050000
+2022-09-11 10:43:00,699 epoch 25 - iter 1285/2578 - loss 0.00831530 - samples/sec: 48.50 - lr: 0.050000
+2022-09-11 10:43:16,163 epoch 25 - iter 1542/2578 - loss 0.00767051 - samples/sec: 66.53 - lr: 0.050000
+2022-09-11 10:43:35,443 epoch 25 - iter 1799/2578 - loss 0.00725394 - samples/sec: 53.35 - lr: 0.050000
+2022-09-11 10:43:53,053 epoch 25 - iter 2056/2578 - loss 0.00730301 - samples/sec: 58.42 - lr: 0.050000
+2022-09-11 10:44:12,291 epoch 25 - iter 2313/2578 - loss 0.00730799 - samples/sec: 53.47 - lr: 0.050000
+2022-09-11 10:44:30,161 epoch 25 - iter 2570/2578 - loss 0.00734400 - samples/sec: 57.56 - lr: 0.050000
+2022-09-11 10:44:30,606 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:44:30,606 EPOCH 25 done: loss 0.0073 - lr 0.050000
+2022-09-11 10:45:13,554 Evaluating as a multi-label problem: False
+2022-09-11 10:45:13,602 DEV : loss 0.01641443930566311 - f1-score (micro avg)  0.9739
+2022-09-11 10:45:13,701 BAD EPOCHS (no improvement): 0
+2022-09-11 10:45:13,701 saving best model
+2022-09-11 10:45:25,214 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:45:42,038 epoch 26 - iter 257/2578 - loss 0.01109809 - samples/sec: 61.15 - lr: 0.050000
+2022-09-11 10:46:00,113 epoch 26 - iter 514/2578 - loss 0.00800920 - samples/sec: 56.91 - lr: 0.050000
+2022-09-11 10:46:16,760 epoch 26 - iter 771/2578 - loss 0.00668033 - samples/sec: 61.80 - lr: 0.050000
+2022-09-11 10:46:35,463 epoch 26 - iter 1028/2578 - loss 0.00697022 - samples/sec: 55.00 - lr: 0.050000
+2022-09-11 10:46:54,390 epoch 26 - iter 1285/2578 - loss 0.00741989 - samples/sec: 54.35 - lr: 0.050000
+2022-09-11 10:47:18,069 epoch 26 - iter 1542/2578 - loss 0.00723727 - samples/sec: 43.44 - lr: 0.050000
+2022-09-11 10:47:35,955 epoch 26 - iter 1799/2578 - loss 0.00698372 - samples/sec: 57.51 - lr: 0.050000
+2022-09-11 10:47:55,003 epoch 26 - iter 2056/2578 - loss 0.00671952 - samples/sec: 54.01 - lr: 0.050000
+2022-09-11 10:48:12,744 epoch 26 - iter 2313/2578 - loss 0.00659664 - samples/sec: 57.98 - lr: 0.050000
+2022-09-11 10:48:28,469 epoch 26 - iter 2570/2578 - loss 0.00667528 - samples/sec: 65.42 - lr: 0.050000
+2022-09-11 10:48:29,029 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:48:29,029 EPOCH 26 done: loss 0.0067 - lr 0.050000
+2022-09-11 10:49:13,023 Evaluating as a multi-label problem: False
+2022-09-11 10:49:13,071 DEV : loss 0.017219629138708115 - f1-score (micro avg)  0.9713
+2022-09-11 10:49:13,170 BAD EPOCHS (no improvement): 1
+2022-09-11 10:49:13,170 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:49:34,818 epoch 27 - iter 257/2578 - loss 0.00367712 - samples/sec: 47.52 - lr: 0.050000
+2022-09-11 10:49:52,820 epoch 27 - iter 514/2578 - loss 0.00708437 - samples/sec: 57.14 - lr: 0.050000
+2022-09-11 10:50:08,470 epoch 27 - iter 771/2578 - loss 0.00624205 - samples/sec: 65.74 - lr: 0.050000
+2022-09-11 10:50:25,769 epoch 27 - iter 1028/2578 - loss 0.00621676 - samples/sec: 59.47 - lr: 0.050000
+2022-09-11 10:50:46,807 epoch 27 - iter 1285/2578 - loss 0.00654541 - samples/sec: 48.89 - lr: 0.050000
+2022-09-11 10:51:05,411 epoch 27 - iter 1542/2578 - loss 0.00622360 - samples/sec: 55.29 - lr: 0.050000
+2022-09-11 10:51:22,540 epoch 27 - iter 1799/2578 - loss 0.00596000 - samples/sec: 60.06 - lr: 0.050000
+2022-09-11 10:51:41,407 epoch 27 - iter 2056/2578 - loss 0.00607860 - samples/sec: 54.52 - lr: 0.050000
+2022-09-11 10:52:00,399 epoch 27 - iter 2313/2578 - loss 0.00617889 - samples/sec: 54.16 - lr: 0.050000
+2022-09-11 10:52:17,549 epoch 27 - iter 2570/2578 - loss 0.00634354 - samples/sec: 59.98 - lr: 0.050000
+2022-09-11 10:52:17,970 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:52:17,970 EPOCH 27 done: loss 0.0063 - lr 0.050000
+2022-09-11 10:53:01,903 Evaluating as a multi-label problem: False
+2022-09-11 10:53:01,951 DEV : loss 0.017041873186826706 - f1-score (micro avg)  0.9721
+2022-09-11 10:53:02,051 BAD EPOCHS (no improvement): 2
+2022-09-11 10:53:02,051 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:53:23,541 epoch 28 - iter 257/2578 - loss 0.00630127 - samples/sec: 47.87 - lr: 0.050000
+2022-09-11 10:53:42,599 epoch 28 - iter 514/2578 - loss 0.00644292 - samples/sec: 53.97 - lr: 0.050000
+2022-09-11 10:53:59,139 epoch 28 - iter 771/2578 - loss 0.00623137 - samples/sec: 62.20 - lr: 0.050000
+2022-09-11 10:54:17,926 epoch 28 - iter 1028/2578 - loss 0.00577013 - samples/sec: 54.75 - lr: 0.050000
+2022-09-11 10:54:35,194 epoch 28 - iter 1285/2578 - loss 0.00556489 - samples/sec: 59.57 - lr: 0.050000
+2022-09-11 10:54:54,034 epoch 28 - iter 1542/2578 - loss 0.00601856 - samples/sec: 54.60 - lr: 0.050000
+2022-09-11 10:55:11,501 epoch 28 - iter 1799/2578 - loss 0.00630857 - samples/sec: 58.89 - lr: 0.050000
+2022-09-11 10:55:28,129 epoch 28 - iter 2056/2578 - loss 0.00586279 - samples/sec: 61.87 - lr: 0.050000
+2022-09-11 10:55:45,709 epoch 28 - iter 2313/2578 - loss 0.00603536 - samples/sec: 58.52 - lr: 0.050000
+2022-09-11 10:56:04,892 epoch 28 - iter 2570/2578 - loss 0.00597270 - samples/sec: 53.62 - lr: 0.050000
+2022-09-11 10:56:05,682 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:56:05,682 EPOCH 28 done: loss 0.0060 - lr 0.050000
+2022-09-11 10:56:49,806 Evaluating as a multi-label problem: False
+2022-09-11 10:56:49,854 DEV : loss 0.01752837374806404 - f1-score (micro avg)  0.9716
+2022-09-11 10:56:49,954 BAD EPOCHS (no improvement): 3
+2022-09-11 10:56:49,955 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:57:08,488 epoch 29 - iter 257/2578 - loss 0.00753511 - samples/sec: 55.51 - lr: 0.050000
+2022-09-11 10:57:26,329 epoch 29 - iter 514/2578 - loss 0.00606442 - samples/sec: 57.66 - lr: 0.050000
+2022-09-11 10:57:43,714 epoch 29 - iter 771/2578 - loss 0.00531235 - samples/sec: 59.17 - lr: 0.050000
+2022-09-11 10:58:02,039 epoch 29 - iter 1028/2578 - loss 0.00588165 - samples/sec: 56.13 - lr: 0.050000
+2022-09-11 10:58:20,376 epoch 29 - iter 1285/2578 - loss 0.00574953 - samples/sec: 56.10 - lr: 0.050000
+2022-09-11 10:58:37,847 epoch 29 - iter 1542/2578 - loss 0.00669219 - samples/sec: 58.88 - lr: 0.050000
+2022-09-11 10:58:54,769 epoch 29 - iter 1799/2578 - loss 0.00623106 - samples/sec: 60.79 - lr: 0.050000
+2022-09-11 10:59:15,576 epoch 29 - iter 2056/2578 - loss 0.00599950 - samples/sec: 49.43 - lr: 0.050000
+2022-09-11 10:59:35,641 epoch 29 - iter 2313/2578 - loss 0.00599430 - samples/sec: 51.26 - lr: 0.050000
+2022-09-11 10:59:53,470 epoch 29 - iter 2570/2578 - loss 0.00572438 - samples/sec: 57.70 - lr: 0.050000
+2022-09-11 10:59:53,974 ----------------------------------------------------------------------------------------------------
+2022-09-11 10:59:53,974 EPOCH 29 done: loss 0.0057 - lr 0.050000
+2022-09-11 11:00:38,073 Evaluating as a multi-label problem: False
+2022-09-11 11:00:38,121 DEV : loss 0.017465120181441307 - f1-score (micro avg)  0.9748
+2022-09-11 11:00:38,220 BAD EPOCHS (no improvement): 0
+2022-09-11 11:00:38,221 saving best model
+2022-09-11 11:00:49,743 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:01:06,943 epoch 30 - iter 257/2578 - loss 0.00545863 - samples/sec: 59.82 - lr: 0.050000
+2022-09-11 11:01:25,331 epoch 30 - iter 514/2578 - loss 0.00650855 - samples/sec: 55.94 - lr: 0.050000
+2022-09-11 11:01:44,376 epoch 30 - iter 771/2578 - loss 0.00670684 - samples/sec: 54.01 - lr: 0.050000
+2022-09-11 11:02:00,602 epoch 30 - iter 1028/2578 - loss 0.00620096 - samples/sec: 63.40 - lr: 0.050000
+2022-09-11 11:02:21,669 epoch 30 - iter 1285/2578 - loss 0.00590695 - samples/sec: 48.82 - lr: 0.050000
+2022-09-11 11:02:42,757 epoch 30 - iter 1542/2578 - loss 0.00593885 - samples/sec: 48.78 - lr: 0.050000
+2022-09-11 11:03:00,654 epoch 30 - iter 1799/2578 - loss 0.00669280 - samples/sec: 57.48 - lr: 0.050000
+2022-09-11 11:03:18,659 epoch 30 - iter 2056/2578 - loss 0.00640005 - samples/sec: 57.13 - lr: 0.050000
+2022-09-11 11:03:34,078 epoch 30 - iter 2313/2578 - loss 0.00623781 - samples/sec: 66.72 - lr: 0.050000
+2022-09-11 11:03:51,772 epoch 30 - iter 2570/2578 - loss 0.00626236 - samples/sec: 58.14 - lr: 0.050000
+2022-09-11 11:03:52,117 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:03:52,117 EPOCH 30 done: loss 0.0063 - lr 0.050000
+2022-09-11 11:04:35,813 Evaluating as a multi-label problem: False
+2022-09-11 11:04:35,862 DEV : loss 0.01747753843665123 - f1-score (micro avg)  0.9722
+2022-09-11 11:04:35,961 BAD EPOCHS (no improvement): 1
+2022-09-11 11:04:35,962 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:04:54,338 epoch 31 - iter 257/2578 - loss 0.00330890 - samples/sec: 55.98 - lr: 0.050000
+2022-09-11 11:05:14,755 epoch 31 - iter 514/2578 - loss 0.00447640 - samples/sec: 50.38 - lr: 0.050000
+2022-09-11 11:05:30,167 epoch 31 - iter 771/2578 - loss 0.00508961 - samples/sec: 66.75 - lr: 0.050000
+2022-09-11 11:05:46,804 epoch 31 - iter 1028/2578 - loss 0.00510856 - samples/sec: 61.83 - lr: 0.050000
+2022-09-11 11:06:04,270 epoch 31 - iter 1285/2578 - loss 0.00493312 - samples/sec: 58.90 - lr: 0.050000
+2022-09-11 11:06:21,893 epoch 31 - iter 1542/2578 - loss 0.00546055 - samples/sec: 58.38 - lr: 0.050000
+2022-09-11 11:06:39,878 epoch 31 - iter 1799/2578 - loss 0.00493129 - samples/sec: 57.20 - lr: 0.050000
+2022-09-11 11:07:00,787 epoch 31 - iter 2056/2578 - loss 0.00499197 - samples/sec: 49.19 - lr: 0.050000
+2022-09-11 11:07:19,485 epoch 31 - iter 2313/2578 - loss 0.00492508 - samples/sec: 55.01 - lr: 0.050000
+2022-09-11 11:07:37,683 epoch 31 - iter 2570/2578 - loss 0.00534850 - samples/sec: 56.53 - lr: 0.050000
+2022-09-11 11:07:38,180 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:07:38,181 EPOCH 31 done: loss 0.0053 - lr 0.050000
+2022-09-11 11:08:22,014 Evaluating as a multi-label problem: False
+2022-09-11 11:08:22,062 DEV : loss 0.016803467646241188 - f1-score (micro avg)  0.9741
+2022-09-11 11:08:22,161 BAD EPOCHS (no improvement): 2
+2022-09-11 11:08:22,161 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:08:39,960 epoch 32 - iter 257/2578 - loss 0.00229874 - samples/sec: 57.80 - lr: 0.050000
+2022-09-11 11:08:58,620 epoch 32 - iter 514/2578 - loss 0.00434766 - samples/sec: 55.13 - lr: 0.050000
+2022-09-11 11:09:19,362 epoch 32 - iter 771/2578 - loss 0.00443996 - samples/sec: 49.59 - lr: 0.050000
+2022-09-11 11:09:36,645 epoch 32 - iter 1028/2578 - loss 0.00434167 - samples/sec: 59.52 - lr: 0.050000
+2022-09-11 11:09:54,610 epoch 32 - iter 1285/2578 - loss 0.00472036 - samples/sec: 57.26 - lr: 0.050000
+2022-09-11 11:10:09,724 epoch 32 - iter 1542/2578 - loss 0.00474060 - samples/sec: 68.07 - lr: 0.050000
+2022-09-11 11:10:26,522 epoch 32 - iter 1799/2578 - loss 0.00538572 - samples/sec: 61.24 - lr: 0.050000
+2022-09-11 11:10:46,158 epoch 32 - iter 2056/2578 - loss 0.00557607 - samples/sec: 52.39 - lr: 0.050000
+2022-09-11 11:11:04,313 epoch 32 - iter 2313/2578 - loss 0.00579085 - samples/sec: 56.66 - lr: 0.050000
+2022-09-11 11:11:22,984 epoch 32 - iter 2570/2578 - loss 0.00573485 - samples/sec: 55.09 - lr: 0.050000
+2022-09-11 11:11:23,918 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:11:23,918 EPOCH 32 done: loss 0.0057 - lr 0.050000
+2022-09-11 11:12:08,039 Evaluating as a multi-label problem: False
+2022-09-11 11:12:08,087 DEV : loss 0.01711258292198181 - f1-score (micro avg)  0.9737
+2022-09-11 11:12:08,187 BAD EPOCHS (no improvement): 3
+2022-09-11 11:12:08,187 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:12:25,668 epoch 33 - iter 257/2578 - loss 0.00518938 - samples/sec: 58.85 - lr: 0.050000
+2022-09-11 11:12:42,840 epoch 33 - iter 514/2578 - loss 0.00545021 - samples/sec: 59.91 - lr: 0.050000
+2022-09-11 11:13:00,030 epoch 33 - iter 771/2578 - loss 0.00661114 - samples/sec: 59.85 - lr: 0.050000
+2022-09-11 11:13:17,245 epoch 33 - iter 1028/2578 - loss 0.00671772 - samples/sec: 59.76 - lr: 0.050000
+2022-09-11 11:13:37,937 epoch 33 - iter 1285/2578 - loss 0.00637533 - samples/sec: 49.71 - lr: 0.050000
+2022-09-11 11:13:59,002 epoch 33 - iter 1542/2578 - loss 0.00576179 - samples/sec: 48.83 - lr: 0.050000
+2022-09-11 11:14:18,770 epoch 33 - iter 1799/2578 - loss 0.00576515 - samples/sec: 52.04 - lr: 0.050000
+2022-09-11 11:14:35,898 epoch 33 - iter 2056/2578 - loss 0.00585231 - samples/sec: 60.06 - lr: 0.050000
+2022-09-11 11:14:53,421 epoch 33 - iter 2313/2578 - loss 0.00596784 - samples/sec: 58.71 - lr: 0.050000
+2022-09-11 11:15:11,270 epoch 33 - iter 2570/2578 - loss 0.00575967 - samples/sec: 57.63 - lr: 0.050000
+2022-09-11 11:15:11,632 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:15:11,632 EPOCH 33 done: loss 0.0057 - lr 0.050000
+2022-09-11 11:15:55,395 Evaluating as a multi-label problem: False
+2022-09-11 11:15:55,443 DEV : loss 0.01720808632671833 - f1-score (micro avg)  0.9726
+2022-09-11 11:15:55,542 Epoch    33: reducing learning rate of group 0 to 2.5000e-02.
+2022-09-11 11:15:55,542 BAD EPOCHS (no improvement): 4
+2022-09-11 11:15:55,542 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:16:15,137 epoch 34 - iter 257/2578 - loss 0.00574659 - samples/sec: 52.50 - lr: 0.025000
+2022-09-11 11:16:34,517 epoch 34 - iter 514/2578 - loss 0.00446153 - samples/sec: 53.08 - lr: 0.025000
+2022-09-11 11:16:51,644 epoch 34 - iter 771/2578 - loss 0.00464642 - samples/sec: 60.06 - lr: 0.025000
+2022-09-11 11:17:08,985 epoch 34 - iter 1028/2578 - loss 0.00475397 - samples/sec: 59.32 - lr: 0.025000
+2022-09-11 11:17:27,163 epoch 34 - iter 1285/2578 - loss 0.00488955 - samples/sec: 56.59 - lr: 0.025000
+2022-09-11 11:17:44,052 epoch 34 - iter 1542/2578 - loss 0.00449340 - samples/sec: 60.91 - lr: 0.025000
+2022-09-11 11:17:59,631 epoch 34 - iter 1799/2578 - loss 0.00423409 - samples/sec: 66.04 - lr: 0.025000
+2022-09-11 11:18:19,633 epoch 34 - iter 2056/2578 - loss 0.00455082 - samples/sec: 51.43 - lr: 0.025000
+2022-09-11 11:18:37,878 epoch 34 - iter 2313/2578 - loss 0.00476715 - samples/sec: 56.38 - lr: 0.025000
+2022-09-11 11:18:58,447 epoch 34 - iter 2570/2578 - loss 0.00467428 - samples/sec: 50.01 - lr: 0.025000
+2022-09-11 11:18:59,402 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:18:59,402 EPOCH 34 done: loss 0.0047 - lr 0.025000
+2022-09-11 11:19:43,195 Evaluating as a multi-label problem: False
+2022-09-11 11:19:43,242 DEV : loss 0.016772225499153137 - f1-score (micro avg)  0.9745
+2022-09-11 11:19:43,341 BAD EPOCHS (no improvement): 1
+2022-09-11 11:19:43,341 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:20:02,456 epoch 35 - iter 257/2578 - loss 0.00409335 - samples/sec: 53.82 - lr: 0.025000
+2022-09-11 11:20:22,854 epoch 35 - iter 514/2578 - loss 0.00471777 - samples/sec: 50.43 - lr: 0.025000
+2022-09-11 11:20:41,743 epoch 35 - iter 771/2578 - loss 0.00369597 - samples/sec: 54.46 - lr: 0.025000
+2022-09-11 11:20:57,292 epoch 35 - iter 1028/2578 - loss 0.00418662 - samples/sec: 66.17 - lr: 0.025000
+2022-09-11 11:21:14,363 epoch 35 - iter 1285/2578 - loss 0.00383177 - samples/sec: 60.26 - lr: 0.025000
+2022-09-11 11:21:31,578 epoch 35 - iter 1542/2578 - loss 0.00392209 - samples/sec: 59.76 - lr: 0.025000
+2022-09-11 11:21:49,648 epoch 35 - iter 1799/2578 - loss 0.00405109 - samples/sec: 56.93 - lr: 0.025000
+2022-09-11 11:22:08,162 epoch 35 - iter 2056/2578 - loss 0.00401876 - samples/sec: 55.56 - lr: 0.025000
+2022-09-11 11:22:26,220 epoch 35 - iter 2313/2578 - loss 0.00411649 - samples/sec: 56.97 - lr: 0.025000
+2022-09-11 11:22:45,638 epoch 35 - iter 2570/2578 - loss 0.00427509 - samples/sec: 52.97 - lr: 0.025000
+2022-09-11 11:22:46,227 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:22:46,227 EPOCH 35 done: loss 0.0043 - lr 0.025000
+2022-09-11 11:23:30,358 Evaluating as a multi-label problem: False
+2022-09-11 11:23:30,407 DEV : loss 0.016987329348921776 - f1-score (micro avg)  0.9745
+2022-09-11 11:23:30,506 BAD EPOCHS (no improvement): 2
+2022-09-11 11:23:30,507 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:23:48,513 epoch 36 - iter 257/2578 - loss 0.00677021 - samples/sec: 57.13 - lr: 0.025000
+2022-09-11 11:24:07,905 epoch 36 - iter 514/2578 - loss 0.00456839 - samples/sec: 53.05 - lr: 0.025000
+2022-09-11 11:24:26,404 epoch 36 - iter 771/2578 - loss 0.00409718 - samples/sec: 55.61 - lr: 0.025000
+2022-09-11 11:24:45,639 epoch 36 - iter 1028/2578 - loss 0.00356968 - samples/sec: 53.48 - lr: 0.025000
+2022-09-11 11:25:01,756 epoch 36 - iter 1285/2578 - loss 0.00345819 - samples/sec: 63.83 - lr: 0.025000
+2022-09-11 11:25:21,252 epoch 36 - iter 1542/2578 - loss 0.00323855 - samples/sec: 52.76 - lr: 0.025000
+2022-09-11 11:25:38,505 epoch 36 - iter 1799/2578 - loss 0.00335631 - samples/sec: 59.63 - lr: 0.025000
+2022-09-11 11:25:55,781 epoch 36 - iter 2056/2578 - loss 0.00391747 - samples/sec: 59.54 - lr: 0.025000
+2022-09-11 11:26:11,384 epoch 36 - iter 2313/2578 - loss 0.00406893 - samples/sec: 65.94 - lr: 0.025000
+2022-09-11 11:26:30,951 epoch 36 - iter 2570/2578 - loss 0.00420770 - samples/sec: 52.57 - lr: 0.025000
+2022-09-11 11:26:31,517 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:26:31,517 EPOCH 36 done: loss 0.0042 - lr 0.025000
+2022-09-11 11:27:15,728 Evaluating as a multi-label problem: False
+2022-09-11 11:27:15,776 DEV : loss 0.01729968562722206 - f1-score (micro avg)  0.9753
+2022-09-11 11:27:15,875 BAD EPOCHS (no improvement): 0
+2022-09-11 11:27:15,875 saving best model
+2022-09-11 11:27:27,467 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:27:45,841 epoch 37 - iter 257/2578 - loss 0.00214630 - samples/sec: 55.99 - lr: 0.025000
+2022-09-11 11:28:04,181 epoch 37 - iter 514/2578 - loss 0.00392088 - samples/sec: 56.09 - lr: 0.025000
+2022-09-11 11:28:21,769 epoch 37 - iter 771/2578 - loss 0.00466796 - samples/sec: 58.49 - lr: 0.025000
+2022-09-11 11:28:40,862 epoch 37 - iter 1028/2578 - loss 0.00458655 - samples/sec: 53.88 - lr: 0.025000
+2022-09-11 11:28:57,206 epoch 37 - iter 1285/2578 - loss 0.00483957 - samples/sec: 62.95 - lr: 0.025000
+2022-09-11 11:29:15,097 epoch 37 - iter 1542/2578 - loss 0.00508837 - samples/sec: 57.50 - lr: 0.025000
+2022-09-11 11:29:37,333 epoch 37 - iter 1799/2578 - loss 0.00499756 - samples/sec: 46.26 - lr: 0.025000
+2022-09-11 11:29:55,021 epoch 37 - iter 2056/2578 - loss 0.00467453 - samples/sec: 58.16 - lr: 0.025000
+2022-09-11 11:30:12,856 epoch 37 - iter 2313/2578 - loss 0.00444656 - samples/sec: 57.68 - lr: 0.025000
+2022-09-11 11:30:29,564 epoch 37 - iter 2570/2578 - loss 0.00433232 - samples/sec: 61.57 - lr: 0.025000
+2022-09-11 11:30:30,166 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:30:30,166 EPOCH 37 done: loss 0.0043 - lr 0.025000
+2022-09-11 11:31:14,329 Evaluating as a multi-label problem: False
+2022-09-11 11:31:14,377 DEV : loss 0.017521042376756668 - f1-score (micro avg)  0.974
+2022-09-11 11:31:14,476 BAD EPOCHS (no improvement): 1
+2022-09-11 11:31:14,477 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:31:29,042 epoch 38 - iter 257/2578 - loss 0.00571432 - samples/sec: 70.64 - lr: 0.025000
+2022-09-11 11:31:47,873 epoch 38 - iter 514/2578 - loss 0.00532369 - samples/sec: 54.63 - lr: 0.025000
+2022-09-11 11:32:05,347 epoch 38 - iter 771/2578 - loss 0.00513911 - samples/sec: 58.87 - lr: 0.025000
+2022-09-11 11:32:23,665 epoch 38 - iter 1028/2578 - loss 0.00470208 - samples/sec: 56.16 - lr: 0.025000
+2022-09-11 11:32:42,782 epoch 38 - iter 1285/2578 - loss 0.00467477 - samples/sec: 53.81 - lr: 0.025000
+2022-09-11 11:33:00,688 epoch 38 - iter 1542/2578 - loss 0.00471033 - samples/sec: 57.45 - lr: 0.025000
+2022-09-11 11:33:19,511 epoch 38 - iter 1799/2578 - loss 0.00448759 - samples/sec: 54.65 - lr: 0.025000
+2022-09-11 11:33:38,645 epoch 38 - iter 2056/2578 - loss 0.00432868 - samples/sec: 53.76 - lr: 0.025000
+2022-09-11 11:33:57,569 epoch 38 - iter 2313/2578 - loss 0.00425172 - samples/sec: 54.36 - lr: 0.025000
+2022-09-11 11:34:17,507 epoch 38 - iter 2570/2578 - loss 0.00447537 - samples/sec: 51.59 - lr: 0.025000
+2022-09-11 11:34:18,302 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:34:18,302 EPOCH 38 done: loss 0.0045 - lr 0.025000
+2022-09-11 11:35:02,085 Evaluating as a multi-label problem: False
+2022-09-11 11:35:02,133 DEV : loss 0.017112135887145996 - f1-score (micro avg)  0.9743
+2022-09-11 11:35:02,233 BAD EPOCHS (no improvement): 2
+2022-09-11 11:35:02,233 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:35:19,468 epoch 39 - iter 257/2578 - loss 0.00234947 - samples/sec: 59.69 - lr: 0.025000
+2022-09-11 11:35:38,014 epoch 39 - iter 514/2578 - loss 0.00245963 - samples/sec: 55.47 - lr: 0.025000
+2022-09-11 11:35:57,102 epoch 39 - iter 771/2578 - loss 0.00288053 - samples/sec: 53.89 - lr: 0.025000
+2022-09-11 11:36:16,592 epoch 39 - iter 1028/2578 - loss 0.00339292 - samples/sec: 52.78 - lr: 0.025000
+2022-09-11 11:36:33,135 epoch 39 - iter 1285/2578 - loss 0.00324855 - samples/sec: 62.18 - lr: 0.025000
+2022-09-11 11:36:54,445 epoch 39 - iter 1542/2578 - loss 0.00300894 - samples/sec: 48.27 - lr: 0.025000
+2022-09-11 11:37:13,172 epoch 39 - iter 1799/2578 - loss 0.00303565 - samples/sec: 54.93 - lr: 0.025000
+2022-09-11 11:37:31,011 epoch 39 - iter 2056/2578 - loss 0.00308935 - samples/sec: 57.67 - lr: 0.025000
+2022-09-11 11:37:49,773 epoch 39 - iter 2313/2578 - loss 0.00351884 - samples/sec: 54.83 - lr: 0.025000
+2022-09-11 11:38:05,755 epoch 39 - iter 2570/2578 - loss 0.00373888 - samples/sec: 64.37 - lr: 0.025000
+2022-09-11 11:38:05,974 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:38:05,974 EPOCH 39 done: loss 0.0037 - lr 0.025000
+2022-09-11 11:38:50,048 Evaluating as a multi-label problem: False
+2022-09-11 11:38:50,096 DEV : loss 0.017335716634988785 - f1-score (micro avg)  0.974
+2022-09-11 11:38:50,196 BAD EPOCHS (no improvement): 3
+2022-09-11 11:38:50,197 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:39:09,779 epoch 40 - iter 257/2578 - loss 0.00464552 - samples/sec: 52.53 - lr: 0.025000
+2022-09-11 11:39:27,382 epoch 40 - iter 514/2578 - loss 0.00377661 - samples/sec: 58.44 - lr: 0.025000
+2022-09-11 11:39:46,567 epoch 40 - iter 771/2578 - loss 0.00361217 - samples/sec: 53.62 - lr: 0.025000
+2022-09-11 11:40:03,098 epoch 40 - iter 1028/2578 - loss 0.00357094 - samples/sec: 62.23 - lr: 0.025000
+2022-09-11 11:40:22,921 epoch 40 - iter 1285/2578 - loss 0.00348708 - samples/sec: 51.89 - lr: 0.025000
+2022-09-11 11:40:39,038 epoch 40 - iter 1542/2578 - loss 0.00347535 - samples/sec: 63.83 - lr: 0.025000
+2022-09-11 11:40:57,420 epoch 40 - iter 1799/2578 - loss 0.00354282 - samples/sec: 55.96 - lr: 0.025000
+2022-09-11 11:41:14,348 epoch 40 - iter 2056/2578 - loss 0.00383319 - samples/sec: 60.77 - lr: 0.025000
+2022-09-11 11:41:34,201 epoch 40 - iter 2313/2578 - loss 0.00377173 - samples/sec: 51.81 - lr: 0.025000
+2022-09-11 11:41:52,971 epoch 40 - iter 2570/2578 - loss 0.00407171 - samples/sec: 54.80 - lr: 0.025000
+2022-09-11 11:41:53,429 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:41:53,429 EPOCH 40 done: loss 0.0041 - lr 0.025000
+2022-09-11 11:42:36,260 Evaluating as a multi-label problem: False
+2022-09-11 11:42:36,308 DEV : loss 0.01739790290594101 - f1-score (micro avg)  0.9748
+2022-09-11 11:42:36,407 Epoch    40: reducing learning rate of group 0 to 1.2500e-02.
+2022-09-11 11:42:36,408 BAD EPOCHS (no improvement): 4
+2022-09-11 11:42:36,408 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:42:51,399 epoch 41 - iter 257/2578 - loss 0.00657376 - samples/sec: 68.63 - lr: 0.012500
+2022-09-11 11:43:10,837 epoch 41 - iter 514/2578 - loss 0.00434491 - samples/sec: 52.92 - lr: 0.012500
+2022-09-11 11:43:31,498 epoch 41 - iter 771/2578 - loss 0.00386993 - samples/sec: 49.78 - lr: 0.012500
+2022-09-11 11:43:47,478 epoch 41 - iter 1028/2578 - loss 0.00361335 - samples/sec: 64.38 - lr: 0.012500
+2022-09-11 11:44:06,844 epoch 41 - iter 1285/2578 - loss 0.00432282 - samples/sec: 53.12 - lr: 0.012500
+2022-09-11 11:44:24,966 epoch 41 - iter 1542/2578 - loss 0.00448979 - samples/sec: 56.77 - lr: 0.012500
+2022-09-11 11:44:43,020 epoch 41 - iter 1799/2578 - loss 0.00430678 - samples/sec: 56.98 - lr: 0.012500
+2022-09-11 11:45:01,096 epoch 41 - iter 2056/2578 - loss 0.00405535 - samples/sec: 56.91 - lr: 0.012500
+2022-09-11 11:45:19,286 epoch 41 - iter 2313/2578 - loss 0.00384214 - samples/sec: 56.55 - lr: 0.012500
+2022-09-11 11:45:38,138 epoch 41 - iter 2570/2578 - loss 0.00379647 - samples/sec: 54.57 - lr: 0.012500
+2022-09-11 11:45:38,812 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:45:38,812 EPOCH 41 done: loss 0.0038 - lr 0.012500
+2022-09-11 11:46:22,062 Evaluating as a multi-label problem: False
+2022-09-11 11:46:22,110 DEV : loss 0.017117096111178398 - f1-score (micro avg)  0.9748
+2022-09-11 11:46:22,210 BAD EPOCHS (no improvement): 1
+2022-09-11 11:46:22,211 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:46:40,676 epoch 42 - iter 257/2578 - loss 0.00270797 - samples/sec: 55.72 - lr: 0.012500
+2022-09-11 11:47:00,538 epoch 42 - iter 514/2578 - loss 0.00443383 - samples/sec: 51.79 - lr: 0.012500
+2022-09-11 11:47:19,928 epoch 42 - iter 771/2578 - loss 0.00380803 - samples/sec: 53.05 - lr: 0.012500
+2022-09-11 11:47:36,436 epoch 42 - iter 1028/2578 - loss 0.00364838 - samples/sec: 62.32 - lr: 0.012500
+2022-09-11 11:47:55,773 epoch 42 - iter 1285/2578 - loss 0.00353748 - samples/sec: 53.20 - lr: 0.012500
+2022-09-11 11:48:12,417 epoch 42 - iter 1542/2578 - loss 0.00376087 - samples/sec: 61.81 - lr: 0.012500
+2022-09-11 11:48:32,971 epoch 42 - iter 1799/2578 - loss 0.00375062 - samples/sec: 50.05 - lr: 0.012500
+2022-09-11 11:48:49,805 epoch 42 - iter 2056/2578 - loss 0.00367929 - samples/sec: 61.11 - lr: 0.012500
+2022-09-11 11:49:05,853 epoch 42 - iter 2313/2578 - loss 0.00368759 - samples/sec: 64.11 - lr: 0.012500
+2022-09-11 11:49:23,961 epoch 42 - iter 2570/2578 - loss 0.00370840 - samples/sec: 56.81 - lr: 0.012500
+2022-09-11 11:49:24,414 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:49:24,414 EPOCH 42 done: loss 0.0037 - lr 0.012500
+2022-09-11 11:50:08,379 Evaluating as a multi-label problem: False
+2022-09-11 11:50:08,427 DEV : loss 0.017130432650446892 - f1-score (micro avg)  0.9755
+2022-09-11 11:50:08,526 BAD EPOCHS (no improvement): 0
+2022-09-11 11:50:08,527 saving best model
+2022-09-11 11:50:20,211 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:50:38,885 epoch 43 - iter 257/2578 - loss 0.00248957 - samples/sec: 55.10 - lr: 0.012500
+2022-09-11 11:50:58,155 epoch 43 - iter 514/2578 - loss 0.00290975 - samples/sec: 53.38 - lr: 0.012500
+2022-09-11 11:51:17,495 epoch 43 - iter 771/2578 - loss 0.00356057 - samples/sec: 53.19 - lr: 0.012500
+2022-09-11 11:51:34,552 epoch 43 - iter 1028/2578 - loss 0.00372806 - samples/sec: 60.31 - lr: 0.012500
+2022-09-11 11:51:50,664 epoch 43 - iter 1285/2578 - loss 0.00373763 - samples/sec: 63.85 - lr: 0.012500
+2022-09-11 11:52:09,074 epoch 43 - iter 1542/2578 - loss 0.00363426 - samples/sec: 55.88 - lr: 0.012500
+2022-09-11 11:52:26,608 epoch 43 - iter 1799/2578 - loss 0.00348807 - samples/sec: 58.67 - lr: 0.012500
+2022-09-11 11:52:43,431 epoch 43 - iter 2056/2578 - loss 0.00348284 - samples/sec: 61.15 - lr: 0.012500
+2022-09-11 11:53:01,629 epoch 43 - iter 2313/2578 - loss 0.00351072 - samples/sec: 56.53 - lr: 0.012500
+2022-09-11 11:53:22,281 epoch 43 - iter 2570/2578 - loss 0.00344894 - samples/sec: 49.81 - lr: 0.012500
+2022-09-11 11:53:22,634 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:53:22,634 EPOCH 43 done: loss 0.0034 - lr 0.012500
+2022-09-11 11:54:06,634 Evaluating as a multi-label problem: False
+2022-09-11 11:54:06,683 DEV : loss 0.017397062852978706 - f1-score (micro avg)  0.9745
+2022-09-11 11:54:06,782 BAD EPOCHS (no improvement): 1
+2022-09-11 11:54:06,783 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:54:24,006 epoch 44 - iter 257/2578 - loss 0.00261091 - samples/sec: 59.73 - lr: 0.012500
+2022-09-11 11:54:44,079 epoch 44 - iter 514/2578 - loss 0.00234284 - samples/sec: 51.25 - lr: 0.012500
+2022-09-11 11:55:03,429 epoch 44 - iter 771/2578 - loss 0.00243014 - samples/sec: 53.16 - lr: 0.012500
+2022-09-11 11:55:22,743 epoch 44 - iter 1028/2578 - loss 0.00320481 - samples/sec: 53.26 - lr: 0.012500
+2022-09-11 11:55:41,265 epoch 44 - iter 1285/2578 - loss 0.00290946 - samples/sec: 55.54 - lr: 0.012500
+2022-09-11 11:55:58,386 epoch 44 - iter 1542/2578 - loss 0.00331257 - samples/sec: 60.09 - lr: 0.012500
+2022-09-11 11:56:16,106 epoch 44 - iter 1799/2578 - loss 0.00333640 - samples/sec: 58.05 - lr: 0.012500
+2022-09-11 11:56:35,204 epoch 44 - iter 2056/2578 - loss 0.00334068 - samples/sec: 53.86 - lr: 0.012500
+2022-09-11 11:56:52,220 epoch 44 - iter 2313/2578 - loss 0.00352460 - samples/sec: 60.46 - lr: 0.012500
+2022-09-11 11:57:11,514 epoch 44 - iter 2570/2578 - loss 0.00358210 - samples/sec: 53.31 - lr: 0.012500
+2022-09-11 11:57:11,896 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:57:11,897 EPOCH 44 done: loss 0.0036 - lr 0.012500
+2022-09-11 11:57:55,740 Evaluating as a multi-label problem: False
+2022-09-11 11:57:55,787 DEV : loss 0.017271118238568306 - f1-score (micro avg)  0.9748
+2022-09-11 11:57:55,886 BAD EPOCHS (no improvement): 2
+2022-09-11 11:57:55,886 ----------------------------------------------------------------------------------------------------
+2022-09-11 11:58:13,122 epoch 45 - iter 257/2578 - loss 0.00516173 - samples/sec: 59.69 - lr: 0.012500
+2022-09-11 11:58:29,958 epoch 45 - iter 514/2578 - loss 0.00448938 - samples/sec: 61.10 - lr: 0.012500
+2022-09-11 11:58:47,537 epoch 45 - iter 771/2578 - loss 0.00416104 - samples/sec: 58.52 - lr: 0.012500
+2022-09-11 11:59:07,358 epoch 45 - iter 1028/2578 - loss 0.00371284 - samples/sec: 51.90 - lr: 0.012500
+2022-09-11 11:59:26,885 epoch 45 - iter 1285/2578 - loss 0.00341776 - samples/sec: 52.68 - lr: 0.012500
+2022-09-11 11:59:45,625 epoch 45 - iter 1542/2578 - loss 0.00315743 - samples/sec: 54.89 - lr: 0.012500
+2022-09-11 12:00:02,622 epoch 45 - iter 1799/2578 - loss 0.00305403 - samples/sec: 60.52 - lr: 0.012500
+2022-09-11 12:00:20,776 epoch 45 - iter 2056/2578 - loss 0.00313162 - samples/sec: 56.66 - lr: 0.012500
+2022-09-11 12:00:38,229 epoch 45 - iter 2313/2578 - loss 0.00337547 - samples/sec: 58.94 - lr: 0.012500
+2022-09-11 12:00:57,516 epoch 45 - iter 2570/2578 - loss 0.00331642 - samples/sec: 53.33 - lr: 0.012500
+2022-09-11 12:00:58,399 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:00:58,400 EPOCH 45 done: loss 0.0033 - lr 0.012500
+2022-09-11 12:01:42,563 Evaluating as a multi-label problem: False
+2022-09-11 12:01:42,611 DEV : loss 0.017463043332099915 - f1-score (micro avg)  0.9749
+2022-09-11 12:01:42,710 BAD EPOCHS (no improvement): 3
+2022-09-11 12:01:42,711 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:02:01,413 epoch 46 - iter 257/2578 - loss 0.00501420 - samples/sec: 55.01 - lr: 0.012500
+2022-09-11 12:02:21,078 epoch 46 - iter 514/2578 - loss 0.00357686 - samples/sec: 52.31 - lr: 0.012500
+2022-09-11 12:02:39,890 epoch 46 - iter 771/2578 - loss 0.00329777 - samples/sec: 54.68 - lr: 0.012500
+2022-09-11 12:02:58,390 epoch 46 - iter 1028/2578 - loss 0.00368097 - samples/sec: 55.61 - lr: 0.012500
+2022-09-11 12:03:16,573 epoch 46 - iter 1285/2578 - loss 0.00334665 - samples/sec: 56.57 - lr: 0.012500
+2022-09-11 12:03:35,844 epoch 46 - iter 1542/2578 - loss 0.00317714 - samples/sec: 53.38 - lr: 0.012500
+2022-09-11 12:03:53,112 epoch 46 - iter 1799/2578 - loss 0.00306036 - samples/sec: 59.57 - lr: 0.012500
+2022-09-11 12:04:10,502 epoch 46 - iter 2056/2578 - loss 0.00350598 - samples/sec: 59.16 - lr: 0.012500
+2022-09-11 12:04:28,494 epoch 46 - iter 2313/2578 - loss 0.00359643 - samples/sec: 57.18 - lr: 0.012500
+2022-09-11 12:04:45,444 epoch 46 - iter 2570/2578 - loss 0.00375304 - samples/sec: 60.69 - lr: 0.012500
+2022-09-11 12:04:46,032 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:04:46,032 EPOCH 46 done: loss 0.0037 - lr 0.012500
+2022-09-11 12:05:30,145 Evaluating as a multi-label problem: False
+2022-09-11 12:05:30,194 DEV : loss 0.017219899222254753 - f1-score (micro avg)  0.9755
+2022-09-11 12:05:30,294 BAD EPOCHS (no improvement): 0
+2022-09-11 12:05:30,295 saving best model
+2022-09-11 12:05:42,020 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:06:00,545 epoch 47 - iter 257/2578 - loss 0.00524733 - samples/sec: 55.53 - lr: 0.012500
+2022-09-11 12:06:20,225 epoch 47 - iter 514/2578 - loss 0.00336461 - samples/sec: 52.27 - lr: 0.012500
+2022-09-11 12:06:39,712 epoch 47 - iter 771/2578 - loss 0.00275909 - samples/sec: 52.79 - lr: 0.012500
+2022-09-11 12:06:56,656 epoch 47 - iter 1028/2578 - loss 0.00338557 - samples/sec: 60.71 - lr: 0.012500
+2022-09-11 12:07:13,697 epoch 47 - iter 1285/2578 - loss 0.00331497 - samples/sec: 60.37 - lr: 0.012500
+2022-09-11 12:07:30,869 epoch 47 - iter 1542/2578 - loss 0.00328585 - samples/sec: 59.91 - lr: 0.012500
+2022-09-11 12:07:49,793 epoch 47 - iter 1799/2578 - loss 0.00319884 - samples/sec: 54.36 - lr: 0.012500
+2022-09-11 12:08:08,724 epoch 47 - iter 2056/2578 - loss 0.00323132 - samples/sec: 54.34 - lr: 0.012500
+2022-09-11 12:08:26,174 epoch 47 - iter 2313/2578 - loss 0.00324625 - samples/sec: 58.95 - lr: 0.012500
+2022-09-11 12:08:44,634 epoch 47 - iter 2570/2578 - loss 0.00327529 - samples/sec: 55.72 - lr: 0.012500
+2022-09-11 12:08:44,936 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:08:44,936 EPOCH 47 done: loss 0.0033 - lr 0.012500
+2022-09-11 12:09:29,034 Evaluating as a multi-label problem: False
+2022-09-11 12:09:29,082 DEV : loss 0.01747998222708702 - f1-score (micro avg)  0.9754
+2022-09-11 12:09:29,182 BAD EPOCHS (no improvement): 1
+2022-09-11 12:09:29,183 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:09:47,434 epoch 48 - iter 257/2578 - loss 0.00300586 - samples/sec: 56.37 - lr: 0.012500
+2022-09-11 12:10:04,414 epoch 48 - iter 514/2578 - loss 0.00292194 - samples/sec: 60.59 - lr: 0.012500
+2022-09-11 12:10:20,602 epoch 48 - iter 771/2578 - loss 0.00314410 - samples/sec: 63.55 - lr: 0.012500
+2022-09-11 12:10:39,520 epoch 48 - iter 1028/2578 - loss 0.00322218 - samples/sec: 54.38 - lr: 0.012500
+2022-09-11 12:10:59,095 epoch 48 - iter 1285/2578 - loss 0.00333694 - samples/sec: 52.55 - lr: 0.012500
+2022-09-11 12:11:18,061 epoch 48 - iter 1542/2578 - loss 0.00393333 - samples/sec: 54.24 - lr: 0.012500
+2022-09-11 12:11:34,823 epoch 48 - iter 1799/2578 - loss 0.00357976 - samples/sec: 61.37 - lr: 0.012500
+2022-09-11 12:11:54,032 epoch 48 - iter 2056/2578 - loss 0.00338101 - samples/sec: 53.55 - lr: 0.012500
+2022-09-11 12:12:11,296 epoch 48 - iter 2313/2578 - loss 0.00359545 - samples/sec: 59.59 - lr: 0.012500
+2022-09-11 12:12:30,666 epoch 48 - iter 2570/2578 - loss 0.00362605 - samples/sec: 53.11 - lr: 0.012500
+2022-09-11 12:12:31,081 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:12:31,082 EPOCH 48 done: loss 0.0036 - lr 0.012500
+2022-09-11 12:13:14,918 Evaluating as a multi-label problem: False
+2022-09-11 12:13:14,967 DEV : loss 0.01759404130280018 - f1-score (micro avg)  0.9747
+2022-09-11 12:13:15,066 BAD EPOCHS (no improvement): 2
+2022-09-11 12:13:15,067 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:13:35,855 epoch 49 - iter 257/2578 - loss 0.00296333 - samples/sec: 49.49 - lr: 0.012500
+2022-09-11 12:13:55,425 epoch 49 - iter 514/2578 - loss 0.00286718 - samples/sec: 52.56 - lr: 0.012500
+2022-09-11 12:14:13,931 epoch 49 - iter 771/2578 - loss 0.00313397 - samples/sec: 55.59 - lr: 0.012500
+2022-09-11 12:14:30,338 epoch 49 - iter 1028/2578 - loss 0.00287152 - samples/sec: 62.70 - lr: 0.012500
+2022-09-11 12:14:47,145 epoch 49 - iter 1285/2578 - loss 0.00283207 - samples/sec: 61.21 - lr: 0.012500
+2022-09-11 12:15:04,782 epoch 49 - iter 1542/2578 - loss 0.00295719 - samples/sec: 58.33 - lr: 0.012500
+2022-09-11 12:15:22,408 epoch 49 - iter 1799/2578 - loss 0.00307534 - samples/sec: 58.36 - lr: 0.012500
+2022-09-11 12:15:39,614 epoch 49 - iter 2056/2578 - loss 0.00337049 - samples/sec: 59.79 - lr: 0.012500
+2022-09-11 12:15:56,968 epoch 49 - iter 2313/2578 - loss 0.00319641 - samples/sec: 59.28 - lr: 0.012500
+2022-09-11 12:16:17,755 epoch 49 - iter 2570/2578 - loss 0.00334544 - samples/sec: 49.48 - lr: 0.012500
+2022-09-11 12:16:18,429 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:16:18,429 EPOCH 49 done: loss 0.0033 - lr 0.012500
+2022-09-11 12:17:02,622 Evaluating as a multi-label problem: False
+2022-09-11 12:17:02,671 DEV : loss 0.01773971877992153 - f1-score (micro avg)  0.9762
+2022-09-11 12:17:02,771 BAD EPOCHS (no improvement): 0
+2022-09-11 12:17:02,771 saving best model
+2022-09-11 12:17:14,377 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:17:32,666 epoch 50 - iter 257/2578 - loss 0.00363612 - samples/sec: 56.26 - lr: 0.012500
+2022-09-11 12:17:49,625 epoch 50 - iter 514/2578 - loss 0.00319117 - samples/sec: 60.66 - lr: 0.012500
+2022-09-11 12:18:09,798 epoch 50 - iter 771/2578 - loss 0.00373714 - samples/sec: 50.99 - lr: 0.012500
+2022-09-11 12:18:31,179 epoch 50 - iter 1028/2578 - loss 0.00407641 - samples/sec: 48.11 - lr: 0.012500
+2022-09-11 12:18:48,230 epoch 50 - iter 1285/2578 - loss 0.00380702 - samples/sec: 60.33 - lr: 0.012500
+2022-09-11 12:19:05,781 epoch 50 - iter 1542/2578 - loss 0.00383864 - samples/sec: 58.61 - lr: 0.012500
+2022-09-11 12:19:24,397 epoch 50 - iter 1799/2578 - loss 0.00374572 - samples/sec: 55.26 - lr: 0.012500
+2022-09-11 12:19:40,663 epoch 50 - iter 2056/2578 - loss 0.00383079 - samples/sec: 63.25 - lr: 0.012500
+2022-09-11 12:19:58,313 epoch 50 - iter 2313/2578 - loss 0.00376043 - samples/sec: 58.28 - lr: 0.012500
+2022-09-11 12:20:16,055 epoch 50 - iter 2570/2578 - loss 0.00360391 - samples/sec: 57.98 - lr: 0.012500
+2022-09-11 12:20:16,508 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:20:16,508 EPOCH 50 done: loss 0.0036 - lr 0.012500
+2022-09-11 12:21:00,688 Evaluating as a multi-label problem: False
+2022-09-11 12:21:00,737 DEV : loss 0.017500370740890503 - f1-score (micro avg)  0.9755
+2022-09-11 12:21:00,837 BAD EPOCHS (no improvement): 1
+2022-09-11 12:21:00,837 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:21:21,972 epoch 51 - iter 257/2578 - loss 0.00374608 - samples/sec: 48.67 - lr: 0.012500
+2022-09-11 12:21:38,810 epoch 51 - iter 514/2578 - loss 0.00298737 - samples/sec: 61.10 - lr: 0.012500
+2022-09-11 12:21:57,951 epoch 51 - iter 771/2578 - loss 0.00275532 - samples/sec: 53.74 - lr: 0.012500
+2022-09-11 12:22:15,905 epoch 51 - iter 1028/2578 - loss 0.00273786 - samples/sec: 57.30 - lr: 0.012500
+2022-09-11 12:22:34,197 epoch 51 - iter 1285/2578 - loss 0.00273578 - samples/sec: 56.24 - lr: 0.012500
+2022-09-11 12:22:51,467 epoch 51 - iter 1542/2578 - loss 0.00253579 - samples/sec: 59.57 - lr: 0.012500
+2022-09-11 12:23:09,727 epoch 51 - iter 1799/2578 - loss 0.00261440 - samples/sec: 56.34 - lr: 0.012500
+2022-09-11 12:23:27,535 epoch 51 - iter 2056/2578 - loss 0.00272991 - samples/sec: 57.77 - lr: 0.012500
+2022-09-11 12:23:44,469 epoch 51 - iter 2313/2578 - loss 0.00286525 - samples/sec: 60.75 - lr: 0.012500
+2022-09-11 12:24:03,332 epoch 51 - iter 2570/2578 - loss 0.00311312 - samples/sec: 54.53 - lr: 0.012500
+2022-09-11 12:24:03,649 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:24:03,649 EPOCH 51 done: loss 0.0031 - lr 0.012500
+2022-09-11 12:24:47,749 Evaluating as a multi-label problem: False
+2022-09-11 12:24:47,798 DEV : loss 0.017686735838651657 - f1-score (micro avg)  0.9761
+2022-09-11 12:24:47,896 BAD EPOCHS (no improvement): 2
+2022-09-11 12:24:47,897 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:25:05,528 epoch 52 - iter 257/2578 - loss 0.00341433 - samples/sec: 58.35 - lr: 0.012500
+2022-09-11 12:25:22,089 epoch 52 - iter 514/2578 - loss 0.00318792 - samples/sec: 62.12 - lr: 0.012500
+2022-09-11 12:25:42,196 epoch 52 - iter 771/2578 - loss 0.00306224 - samples/sec: 51.16 - lr: 0.012500
+2022-09-11 12:26:04,825 epoch 52 - iter 1028/2578 - loss 0.00296840 - samples/sec: 45.45 - lr: 0.012500
+2022-09-11 12:26:24,741 epoch 52 - iter 1285/2578 - loss 0.00345480 - samples/sec: 51.65 - lr: 0.012500
+2022-09-11 12:26:41,049 epoch 52 - iter 1542/2578 - loss 0.00326817 - samples/sec: 63.08 - lr: 0.012500
+2022-09-11 12:26:56,925 epoch 52 - iter 1799/2578 - loss 0.00316731 - samples/sec: 64.80 - lr: 0.012500
+2022-09-11 12:27:13,933 epoch 52 - iter 2056/2578 - loss 0.00317723 - samples/sec: 60.49 - lr: 0.012500
+2022-09-11 12:27:31,441 epoch 52 - iter 2313/2578 - loss 0.00317459 - samples/sec: 58.76 - lr: 0.012500
+2022-09-11 12:27:50,003 epoch 52 - iter 2570/2578 - loss 0.00311886 - samples/sec: 55.42 - lr: 0.012500
+2022-09-11 12:27:50,259 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:27:50,259 EPOCH 52 done: loss 0.0031 - lr 0.012500
+2022-09-11 12:28:34,069 Evaluating as a multi-label problem: False
+2022-09-11 12:28:34,117 DEV : loss 0.01784343458712101 - f1-score (micro avg)  0.975
+2022-09-11 12:28:34,216 BAD EPOCHS (no improvement): 3
+2022-09-11 12:28:34,217 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:28:53,147 epoch 53 - iter 257/2578 - loss 0.00338381 - samples/sec: 54.35 - lr: 0.012500
+2022-09-11 12:29:09,903 epoch 53 - iter 514/2578 - loss 0.00365481 - samples/sec: 61.39 - lr: 0.012500
+2022-09-11 12:29:26,565 epoch 53 - iter 771/2578 - loss 0.00345917 - samples/sec: 61.74 - lr: 0.012500
+2022-09-11 12:29:45,419 epoch 53 - iter 1028/2578 - loss 0.00296537 - samples/sec: 54.56 - lr: 0.012500
+2022-09-11 12:30:04,529 epoch 53 - iter 1285/2578 - loss 0.00267104 - samples/sec: 53.83 - lr: 0.012500
+2022-09-11 12:30:23,095 epoch 53 - iter 1542/2578 - loss 0.00303753 - samples/sec: 55.41 - lr: 0.012500
+2022-09-11 12:30:40,597 epoch 53 - iter 1799/2578 - loss 0.00306551 - samples/sec: 58.78 - lr: 0.012500
+2022-09-11 12:31:01,372 epoch 53 - iter 2056/2578 - loss 0.00318111 - samples/sec: 49.51 - lr: 0.012500
+2022-09-11 12:31:19,135 epoch 53 - iter 2313/2578 - loss 0.00313446 - samples/sec: 57.91 - lr: 0.012500
+2022-09-11 12:31:37,422 epoch 53 - iter 2570/2578 - loss 0.00314748 - samples/sec: 56.25 - lr: 0.012500
+2022-09-11 12:31:37,869 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:31:37,869 EPOCH 53 done: loss 0.0031 - lr 0.012500
+2022-09-11 12:32:20,826 Evaluating as a multi-label problem: False
+2022-09-11 12:32:20,874 DEV : loss 0.01792091317474842 - f1-score (micro avg)  0.9755
+2022-09-11 12:32:20,974 Epoch    53: reducing learning rate of group 0 to 6.2500e-03.
+2022-09-11 12:32:20,974 BAD EPOCHS (no improvement): 4
+2022-09-11 12:32:20,974 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:32:41,738 epoch 54 - iter 257/2578 - loss 0.00209923 - samples/sec: 49.54 - lr: 0.006250
+2022-09-11 12:33:01,782 epoch 54 - iter 514/2578 - loss 0.00271029 - samples/sec: 51.32 - lr: 0.006250
+2022-09-11 12:33:18,692 epoch 54 - iter 771/2578 - loss 0.00255316 - samples/sec: 60.84 - lr: 0.006250
+2022-09-11 12:33:34,374 epoch 54 - iter 1028/2578 - loss 0.00275532 - samples/sec: 65.60 - lr: 0.006250
+2022-09-11 12:33:52,565 epoch 54 - iter 1285/2578 - loss 0.00310792 - samples/sec: 56.55 - lr: 0.006250
+2022-09-11 12:34:11,050 epoch 54 - iter 1542/2578 - loss 0.00287921 - samples/sec: 55.65 - lr: 0.006250
+2022-09-11 12:34:31,028 epoch 54 - iter 1799/2578 - loss 0.00288578 - samples/sec: 51.49 - lr: 0.006250
+2022-09-11 12:34:47,412 epoch 54 - iter 2056/2578 - loss 0.00310208 - samples/sec: 62.79 - lr: 0.006250
+2022-09-11 12:35:04,746 epoch 54 - iter 2313/2578 - loss 0.00311982 - samples/sec: 59.35 - lr: 0.006250
+2022-09-11 12:35:23,886 epoch 54 - iter 2570/2578 - loss 0.00314917 - samples/sec: 53.74 - lr: 0.006250
+2022-09-11 12:35:24,414 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:35:24,414 EPOCH 54 done: loss 0.0032 - lr 0.006250
+2022-09-11 12:36:07,614 Evaluating as a multi-label problem: False
+2022-09-11 12:36:07,663 DEV : loss 0.01791856624186039 - f1-score (micro avg)  0.9754
+2022-09-11 12:36:07,762 BAD EPOCHS (no improvement): 1
+2022-09-11 12:36:07,762 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:36:25,671 epoch 55 - iter 257/2578 - loss 0.00416849 - samples/sec: 57.45 - lr: 0.006250
+2022-09-11 12:36:43,745 epoch 55 - iter 514/2578 - loss 0.00321481 - samples/sec: 56.91 - lr: 0.006250
+2022-09-11 12:37:06,152 epoch 55 - iter 771/2578 - loss 0.00294435 - samples/sec: 45.90 - lr: 0.006250
+2022-09-11 12:37:22,893 epoch 55 - iter 1028/2578 - loss 0.00299619 - samples/sec: 61.45 - lr: 0.006250
+2022-09-11 12:37:39,436 epoch 55 - iter 1285/2578 - loss 0.00317712 - samples/sec: 62.19 - lr: 0.006250
+2022-09-11 12:37:55,926 epoch 55 - iter 1542/2578 - loss 0.00314174 - samples/sec: 62.39 - lr: 0.006250
+2022-09-11 12:38:13,929 epoch 55 - iter 1799/2578 - loss 0.00333904 - samples/sec: 57.14 - lr: 0.006250
+2022-09-11 12:38:31,808 epoch 55 - iter 2056/2578 - loss 0.00326794 - samples/sec: 57.54 - lr: 0.006250
+2022-09-11 12:38:51,813 epoch 55 - iter 2313/2578 - loss 0.00313515 - samples/sec: 51.42 - lr: 0.006250
+2022-09-11 12:39:10,699 epoch 55 - iter 2570/2578 - loss 0.00333448 - samples/sec: 54.47 - lr: 0.006250
+2022-09-11 12:39:11,092 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:39:11,092 EPOCH 55 done: loss 0.0033 - lr 0.006250
+2022-09-11 12:39:54,975 Evaluating as a multi-label problem: False
+2022-09-11 12:39:55,023 DEV : loss 0.0178406722843647 - f1-score (micro avg)  0.975
+2022-09-11 12:39:55,122 BAD EPOCHS (no improvement): 2
+2022-09-11 12:39:55,122 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:40:11,649 epoch 56 - iter 257/2578 - loss 0.00283745 - samples/sec: 62.26 - lr: 0.006250
+2022-09-11 12:40:27,561 epoch 56 - iter 514/2578 - loss 0.00508177 - samples/sec: 64.65 - lr: 0.006250
+2022-09-11 12:40:45,128 epoch 56 - iter 771/2578 - loss 0.00413756 - samples/sec: 58.56 - lr: 0.006250
+2022-09-11 12:41:05,359 epoch 56 - iter 1028/2578 - loss 0.00336841 - samples/sec: 50.84 - lr: 0.006250
+2022-09-11 12:41:25,395 epoch 56 - iter 1285/2578 - loss 0.00300130 - samples/sec: 51.34 - lr: 0.006250
+2022-09-11 12:41:45,623 epoch 56 - iter 1542/2578 - loss 0.00283423 - samples/sec: 50.85 - lr: 0.006250
+2022-09-11 12:42:02,731 epoch 56 - iter 1799/2578 - loss 0.00296685 - samples/sec: 60.13 - lr: 0.006250
+2022-09-11 12:42:19,832 epoch 56 - iter 2056/2578 - loss 0.00340989 - samples/sec: 60.16 - lr: 0.006250
+2022-09-11 12:42:38,503 epoch 56 - iter 2313/2578 - loss 0.00349268 - samples/sec: 55.09 - lr: 0.006250
+2022-09-11 12:42:57,312 epoch 56 - iter 2570/2578 - loss 0.00338586 - samples/sec: 54.69 - lr: 0.006250
+2022-09-11 12:42:57,665 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:42:57,665 EPOCH 56 done: loss 0.0034 - lr 0.006250
+2022-09-11 12:43:41,557 Evaluating as a multi-label problem: False
+2022-09-11 12:43:41,604 DEV : loss 0.017810983583331108 - f1-score (micro avg)  0.9754
+2022-09-11 12:43:41,704 BAD EPOCHS (no improvement): 3
+2022-09-11 12:43:41,705 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:44:01,680 epoch 57 - iter 257/2578 - loss 0.00334701 - samples/sec: 51.50 - lr: 0.006250
+2022-09-11 12:44:20,240 epoch 57 - iter 514/2578 - loss 0.00295996 - samples/sec: 55.42 - lr: 0.006250
+2022-09-11 12:44:39,230 epoch 57 - iter 771/2578 - loss 0.00258028 - samples/sec: 54.17 - lr: 0.006250
+2022-09-11 12:44:59,013 epoch 57 - iter 1028/2578 - loss 0.00276332 - samples/sec: 52.00 - lr: 0.006250
+2022-09-11 12:45:13,567 epoch 57 - iter 1285/2578 - loss 0.00283025 - samples/sec: 70.69 - lr: 0.006250
+2022-09-11 12:45:30,512 epoch 57 - iter 1542/2578 - loss 0.00266990 - samples/sec: 60.71 - lr: 0.006250
+2022-09-11 12:45:50,198 epoch 57 - iter 1799/2578 - loss 0.00239789 - samples/sec: 52.25 - lr: 0.006250
+2022-09-11 12:46:08,828 epoch 57 - iter 2056/2578 - loss 0.00255437 - samples/sec: 55.22 - lr: 0.006250
+2022-09-11 12:46:27,288 epoch 57 - iter 2313/2578 - loss 0.00294532 - samples/sec: 55.72 - lr: 0.006250
+2022-09-11 12:46:44,768 epoch 57 - iter 2570/2578 - loss 0.00306554 - samples/sec: 58.85 - lr: 0.006250
+2022-09-11 12:46:45,336 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:46:45,336 EPOCH 57 done: loss 0.0032 - lr 0.006250
+2022-09-11 12:47:29,475 Evaluating as a multi-label problem: False
+2022-09-11 12:47:29,524 DEV : loss 0.017818693071603775 - f1-score (micro avg)  0.975
+2022-09-11 12:47:29,623 Epoch    57: reducing learning rate of group 0 to 3.1250e-03.
+2022-09-11 12:47:29,624 BAD EPOCHS (no improvement): 4
+2022-09-11 12:47:29,624 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:47:47,501 epoch 58 - iter 257/2578 - loss 0.00294692 - samples/sec: 57.55 - lr: 0.003125
+2022-09-11 12:48:06,150 epoch 58 - iter 514/2578 - loss 0.00272188 - samples/sec: 55.16 - lr: 0.003125
+2022-09-11 12:48:24,310 epoch 58 - iter 771/2578 - loss 0.00243058 - samples/sec: 56.65 - lr: 0.003125
+2022-09-11 12:48:42,124 epoch 58 - iter 1028/2578 - loss 0.00244513 - samples/sec: 57.75 - lr: 0.003125
+2022-09-11 12:49:00,476 epoch 58 - iter 1285/2578 - loss 0.00239776 - samples/sec: 56.05 - lr: 0.003125
+2022-09-11 12:49:17,135 epoch 58 - iter 1542/2578 - loss 0.00232630 - samples/sec: 61.75 - lr: 0.003125
+2022-09-11 12:49:36,273 epoch 58 - iter 1799/2578 - loss 0.00232304 - samples/sec: 53.75 - lr: 0.003125
+2022-09-11 12:49:56,170 epoch 58 - iter 2056/2578 - loss 0.00259061 - samples/sec: 51.70 - lr: 0.003125
+2022-09-11 12:50:13,705 epoch 58 - iter 2313/2578 - loss 0.00279542 - samples/sec: 58.66 - lr: 0.003125
+2022-09-11 12:50:31,607 epoch 58 - iter 2570/2578 - loss 0.00277903 - samples/sec: 57.46 - lr: 0.003125
+2022-09-11 12:50:32,463 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:50:32,463 EPOCH 58 done: loss 0.0028 - lr 0.003125
+2022-09-11 12:51:16,416 Evaluating as a multi-label problem: False
+2022-09-11 12:51:16,464 DEV : loss 0.01786893419921398 - f1-score (micro avg)  0.9752
+2022-09-11 12:51:16,563 BAD EPOCHS (no improvement): 1
+2022-09-11 12:51:16,564 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:51:33,921 epoch 59 - iter 257/2578 - loss 0.00353536 - samples/sec: 59.27 - lr: 0.003125
+2022-09-11 12:51:53,237 epoch 59 - iter 514/2578 - loss 0.00306831 - samples/sec: 53.25 - lr: 0.003125
+2022-09-11 12:52:10,389 epoch 59 - iter 771/2578 - loss 0.00279433 - samples/sec: 59.98 - lr: 0.003125
+2022-09-11 12:52:28,869 epoch 59 - iter 1028/2578 - loss 0.00303426 - samples/sec: 55.66 - lr: 0.003125
+2022-09-11 12:52:48,887 epoch 59 - iter 1285/2578 - loss 0.00275479 - samples/sec: 51.39 - lr: 0.003125
+2022-09-11 12:53:05,693 epoch 59 - iter 1542/2578 - loss 0.00245186 - samples/sec: 61.21 - lr: 0.003125
+2022-09-11 12:53:22,112 epoch 59 - iter 1799/2578 - loss 0.00274269 - samples/sec: 62.66 - lr: 0.003125
+2022-09-11 12:53:40,501 epoch 59 - iter 2056/2578 - loss 0.00282378 - samples/sec: 55.94 - lr: 0.003125
+2022-09-11 12:54:01,392 epoch 59 - iter 2313/2578 - loss 0.00279852 - samples/sec: 49.23 - lr: 0.003125
+2022-09-11 12:54:19,669 epoch 59 - iter 2570/2578 - loss 0.00289376 - samples/sec: 56.28 - lr: 0.003125
+2022-09-11 12:54:19,992 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:54:19,993 EPOCH 59 done: loss 0.0029 - lr 0.003125
+2022-09-11 12:55:04,202 Evaluating as a multi-label problem: False
+2022-09-11 12:55:04,250 DEV : loss 0.01786424219608307 - f1-score (micro avg)  0.9756
+2022-09-11 12:55:04,350 BAD EPOCHS (no improvement): 2
+2022-09-11 12:55:04,350 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:55:21,957 epoch 60 - iter 257/2578 - loss 0.00182993 - samples/sec: 58.43 - lr: 0.003125
+2022-09-11 12:55:40,198 epoch 60 - iter 514/2578 - loss 0.00245823 - samples/sec: 56.39 - lr: 0.003125
+2022-09-11 12:55:56,049 epoch 60 - iter 771/2578 - loss 0.00263453 - samples/sec: 64.90 - lr: 0.003125
+2022-09-11 12:56:14,554 epoch 60 - iter 1028/2578 - loss 0.00258128 - samples/sec: 55.59 - lr: 0.003125
+2022-09-11 12:56:32,511 epoch 60 - iter 1285/2578 - loss 0.00296963 - samples/sec: 57.28 - lr: 0.003125
+2022-09-11 12:56:52,663 epoch 60 - iter 1542/2578 - loss 0.00301530 - samples/sec: 51.04 - lr: 0.003125
+2022-09-11 12:57:13,723 epoch 60 - iter 1799/2578 - loss 0.00279040 - samples/sec: 48.84 - lr: 0.003125
+2022-09-11 12:57:31,183 epoch 60 - iter 2056/2578 - loss 0.00279001 - samples/sec: 58.92 - lr: 0.003125
+2022-09-11 12:57:49,729 epoch 60 - iter 2313/2578 - loss 0.00285154 - samples/sec: 55.46 - lr: 0.003125
+2022-09-11 12:58:06,138 epoch 60 - iter 2570/2578 - loss 0.00271849 - samples/sec: 62.70 - lr: 0.003125
+2022-09-11 12:58:06,772 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:58:06,772 EPOCH 60 done: loss 0.0027 - lr 0.003125
+2022-09-11 12:58:50,927 Evaluating as a multi-label problem: False
+2022-09-11 12:58:50,975 DEV : loss 0.017886273562908173 - f1-score (micro avg)  0.9755
+2022-09-11 12:58:51,076 BAD EPOCHS (no improvement): 3
+2022-09-11 12:58:51,076 ----------------------------------------------------------------------------------------------------
+2022-09-11 12:59:06,596 epoch 61 - iter 257/2578 - loss 0.00403132 - samples/sec: 66.30 - lr: 0.003125
+2022-09-11 12:59:27,520 epoch 61 - iter 514/2578 - loss 0.00294203 - samples/sec: 49.16 - lr: 0.003125
+2022-09-11 12:59:48,066 epoch 61 - iter 771/2578 - loss 0.00282111 - samples/sec: 50.06 - lr: 0.003125
+2022-09-11 13:00:04,052 epoch 61 - iter 1028/2578 - loss 0.00286421 - samples/sec: 64.36 - lr: 0.003125
+2022-09-11 13:00:23,174 epoch 61 - iter 1285/2578 - loss 0.00372692 - samples/sec: 53.79 - lr: 0.003125
+2022-09-11 13:00:44,802 epoch 61 - iter 1542/2578 - loss 0.00364499 - samples/sec: 47.56 - lr: 0.003125
+2022-09-11 13:01:02,633 epoch 61 - iter 1799/2578 - loss 0.00339433 - samples/sec: 57.69 - lr: 0.003125
+2022-09-11 13:01:19,813 epoch 61 - iter 2056/2578 - loss 0.00334974 - samples/sec: 59.88 - lr: 0.003125
+2022-09-11 13:01:36,832 epoch 61 - iter 2313/2578 - loss 0.00337087 - samples/sec: 60.44 - lr: 0.003125
+2022-09-11 13:01:52,947 epoch 61 - iter 2570/2578 - loss 0.00341684 - samples/sec: 63.84 - lr: 0.003125
+2022-09-11 13:01:53,388 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:01:53,388 EPOCH 61 done: loss 0.0034 - lr 0.003125
+2022-09-11 13:02:37,528 Evaluating as a multi-label problem: False
+2022-09-11 13:02:37,577 DEV : loss 0.01791302300989628 - f1-score (micro avg)  0.9757
+2022-09-11 13:02:37,676 Epoch    61: reducing learning rate of group 0 to 1.5625e-03.
+2022-09-11 13:02:37,676 BAD EPOCHS (no improvement): 4
+2022-09-11 13:02:37,677 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:02:56,940 epoch 62 - iter 257/2578 - loss 0.00154990 - samples/sec: 53.40 - lr: 0.001563
+2022-09-11 13:03:15,946 epoch 62 - iter 514/2578 - loss 0.00271926 - samples/sec: 54.12 - lr: 0.001563
+2022-09-11 13:03:33,412 epoch 62 - iter 771/2578 - loss 0.00275326 - samples/sec: 58.90 - lr: 0.001563
+2022-09-11 13:03:48,751 epoch 62 - iter 1028/2578 - loss 0.00260330 - samples/sec: 67.07 - lr: 0.001563
+2022-09-11 13:04:10,307 epoch 62 - iter 1285/2578 - loss 0.00275915 - samples/sec: 47.72 - lr: 0.001563
+2022-09-11 13:04:27,325 epoch 62 - iter 1542/2578 - loss 0.00277877 - samples/sec: 60.45 - lr: 0.001563
+2022-09-11 13:04:45,313 epoch 62 - iter 1799/2578 - loss 0.00276755 - samples/sec: 57.19 - lr: 0.001563
+2022-09-11 13:05:02,327 epoch 62 - iter 2056/2578 - loss 0.00270990 - samples/sec: 60.46 - lr: 0.001563
+2022-09-11 13:05:20,453 epoch 62 - iter 2313/2578 - loss 0.00258985 - samples/sec: 56.75 - lr: 0.001563
+2022-09-11 13:05:38,980 epoch 62 - iter 2570/2578 - loss 0.00273638 - samples/sec: 55.52 - lr: 0.001563
+2022-09-11 13:05:39,508 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:05:39,508 EPOCH 62 done: loss 0.0027 - lr 0.001563
+2022-09-11 13:06:23,720 Evaluating as a multi-label problem: False
+2022-09-11 13:06:23,768 DEV : loss 0.017844537273049355 - f1-score (micro avg)  0.9756
+2022-09-11 13:06:23,867 BAD EPOCHS (no improvement): 1
+2022-09-11 13:06:23,868 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:06:40,447 epoch 63 - iter 257/2578 - loss 0.00290971 - samples/sec: 62.06 - lr: 0.001563
+2022-09-11 13:06:58,868 epoch 63 - iter 514/2578 - loss 0.00260717 - samples/sec: 55.84 - lr: 0.001563
+2022-09-11 13:07:15,544 epoch 63 - iter 771/2578 - loss 0.00233488 - samples/sec: 61.69 - lr: 0.001563
+2022-09-11 13:07:31,812 epoch 63 - iter 1028/2578 - loss 0.00297439 - samples/sec: 63.24 - lr: 0.001563
+2022-09-11 13:07:51,948 epoch 63 - iter 1285/2578 - loss 0.00297918 - samples/sec: 51.08 - lr: 0.001563
+2022-09-11 13:08:08,344 epoch 63 - iter 1542/2578 - loss 0.00302914 - samples/sec: 62.74 - lr: 0.001563
+2022-09-11 13:08:27,209 epoch 63 - iter 1799/2578 - loss 0.00287210 - samples/sec: 54.53 - lr: 0.001563
+2022-09-11 13:08:47,231 epoch 63 - iter 2056/2578 - loss 0.00316279 - samples/sec: 51.37 - lr: 0.001563
+2022-09-11 13:09:08,695 epoch 63 - iter 2313/2578 - loss 0.00317661 - samples/sec: 47.92 - lr: 0.001563
+2022-09-11 13:09:25,713 epoch 63 - iter 2570/2578 - loss 0.00314821 - samples/sec: 60.45 - lr: 0.001563
+2022-09-11 13:09:26,158 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:09:26,158 EPOCH 63 done: loss 0.0031 - lr 0.001563
+2022-09-11 13:10:10,186 Evaluating as a multi-label problem: False
+2022-09-11 13:10:10,234 DEV : loss 0.017866235226392746 - f1-score (micro avg)  0.9755
+2022-09-11 13:10:10,333 BAD EPOCHS (no improvement): 2
+2022-09-11 13:10:10,334 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:10:30,745 epoch 64 - iter 257/2578 - loss 0.00230717 - samples/sec: 50.40 - lr: 0.001563
+2022-09-11 13:10:48,232 epoch 64 - iter 514/2578 - loss 0.00174632 - samples/sec: 58.83 - lr: 0.001563
+2022-09-11 13:11:08,826 epoch 64 - iter 771/2578 - loss 0.00206795 - samples/sec: 49.95 - lr: 0.001563
+2022-09-11 13:11:27,084 epoch 64 - iter 1028/2578 - loss 0.00210799 - samples/sec: 56.34 - lr: 0.001563
+2022-09-11 13:11:41,486 epoch 64 - iter 1285/2578 - loss 0.00222229 - samples/sec: 71.44 - lr: 0.001563
+2022-09-11 13:11:58,234 epoch 64 - iter 1542/2578 - loss 0.00269707 - samples/sec: 61.42 - lr: 0.001563
+2022-09-11 13:12:18,475 epoch 64 - iter 1799/2578 - loss 0.00274461 - samples/sec: 50.82 - lr: 0.001563
+2022-09-11 13:12:39,975 epoch 64 - iter 2056/2578 - loss 0.00275349 - samples/sec: 47.84 - lr: 0.001563
+2022-09-11 13:12:57,825 epoch 64 - iter 2313/2578 - loss 0.00287797 - samples/sec: 57.63 - lr: 0.001563
+2022-09-11 13:13:13,568 epoch 64 - iter 2570/2578 - loss 0.00312160 - samples/sec: 65.35 - lr: 0.001563
+2022-09-11 13:13:13,948 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:13:13,948 EPOCH 64 done: loss 0.0031 - lr 0.001563
+2022-09-11 13:13:57,953 Evaluating as a multi-label problem: False
+2022-09-11 13:13:58,001 DEV : loss 0.01787574216723442 - f1-score (micro avg)  0.9755
+2022-09-11 13:13:58,099 BAD EPOCHS (no improvement): 3
+2022-09-11 13:13:58,100 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:14:17,580 epoch 65 - iter 257/2578 - loss 0.00066006 - samples/sec: 52.81 - lr: 0.001563
+2022-09-11 13:14:34,654 epoch 65 - iter 514/2578 - loss 0.00154909 - samples/sec: 60.25 - lr: 0.001563
+2022-09-11 13:14:54,826 epoch 65 - iter 771/2578 - loss 0.00164065 - samples/sec: 50.99 - lr: 0.001563
+2022-09-11 13:15:14,433 epoch 65 - iter 1028/2578 - loss 0.00185464 - samples/sec: 52.46 - lr: 0.001563
+2022-09-11 13:15:31,314 epoch 65 - iter 1285/2578 - loss 0.00219543 - samples/sec: 60.94 - lr: 0.001563
+2022-09-11 13:15:48,066 epoch 65 - iter 1542/2578 - loss 0.00305471 - samples/sec: 61.41 - lr: 0.001563
+2022-09-11 13:16:06,139 epoch 65 - iter 1799/2578 - loss 0.00295309 - samples/sec: 56.92 - lr: 0.001563
+2022-09-11 13:16:23,132 epoch 65 - iter 2056/2578 - loss 0.00297011 - samples/sec: 60.54 - lr: 0.001563
+2022-09-11 13:16:42,749 epoch 65 - iter 2313/2578 - loss 0.00318706 - samples/sec: 52.43 - lr: 0.001563
+2022-09-11 13:17:00,251 epoch 65 - iter 2570/2578 - loss 0.00326773 - samples/sec: 58.78 - lr: 0.001563
+2022-09-11 13:17:00,776 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:17:00,776 EPOCH 65 done: loss 0.0033 - lr 0.001563
+2022-09-11 13:17:44,670 Evaluating as a multi-label problem: False
+2022-09-11 13:17:44,718 DEV : loss 0.017871787771582603 - f1-score (micro avg)  0.9756
+2022-09-11 13:17:44,816 Epoch    65: reducing learning rate of group 0 to 7.8125e-04.
+2022-09-11 13:17:44,816 BAD EPOCHS (no improvement): 4
+2022-09-11 13:17:44,817 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:18:03,890 epoch 66 - iter 257/2578 - loss 0.00342254 - samples/sec: 53.94 - lr: 0.000781
+2022-09-11 13:18:21,795 epoch 66 - iter 514/2578 - loss 0.00238483 - samples/sec: 57.45 - lr: 0.000781
+2022-09-11 13:18:41,271 epoch 66 - iter 771/2578 - loss 0.00223566 - samples/sec: 52.81 - lr: 0.000781
+2022-09-11 13:19:00,784 epoch 66 - iter 1028/2578 - loss 0.00252266 - samples/sec: 52.72 - lr: 0.000781
+2022-09-11 13:19:16,745 epoch 66 - iter 1285/2578 - loss 0.00273012 - samples/sec: 64.46 - lr: 0.000781
+2022-09-11 13:19:35,272 epoch 66 - iter 1542/2578 - loss 0.00297924 - samples/sec: 55.52 - lr: 0.000781
+2022-09-11 13:19:51,439 epoch 66 - iter 1799/2578 - loss 0.00290894 - samples/sec: 63.63 - lr: 0.000781
+2022-09-11 13:20:13,031 epoch 66 - iter 2056/2578 - loss 0.00287085 - samples/sec: 47.64 - lr: 0.000781
+2022-09-11 13:20:30,893 epoch 66 - iter 2313/2578 - loss 0.00303152 - samples/sec: 57.59 - lr: 0.000781
+2022-09-11 13:20:48,659 epoch 66 - iter 2570/2578 - loss 0.00302994 - samples/sec: 57.90 - lr: 0.000781
+2022-09-11 13:20:49,015 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:20:49,015 EPOCH 66 done: loss 0.0031 - lr 0.000781
+2022-09-11 13:21:32,844 Evaluating as a multi-label problem: False
+2022-09-11 13:21:32,892 DEV : loss 0.017880341038107872 - f1-score (micro avg)  0.9755
+2022-09-11 13:21:32,991 BAD EPOCHS (no improvement): 1
+2022-09-11 13:21:32,992 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:21:49,260 epoch 67 - iter 257/2578 - loss 0.00258203 - samples/sec: 63.24 - lr: 0.000781
+2022-09-11 13:22:06,821 epoch 67 - iter 514/2578 - loss 0.00330250 - samples/sec: 58.58 - lr: 0.000781
+2022-09-11 13:22:24,010 epoch 67 - iter 771/2578 - loss 0.00283252 - samples/sec: 59.85 - lr: 0.000781
+2022-09-11 13:22:41,546 epoch 67 - iter 1028/2578 - loss 0.00330274 - samples/sec: 58.66 - lr: 0.000781
+2022-09-11 13:23:00,776 epoch 67 - iter 1285/2578 - loss 0.00305900 - samples/sec: 53.49 - lr: 0.000781
+2022-09-11 13:23:19,395 epoch 67 - iter 1542/2578 - loss 0.00284513 - samples/sec: 55.25 - lr: 0.000781
+2022-09-11 13:23:39,618 epoch 67 - iter 1799/2578 - loss 0.00306785 - samples/sec: 50.86 - lr: 0.000781
+2022-09-11 13:23:58,065 epoch 67 - iter 2056/2578 - loss 0.00302518 - samples/sec: 55.76 - lr: 0.000781
+2022-09-11 13:24:15,923 epoch 67 - iter 2313/2578 - loss 0.00302650 - samples/sec: 57.61 - lr: 0.000781
+2022-09-11 13:24:35,795 epoch 67 - iter 2570/2578 - loss 0.00306845 - samples/sec: 51.76 - lr: 0.000781
+2022-09-11 13:24:36,229 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:24:36,229 EPOCH 67 done: loss 0.0031 - lr 0.000781
+2022-09-11 13:25:20,131 Evaluating as a multi-label problem: False
+2022-09-11 13:25:20,179 DEV : loss 0.01788708008825779 - f1-score (micro avg)  0.9756
+2022-09-11 13:25:20,279 BAD EPOCHS (no improvement): 2
+2022-09-11 13:25:20,279 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:25:38,713 epoch 68 - iter 257/2578 - loss 0.00394962 - samples/sec: 55.81 - lr: 0.000781
+2022-09-11 13:25:55,853 epoch 68 - iter 514/2578 - loss 0.00242109 - samples/sec: 60.02 - lr: 0.000781
+2022-09-11 13:26:13,792 epoch 68 - iter 771/2578 - loss 0.00211294 - samples/sec: 57.34 - lr: 0.000781
+2022-09-11 13:26:31,917 epoch 68 - iter 1028/2578 - loss 0.00222349 - samples/sec: 56.76 - lr: 0.000781
+2022-09-11 13:26:49,638 epoch 68 - iter 1285/2578 - loss 0.00263993 - samples/sec: 58.05 - lr: 0.000781
+2022-09-11 13:27:08,029 epoch 68 - iter 1542/2578 - loss 0.00275604 - samples/sec: 55.93 - lr: 0.000781
+2022-09-11 13:27:28,882 epoch 68 - iter 1799/2578 - loss 0.00258175 - samples/sec: 49.33 - lr: 0.000781
+2022-09-11 13:27:51,065 epoch 68 - iter 2056/2578 - loss 0.00247364 - samples/sec: 46.37 - lr: 0.000781
+2022-09-11 13:28:07,103 epoch 68 - iter 2313/2578 - loss 0.00254651 - samples/sec: 64.14 - lr: 0.000781
+2022-09-11 13:28:23,661 epoch 68 - iter 2570/2578 - loss 0.00264946 - samples/sec: 62.13 - lr: 0.000781
+2022-09-11 13:28:24,477 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:28:24,477 EPOCH 68 done: loss 0.0027 - lr 0.000781
+2022-09-11 13:29:08,643 Evaluating as a multi-label problem: False
+2022-09-11 13:29:08,692 DEV : loss 0.017890876159071922 - f1-score (micro avg)  0.9754
+2022-09-11 13:29:08,791 BAD EPOCHS (no improvement): 3
+2022-09-11 13:29:08,792 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:29:27,187 epoch 69 - iter 257/2578 - loss 0.00191012 - samples/sec: 55.93 - lr: 0.000781
+2022-09-11 13:29:44,564 epoch 69 - iter 514/2578 - loss 0.00322338 - samples/sec: 59.20 - lr: 0.000781
+2022-09-11 13:30:07,201 epoch 69 - iter 771/2578 - loss 0.00265985 - samples/sec: 45.44 - lr: 0.000781
+2022-09-11 13:30:24,599 epoch 69 - iter 1028/2578 - loss 0.00247139 - samples/sec: 59.13 - lr: 0.000781
+2022-09-11 13:30:44,062 epoch 69 - iter 1285/2578 - loss 0.00215535 - samples/sec: 52.85 - lr: 0.000781
+2022-09-11 13:31:01,730 epoch 69 - iter 1542/2578 - loss 0.00210483 - samples/sec: 58.23 - lr: 0.000781
+2022-09-11 13:31:18,512 epoch 69 - iter 1799/2578 - loss 0.00220263 - samples/sec: 61.30 - lr: 0.000781
+2022-09-11 13:31:35,937 epoch 69 - iter 2056/2578 - loss 0.00236511 - samples/sec: 59.04 - lr: 0.000781
+2022-09-11 13:31:55,888 epoch 69 - iter 2313/2578 - loss 0.00240549 - samples/sec: 51.56 - lr: 0.000781
+2022-09-11 13:32:11,916 epoch 69 - iter 2570/2578 - loss 0.00254220 - samples/sec: 64.18 - lr: 0.000781
+2022-09-11 13:32:12,264 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:32:12,264 EPOCH 69 done: loss 0.0025 - lr 0.000781
+2022-09-11 13:32:55,481 Evaluating as a multi-label problem: False
+2022-09-11 13:32:55,529 DEV : loss 0.01789679564535618 - f1-score (micro avg)  0.9754
+2022-09-11 13:32:55,629 Epoch    69: reducing learning rate of group 0 to 3.9063e-04.
+2022-09-11 13:32:55,629 BAD EPOCHS (no improvement): 4
+2022-09-11 13:32:55,629 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:33:13,864 epoch 70 - iter 257/2578 - loss 0.00089875 - samples/sec: 56.42 - lr: 0.000391
+2022-09-11 13:33:32,751 epoch 70 - iter 514/2578 - loss 0.00178037 - samples/sec: 54.47 - lr: 0.000391
+2022-09-11 13:33:50,684 epoch 70 - iter 771/2578 - loss 0.00205034 - samples/sec: 57.36 - lr: 0.000391
+2022-09-11 13:34:07,516 epoch 70 - iter 1028/2578 - loss 0.00261701 - samples/sec: 61.12 - lr: 0.000391
+2022-09-11 13:34:26,553 epoch 70 - iter 1285/2578 - loss 0.00253404 - samples/sec: 54.03 - lr: 0.000391
+2022-09-11 13:34:43,748 epoch 70 - iter 1542/2578 - loss 0.00228696 - samples/sec: 59.83 - lr: 0.000391
+2022-09-11 13:35:03,493 epoch 70 - iter 1799/2578 - loss 0.00268117 - samples/sec: 52.10 - lr: 0.000391
+2022-09-11 13:35:21,143 epoch 70 - iter 2056/2578 - loss 0.00281629 - samples/sec: 58.28 - lr: 0.000391
+2022-09-11 13:35:40,661 epoch 70 - iter 2313/2578 - loss 0.00283859 - samples/sec: 52.70 - lr: 0.000391
+2022-09-11 13:35:57,773 epoch 70 - iter 2570/2578 - loss 0.00293411 - samples/sec: 60.12 - lr: 0.000391
+2022-09-11 13:35:58,724 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:35:58,725 EPOCH 70 done: loss 0.0030 - lr 0.000391
+2022-09-11 13:36:42,596 Evaluating as a multi-label problem: False
+2022-09-11 13:36:42,644 DEV : loss 0.017889047041535378 - f1-score (micro avg)  0.9754
+2022-09-11 13:36:42,742 BAD EPOCHS (no improvement): 1
+2022-09-11 13:36:42,743 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:37:02,021 epoch 71 - iter 257/2578 - loss 0.00296364 - samples/sec: 53.36 - lr: 0.000391
+2022-09-11 13:37:18,976 epoch 71 - iter 514/2578 - loss 0.00213904 - samples/sec: 60.68 - lr: 0.000391
+2022-09-11 13:37:36,815 epoch 71 - iter 771/2578 - loss 0.00309819 - samples/sec: 57.67 - lr: 0.000391
+2022-09-11 13:37:58,827 epoch 71 - iter 1028/2578 - loss 0.00308383 - samples/sec: 46.73 - lr: 0.000391
+2022-09-11 13:38:18,428 epoch 71 - iter 1285/2578 - loss 0.00344223 - samples/sec: 52.48 - lr: 0.000391
+2022-09-11 13:38:35,028 epoch 71 - iter 1542/2578 - loss 0.00355617 - samples/sec: 61.97 - lr: 0.000391
+2022-09-11 13:38:52,478 epoch 71 - iter 1799/2578 - loss 0.00343483 - samples/sec: 58.95 - lr: 0.000391
+2022-09-11 13:39:09,073 epoch 71 - iter 2056/2578 - loss 0.00331498 - samples/sec: 61.99 - lr: 0.000391
+2022-09-11 13:39:27,043 epoch 71 - iter 2313/2578 - loss 0.00340353 - samples/sec: 57.25 - lr: 0.000391
+2022-09-11 13:39:45,941 epoch 71 - iter 2570/2578 - loss 0.00324594 - samples/sec: 54.43 - lr: 0.000391
+2022-09-11 13:39:46,177 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:39:46,177 EPOCH 71 done: loss 0.0032 - lr 0.000391
+2022-09-11 13:40:30,116 Evaluating as a multi-label problem: False
+2022-09-11 13:40:30,165 DEV : loss 0.0178813599050045 - f1-score (micro avg)  0.9754
+2022-09-11 13:40:30,263 BAD EPOCHS (no improvement): 2
+2022-09-11 13:40:30,264 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:40:48,390 epoch 72 - iter 257/2578 - loss 0.00368347 - samples/sec: 56.76 - lr: 0.000391
+2022-09-11 13:41:07,290 epoch 72 - iter 514/2578 - loss 0.00325309 - samples/sec: 54.43 - lr: 0.000391
+2022-09-11 13:41:26,611 epoch 72 - iter 771/2578 - loss 0.00325638 - samples/sec: 53.24 - lr: 0.000391
+2022-09-11 13:41:44,500 epoch 72 - iter 1028/2578 - loss 0.00324124 - samples/sec: 57.50 - lr: 0.000391
+2022-09-11 13:42:00,691 epoch 72 - iter 1285/2578 - loss 0.00320408 - samples/sec: 63.54 - lr: 0.000391
+2022-09-11 13:42:18,764 epoch 72 - iter 1542/2578 - loss 0.00301691 - samples/sec: 56.92 - lr: 0.000391
+2022-09-11 13:42:37,217 epoch 72 - iter 1799/2578 - loss 0.00306965 - samples/sec: 55.74 - lr: 0.000391
+2022-09-11 13:42:56,157 epoch 72 - iter 2056/2578 - loss 0.00314395 - samples/sec: 54.31 - lr: 0.000391
+2022-09-11 13:43:15,815 epoch 72 - iter 2313/2578 - loss 0.00308681 - samples/sec: 52.33 - lr: 0.000391
+2022-09-11 13:43:33,236 epoch 72 - iter 2570/2578 - loss 0.00294884 - samples/sec: 59.05 - lr: 0.000391
+2022-09-11 13:43:33,979 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:43:33,980 EPOCH 72 done: loss 0.0029 - lr 0.000391
+2022-09-11 13:44:17,895 Evaluating as a multi-label problem: False
+2022-09-11 13:44:17,944 DEV : loss 0.01788007840514183 - f1-score (micro avg)  0.9754
+2022-09-11 13:44:18,044 BAD EPOCHS (no improvement): 3
+2022-09-11 13:44:18,045 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:44:35,828 epoch 73 - iter 257/2578 - loss 0.00215453 - samples/sec: 57.85 - lr: 0.000391
+2022-09-11 13:44:52,962 epoch 73 - iter 514/2578 - loss 0.00295557 - samples/sec: 60.04 - lr: 0.000391
+2022-09-11 13:45:12,596 epoch 73 - iter 771/2578 - loss 0.00250803 - samples/sec: 52.39 - lr: 0.000391
+2022-09-11 13:45:30,366 epoch 73 - iter 1028/2578 - loss 0.00239416 - samples/sec: 57.89 - lr: 0.000391
+2022-09-11 13:45:48,903 epoch 73 - iter 1285/2578 - loss 0.00331942 - samples/sec: 55.50 - lr: 0.000391
+2022-09-11 13:46:07,947 epoch 73 - iter 1542/2578 - loss 0.00314648 - samples/sec: 54.01 - lr: 0.000391
+2022-09-11 13:46:26,534 epoch 73 - iter 1799/2578 - loss 0.00301843 - samples/sec: 55.34 - lr: 0.000391
+2022-09-11 13:46:45,861 epoch 73 - iter 2056/2578 - loss 0.00305300 - samples/sec: 53.22 - lr: 0.000391
+2022-09-11 13:47:03,316 epoch 73 - iter 2313/2578 - loss 0.00330350 - samples/sec: 58.94 - lr: 0.000391
+2022-09-11 13:47:20,782 epoch 73 - iter 2570/2578 - loss 0.00319559 - samples/sec: 58.90 - lr: 0.000391
+2022-09-11 13:47:21,137 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:47:21,137 EPOCH 73 done: loss 0.0032 - lr 0.000391
+2022-09-11 13:48:05,050 Evaluating as a multi-label problem: False
+2022-09-11 13:48:05,098 DEV : loss 0.017876923084259033 - f1-score (micro avg)  0.9755
+2022-09-11 13:48:05,198 Epoch    73: reducing learning rate of group 0 to 1.9531e-04.
+2022-09-11 13:48:05,198 BAD EPOCHS (no improvement): 4
+2022-09-11 13:48:05,198 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:48:20,920 epoch 74 - iter 257/2578 - loss 0.00142685 - samples/sec: 65.44 - lr: 0.000195
+2022-09-11 13:48:38,748 epoch 74 - iter 514/2578 - loss 0.00209897 - samples/sec: 57.70 - lr: 0.000195
+2022-09-11 13:48:57,747 epoch 74 - iter 771/2578 - loss 0.00250475 - samples/sec: 54.14 - lr: 0.000195
+2022-09-11 13:49:16,648 epoch 74 - iter 1028/2578 - loss 0.00261390 - samples/sec: 54.42 - lr: 0.000195
+2022-09-11 13:49:33,997 epoch 74 - iter 1285/2578 - loss 0.00305265 - samples/sec: 59.30 - lr: 0.000195
+2022-09-11 13:49:50,631 epoch 74 - iter 1542/2578 - loss 0.00294682 - samples/sec: 61.85 - lr: 0.000195
+2022-09-11 13:50:09,697 epoch 74 - iter 1799/2578 - loss 0.00287204 - samples/sec: 53.95 - lr: 0.000195
+2022-09-11 13:50:31,950 epoch 74 - iter 2056/2578 - loss 0.00285829 - samples/sec: 46.22 - lr: 0.000195
+2022-09-11 13:50:48,746 epoch 74 - iter 2313/2578 - loss 0.00290777 - samples/sec: 61.25 - lr: 0.000195
+2022-09-11 13:51:07,455 epoch 74 - iter 2570/2578 - loss 0.00297306 - samples/sec: 54.98 - lr: 0.000195
+2022-09-11 13:51:07,868 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:51:07,868 EPOCH 74 done: loss 0.0030 - lr 0.000195
+2022-09-11 13:51:51,821 Evaluating as a multi-label problem: False
+2022-09-11 13:51:51,869 DEV : loss 0.017877304926514626 - f1-score (micro avg)  0.9755
+2022-09-11 13:51:51,968 BAD EPOCHS (no improvement): 1
+2022-09-11 13:51:51,969 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:52:10,139 epoch 75 - iter 257/2578 - loss 0.00387024 - samples/sec: 56.62 - lr: 0.000195
+2022-09-11 13:52:28,179 epoch 75 - iter 514/2578 - loss 0.00320458 - samples/sec: 57.02 - lr: 0.000195
+2022-09-11 13:52:44,095 epoch 75 - iter 771/2578 - loss 0.00308557 - samples/sec: 64.64 - lr: 0.000195
+2022-09-11 13:53:03,653 epoch 75 - iter 1028/2578 - loss 0.00283210 - samples/sec: 52.59 - lr: 0.000195
+2022-09-11 13:53:21,460 epoch 75 - iter 1285/2578 - loss 0.00291400 - samples/sec: 57.77 - lr: 0.000195
+2022-09-11 13:53:41,222 epoch 75 - iter 1542/2578 - loss 0.00275522 - samples/sec: 52.05 - lr: 0.000195
+2022-09-11 13:53:58,342 epoch 75 - iter 1799/2578 - loss 0.00288091 - samples/sec: 60.09 - lr: 0.000195
+2022-09-11 13:54:18,510 epoch 75 - iter 2056/2578 - loss 0.00274988 - samples/sec: 51.00 - lr: 0.000195
+2022-09-11 13:54:36,658 epoch 75 - iter 2313/2578 - loss 0.00265263 - samples/sec: 56.68 - lr: 0.000195
+2022-09-11 13:54:54,501 epoch 75 - iter 2570/2578 - loss 0.00289797 - samples/sec: 57.65 - lr: 0.000195
+2022-09-11 13:54:54,827 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:54:54,827 EPOCH 75 done: loss 0.0029 - lr 0.000195
+2022-09-11 13:55:38,780 Evaluating as a multi-label problem: False
+2022-09-11 13:55:38,829 DEV : loss 0.01788189262151718 - f1-score (micro avg)  0.9755
+2022-09-11 13:55:38,927 BAD EPOCHS (no improvement): 2
+2022-09-11 13:55:38,928 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:55:56,785 epoch 76 - iter 257/2578 - loss 0.00222295 - samples/sec: 57.61 - lr: 0.000195
+2022-09-11 13:56:16,789 epoch 76 - iter 514/2578 - loss 0.00288630 - samples/sec: 51.42 - lr: 0.000195
+2022-09-11 13:56:34,199 epoch 76 - iter 771/2578 - loss 0.00290189 - samples/sec: 59.09 - lr: 0.000195
+2022-09-11 13:56:52,708 epoch 76 - iter 1028/2578 - loss 0.00257256 - samples/sec: 55.58 - lr: 0.000195
+2022-09-11 13:57:09,340 epoch 76 - iter 1285/2578 - loss 0.00236010 - samples/sec: 61.85 - lr: 0.000195
+2022-09-11 13:57:26,821 epoch 76 - iter 1542/2578 - loss 0.00246878 - samples/sec: 58.85 - lr: 0.000195
+2022-09-11 13:57:46,919 epoch 76 - iter 1799/2578 - loss 0.00285801 - samples/sec: 51.18 - lr: 0.000195
+2022-09-11 13:58:06,635 epoch 76 - iter 2056/2578 - loss 0.00282177 - samples/sec: 52.17 - lr: 0.000195
+2022-09-11 13:58:24,445 epoch 76 - iter 2313/2578 - loss 0.00276232 - samples/sec: 57.76 - lr: 0.000195
+2022-09-11 13:58:41,283 epoch 76 - iter 2570/2578 - loss 0.00291033 - samples/sec: 61.10 - lr: 0.000195
+2022-09-11 13:58:41,928 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:58:41,928 EPOCH 76 done: loss 0.0029 - lr 0.000195
+2022-09-11 13:59:25,887 Evaluating as a multi-label problem: False
+2022-09-11 13:59:25,935 DEV : loss 0.017890427261590958 - f1-score (micro avg)  0.9755
+2022-09-11 13:59:26,034 BAD EPOCHS (no improvement): 3
+2022-09-11 13:59:26,034 ----------------------------------------------------------------------------------------------------
+2022-09-11 13:59:45,574 epoch 77 - iter 257/2578 - loss 0.00373721 - samples/sec: 52.65 - lr: 0.000195
+2022-09-11 14:00:04,791 epoch 77 - iter 514/2578 - loss 0.00337890 - samples/sec: 53.53 - lr: 0.000195
+2022-09-11 14:00:26,172 epoch 77 - iter 771/2578 - loss 0.00305740 - samples/sec: 48.11 - lr: 0.000195
+2022-09-11 14:00:44,798 epoch 77 - iter 1028/2578 - loss 0.00327228 - samples/sec: 55.23 - lr: 0.000195
+2022-09-11 14:01:03,063 epoch 77 - iter 1285/2578 - loss 0.00299894 - samples/sec: 56.32 - lr: 0.000195
+2022-09-11 14:01:21,725 epoch 77 - iter 1542/2578 - loss 0.00323074 - samples/sec: 55.12 - lr: 0.000195
+2022-09-11 14:01:39,150 epoch 77 - iter 1799/2578 - loss 0.00333989 - samples/sec: 59.04 - lr: 0.000195
+2022-09-11 14:01:56,449 epoch 77 - iter 2056/2578 - loss 0.00320830 - samples/sec: 59.47 - lr: 0.000195
+2022-09-11 14:02:11,944 epoch 77 - iter 2313/2578 - loss 0.00326220 - samples/sec: 66.40 - lr: 0.000195
+2022-09-11 14:02:28,110 epoch 77 - iter 2570/2578 - loss 0.00317743 - samples/sec: 63.64 - lr: 0.000195
+2022-09-11 14:02:28,467 ----------------------------------------------------------------------------------------------------
+2022-09-11 14:02:28,467 EPOCH 77 done: loss 0.0032 - lr 0.000195
+2022-09-11 14:03:12,705 Evaluating as a multi-label problem: False
+2022-09-11 14:03:12,754 DEV : loss 0.017887143418192863 - f1-score (micro avg)  0.9755
+2022-09-11 14:03:12,853 Epoch    77: reducing learning rate of group 0 to 9.7656e-05.
+2022-09-11 14:03:12,853 BAD EPOCHS (no improvement): 4
+2022-09-11 14:03:12,854 ----------------------------------------------------------------------------------------------------
+2022-09-11 14:03:12,854 ----------------------------------------------------------------------------------------------------
+2022-09-11 14:03:12,854 learning rate too small - quitting training!
+2022-09-11 14:03:12,854 ----------------------------------------------------------------------------------------------------
+2022-09-11 14:03:16,174 ----------------------------------------------------------------------------------------------------
+2022-09-11 14:03:16,175 loading file experiments_2/corpus_sentence_bert_we_lstm_crf/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-beto_Ly_all_mean_seed_1)_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/best-model.pt
+2022-09-11 14:03:19,940 SequenceTagger predicts: Dictionary with 91 tags: O, S-TERRITORIO, B-TERRITORIO, E-TERRITORIO, I-TERRITORIO, S-FECHAS, B-FECHAS, E-FECHAS, I-FECHAS, S-EDAD_SUJETO_ASISTENCIA, B-EDAD_SUJETO_ASISTENCIA, E-EDAD_SUJETO_ASISTENCIA, I-EDAD_SUJETO_ASISTENCIA, S-NOMBRE_SUJETO_ASISTENCIA, B-NOMBRE_SUJETO_ASISTENCIA, E-NOMBRE_SUJETO_ASISTENCIA, I-NOMBRE_SUJETO_ASISTENCIA, S-NOMBRE_PERSONAL_SANITARIO, B-NOMBRE_PERSONAL_SANITARIO, E-NOMBRE_PERSONAL_SANITARIO, I-NOMBRE_PERSONAL_SANITARIO, S-SEXO_SUJETO_ASISTENCIA, B-SEXO_SUJETO_ASISTENCIA, E-SEXO_SUJETO_ASISTENCIA, I-SEXO_SUJETO_ASISTENCIA, S-CALLE, B-CALLE, E-CALLE, I-CALLE, S-PAIS, B-PAIS, E-PAIS, I-PAIS, S-ID_SUJETO_ASISTENCIA, B-ID_SUJETO_ASISTENCIA, E-ID_SUJETO_ASISTENCIA, I-ID_SUJETO_ASISTENCIA, S-ID_TITULACION_PERSONAL_SANITARIO, B-ID_TITULACION_PERSONAL_SANITARIO, E-ID_TITULACION_PERSONAL_SANITARIO, I-ID_TITULACION_PERSONAL_SANITARIO, S-CORREO_ELECTRONICO, B-CORREO_ELECTRONICO, E-CORREO_ELECTRONICO, I-CORREO_ELECTRONICO, S-ID_ASEGURAMIENTO, B-ID_ASEGURAMIENTO, E-ID_ASEGURAMIENTO, I-ID_ASEGURAMIENTO, S-HOSPITAL
+2022-09-11 14:04:45,873 Evaluating as a multi-label problem: False
+2022-09-11 14:04:45,920 0.9727	0.9762	0.9744	0.9551
+2022-09-11 14:04:45,920 
+Results:
+- F-score (micro) 0.9744
+- F-score (macro) 0.8762
+- Accuracy 0.9551
+
+By class:
+                                  precision    recall  f1-score   support
+
+                      TERRITORIO     0.9758    0.9718    0.9738       956
+                          FECHAS     0.9951    0.9967    0.9959       611
+          EDAD_SUJETO_ASISTENCIA     0.9810    0.9942    0.9875       518
+        NOMBRE_SUJETO_ASISTENCIA     0.9960    0.9980    0.9970       502
+       NOMBRE_PERSONAL_SANITARIO     0.9920    0.9960    0.9940       501
+          SEXO_SUJETO_ASISTENCIA     0.9829    0.9957    0.9892       461
+                           CALLE     0.9517    0.9540    0.9528       413
+                            PAIS     0.9782    0.9890    0.9836       363
+            ID_SUJETO_ASISTENCIA     0.9825    0.9929    0.9877       283
+              CORREO_ELECTRONICO     0.9920    0.9960    0.9940       249
+ID_TITULACION_PERSONAL_SANITARIO     0.9915    1.0000    0.9957       234
+                ID_ASEGURAMIENTO     0.9949    0.9949    0.9949       198
+                        HOSPITAL     0.9440    0.9077    0.9255       130
+    FAMILIARES_SUJETO_ASISTENCIA     0.7273    0.7901    0.7574        81
+                     INSTITUCION     0.6230    0.5672    0.5937        67
+         ID_CONTACTO_ASISTENCIAL     1.0000    0.9744    0.9870        39
+                 NUMERO_TELEFONO     0.8889    0.9231    0.9057        26
+                       PROFESION     0.7500    1.0000    0.8571         9
+                      NUMERO_FAX     0.7500    0.8571    0.8000         7
+         OTROS_SUJETO_ASISTENCIA     0.0000    0.0000    0.0000         7
+                    CENTRO_SALUD     0.8000    0.6667    0.7273         6
+
+                       micro avg     0.9727    0.9762    0.9744      5661
+                       macro avg     0.8713    0.8841    0.8762      5661
+                    weighted avg     0.9722    0.9762    0.9741      5661
+
+2022-09-11 14:04:45,920 ----------------------------------------------------------------------------------------------------

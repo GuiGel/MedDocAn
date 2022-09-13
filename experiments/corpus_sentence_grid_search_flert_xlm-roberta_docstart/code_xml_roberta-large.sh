@@ -1,0 +1,8 @@
+#!/bin/sh -e
+set -x
+
+python experiments/corpus_sentence_grid_search_xlm-roberta_docstart/code_xml-roberta-large_seed_1.py
+python experiments/corpus_sentence_grid_search_xlm-roberta_docstart/code_xml-roberta-large_seed_12.py
+python experiments/corpus_sentence_grid_search_xlm-roberta_docstart/code_xml-roberta-large_seed_33.py
+# python experiments/corpus_sentence_grid_search_roberta_docstart/code_xml-roberta-large_seed_42.py
+python experiments/corpus_sentence_grid_search_xlm-roberta_docstart/get_metrics.py

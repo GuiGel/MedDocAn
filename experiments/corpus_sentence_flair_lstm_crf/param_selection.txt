@@ -1,0 +1,36 @@
+evaluation run 1
+	anneal_with_restarts: True
+	dropout: 0.08716810045694838
+	embeddings: StackedEmbeddings [0-/home/wave/.meddocan/embeddings/lm-es-forward.pt,1-/home/wave/.meddocan/embeddings/lm-es-backward.pt]
+	embeddings_storage_mode: cpu
+	hidden_size: 256
+	learning_rate: 0.1
+	max_epochs: 150
+	mini_batch_size: 4
+	num_workers: 4
+	optimizer: <class 'torch.optim.sgd.SGD'>
+	reproject_embeddings: True
+	rnn_layers: 2
+	scheduler: <class 'flair.training_utils.AnnealOnPlateau'>
+	use_crf: True
+	use_rnn: True
+score: 0.026208402825055283
+variance: 0.0
+test_score: 0.9683689697826472
+----------------------------------------------------------------------------------------------------
+best parameter combination
+	anneal_with_restarts: 0
+	dropout: 0
+	embeddings: 0
+	embeddings_storage_mode: 0
+	hidden_size: 0
+	learning_rate: 0
+	max_epochs: 0
+	mini_batch_size: 0
+	num_workers: 0
+	optimizer: 0
+	reproject_embeddings: 0
+	rnn_layers: 0
+	scheduler: 0
+	use_crf: 0
+	use_rnn: 0
