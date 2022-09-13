@@ -29,8 +29,8 @@ docs/source/api/generated
 /developement
 /evaluation
 /docs
-/_experiments
-/experiments
+/experiments_1
+/experiments_2
 
 # models and results
 *.pt
