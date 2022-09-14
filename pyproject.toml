@@ -19,6 +19,7 @@ sacremoses = "^0.0.53"
 spacy-streamlit = "^1.0.4"
 importlib-metadata = "^4.12.0"
 jupyter-book = "^0.13.1"
+jupytext = "^1.14.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
