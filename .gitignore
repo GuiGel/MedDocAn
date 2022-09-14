@@ -12,6 +12,9 @@ docs/build/
 docs/source/_build
 docs/source/api/generated
 
+# Jupyter-book
+cdti/_build
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
