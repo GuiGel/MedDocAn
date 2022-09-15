@@ -2,12 +2,31 @@
 by the :func:`meddocan.language.pipeline.meddocan_pipeline` with entities
 tagged by a trained model or tagged from an annotation file at the brat format.
 
+To create a ``spacy.tokens.Doc`` with entities comming from the meddocan
+archive: 
+
+1. Choose the desired folder:
+>>> gs_docs = GsDocs(ArchiveFolder.test)
+
+2. Recover the documents present in the archive and selecty the first one:
+>>> gsdocs = iter(gs_docs)
+>>> gsdoc = next(gsdocs)
+
+3. Look at the entities present in the document:
+>>> gsdoc.doc.ents
+(Ignacio, Rico Pedroza, 5467980, Av. Beniarda, 13, Valencia, 46271, \
+11/02/1970, España, 46 años, H, 28/05/2016, Ignacio Rubio Tortosa, \
+46 28 52938, 46 años, Ignacio Rubio Tortosa, Hospital Dr. Peset, \
+Avda. Gaspar Aguilar, 90, 46017, Valencia, España, nachorutor@hotmail.com)
+
+
 """
 import logging
 import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterator, List, NewType, Optional, Tuple, Union
+from zipfile import Path as ZipPath
 
 from spacy.tokens import Doc
 
@@ -275,7 +294,17 @@ doc=Datos del ...)
         for brat_files_pair in meddocan_zip.brat_files(self.archive_name):
             for brat_file_path in brat_files_pair:
                 content = brat_file_path.read_text()
-                file: Path = parent / brat_file_path.at  # type: ignore[attr-defined]
+                if isinstance(brat_file_path, ZipPath):
+                    file: Path = parent / brat_file_path.at  # type: ignore[attr-defined]
+                else:
+
+                    # The function is only for the file coming from a the zip
+                    # folder where are located the meddocan data.
+
+                    raise TypeError(
+                        f"brat_file_path must be a zipfile.Path objet but is "
+                        f"of type {type(brat_file_path)}"
+                    )
                 if not file.parent.exists():
                     file.parent.mkdir(parents=True, exist_ok=True)
                 file.write_text(content)
@@ -357,7 +386,7 @@ doc=Datos del ...)
         # process.
 
         for sys_doc in self:
-            file: Path = parent / sys_doc.brat_files_pair.ann.at  # type: ignore[attr-defined]
+            file: Path = parent / sys_doc.brat_files_pair.ann.at  # type: ignore[union-attr]
             sys_doc.doc._.to_ann(file)
 
     def to_txt(self, parent: Path) -> None:
@@ -366,7 +395,7 @@ doc=Datos del ...)
             parent = Path(parent)
 
         for sys_doc in self:
-            file: Path = parent / sys_doc.brat_files_pair.txt.at  # type: ignore[attr-defined]
+            file: Path = parent / sys_doc.brat_files_pair.txt.at  # type: ignore[union-attr]
             text = sys_doc.brat_files_pair.txt.read_text()
             assert sys_doc.doc.text == text
             file.write_text(text)

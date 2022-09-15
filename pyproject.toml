@@ -47,6 +47,9 @@ missaligned_splitter = "meddocan.language.splitter:missaligned_splitter"
 predictor = "meddocan.language.predictor:create_predictor"
 write_methods = "meddocan.language.method_extensions:create_write_methods"
 
+[tool.poetry.plugins."spacy_displacy_colors"]
+spacy_displacy_colors = "meddocan.language.colors:displacy_colors"
+
 [tool.isort]
 profile = "black"
 

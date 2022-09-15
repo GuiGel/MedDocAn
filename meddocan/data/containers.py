@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from io import TextIOWrapper
 from typing import List, NamedTuple, Sized, Tuple
+from zipfile import ZipExtFile
 
 from spacy.tokens import Span
 
@@ -55,6 +57,28 @@ class BratSpan:
 text='c/ del Abedul 5-7, 2º dcha')
         """
         line = byte_line.decode("utf-8").strip()
+        id, phi_start_end, text = line.split("\t")
+        entity_type, start, end = phi_start_end.split(" ")
+        return BratSpan(
+            id=id,
+            entity_type=entity_type,
+            start=int(start),
+            end=int(end),
+            text=text,
+        )
+
+    @classmethod
+    def from_txt(cls, line: str) -> BratSpan:
+        """Read a line of a brat file and return a :class:`BratSpan` object.
+
+        Example:
+
+        >>> line = "T1\\tCALLE 2365 2391\\tc/ del Abedul 5-7, 2º dcha\\n"
+        >>> BratSpan.from_txt(line)
+        BratSpan(id='T1', entity_type='CALLE', start=2365, end=2391, \
+text='c/ del Abedul 5-7, 2º dcha')
+        """
+        line = line.strip()
         id, phi_start_end, text = line.split("\t")
         entity_type, start, end = phi_start_end.split(" ")
         return BratSpan(
@@ -157,10 +181,15 @@ class BratAnnotations(Sized):
         brat_files_pair: BratFilesPair,
     ) -> BratAnnotations:
         with brat_files_pair.ann.open() as archive:
-            brat_spans = list(map(BratSpan.from_bytes, archive))
-
-        # with brat_files_pair.txt.open() as archive:
-        #     text = archive.read().decode("utf-8")
+            if isinstance(archive, ZipExtFile):
+                brat_spans = list(map(BratSpan.from_bytes, archive))
+            elif isinstance(archive, TextIOWrapper):
+                brat_spans = list(map(BratSpan.from_txt, archive))
+            else:
+                raise TypeError(
+                    f"archive {archive} must be an instance of"
+                    "BytesIO or TextIOWrapper"
+                )
 
         # TODO Talks about the BOM (Byte Ordering Mark). Cf: Fluent Python.
         # Some file contains the BOM and other not. If we remove the BOM

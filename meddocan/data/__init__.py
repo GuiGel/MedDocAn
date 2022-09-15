@@ -29,7 +29,7 @@ from dataclasses import dataclass
 from enum import Enum
 from itertools import tee
 from pathlib import Path
-from typing import Iterator, NamedTuple
+from typing import Iterator, NamedTuple, Union
 from zipfile import Path as ZipPath
 
 import meddocan
@@ -45,8 +45,82 @@ class BratFilesPair(NamedTuple):
             text of a medical document.
     """
 
-    ann: ZipPath
-    txt: ZipPath
+    ann: Union[ZipPath, Path]
+    txt: Union[ZipPath, Path]
+
+    @property
+    def is_zipfile_path(self) -> bool:
+        """Verify that BratFilesPair attributes are of type ZipPath
+
+        Returns:
+            bool: If True :class:`BratFilesPair` attributes are of type ZipPath
+
+        Example:
+
+        Consider a zip file with this structure:
+
+        .
+        └── a.txt
+        └── a.ann
+        >>> from io import BytesIO
+        >>> from zipfile import ZipFile, Path
+        >>> data = BytesIO()
+        >>> zf = ZipFile(data, 'w')
+        >>> zf.writestr('a.txt', 'content of txt')
+        >>> zf.writestr('a.ann', 'content of ann')
+        >>> zf.filename = "folder.zip"
+        >>> zfp = Path(zf)
+        >>> txt, ann = zfp.iterdir()
+
+        Then
+
+        >>> BratFilesPair(ann, txt).is_zipfile_path
+        True
+
+        """
+        if isinstance(self.ann, ZipPath) and isinstance(self.txt, ZipPath):
+            return True
+        else:
+            return False
+
+    @property
+    def is_pathlib_path(self) -> bool:
+        """Verify that BratFilesPair attributes are of type pathlib.Path
+
+        Returns:
+            bool: If True :class:`BratFilesPair` attributes are of type
+                pathlib.Path
+
+        Example:
+
+        Consider a the following directory
+
+        .
+        └── folder
+            ├── a.txt
+            └── a.ann
+        >>> from pathlib import Path
+        >>> txt = Path("file.txt")
+        >>> txt.write_text('content of txt')
+        14
+        >>> ann = Path("file.ann")
+        >>> ann.write_text('content of ann')
+        14
+
+        Then
+
+        >>> BratFilesPair(ann, txt).is_pathlib_path
+        True
+
+        Remove the created files
+
+        >>> _, _ = txt.unlink(), ann.unlink()
+
+        """
+        if isinstance(self.ann, Path) and isinstance(self.txt, Path):
+            return True
+        else:
+            return False
 
 
 class ArchiveFolder(Enum):
