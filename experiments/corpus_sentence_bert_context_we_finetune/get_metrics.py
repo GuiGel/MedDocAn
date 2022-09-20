@@ -1,5 +1,5 @@
 """Compute the metrics for the meddocan tasks."""
-from random import seed
+
 from typer.testing import CliRunner
 
 from meddocan.cli import app

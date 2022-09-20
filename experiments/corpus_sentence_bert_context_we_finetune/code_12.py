@@ -9,29 +9,11 @@ from flair.embeddings import (
     TransformerWordEmbeddings,
     WordEmbeddings,
 )
-from flair.training_utils import AnnealOnPlateau
-from hyperopt import hp
-from torch.optim import SGD
-import json
-from pathlib import Path
-
-import flair
-import torch
-from flair.data import Corpus
-from flair.embeddings import TransformerWordEmbeddings
 from flair.optim import LinearSchedulerWithWarmup
 from hyperopt import hp
 from torch.optim import AdamW
 from transformers import AdamW
 
-from meddocan.data.corpus import MEDDOCAN
-from meddocan.hyperparameter.param_selection import (
-    OptimizationValue,
-    Parameter,
-    SearchSpace,
-    SequenceTaggerParamSelector,
-)
-from meddocan.hyperparameter.parameter import Parameter
 from meddocan.data.corpus import MEDDOCAN
 from meddocan.hyperparameter.param_selection import (
     OptimizationValue,
@@ -49,7 +31,9 @@ flair.set_seed(SEED)
 flair.device = torch.device("cuda:1")
 
 # 1. get the corpus
-corpus: Corpus = MEDDOCAN(sentences=True, document_separator_token="-DOCSTART-")
+corpus: Corpus = MEDDOCAN(
+    sentences=True, document_separator_token="-DOCSTART-"
+)
 print(corpus)
 
 # 3. make the label dictionary from the corpus
@@ -68,14 +52,14 @@ print(json.dumps(statistics, indent=4))
 embedding_types = [
     WordEmbeddings("es", stable=True),
     TransformerWordEmbeddings(
-            model="dccuchile/bert-base-spanish-wwm-cased",
-            fine_tune=True,
-            layers="-1",
-            use_context=True,
-            layer_mean=True,
-            name=f"beto-cased_FT_True_Ly_-1_seed_{SEED}",
-            subtoken_pooling="first",
-            allow_long_sentences=True,
+        model="dccuchile/bert-base-spanish-wwm-cased",
+        fine_tune=True,
+        layers="-1",
+        use_context=True,
+        layer_mean=True,
+        name=f"beto-cased_FT_True_Ly_-1_seed_{SEED}",
+        subtoken_pooling="first",
+        allow_long_sentences=True,
     ),
 ]
 
