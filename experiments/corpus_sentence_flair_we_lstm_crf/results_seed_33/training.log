@@ -1,0 +1,52 @@
+2022-08-31 10:53:41,243 ----------------------------------------------------------------------------------------------------
+2022-08-31 10:53:41,243 Model: "SequenceTagger(
+  (embeddings): StackedEmbeddings(
+    (list_embedding_0): WordEmbeddings(
+      'es'
+      (embedding): Embedding(985667, 300)
+      (layer_norm): LayerNorm((300,), eps=1e-05, elementwise_affine=False)
+    )
+    (list_embedding_1): FlairEmbeddings(
+      (lm): LanguageModel(
+        (drop): Dropout(p=0.5, inplace=False)
+        (encoder): Embedding(275, 100)
+        (rnn): LSTM(100, 2048)
+        (decoder): Linear(in_features=2048, out_features=275, bias=True)
+      )
+    )
+    (list_embedding_2): FlairEmbeddings(
+      (lm): LanguageModel(
+        (drop): Dropout(p=0.5, inplace=False)
+        (encoder): Embedding(275, 100)
+        (rnn): LSTM(100, 2048)
+        (decoder): Linear(in_features=2048, out_features=275, bias=True)
+      )
+    )
+  )
+  (word_dropout): WordDropout(p=0.05)
+  (locked_dropout): LockedDropout(p=0.5)
+  (embedding2nn): Linear(in_features=4396, out_features=4396, bias=True)
+  (rnn): LSTM(4396, 256, batch_first=True, bidirectional=True)
+  (linear): Linear(in_features=512, out_features=87, bias=True)
+  (loss_function): ViterbiLoss()
+  (crf): CRF()
+)"
+2022-08-31 10:53:41,243 ----------------------------------------------------------------------------------------------------
+2022-08-31 10:53:41,243 Corpus: "Corpus: 10311 train + 5268 dev + 5155 test sentences"
+2022-08-31 10:53:41,244 ----------------------------------------------------------------------------------------------------
+2022-08-31 10:53:41,244 Parameters:
+2022-08-31 10:53:41,244  - learning_rate: "0.100000"
+2022-08-31 10:53:41,244  - mini_batch_size: "32"
+2022-08-31 10:53:41,244  - patience: "3"
+2022-08-31 10:53:41,244  - anneal_factor: "0.5"
+2022-08-31 10:53:41,244  - max_epochs: "150"
+2022-08-31 10:53:41,244  - shuffle: "True"
+2022-08-31 10:53:41,244  - train_with_dev: "False"
+2022-08-31 10:53:41,244  - batch_growth_annealing: "False"
+2022-08-31 10:53:41,244 ----------------------------------------------------------------------------------------------------
+2022-08-31 10:53:41,244 Model training base path: "/home/wave/Project/MedDocAn/experiments/corpus_sentence_emb_w2v_stable_flair_tagger_default/results_seed_33"
+2022-08-31 10:53:41,244 ----------------------------------------------------------------------------------------------------
+2022-08-31 10:53:41,244 Device: cuda:1
+2022-08-31 10:53:41,245 ----------------------------------------------------------------------------------------------------
+2022-08-31 10:53:41,245 Embeddings storage mode: gpu
+2022-08-31 10:53:41,245 ----------------------------------------------------------------------------------------------------

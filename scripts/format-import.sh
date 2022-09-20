@@ -2,5 +2,5 @@
 set -x
 
 # Sort imports one per line, so autoflake can remove unused imports
-isort -l 79 --force-single-line-imports ./meddocan ./tests
+isort -l 79 --force-single-line-imports ./meddocan ./tests ./experiments
 sh ./scripts/format.sh
