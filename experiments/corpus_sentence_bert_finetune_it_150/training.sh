@@ -1,0 +1,7 @@
+#!/bin/sh -e
+set -x
+
+python experiments/corpus_sentence_bert_finetune_it_150/training_seed_1.py
+python experiments/corpus_sentence_bert_finetune_it_150/training_seed_12.py
+python experiments/corpus_sentence_bert_finetune_it_150/training_seed_33.py
+python experiments/corpus_sentence_bert_finetune_it_150/get_metrics.py

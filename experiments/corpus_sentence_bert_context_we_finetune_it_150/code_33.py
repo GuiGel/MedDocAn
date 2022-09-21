@@ -25,13 +25,15 @@ from meddocan.hyperparameter.parameter import Parameter
 
 base_path = Path(__file__).parent
 
-SEED = 12
+SEED = 33
 
 flair.set_seed(SEED)
-flair.device = torch.device("cuda:0")
+flair.device = torch.device("cuda:1")
 
 # 1. get the corpus
-corpus: Corpus = MEDDOCAN(sentences=True)
+corpus: Corpus = MEDDOCAN(
+    sentences=True, document_separator_token="-DOCSTART-"
+)
 print(corpus)
 
 # 3. make the label dictionary from the corpus

@@ -4,11 +4,7 @@ from pathlib import Path
 import flair
 import torch
 from flair.data import Corpus
-from flair.embeddings import (
-    StackedEmbeddings,
-    TransformerWordEmbeddings,
-    WordEmbeddings,
-)
+from flair.embeddings import TransformerWordEmbeddings
 from flair.optim import LinearSchedulerWithWarmup
 from hyperopt import hp
 from torch.optim import AdamW
@@ -25,10 +21,10 @@ from meddocan.hyperparameter.parameter import Parameter
 
 base_path = Path(__file__).parent
 
-SEED = 12
+SEED = 33
 
 flair.set_seed(SEED)
-flair.device = torch.device("cuda:0")
+flair.device = torch.device("cuda:1")
 
 # 1. get the corpus
 corpus: Corpus = MEDDOCAN(sentences=True)
@@ -45,28 +41,22 @@ for set, value in statistics.items():
 print(json.dumps(statistics, indent=4))
 
 # 4. Define your search space
-
-# Create embeddings
-embedding_types = [
-    WordEmbeddings("es", stable=True),
-    TransformerWordEmbeddings(
-        model="dccuchile/bert-base-spanish-wwm-cased",
-        fine_tune=True,
-        layers="-1",
-        use_context=True,
-        layer_mean=True,
-        name=f"beto-cased_FT_True_Ly_-1_seed_{SEED}",
-        subtoken_pooling="first",
-        allow_long_sentences=True,
-    ),
-]
-
-embeddings = StackedEmbeddings(embeddings=embedding_types)
 search_space = SearchSpace()
 search_space.add(
     Parameter.EMBEDDINGS,
     hp.choice,
-    options=[embeddings],
+    options=[
+        TransformerWordEmbeddings(
+            model="dccuchile/bert-base-spanish-wwm-cased",
+            fine_tune=True,
+            layers="-1",
+            use_context=False,
+            layer_mean=True,
+            name=f"beto-cased_FT_True_Ly_-1_seed_{SEED}",
+            subtoken_pooling="first",
+            allow_long_sentences=True,
+        ),
+    ],
 )
 search_space.add(Parameter.USE_CRF, hp.choice, options=[False])
 search_space.add(Parameter.USE_RNN, hp.choice, options=[False])
@@ -80,7 +70,7 @@ search_space.add(Parameter.OPTIMIZER, hp.choice, options=[AdamW])
 search_space.add(
     Parameter.SCHEDULER, hp.choice, options=[LinearSchedulerWithWarmup]
 )
-search_space.add(Parameter.WARMUP_FRACTION, hp.choice, options=[0.1])
+search_space.add(Parameter.WARMUP_FRACTION, hp.choice, options=[1])
 search_space.add(Parameter.EMBEDDINGS_STORAGE_MODE, hp.choice, options=["gpu"])
 search_space.add(Parameter.MAX_EPOCHS, hp.choice, options=[150])
 

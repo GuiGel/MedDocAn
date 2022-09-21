@@ -28,7 +28,7 @@ base_path = Path(__file__).parent
 SEED = 1
 
 flair.set_seed(SEED)
-flair.device = torch.device("cuda:1")
+flair.device = torch.device("cuda:0")
 
 # 1. get the corpus
 corpus: Corpus = MEDDOCAN(sentences=True)
