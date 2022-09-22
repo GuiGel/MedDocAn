@@ -18,6 +18,10 @@ torch-tb-profiler = "^0.4.0"
 sacremoses = "^0.0.53"
 spacy-streamlit = "^1.0.4"
 importlib-metadata = "^4.12.0"
+jupyter-book = "^0.13.1"
+jupytext = "^1.14.1"
+cookiecutter = "^2.1.1"
+pyppeteer = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
@@ -43,6 +47,9 @@ line_sentencizer = "meddocan.language.sentencizer:line_sentencizer"
 missaligned_splitter = "meddocan.language.splitter:missaligned_splitter"
 predictor = "meddocan.language.predictor:create_predictor"
 write_methods = "meddocan.language.method_extensions:create_write_methods"
+
+[tool.poetry.plugins."spacy_displacy_colors"]
+spacy_displacy_colors = "meddocan.language.colors:displacy_colors"
 
 [tool.isort]
 profile = "black"
