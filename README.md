@@ -24,8 +24,8 @@ discharge summaries and medical genetics clinical records.
 
 The MEDDOCAN task will be structured into two sub-tasks:
 
-NER offset and entity type classification.
-Sensitive span detection.
+1. NER offset and entity type classification.
+2. Sensitive span detection.
 
 ## MEDDOCAN Corpus
 
