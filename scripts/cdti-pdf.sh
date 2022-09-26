@@ -1,1 +1,1 @@
-jupyter book build cdti --builder pdfhtml --path-output cdti/pdf
+jupyter book build docs --builder pdfhtml --path-output docs/pdf
