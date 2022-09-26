@@ -10,7 +10,7 @@ from flair.trainers import ModelTrainer
 
 from meddocan.data.corpus import flair
 
-seed = 33
+seed = 12
 
 flair.set_seed(seed)
 flair.device = torch.device("cuda:1")
