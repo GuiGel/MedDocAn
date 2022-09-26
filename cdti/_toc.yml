@@ -1,0 +1,17 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+
+options:
+  numbered: True
+
+
+chapters: 
+    - file: meddocan/01_evaluation.md
+    - file: meddocan/02_data.md
+    - file: meddocan/03_training.md
+    - file: meddocan/bibliography.md
+    - file: meddocan/appendix.md
+    # - file: api/meddocan/index
