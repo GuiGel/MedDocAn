@@ -109,6 +109,22 @@ python-versions = ">=3.6"
 python-dateutil = ">=2.7.0"
 
 [[package]]
+name = "astroid"
+version = "2.12.10"
+description = "An abstract syntax tree for Python with inference support."
+category = "main"
+optional = false
+python-versions = ">=3.7.2"
+
+[package.dependencies]
+lazy-object-proxy = ">=1.4.0"
+typing-extensions = {version = ">=3.10", markers = "python_version < \"3.10\""}
+wrapt = [
+    {version = ">=1.11,<2", markers = "python_version < \"3.11\""},
+    {version = ">=1.14,<2", markers = "python_version >= \"3.11\""},
+]
+
+[[package]]
 name = "asttokens"
 version = "2.0.5"
 description = "Annotate AST trees with source code positions"
@@ -1260,6 +1276,14 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.dependencies]
 six = ">=1.4.1"
+
+[[package]]
+name = "lazy-object-proxy"
+version = "1.7.1"
+description = "A fast and thorough lazy object proxy."
+category = "main"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "line-profiler"
@@ -2648,6 +2672,26 @@ lint = ["flake8 (>=3.5.0)", "isort", "mypy (>=0.931)", "docutils-stubs", "types-
 test = ["pytest", "pytest-cov", "html5lib", "cython", "typed-ast"]
 
 [[package]]
+name = "sphinx-autoapi"
+version = "1.9.0"
+description = "Sphinx API documentation generator"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+astroid = ">=2.7"
+Jinja2 = "*"
+PyYAML = "*"
+sphinx = ">=3.0"
+unidecode = "*"
+
+[package.extras]
+docs = ["sphinx", "sphinx-rtd-theme"]
+dotnet = ["sphinxcontrib-dotnetdomain"]
+go = ["sphinxcontrib-golangdomain"]
+
+[[package]]
 name = "sphinx-book-theme"
 version = "0.3.3"
 description = "A clean book theme for scientific explanations and documentation with Sphinx"
@@ -2664,6 +2708,21 @@ sphinx = ">=3,<5"
 test = ["sphinx-thebe", "pytest-regressions (>=2.0.1,<2.1.0)", "pytest-cov", "pytest (>=6.0.1,<6.1.0)", "myst-nb (>=0.13.2,<0.14.0)", "coverage", "beautifulsoup4 (>=4.6.1,<5)"]
 doc = ["sphinxext-opengraph", "sphinxcontrib-youtube", "sphinxcontrib-bibtex (>=2.2,<3.0)", "sphinx-thebe (>=0.1.1)", "sphinx-togglebutton (>=0.2.1)", "sphinx-tabs", "sphinx-copybutton", "sphinx-examples", "sphinx-design", "sphinx (>=4.0,<5.0)", "plotly", "pandas", "nbclient", "myst-nb (>=0.13.2,<0.14.0)", "numpydoc", "matplotlib", "numpy", "folium", "ipywidgets", "ablog (>=0.10.13,<0.11.0)"]
 code_style = ["pre-commit (>=2.7.0,<2.8.0)"]
+
+[[package]]
+name = "sphinx-codeautolink"
+version = "0.12.0"
+description = "Automatic links from code examples to reference documentation."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+beautifulsoup4 = "*"
+sphinx = ">=3.2.0"
+
+[package.extras]
+ipython = ["ipython"]
 
 [[package]]
 name = "sphinx-comments"
@@ -3345,6 +3404,14 @@ python-versions = ">=3.6"
 test = ["pytest-cov", "pytest", "coverage"]
 
 [[package]]
+name = "unidecode"
+version = "1.3.4"
+description = "ASCII transliterations of Unicode text"
+category = "main"
+optional = false
+python-versions = ">=3.5"
+
+[[package]]
 name = "urllib3"
 version = "1.26.9"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -3483,7 +3550,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "da81cf32586d0ba2cee0008812e5ff8d10975c154cd3574f807bcdacf2c5119a"
+content-hash = "754825fee9bec334fa14b85c6aa30f5e1721eb78bd4283bafb7a7a33260b07bc"
 
 [metadata.files]
 absl-py = [
@@ -3532,6 +3599,7 @@ argon2-cffi-bindings = [
     {file = "argon2_cffi_bindings-21.2.0-pp38-pypy38_pp73-win_amd64.whl", hash = "sha256:5e00316dabdaea0b2dd82d141cc66889ced0cdcbfa599e8b471cf22c620c329a"},
 ]
 arrow = []
+astroid = []
 asttokens = [
     {file = "asttokens-2.0.5-py2.py3-none-any.whl", hash = "sha256:0844691e88552595a6f4a4281a9f7f79b8dd45ca4ccea82e5e05b4bbdb76705c"},
     {file = "asttokens-2.0.5.tar.gz", hash = "sha256:9a54c114f02c7a9480d56550932546a3f1fe71d8a02f1bc7ccd0ee3ee35cf4d5"},
@@ -4091,6 +4159,7 @@ langdetect = [
     {file = "langdetect-1.0.9.tar.gz", hash = "sha256:cbc1fef89f8d062739774bd51eda3da3274006b3661d199c2655f6b3f6d605a0"},
 ]
 latexcodec = []
+lazy-object-proxy = []
 line-profiler = [
     {file = "line_profiler-3.5.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:409e32944176d4004df4308cc37674c1e48ea7444918c129edf5da68ded305c6"},
     {file = "line_profiler-3.5.1-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3d675732d221b5a4bfe48f57bd0ed2f759ad919e650890f4f5f1cf6536c1bc23"},
@@ -5161,7 +5230,9 @@ sphinx = [
     {file = "Sphinx-4.5.0-py3-none-any.whl", hash = "sha256:ebf612653238bcc8f4359627a9b7ce44ede6fdd75d9d30f68255c7383d3a6226"},
     {file = "Sphinx-4.5.0.tar.gz", hash = "sha256:7bf8ca9637a4ee15af412d1a1d9689fec70523a68ca9bb9127c2f3eeb344e2e6"},
 ]
+sphinx-autoapi = []
 sphinx-book-theme = []
+sphinx-codeautolink = []
 sphinx-comments = []
 sphinx-copybutton = []
 sphinx-design = []
@@ -5416,6 +5487,7 @@ tzlocal = [
     {file = "tzlocal-4.2.tar.gz", hash = "sha256:ee5842fa3a795f023514ac2d801c4a81d1743bbe642e3940143326b3a00addd7"},
 ]
 uc-micro-py = []
+unidecode = []
 urllib3 = [
     {file = "urllib3-1.26.9-py2.py3-none-any.whl", hash = "sha256:44ece4d53fb1706f667c9bd1c648f5469a2ec925fcf3a776667042d645472c14"},
     {file = "urllib3-1.26.9.tar.gz", hash = "sha256:aabaf16477806a5e1dd19aa41f8c2b7950dd3c746362d7e3223dbe6de6ac448e"},

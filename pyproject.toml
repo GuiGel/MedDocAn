@@ -22,6 +22,8 @@ jupyter-book = "^0.13.1"
 jupytext = "^1.14.1"
 cookiecutter = "^2.1.1"
 pyppeteer = "^1.0.2"
+sphinx-autoapi = "^1.9.0"
+sphinx-codeautolink = "^0.12.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
