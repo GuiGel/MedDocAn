@@ -22,6 +22,7 @@ jupyter-book = "^0.13.1"
 jupytext = "^1.14.1"
 cookiecutter = "^2.1.1"
 pyppeteer = "^1.0.2"
+fastcore = "^1.5.27"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
