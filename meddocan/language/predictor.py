@@ -9,11 +9,11 @@ import logging
 from typing import Callable, List, Optional
 
 import flair.data
-from flair.models import SequenceTagger
 from spacy.language import Language
 from spacy.tokens import Doc, Span
 
 from meddocan.language.logutils import all_logging_disabled
+from meddocan.models import SequenceTagger
 
 
 class PredictorComponent:
