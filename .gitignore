@@ -7,6 +7,9 @@ coverage.xml
 /htmlcov
 .pytest_cache/
 
+# Poetry
+poetry.lock
+
 # Sphinx documentation
 docs/build/
 docs/source/_build
