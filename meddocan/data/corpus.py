@@ -1,6 +1,7 @@
 import logging
 import tempfile
 from pathlib import Path
+from typing import Optional
 
 import flair
 import flair.datasets
@@ -35,8 +36,9 @@ class MEDDOCAN(ColumnCorpus):
     def __init__(
         self,
         sentences: bool = False,
+        window: Optional[int] = None,
         in_memory: bool = True,
-        document_separator_token: str = None,
+        document_separator_token: Optional[str] = None,
         **corpusargs,
     ) -> None:
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -53,6 +55,7 @@ class MEDDOCAN(ColumnCorpus):
                 brat_docs.to_connl03(
                     file=output_pth,
                     write_sentences=sentences,
+                    window=window,
                     document_separator_token=document_separator_token,
                 )
 

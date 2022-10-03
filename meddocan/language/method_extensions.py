@@ -18,12 +18,15 @@ found in the |spaCy| documentation `Creating custom pipeline components`_.
 .. _Creating custom pipeline components: https://spacy.io/usage/processing-pipelines#custom-components
 """
 import codecs
+import warnings
 from pathlib import Path
 from typing import Callable, List, Literal, Optional, Union
 
 import spacy.tokens
 from spacy.language import Language
 from spacy.tokens import Doc, Token
+
+from meddocan.language.utils import minibatch
 
 
 class WriteMethods:
@@ -62,8 +65,17 @@ class WriteMethods:
         file: Union[str, Path],
         mode: Literal["w", "a"] = "w",
         write_sentences: bool = True,
+        window: Optional[int] = None,
         document_separator_token: Optional[str] = None,
     ) -> None:
+
+        if write_sentences and window is not None:
+            warnings.warn(
+                f"write_sentences argument take precedence over window "
+                f"argument. The document will be split into sentences.",
+                UserWarning,
+            )
+
         # ----------- Write a Doc to the given file at the CoNNL03 format.
         if isinstance(file, str):
             file = Path(file)
@@ -94,6 +106,7 @@ class WriteMethods:
                 document_separator_line = f"{document_separator_token} O\n\n"
                 f.write(document_separator_line)
 
+            # Group the the token lines of a document in a list.
             for sent in doc.sents:
                 for token in sent:
                     if token.is_space:
@@ -110,6 +123,10 @@ class WriteMethods:
 
             if write_sentences:
                 f.writelines(lines)
+            elif window:
+                for line_batch in minibatch(lines, window):
+                    f.writelines(line_batch)
+                    f.write("\n")
             else:
                 joined_lines = "".join((*lines, "\n"))
                 f.write(joined_lines)

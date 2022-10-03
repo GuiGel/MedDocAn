@@ -214,6 +214,7 @@ doc=Datos del ...)
         self,
         file: Union[str, Path],
         write_sentences: bool = True,
+        window: Optional[int] = None,
         document_separator_token: str = None,
     ) -> None:
         """Method that write the file contains in archive_name arguments to
@@ -252,6 +253,10 @@ doc=Datos del ...)
             write_sentences (bool, optional): If True, write each file new line
                 as a `Flair` sentence. If False, glue all the lines of the file
                 as a unique `Flair`sentence. Defaults to True.
+            window (int, optional): If int is strictly positive and
+                write_sentences is False, write the file by batch of size
+                window. If write_sentences is True, then the sentences are
+                written even if window is strictly positive. Defaults to None.
             document_separator_token (str = optional): Separate each document
                 by new line for `Flert` architecture. Defaults to None.
         """
@@ -261,6 +266,7 @@ doc=Datos del ...)
                 file,
                 mode=mode,
                 write_sentences=write_sentences,
+                window=window,
                 document_separator_token=document_separator_token,
             )
 
