@@ -174,3 +174,10 @@ and feature-based approach. We report average training times for our best config
 
 Numero de parámetros contenido en cada unos de los modelos utilizados
 ```
+## Training time
+
+```{glue:figure} training_time
+:name: training time
+
+Evaluación del tiempo de entrenamiento por cada una de la arquitecturas elegidas
+```

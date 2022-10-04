@@ -4,7 +4,7 @@
 
 Como lo hemos visto en la primera parte, el reconocimiento entidades nombradas (NER) es una tarea de NLP muy estudiada que consiste en predecir etiquetas semánticas superficiales para una secuencia de palabras.
 
-Los enfoques actuales para el NER consisten en aprovechar arquitecturas de transformadores pre-entrenados, como {cite:p}`Devlin2019BERTPO` o {cite:p}`Lample2019CrosslingualLM`. Esos transformadores an sido pre-entrenados en otras tareas sobre un corpus grande y sirven de base para entrenar modelos de NER transfiriendo su aprendizaje previo a esa tarea (véase la {numref}`transfer-learning` del Anexo).
+Los enfoques actuales para el NER consisten en aprovechar arquitecturas de transformadores pre-entrenados, como {cite:p}`Devlin2019BERTPO` o {cite:p}`Lample2019CrosslingualLM`. Esos transformadores an sido pre-entrenados en otras tareas sobre un corpus grande y sirven de base para entrenar modelos de NER transfiriendo su aprendizaje previo a esa tarea (véase la {numref}`transfer-learning` del anexo).
 
 Esos enfoques suelen considerar el texto a nivel de frase, exactamente como lo hemos hecho en el dominio jurídico, y por lo tanto no modelan la información que cruza los límites de la frase. Podemos hacerlo pasando una frase con su contexto circundante. Sin embargo, el uso de un modelo basado en transformadores para NER ofrece una opción natural para capturar características a nivel de documento. Como muestra {numref}`fig-flert-1`, este contexto puede influir en la representación de las palabras de una frase: La frase de ejemplo: "I love Paris", pasa por el transformador junto con la siguiente frase que comienza con "The city is", ayudando potencialmente a resolver la ambigüedad de la palabra "Paris". 
 
@@ -28,7 +28,7 @@ En la literatura, hay dos enfoques conceptualmente muy diferentes para el NER ba
 2. En el segundo, utilizamos el transformador solo para proporcionar *características* a una arquitectura de etiquetado de secuencias LSTM-CRF {cite}`Huang2015BidirectionalLM` estándar y, por tanto, no realizamos ningún ajuste fino. Hemos utilizado la arquitectura LSTM-CRF previamente para el dominio judicial pero con los words embeddings contextuales de Flair {cite:p}`Akbik2018ContextualSE` y embeddings estáticos como word2vec {cite:p}`Mikolov2013EfficientEO`.
 
 
-Discutimos las diferencias entre ambos enfoques y exploramos los mejores hiperparámetros para cada uno, manualmente y con ayuda de la biblioteca [Hyperopt](http://hyperopt.github.io/hyperopt/). En su mejor configuración determinada, realizamos una evaluación comparativa a la cual integramos los mejores modelos entrenados con embeddings contextuales de Flair {cite:p}`Akbik2018ContextualSE` con o sin embeddings estáticos {cite:p}`Mikolov2013EfficientEO` junto con la arquitectura LSTM-CRF (i.e. la mejor architectura sobre la tarea de anonimización de documentos judiciales).
+Discutimos las diferencias entre ambos enfoques y exploramos los mejores hiperparámetros para cada uno, manualmente y con ayuda de la biblioteca [Hyperopt](http://hyperopt.github.io/hyperopt/). En su mejor configuración determinada, realizamos una evaluación comparativa a la cual integramos los mejores modelos entrenados con embeddings contextuales de Flair {cite:p}`Akbik2018ContextualSE` con o sin embeddings estáticos {cite:p}`Mikolov2013EfficientEO` junto con la arquitectura LSTM-CRF (i.e. la mejor arquitectura sobre la tarea de anonimización de documentos judiciales).
 
 ```{admonition} Características a nivel de documento
 :class: tip
@@ -50,13 +50,13 @@ En esta sección, presentamos brevemente las diferencias entre ambos enfoques y 
 
 **Modelo de transformador**. En todos los experimentos de esta sección, empleamos 2 modelos de transformadores:
 1.  El modelo de transformador XLM-Roberta (XLMR) propuesto por {cite:p}`Lample2019CrosslingualLM`. En nuestros experimentos utilizamos *xlm-roberta large*, entrenado en 2,5TB de datos del corpus limpio Commom Crawl {cite:p}`Wenzek2020CCNetEH` para 100 idiomas diferentes.
-2.  Modelo transformador BERT propuesto por {cite:p}`Devlin2019BERTPO`. En nuestros experimentos utilizamos *BETO*, un modelo bert entrenado en el gran corpus español {cite}`CaneteCFP2020`.
+2.  El modelo de transformador BERT propuesto por {cite:p}`Devlin2019BERTPO`. En nuestros experimentos utilizamos *BETO*, un modelo bert entrenado en el gran corpus español {cite}`CaneteCFP2020`.
 
 **Embeddings (+ WE)**. Para cada configuración experimentamos concatenando embeddings de palabras clásicas a las representaciones a nivel de palabra obtenidas del modelo transformador. Utilizamos los embeddings de FastText en español {cite}`Bojanowski2017EnrichingWV` estabilizados {cite:p}`Antoniak2018EvaluatingTS`.
 
 ### Primera estrategia: Ajuste fino
 
-Las estrategias de ajuste fino suelen añadir una sola capa lineal a un transformador y ajustan toda la arquitectura en la tarea NER. Para hacer el puente entre el modelado de subtokens y las predicciones a nivel de tokens, aplican la agrupación de subpalabras para crear representaciones a nivel de tokens que luego se pasan a la capa lineal final. Conceptualmente, este enfoque tiene la ventaja de que todo se modela en una única arquitectura que se ajusta en su conjunto. En el anexo {ref}`Appendix-1` se dan más detalles sobre los parámetros y la arquitectura.
+Las estrategias de ajuste fino suelen añadir una sola capa lineal a un transformador y ajustan toda la arquitectura en la tarea NER. Para hacer el puente entre el modelado de subtokens y las predicciones a nivel de tokens, aplican la agrupación de subpalabras para crear representaciones a nivel de tokens que luego se pasan a la capa lineal final. Conceptualmente, este enfoque tiene la ventaja de que todo se modela en una única arquitectura que se ajusta en su conjunto. En la {numref}`Appendix-1` del anexo se dan más detalles sobre los parámetros y la arquitectura.
 
 Evaluamos esta estrategia con los transformadores BETO {cite}`CaneteCFP2020` y XLMR {cite:p}`Lample2019CrosslingualLM`. Los resultados figuran en la {numref}`tabla %s <finetuning approach>`.
 
@@ -70,7 +70,7 @@ Evaluación de diferentes transformadores mediante el proceso de ajuste fino. La
 
 ### Segunda estrategia: Basado en características
 
-En cambio, los enfoques basados en características utilizan el transformador solo para generar embeddings para cada palabra de una frase y las utilizan como entrada en una arquitectura de etiquetado de secuencias estándar, normalmente una LSTM-CRF {cite:p}`Huang2015BidirectionalLM`. Los pesos del transformador se congelan para que el entrenamiento se limite al LSTM-CRF. Conceptualmente, este enfoque se beneficia de un procedimiento de entrenamiento del modelo bien entendido que incluye un criterio de parada real. En el anexo {ref}`Appendix-2` se dan más detalles sobre los parámetros y la arquitectura. En nuestros experimentos solo evaluamos una variante de las dos propuestas en {cite:p}`Schweter2020FLERTDF` porque suele dar los mejores resultados.
+En cambio, los enfoques basados en características utilizan el transformador solo para generar embeddings para cada palabra de una frase y las utilizan como entrada en una arquitectura de etiquetado de secuencias estándar, normalmente una LSTM-CRF {cite:p}`Huang2015BidirectionalLM`. Los pesos del transformador se congelan para que el entrenamiento se limite al LSTM-CRF. Conceptualmente, este enfoque se beneficia de un procedimiento de entrenamiento del modelo bien entendido que incluye un criterio de parada real. En la {numref}`Appendix-2` del anexo se dan más detalles sobre los parámetros y la arquitectura. En nuestros experimentos solo evaluamos una variante de las dos propuestas en {cite:p}`Schweter2020FLERTDF` porque suele dar los mejores resultados.
 
 **Media de todas las capas** Obtenemos embeddings para cada token utilizando la media de todas las capas producidas por el transformador, incluida la capa de embeddings de palabras. Esta representación tiene la misma longitud que el tamaño oculto de cada capa transformadora. Este enfoque se inspira del "scalar mix" del estilo ELMO {cite:p}`Peters2018DeepCW`.
 
@@ -84,9 +84,9 @@ Los resultados se encuentran en la {numref}`tabla %s <feature-based approach>`.
 Evaluación de la estrategia basada en características. La evaluación se realiza contra el conjunto de desarrollo.
 ```
 
-### Flair reference
+### Flair baseline
 
-De la misma mañera usamos los embeddings contextuales de Flair {cite}`Akbik2018ContextualSE` como entrada de la arquitectura LSTM-CRF {cite:p}`Huang2015BidirectionalLM`. En el anexo {ref}`Appendix-3` se dan más detalles sobre los parámetros y la arquitectura.
+De la misma mañera usamos los embeddings contextuales de Flair {cite}`Akbik2018ContextualSE` como entrada de la arquitectura LSTM-CRF {cite:p}`Huang2015BidirectionalLM`. En la {numref}`Appendix-3` del anexo se dan más detalles sobre los parámetros y la arquitectura. Esa arquitectura nos sirve de referencia con los resultados anteriores obtenidos con la datos jurídicos.
 
 Los resultados se encuentran en la {numref}`tabla %s <flair approach>`.
 
@@ -101,9 +101,9 @@ Evaluación de la estrategia basada en características con los embeddings de Fl
 ### Resultados: Mejor configuración
 
 Evaluamos ambos enfoques en cada variante en todas las combinaciones posibles añadiendo embeddings de palabras estándar "(+ WE)" y características a nivel de documento "(+ Contexto)". Cada configuración se ejecuta tres veces para reportar el promedio de F1 y la desviación estándar para cada una de las 3 opciones: NER, Span y Span Merged.  
-**Results**. Para el modelo de referencia con Flair + LSTM CRF la adición de embeddings estáticos (+ WE) tiene un impacto negativo (ver {numref}`tabla %s <flair approach>`).
-Para el ajuste fino, vemos que la adición de embeddings estática, así como el uso del contexto, parece bastante convincente, incluso si la diferencia con la versión simple no es tan clara (véase {numref}`tabla %s <finetuning approach>`.)
+**Results**. Para el ajuste fino, vemos que la adición de embeddings estáticos, así como el uso del contexto, parece bastante convincente con BETO pero no realmente con XLMR (véase {numref}`tabla %s <finetuning approach>`). Sin embargo, hay que señalar que, por falta de recursos, no hemos podido realizar el entrenamiento con la configuración XLMR + WE + CONTEXT que podia haber dado buenos resultados.
 Para el enfoque basado en características, encontramos que la adición de embeddings de palabras produce muy claramente los mejores resultados (véase {numref}`tabla %s <feature-based approach>`).
+Para el modelo de referencia con Flair + LSTM CRF la adición de embeddings estáticos (+ WE) tiene un impacto negativo (ver {numref}`tabla %s <flair approach>`).
 
 (comparative_study)=
 ## Evaluación comparativa
@@ -120,10 +120,10 @@ Los resultados de la evaluación se recogen en la {numref}`Tabla %s <table test>
 Evaluación comparativa de las mejores configuraciones de los enfoques de ajuste fino y basados en características en los datos de test.
 ```
 
-El uso de Transformers permite una ligera ganancia en comparación con el uso de Flair (véase la {numref}`Tabla %s <flair comparison>`).
+El uso de Transformers sobre el dataset Meddocan no permite una ganancia muy ligera en comparación con el uso de Flair (véase la {numref}`Tabla %s <flair comparison>`).
 
 ```{note}
-Con los resultados obtenidos, Flert habría ganado la competición {cite}`Marimon2019AutomaticDO` por delante del actual ganador Lukas Lange {cite}`Lange2019NLNDETN` (véase {numref}`Tabla %s <lukas lange>`).
+Con los resultados obtenidos, Flert habría ganado la competición {cite}`Marimon2019AutomaticDO` por delante del actual ganador Lukas Lange {cite}`Lange2019NLNDETN` (véase {numref}`Tabla %s <lukas lange>`) que uso la libraría FLair también.
 
 ```{table} Mejor score F1 sobres cada una de las 3 Subtracks obtenidos por Luckas Lange.
 :name: lukas lange
@@ -131,7 +131,6 @@ Con los resultados obtenidos, Flert habría ganado la competición {cite}`Marimo
 | :-------- | :----------------- | :----------------- |
 | 96.96     | 97.49              | 98.53              |
 ```
-
 
 En cuanto a los enfoques de "FINETUNE + LINEAR" y basado en "FEATURE BASED + LSTM CRF", los resultados son bastante similares, aunque el segundo enfoque se ve afectado negativamente por el contexto y el primero positivamente.
 Por otro lado, la estrategia "FEATURE BASED + LSTM CRF + CONTEXTO + WE" es la más beneficiada con la mejor puntuación F1 en las 3 tareas.
@@ -145,5 +144,5 @@ Evaluación de las mejoras en score F1 en los datos de test en comparación con 
 
 ## Conclusión
 
-El sistema basado en Transfer Learning y el uso de Transformadores (BERT / XLMR- Large) nos ha permitido obtener muy buenos resultados sobre el dataset MEDDOCAN, mostrando un score F1 superior en todas las variantes de evaluación en comparación con el uso de las tecnologías precedentes.
+El sistema basado en Transfer Learning y el uso de Transformadores (BERT / XLMR-Large) nos ha permitido obtener muy buenos resultados sobre el dataset MEDDOCAN, mostrando un score F1 superior en todas las variantes de evaluación en comparación con el uso de las tecnologías precedentes.
 No obstante esa mejorara conlleva un tiempo de entrenamiento mas largo asi que modelos con mas parámetros y entonces mas voluminosos (véase la {numref}`Tabla %s <model parameters>`).
