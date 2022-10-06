@@ -318,10 +318,10 @@ evaluation run 1
 	scheduler: <class 'flair.optim.LinearSchedulerWithWarmup'>
 	use_crf: False
 	use_rnn: False
-	warmup_fraction: 1
-score: 0.03128170430091496
+	warmup_fraction: 0.1
+score: 0.028153250107619487
 variance: 0.0
-test_score: 0.9704246490685973
+test_score: 0.9691629955947137
 ----------------------------------------------------------------------------------------------------
 best parameter combination
 	anneal_with_restarts: 0
