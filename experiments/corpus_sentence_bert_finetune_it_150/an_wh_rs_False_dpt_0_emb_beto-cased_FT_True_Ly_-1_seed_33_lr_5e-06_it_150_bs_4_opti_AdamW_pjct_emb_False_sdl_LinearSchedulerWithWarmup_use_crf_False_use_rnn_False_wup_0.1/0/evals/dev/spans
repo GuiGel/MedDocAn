@@ -3,9 +3,9 @@ Report (SYSTEM: brat):
 ------------------------------------------------------------
 SubTrack 2 [strict]                Measure        Micro               
 ------------------------------------------------------------
-Total (250 docs)                   Precision      0.9707              
-                                   Recall         0.9807              
-                                   F1             0.9756              
+Total (250 docs)                   Precision      0.9768              
+                                   Recall         0.979               
+                                   F1             0.9779              
 ------------------------------------------------------------
 
 
@@ -14,15 +14,15 @@ Report (SYSTEM: brat):
 ------------------------------------------------------------
 SubTrack 2 [merged]                Measure        Micro               
 ------------------------------------------------------------
-Total (250 docs)                   Precision      0.9793              
-                                   Recall         0.9872              
-                                   F1             0.9832              
+Total (250 docs)                   Precision      0.9846              
+                                   Recall         0.9859              
+                                   F1             0.9853              
 ------------------------------------------------------------
 
 
 SYSTEM: brat
-e.micro_precision()=0.9706534721037365
-e.micro_recall()=0.9806929839682813
+e.micro_precision()=0.9767801857585139
+e.micro_recall()=0.9789691432511636
 SYSTEM: brat
-e.micro_precision()=0.9792797237296498
-e.micro_recall()=0.9872347480106101
+e.micro_precision()=0.9846051978149313
+e.micro_recall()=0.98591082380242
