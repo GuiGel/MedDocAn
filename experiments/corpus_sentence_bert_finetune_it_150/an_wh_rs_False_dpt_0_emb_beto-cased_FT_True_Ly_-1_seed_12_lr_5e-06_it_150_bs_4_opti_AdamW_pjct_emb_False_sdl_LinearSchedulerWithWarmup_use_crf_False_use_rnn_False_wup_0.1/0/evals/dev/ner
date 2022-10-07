@@ -4,12 +4,12 @@ Report (SYSTEM: brat):
 SubTrack 1 [NER]                   Measure        Micro               
 ------------------------------------------------------------
 Total (250 docs)                   Leak           NA                  
-                                   Precision      0.9708              
-                                   Recall         0.9747              
-                                   F1             0.9727              
+                                   Precision      0.9725              
+                                   Recall         0.9753              
+                                   F1             0.9739              
 ------------------------------------------------------------
 
 
 SYSTEM: brat
-e.micro_precision()=0.9708104395604396
-e.micro_recall()=0.9746595414583692
+e.micro_precision()=0.9724991405981437
+e.micro_recall()=0.9753490777452164

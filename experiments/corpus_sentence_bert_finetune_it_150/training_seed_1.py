@@ -70,7 +70,7 @@ search_space.add(Parameter.OPTIMIZER, hp.choice, options=[AdamW])
 search_space.add(
     Parameter.SCHEDULER, hp.choice, options=[LinearSchedulerWithWarmup]
 )
-search_space.add(Parameter.WARMUP_FRACTION, hp.choice, options=[1])
+search_space.add(Parameter.WARMUP_FRACTION, hp.choice, options=[0.1])
 search_space.add(Parameter.EMBEDDINGS_STORAGE_MODE, hp.choice, options=["gpu"])
 search_space.add(Parameter.MAX_EPOCHS, hp.choice, options=[150])
 
