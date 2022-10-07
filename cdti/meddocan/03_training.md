@@ -122,7 +122,8 @@ Evaluación comparativa de las mejores configuraciones de los enfoques de ajuste
 
 El uso de Transformers sobre el dataset Meddocan no permite una ganancia muy ligera en comparación con el uso de Flair (véase la {numref}`Tabla %s <flair comparison>`).
 
-```{note}
+``````{admonition} Note
+:class: tip
 Con los resultados obtenidos, Flert habría ganado la competición {cite}`Marimon2019AutomaticDO` por delante del actual ganador Lukas Lange {cite}`Lange2019NLNDETN` (véase {numref}`Tabla %s <lukas lange>`) que uso la libraría FLair también.
 
 ```{table} Mejor score F1 sobres cada una de las 3 Subtracks obtenidos por Luckas Lange.
@@ -130,7 +131,7 @@ Con los resultados obtenidos, Flert habría ganado la competición {cite}`Marimo
 | Subtrack1 | Subtrack2 [Strict] | Subtrack2 [Merged] |
 | :-------- | :----------------- | :----------------- |
 | 96.96     | 97.49              | 98.53              |
-```
+``````
 
 En cuanto a los enfoques de "FINETUNE + LINEAR" y basado en "FEATURE BASED + LSTM CRF", los resultados son bastante similares, aunque el segundo enfoque se ve afectado negativamente por el contexto y el primero positivamente.
 Por otro lado, la estrategia "FEATURE BASED + LSTM CRF + CONTEXTO + WE" es la más beneficiada con la mejor puntuación F1 en las 3 tareas.
