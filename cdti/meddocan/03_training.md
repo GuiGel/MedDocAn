@@ -120,7 +120,7 @@ Los resultados de la evaluación se recogen en la {numref}`Tabla %s <table test>
 Evaluación comparativa de las mejores configuraciones de los enfoques de ajuste fino y basados en características en los datos de test.
 ```
 
-El uso de Transformers sobre el dataset Meddocan no permite una ganancia muy ligera en comparación con el uso de Flair (véase la {numref}`Tabla %s <flair comparison>`).
+El uso de Transformers sobre el dataset Meddocan nos permite una ganancia muy ligera en comparación con el uso de Flair (véase la {numref}`Tabla %s <flair comparison>`).
 
 ``````{admonition} Note
 :class: tip

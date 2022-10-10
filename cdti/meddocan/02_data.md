@@ -2,7 +2,7 @@
 
 ## [Annotation](https://github.com/PlanTL-GOB-ES/SPACCC_MEDDOCAN#annotation-tool)
 
- El corpus MEDDOCAN es un corpus sintético de casos clínicos enriquecido con expresiones PHI. El corpus MEDDOCAN, de 1.000 casos clínicos, fue seleccionado manualmente por un médico en ejercicio y enriquecido con frases de PHI por documentalistas sanitarios, añadiendo información de PHI procedente de resúmenes de alta y de historias clínicas de genética médica. 
+ El corpus MEDDOCAN es un corpus sintético de casos clínicos enriquecido con expresiones PHI (Información Sanitaria Protegida). El corpus MEDDOCAN, de 1.000 casos clínicos, fue seleccionado manualmente por un médico en ejercicio y enriquecido con frases de PHI por documentalistas sanitarios, añadiendo información de PHI procedente de resúmenes de alta y de historias clínicas de genética médica. 
  Para llevar a cabo la anotación manual, el equipo construyó las primeras pautas públicas de PHI en español [16], siguiendo las especificaciones derivadas del Reglamento General de Protección de Datos (GDPR) de la UE, así como las pautas y tipos de anotación definidos por las vías de desidentificación de i2b2, basadas en la Ley de Portabilidad y Responsabilidad del Seguro Médico (HIPAA) de Estados Unidos. La elaboración de estas directrices de anotación supuso una retroalimentación activa a lo largo de seis meses por parte de un equipo híbrido de nueve personas con experiencia tanto en sanidad como en PNL, lo que dio como resultado un documento de 28 páginas [^1] que se ha distribuido junto con el corpus. Junto con las reglas de anotación, se proporcionaron ejemplos ilustrativos para facilitar al máximo la interpretación y el uso de las directrices. El corpus de MEDDOCAN se muestreó aleatoriamente en tres subconjuntos: el conjunto de entrenamiento, que contenía 500 casos clínicos, y los conjuntos de desarrollo y de prueba de 250 casos clínicos cada uno. Estos casos clínicos se anotaron manualmente utilizando una versión personalizada de AnnotateIt. A continuación, se utilizó el kit de herramientas de anotación BRAT para corregir los errores y añadir las anotaciones que faltaban, logrando un acuerdo entre anotadores (IAA) del 98% (calculado con 50 documentos). Junto con el conjunto de pruebas, publicaron una colección adicional de 3.501 documentos (conjunto de fondo[^2] ) para asegurarse de que los equipos participantes no pudieran hacer correcciones manuales y también para promover que estos sistemas fueran potencialmente capaces de escalar a colecciones de datos más grandes. Las directrices de anotación de MEDDOCAN definieron un total de 29 tipos de entidades. {numref}`true-entity-distribution` resume la lista de tipos de entidad sensibles definidos para la pista de MEDDOCAN y el número de ocurrencias entre los conjuntos de entrenamiento, desarrollo y prueba.
 
 
@@ -57,7 +57,7 @@ Un ejemplo de anotación de MEDDOCAN visualizada mediante la interfaz de anotaci
 ## Preparación de los datos
 
 Tras retomar la descripción del corpus por parte de sus autores, veamos con más detalle en qué consiste la preparación de los datos. El corpus MEDDOCAN consiste en casos clínicos escritos en español y enriquecidos manualmente con expresiones PHI. Se considera un número total de {glue:}`phi_class_num` categorías PHI que muestran una alta variabilidad de frecuencia [^4].
-El número calculado de categorías PHI se puede encontrar en {numref}`Figura {number}: {name} <PHI class statistics>`
+El número calculado de categorías PHI se puede encontrar en la {numref}`Figura {number}<PHI class statistics>`.
 
 ```{glue:figure} phi_statistics
 :figwidth: 500px
@@ -86,7 +86,7 @@ Estos 3 pasos se ilustran en {numref}`Figure {number}: {name} <Preparación de l
 Una ilustración de los pasos de preparación de datos
 ```
 
-Las estadísticas finales, incluyendo el número de documentos, párrafos, tokens, tamaño del vocabulario y entidades PHI para cada uno de los conjuntos de datos del corpus preprocesado, pueden consultarse en {numref}`Figura {number}: {name} <doc statistics>`.
+Las estadísticas finales, incluyendo el número de documentos, párrafos, tokens, tamaño del vocabulario y entidades PHI para cada uno de los conjuntos de datos del corpus preprocesado, pueden consultarse en la {numref}`Figura {number}<doc statistics>`.
 
 ```{glue:figure} doc_statistics
 :figwidth: 800px
