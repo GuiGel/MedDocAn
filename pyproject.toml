@@ -29,6 +29,7 @@ transformers = "^4.22.2"
 datasets = "^2.5.2"
 seqeval = "^1.2.2"
 torch = "1.11.0"
+requests = "^2.28.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
