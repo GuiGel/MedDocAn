@@ -13,6 +13,8 @@ kernelspec:
 ---
 
 ```{code-cell} ipython3
+:tags: [hide-input, hide-output]
+
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning) 
 ```
@@ -27,9 +29,11 @@ from spacy import displacy
 from meddocan.data.docs_iterators import GsDocs
 ```
 
-# Resumen del código [^1]
+# Resumen del código
 
-[^1]: El proyecto completo está disponible en [github](https://github.com/GuiGel/MedDocAn).
+```{nota}
+El proyecto completo está disponible en [github](https://github.com/GuiGel/MedDocAn).
+```
 
 +++
 
@@ -39,7 +43,7 @@ from meddocan.data.docs_iterators import GsDocs
 
 Una de las tareas es obtener un preprocesso correcto de los informes clínicos a traves de un objeto `spacy.tokens.Doc` a partir de cualquier cadena de caracteres. Por ello utilizaremos el `meddocan.language.pipeline.meddocan_pipeline` creado con la ayuda de la biblioteca [spaCy](https://spacy.io/) para adaptarlo a nuestras necesidades. El código relativo a la creación del pipeline se puede encontrar en el paquete [meddocan/language](https://github.com/GuiGel/MedDocAn/tree/master/meddocan/language).
 
-Por otra parte tenemos que poder leer y extraer la información relevante de los documentos provisto en el formato Brat. Es decir que cada informe clínico esta compuesto de 2 ficheros. Uno contiene el texto bruto encodificado en el formato utf-8. Otro las anotaciónes al formato Brat tambien al formato utf-8. El código relativo de esa parte se encuentra en el paquete [meddocan/data](https://github.com/GuiGel/MedDocAn/tree/master/meddocan/data)
+Por otra parte tenemos que poder leer y extraer la información relevante de los documentos provisto en el formato Brat. Es decir que cada informe clínico esta compuesto de 2 ficheros. Uno contiene el texto bruto y el otro las anotaciones. El código relativo de esa parte se encuentra en el paquete [meddocan/data](https://github.com/GuiGel/MedDocAn/tree/master/meddocan/data)
 
 Para ver cómo funciona, seleccionamos un informe médico gracias al objeto `meddocan.data.docs_iterators.GsDocs` que permite acceder a los documentos del dataset meddocan directamente como objetos `spacy.tokens.Doc` con varios atributos específicos.
 
@@ -61,19 +65,28 @@ El atributo `brat_files_pair` es un objeto `meddocan.data.docs_iterators.BratFil
 pd.DataFrame([type(doc_with_brat_pair.brat_files_pair).__qualname__, doc_with_brat_pair.brat_files_pair.ann.name, doc_with_brat_pair.brat_files_pair.txt.name], index=["type", "txt", "ann"]).T
 ```
 
-Lo que hace `GsDocs` es crear un objecto `Doc` a partir de un objeto `meddocan.data.docs_iterators.DocWithBratPair` utilizando el `MedocanPipeline`.  
+Lo que hace `GsDocs` es crear un objecto `Doc` a partir de un objeto `meddocan.data.docs_iterators.DocWithBratPair` utilizando el `MedocanPipeline`.
 
-En una primera fase el pipeline recibe el texo contenido en el fichero original *S0004-06142005000500011-1.txt* como argumento y en un segunda fase se le asigña las entidades extraidas del fichero *S0004-06142005000500011-1.ann* utilizando el metodo ``spacy.tokens.Doc.set_ents``.
+En una primera fase el ``MedocanPipeline`` recibe el texto contenido en el fichero original *S0004-06142005000500011-1.txt* como argumento.  
+
+Miramos el contenido del fichero utilizando el atributo `doc`.
 
 ```{code-cell} ipython3
 gold = doc_with_brat_pair.doc
 gold
 ```
 
-Observamos la serie de pre-processos applicados por el `meddocan_pipeline` y ``GsDocs`` observando la instancia `gold` del objeto ``Doc``.
+  En un segunda fase se le asigna las entidades extraídas del fichero *S0004-06142005000500011-1.ann* utilizando el método ``spacy.tokens.Doc.set_ents``.   
+  Miramos el fichero al formato *.brat* que contiene la anotaciones para hacerse una idea.
+
+```{code-cell} ipython3
+print(doc_with_brat_pair.brat_files_pair.ann.read_text())
+```
+
+Ahora que tenemos una idea mas clara de nuestros datos originales, observamos la serie de pre-procesos aplicados por el `meddocan_pipeline` y ``GsDocs`` gracias a la instancia `gold` del objeto ``Doc`` para preparar el dataset a fin de entrenar un red neuronal con Flair.
 
 ```{note}
-Por el ejemplo solo miramos las 3 primeras lineas del objeto ``Doc``.
+En el ejemplo solo miramos las 3 primeras lineas del objeto ``Doc``.
 ```
 
 ```{code-cell} ipython3
@@ -91,18 +104,18 @@ for i, sent in enumerate(gold.sents):
 Para entender un poco mejor lo que hacemos miramos los differentes componentes del `MeddocanPipeline`.
 
 ```{code-cell} ipython3
-gs_docs.nlp.pipe_names
+pd.DataFrame(gs_docs.nlp.pipe_names, columns=["componentes"]).T
 ```
 
 1. El primer elemento de nuestro pipeline es el tokenizer seguido del componente `missaligned_splitter` que nos permite afinar la tokenización de tal forma que cada token se corresponda exactamente con una etiqueta al formato BIO.
-2. El segundo componente, `line_sentencizer` permite partir el texto en frases. En este caso se corresponden a un párafo.
-3. El componente `predictor` nos permite utilizar un modelo de `Flair` de tal forma que se integré al pipeline. De esa mañera se puede hacer directamente prediciones utilizando un objeto `Doc` y un modelo entrenado previamente.
-4. El componente `write_methods` añade los metodos ``to_connl03`` y ``to_ann`` al objecto ``Doc`` que sirven a crear los ficheros necesarios para:
+2. El segundo componente, `line_sentencizer` permite partir el texto en frases. En este caso se corresponde a un párrafo.
+3. El componente `predictor` nos permite utilizar un modelo de `Flair` de tal forma que se integra al pipeline. De esa mañera se puede hacer directamente predicciones utilizando un objeto `Doc` y un modelo entrenado previamente.
+4. El componente `write_methods` añade los métodos ``to_connl03`` y ``to_ann`` al objecto ``Doc`` que sirven a crear los ficheros necesarios para:
     - Crear un `flair.data.Corpus` que va a permitir entrenar un modelo con `Flair`.
     - Evaluar un modelo utilizando el script de evaluación propio de la competición.
 
 ``````{note}
-Hemos integrado el [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) dentro de nuestra librería con algunas modificaciones y un poco mas de documentación, con el objetivo de unificar el workflow del entrenamiento a la evaluación.  
+Hemos integrado el [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) dentro de nuestra librería con algunas modificaciones y un poco mas de documentación, con el objetivo de unificar el workflow del entrenamiento hasta la evaluación.  
 La evaluación se hace entonces directamente desde nuestra librería gracias al commando: 
 
 ```console
@@ -186,35 +199,49 @@ Options:
 
 +++
 
-Si queremos obtener las entidades basta con hacer:
+La entidades anotadas se obtienen utilizando el atributo ``ents`` de nuestro objecto ``spacy.tokens.Doc``.
 
 ```{code-cell} ipython3
-pd.DataFrame([ent.text for ent in gold.ents], columns=["Entidad"]).T
+pd.DataFrame(zip(*[(ent.text, ent.start_char, ent.end_char) for ent in gold.ents]), index=["Tag", "start", "end"])
 ```
 
-```{code-cell} ipython3
-pd.DataFrame(zip(*[(ent.text, ent.start, ent.end) for ent in gold.ents]), index=["Tag", "start", "end"])
-```
+Nuestras entidades son en este ejemplo compuestas del tag y del la position de la entidad en la cadena de caracteres original.
 
-O si queremos algo mas visual:
+Ahora si queremos algo mas visual podemos utilizar la function ``spacy.displacy.render()`` que nos permite trabajar con el objecto ``Doc``.
 
 ```{code-cell} ipython3
 displacy.render(gold, style="ent")
 ```
 
-## Flair corpus y entrenamiento de modelos
+## Entrenar un modelo con Flair
 
 +++
 
-Ahora que tenemos los datos preparados, utilizamos el objecto ``meddocan.data.corpus.MEDDOCAN`` que hereda de ``flair.datasets.ColumnCorpus`` para entrenar nuestro modelos con la libreria ``Flair``.  
+La clase ``GsDocs`` sirve a preparar los datos de forma que puedan ser leídos por Flair.  Esto lo hacemos a través del objeto ``meddocan.data.corpus.MEDDOCAN`` que hereda de ``flair.datasets.ColumnCorpus``.  
 
-+++
+Este corpus permite a la biblioteca Flair acceder directamente a los conjuntos de datos de entrenamiento, validación y prueba.
 
-Por ello vamos a ver en un ejemplo como proceder.
+```{code-cell} ipython3
+from meddocan.data.corpus import MEDDOCAN
+
+corpus = MEDDOCAN(sentences=True, in_memory=True, document_separator_token="-DOCSTART-")
+```
+
+El corpus creado podemos utilizar los métodos de los cuales hereda nuestro objeto como el método especial ``__str__`` que escribe en stdout el numero de objetos ``flair.tokens.Sentence`` contenido en cada subconjunto de datos. Es decir cuantos parafos tenemos en total en cada uno de nuetros conjuntos de datos.
+
+```{code-cell} ipython3
+print(corpus)
+```
+
+Para entrenar los modelos con la libreria ``Flair`` basta seguir el ejemplo siguiente. 
 
 ```{note}
-Todos nuestros experimentos se pueden encontrar en la carpeta [experiments](https://github.com/GuiGel/MedDocAn/tree/master/experiments).
+Todos nuestros experimentos se pueden encontrar en la carpeta [experiments](https://github.com/GuiGel/MedDocAn/tree/master/experiments) y siguen este formato.  
+La única diferencia es la adición de las librerías hyperopt [^1] y Tensorboard [^2] para obtener una trazabilidad de los entrenamientos mediante el registro de diversos parámetros y resultados.
 ```
+
+[^1]: https://github.com/hyperopt/hyperopt
+[2*]: https://pytorch.org/docs/stable/tensorboard.html
 
 +++
 
@@ -269,62 +296,134 @@ trainer.fine_tune('experiments/meddocan',
 
 +++
 
-## Utilizar el modelo
+## Inferencia
 
 +++
 
-El ``meddocan_pipeline`` nos permitte integrar un modelo de ``Flair `` gracias al componente ``predictor`` de la siguiente mañera. 
+Una vez el modelo entrenado, la inferencia se hace gracias al ``meddocan_pipeline`` justamente porque nos permitte integrar un modelo de ``Flair `` gracias a su componente ``predictor`` como lo vamos a ver a continuación. 
 
 ```{note}
-Aquí utilizamos por el ejemplo un modelo de FLair pre-entreando con los embeddings de Flair y una red LSTM-CRF.
+Aquí utilizamos por el ejemplo un modelo de FLair pre-entreando con los embeddings de Flair y una red LSTM-CRF y entrenado sobre el dataset *CONLL-02*.
 ```
 
 ```{code-cell} ipython3
 from meddocan.language.pipeline import meddocan_pipeline
 
-nlp = meddocan_pipeline("flair/ner-spanish-large")
+nlp = meddocan_pipeline("flair/ner-english-fast")
 sys = nlp(gold.text)
 ```
 
-Gracias a esta integración entre Flair y spaCy, producimos tanto los datos que nos permitten hacer
+El objeto sys es un objeto ``spacy.tokens.Doc`` al igual de el objeto ``gold``.  
+
+La única diferencia entre sys y gold es que sys contiene entidades que le son asignadas por un modelo entrenado con los algoritmos de Flair, mientras que en el caso de gold provienen de la lectura de un archivo *.ann*.
+
+Entonces para visualizar las predicciones de nuestro model, lo tenemos igual de fácil que antes. Basta utilizar la function ``spacy.displacy.render()``.
+
+```{code-cell} ipython3
+displacy.render(sys, style="ent")
+```
+
+```{note}
+Aquí utilizamos un modelo pre-entrenado por Flair sobre el dataset CONNL-03 que contiene unicamente la entidades PER, LOC, ORG y MISC para ver bien que la funcionalidad funciona como esperado. En nuestro caso bastaría utilizar un modelo entrenado sobre nuestro dataset.
+``` 
 
 +++
 
-1. la evaluación (los datos se esciben en ficheros al formato IOB.
+## Evaluation
+
++++
+
+La evaluación originalmente provistas a traves del [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) que re-utilizamos, utiliza el texto original asi como su anotación al formato *brat* para calcular las métricas segun las tareas Subtrack1, SUbtrack2[Strict] y SubTrack2[MErged].
+
+Para evaluar nuestros modelos, utilizamos el texto original a partir del cual se ha creado el documento sys asi como su atributo ``_.to_ann``. Ese método permite codificar el atributo ``ents`` del objeto sys en un fichero siguiendo el formado brat como se puede ver a continuación.
 
 ```{code-cell} ipython3
 from tempfile import TemporaryDirectory
 
 with TemporaryDirectory() as td:
     pth = Path(td, "file.txt")
-    sys._.to_connl03(pth)
+    sys._.to_ann(pth)
     for i, line in enumerate(pth.read_text().split("\n")):
         print(line)
-        if i > 18:
-            break
 ```
 
-Para tener una idea de como se puede calcular las metricas lo hacemos sobre el documento de ejemplo:
+Para hacer esto mas automatizado, al igual que la clase ``from meddocan.data.docs_iterators.GsDocs``, tenemos la clase ``from meddocan.data.docs_iterators.SysDocs`` que utiliza un modelo de Flair para detectar entidades sobre los documentos de cada sub-conjunto de datos. Veamos un ejemplo:
 
 ```{code-cell} ipython3
-from meddocan.evaluation.classes import Ner
+from meddocan.data.docs_iterators import SysDocs
+from meddocan.data import ArchiveFolder
 
-gold_label = set(Ner(ent.start, ent.end, ent.label_) for ent in gold.ents)
-sys_label = set(Ner(ent.start, ent.end, ent.label_) for ent in sys.ents)
-tp = gold_label.intersection(sys_label)
-fp = sys_label - gold_label
-fn = gold_label - sys_label
+import torch
+import flair
 
-recall = len(tp) / float(len(tp) + len(fp))
-precision = len(tp) / float(len(fn) + len(tp))
-try:
-    f1 = (recall + precision) / (recall * precision)
-except ZeroDivisionError:
-    f1 = 0.0
+flair.device = torch.device("cuda:1")
+
+sys_docs = iter(SysDocs(archive_name=ArchiveFolder.test, model="flair/ner-spanish-large"))
 ```
 
-2. La visualización
+Gracias a las classe ``GsDocs`` y ``SysDocs`` podemos producir facilmente los ficheros requeridos para usar el script de evaluación provisto a traves de la la linea de comando *meddocan eval*.
+
++++
+
+Como curiosidad podemos explicar como se pueden calcular las metricas.
 
 ```{code-cell} ipython3
-displacy.render(sys, style="ent")
+gs_docs = iter(GsDocs(archive_name=ArchiveFolder.test))
 ```
+
+Recuperamos los ``Iterator`` sys_doc y gold_doc y comprobamos que corresponden a los mismos documentos originales, tanto en su origen como en su contenido.
+
+```{code-cell} ipython3
+sys_doc, gold_doc = next(sys_docs), next(gs_docs)
+
+assert sys_doc.brat_files_pair.ann.name == gold_doc.brat_files_pair.ann.name
+assert sys_doc.brat_files_pair.txt.name == gold_doc.brat_files_pair.txt.name
+assert sys_doc.doc.text == gold_doc.doc.text
+```
+
+Ahora recuperamos las entidades originales en ``gold_labels`` y las predicciones ``sys_labels``.
+
+```{code-cell} ipython3
+from meddocan.evaluation.classes import Ner, Span
+
+gold_labels = set(Ner(ent.start, ent.end, ent.label_) for ent in gold.ents)
+sys_labels = set(Ner(ent.start, ent.end, ent.label_) for ent in sys.ents)
+```
+
+Por fin calculamos el score $F_1$ para el documento asi como el recall y la precision.
+
+```{code-cell} ipython3
+from typing import TypeVar
+
+T = TypeVar("T", Ner, Span)
+
+def f1(gold_label: List[T], sys_label: List[T]) -> float:
+    tp = gold_label.intersection(sys_label)
+    fp = sys_label - gold_label
+    fn = gold_label - sys_label
+    try:
+        recall = len(tp) / float(len(tp) + len(fp))
+    except ZeroDivisionError:
+        recall = 0.0
+    try:
+        precision = len(tp) / float(len(tp) + len(fn))
+    except ZeroDivisionError:
+        precision = 0.0
+    try:
+        f1 = 2 * (recall * precision) / (recall + precision)
+    except ZeroDivisionError:
+        f1 = 0.0
+    return f1, recall, precision
+
+pd.DataFrame(f1(gold_label, sys_label), index=["f1", "recall", "precisión"], columns=["Subtrack1"]).T
+```
+
+El score f1 esta nulo simplemente porque el modelo utilizado no predice las mismas entidades y ademas esta entrenado sobre un dataset en inglès! Pero si se trata unicamente de anonimizar y que usamos solo los ``Span`` puede que no sea lo mismo dado que tabien tiene que detectar personas o entidas sin etiqueta.
+
+```{code-cell} ipython3
+gold_span = set(Span(ent.start, ent.end) for ent in gold.ents)
+sys_span = set(Span(ent.start, ent.end) for ent in sys.ents)
+pd.DataFrame(f1(gold_span, sys_span), index=["f1", "recall", "precision"], columns=["Subtrack2[strict]"]).T
+```
+
+De hecho, vemos que incluso con un modelo entrenado en un conjunto de datos muy diferente con tan sólo 4 entidades, conseguimos anonimizar un poco mas de un quarto de los span desados.
