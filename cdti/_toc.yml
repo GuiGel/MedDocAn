@@ -14,5 +14,6 @@ chapters:
     - file: meddocan/03_training.md
     - file: meddocan/bibliography.md
     - file: meddocan/appendix.md
-    - file: meddocan/code.md
+    - file: meddocan/code.ipynb
+    - file: meddocan/transformers.ipynb
     # - file: api/meddocan/index

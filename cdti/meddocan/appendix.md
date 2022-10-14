@@ -1,15 +1,15 @@
 # Anexo
 
-(transfer-learning)=
+(transfer-learning-anexo)=
 ## El concepto de transfer learning en PLN
 
-Hoy en día, es una práctica habitual en visión por ordenador utilizar el transfer learning para entrenar una red neuronal convolucional como ResNet en una tarea, y luego adaptarla o ajustarla en una nueva tarea. Esto permite a la red hacer uso de los conocimientos aprendidos en la tarea original. Desde el punto de vista de la arquitectura, esto implica dividir el modelo en un cuerpo y una cabeza, donde la cabeza es una red específica de la tarea. Durante el entrenamiento, los pesos del cuerpo aprenden características generales del dominio de origen, y estos pesos se utilizan para inicializar un nuevo modelo para la nueva tarea [^1]. En comparación con el aprendizaje supervisado tradicional, este enfoque suele producir modelos de alta calidad que pueden entrenarse de forma mucho más eficiente en una variedad de tareas posteriores, y con muchos menos datos etiquetados. En la {numref}`transfert-learning` se muestra una comparación de los dos enfoques.
+Hoy en día, es una práctica habitual en visión por ordenador consiste en utilizar el transfer learning para entrenar una red neuronal convolucional como ResNet en una tarea, y luego adaptarla o ajustarla en una nueva tarea. Esto permite a la red hacer uso de los conocimientos aprendidos en la tarea original. Desde el punto de vista de la arquitectura, esto implica dividir el modelo en un cuerpo y una cabeza, donde la cabeza es una red específica de la tarea. Durante el entrenamiento, los pesos del cuerpo aprenden características generales del dominio de origen, y estos pesos se utilizan para inicializar un nuevo modelo para la nueva tarea [^1]. En comparación con el aprendizaje supervisado tradicional, este enfoque suele producir modelos de alta calidad que pueden entrenarse de forma mucho más eficiente en una variedad de tareas posteriores, y con muchos menos datos etiquetados. En la {numref}`transfer-learning-img` se muestra una comparación de los dos enfoques.
 
 [^1]: Recordamos que los pesos son los parámetros que se pueden aprender de una red neuronal.
 
 ```{figure} ../figures/transformers-1.png
 ---
-name: transfert-learning
+name: transfer-learning-img
 align: center
 ---
 Comparación entre el aprendizaje supervisado tradicional (izquierda) y el transfer learning (derecha)

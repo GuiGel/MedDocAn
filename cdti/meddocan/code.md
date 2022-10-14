@@ -13,25 +13,15 @@ kernelspec:
 ---
 
 ```{code-cell} ipython3
-:tags: [hide-input, hide-output]
+:tags: [hide-output, remove-input]
 
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning) 
 ```
 
-```{code-cell} ipython3
-import pandas as pd
-from pathlib import Path
-from meddocan.data import meddocan_zip, ArchiveFolder
-from meddocan.data.containers import BratAnnotations, BratSpan, BratFilesPair
-from typing import List, Tuple
-from spacy import displacy
-from meddocan.data.docs_iterators import GsDocs
-```
+# Anexo 1: Código
 
-# Resumen del código
-
-```{nota}
+```{note}
 El proyecto completo está disponible en [github](https://github.com/GuiGel/MedDocAn).
 ```
 
@@ -43,11 +33,21 @@ El proyecto completo está disponible en [github](https://github.com/GuiGel/MedD
 
 Una de las tareas es obtener un preprocesso correcto de los informes clínicos a traves de un objeto `spacy.tokens.Doc` a partir de cualquier cadena de caracteres. Por ello utilizaremos el `meddocan.language.pipeline.meddocan_pipeline` creado con la ayuda de la biblioteca [spaCy](https://spacy.io/) para adaptarlo a nuestras necesidades. El código relativo a la creación del pipeline se puede encontrar en el paquete [meddocan/language](https://github.com/GuiGel/MedDocAn/tree/master/meddocan/language).
 
-Por otra parte tenemos que poder leer y extraer la información relevante de los documentos provisto en el formato Brat. Es decir que cada informe clínico esta compuesto de 2 ficheros. Uno contiene el texto bruto y el otro las anotaciones. El código relativo de esa parte se encuentra en el paquete [meddocan/data](https://github.com/GuiGel/MedDocAn/tree/master/meddocan/data)
+Por otra parte tenemos que poder leer y extraer la información relevante de los documentos provisto en el formato Brat. Es decir que cada informe clínico esta compuesto de 2 ficheros. Uno contiene el texto bruto y el otro las anotaciones. El código relativo de esa parte se encuentra en el paquete [meddocan/data](https://github.com/GuiGel/MedDocAn/tree/master/meddocan/data).
 
 Para ver cómo funciona, seleccionamos un informe médico gracias al objeto `meddocan.data.docs_iterators.GsDocs` que permite acceder a los documentos del dataset meddocan directamente como objetos `spacy.tokens.Doc` con varios atributos específicos.
 
 ```{code-cell} ipython3
+from pathlib import Path
+from typing import List, Tuple
+
+import pandas as pd
+from spacy import displacy
+
+from meddocan.data import meddocan_zip, ArchiveFolder
+from meddocan.data.containers import BratAnnotations, BratFilesPair, BratSpan
+from meddocan.data.docs_iterators import GsDocs
+
 gs_docs = GsDocs(ArchiveFolder.train)
 docs_with_brat_pair = iter(gs_docs)
 doc_with_brat_pair = next(docs_with_brat_pair)
@@ -303,7 +303,7 @@ trainer.fine_tune('experiments/meddocan',
 Una vez el modelo entrenado, la inferencia se hace gracias al ``meddocan_pipeline`` justamente porque nos permitte integrar un modelo de ``Flair `` gracias a su componente ``predictor`` como lo vamos a ver a continuación. 
 
 ```{note}
-Aquí utilizamos por el ejemplo un modelo de FLair pre-entreando con los embeddings de Flair y una red LSTM-CRF y entrenado sobre el dataset *CONLL-02*.
+Aquí utilizamos por el ejemplo un modelo de FLair pre-entreando con los embeddings de Flair y una red LSTM-CRF y entrenado sobre el dataset *CONLL-2002* en inglès.Este dataset consiste en artículos de noticias anotados con las categorías LOC, PER y ORG que son diferentes de las categorías de MEDDOCAN.
 ```
 
 ```{code-cell} ipython3
@@ -324,8 +324,8 @@ displacy.render(sys, style="ent")
 ```
 
 ```{note}
-Aquí utilizamos un modelo pre-entrenado por Flair sobre el dataset CONNL-03 que contiene unicamente la entidades PER, LOC, ORG y MISC para ver bien que la funcionalidad funciona como esperado. En nuestro caso bastaría utilizar un modelo entrenado sobre nuestro dataset.
-``` 
+Vemos a ojo que el modelo de Flair `flair/ner-english-fast´ parece detectar correctamente el span de ciertas endidades que el etiqueta como ``LOC`` o ``PERS`` y que effectivamente son direcciónes o personas. 
+```
 
 +++
 
@@ -333,7 +333,7 @@ Aquí utilizamos un modelo pre-entrenado por Flair sobre el dataset CONNL-03 que
 
 +++
 
-La evaluación originalmente provistas a traves del [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) que re-utilizamos, utiliza el texto original asi como su anotación al formato *brat* para calcular las métricas segun las tareas Subtrack1, SUbtrack2[Strict] y SubTrack2[MErged].
+La evaluación originalmente provistas a traves del [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) que re-utilizamos, utiliza el texto original asi como su anotación al formato *brat* para calcular las métricas segun las tareas ``Subtrack1``, ``Subtrack2 [Strict]`` y ``SubTrack2 [Merged]``.
 
 Para evaluar nuestros modelos, utilizamos el texto original a partir del cual se ha creado el documento sys asi como su atributo ``_.to_ann``. Ese método permite codificar el atributo ``ents`` del objeto sys en un fichero siguiendo el formado brat como se puede ver a continuación.
 
@@ -415,15 +415,19 @@ def f1(gold_label: List[T], sys_label: List[T]) -> float:
         f1 = 0.0
     return f1, recall, precision
 
-pd.DataFrame(f1(gold_label, sys_label), index=["f1", "recall", "precisión"], columns=["Subtrack1"]).T
+pd.DataFrame(f1(gold_labels, sys_labels), index=["f1", "recall", "precisión"], columns=["Subtrack1"]).T
 ```
 
-El score f1 esta nulo simplemente porque el modelo utilizado no predice las mismas entidades y ademas esta entrenado sobre un dataset en inglès! Pero si se trata unicamente de anonimizar y que usamos solo los ``Span`` puede que no sea lo mismo dado que tabien tiene que detectar personas o entidas sin etiqueta.
+El score f1 esta nulo simplemente porque el modelo utilizado no predice las mismas entidades y ademas esta entrenado sobre un dataset en inglès! Pero si se trata unicamente de anonimizar y que usamos solo los ``Span`` puede que no sea lo mismo dado que tanbien tiene que detectar personas o entidas sin etiqueta.
 
 ```{code-cell} ipython3
-gold_span = set(Span(ent.start, ent.end) for ent in gold.ents)
-sys_span = set(Span(ent.start, ent.end) for ent in sys.ents)
-pd.DataFrame(f1(gold_span, sys_span), index=["f1", "recall", "precision"], columns=["Subtrack2[strict]"]).T
+gold_spans = set(Span(ent.start, ent.end) for ent in gold.ents)
+sys_spans = set(Span(ent.start, ent.end) for ent in sys.ents)
+pd.DataFrame(f1(gold_spans, sys_spans), index=["f1", "recall", "precision"], columns=["Subtrack2[strict]"]).T
 ```
 
 De hecho, vemos que incluso con un modelo entrenado en un conjunto de datos muy diferente con tan sólo 4 entidades, conseguimos anonimizar un poco mas de un quarto de los span desados.
+
+```{code-cell} ipython3
+
+```
