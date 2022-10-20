@@ -1,12 +1,12 @@
-# Training
+# Entrenamiento
 
-## Introduction
+## Introducción
 
 Como lo hemos visto en la primera parte, el reconocimiento entidades nombradas (NER) es una tarea de NLP muy estudiada que consiste en predecir etiquetas semánticas superficiales para una secuencia de palabras.
 
 Los enfoques actuales para el NER consisten en aprovechar arquitecturas de transformadores pre-entrenados, como {cite:p}`Devlin2019BERTPO` o {cite:p}`Lample2019CrosslingualLM`. Esos transformadores an sido pre-entrenados en otras tareas sobre un corpus grande y sirven de base para entrenar modelos de NER transfiriendo su aprendizaje previo a esa tarea (véase la {numref}`transfer-learning-anexo` del anexo).
 
-Esos enfoques suelen considerar el texto a nivel de frase, exactamente como lo hemos hecho en el dominio jurídico, y por lo tanto no modelan la información que cruza los límites de la frase. Podemos hacerlo pasando una frase con su contexto circundante. Sin embargo, el uso de un modelo basado en transformadores para NER ofrece una opción natural para capturar características a nivel de documento. Como muestra {numref}`fig-flert-1`, este contexto puede influir en la representación de las palabras de una frase: La frase de ejemplo: "I love Paris", pasa por el transformador junto con la siguiente frase que comienza con "The city is", ayudando potencialmente a resolver la ambigüedad de la palabra "Paris". 
+Esos enfoques suelen considerar el texto a nivel de frase, exactamente como lo hemos hecho en el dominio jurídico, y por lo tanto no modelan la información que cruza los límites de la frase (Por una introducción a este enfoque véase {numref}`transformers`). Podemos hacerlo pasando una frase con su contexto circundante. Sin embargo, el uso de un modelo basado en transformadores para NER ofrece una opción natural para capturar características a nivel de documento. Como muestra {numref}`fig-flert-1`, este contexto puede influir en la representación de las palabras de una frase: La frase de ejemplo: "I love Paris", pasa por el transformador junto con la siguiente frase que comienza con "The city is", ayudando potencialmente a resolver la ambigüedad de la palabra "Paris". 
 
 ```{figure} ../figures/flert-1.png
 ---
@@ -44,15 +44,18 @@ En esta sección, presentamos brevemente las diferencias entre ambos enfoques y 
 
 ### Configuración
 
-**Data set.** Utilizamos el conjunto de datos de desarrollo de MEDDOCAN [^1].
+**Data set** 
+: Utilizamos el conjunto de datos de desarrollo de MEDDOCAN [^1].
 
 [^1]: https://github.com/PlanTL-GOB-ES/SPACCC_MEDDOCAN/tree/master/corpus
 
-**Modelo de transformador**. En todos los experimentos de esta sección, empleamos 2 modelos de transformadores:
+**Modelo de transformador**
+: En todos los experimentos de esta sección, empleamos 2 modelos de transformadores:
 1.  El modelo de transformador XLM-Roberta (XLMR) propuesto por {cite:p}`Lample2019CrosslingualLM`. En nuestros experimentos utilizamos *xlm-roberta large*, entrenado en 2,5TB de datos del corpus limpio Commom Crawl {cite:p}`Wenzek2020CCNetEH` para 100 idiomas diferentes.
 2.  El modelo de transformador BERT propuesto por {cite:p}`Devlin2019BERTPO`. En nuestros experimentos utilizamos *BETO*, un modelo bert entrenado en el gran corpus español {cite}`CaneteCFP2020`.
 
-**Embeddings (+ WE)**. Para cada configuración experimentamos concatenando embeddings de palabras clásicas a las representaciones a nivel de palabra obtenidas del modelo transformador. Utilizamos los embeddings de FastText en español {cite}`Bojanowski2017EnrichingWV` estabilizados {cite:p}`Antoniak2018EvaluatingTS`.
+**Embeddings (+ WE)**
+: Para cada configuración experimentamos concatenando embeddings de palabras clásicas a las representaciones a nivel de palabra obtenidas del modelo transformador. Utilizamos los embeddings de FastText en español {cite}`Bojanowski2017EnrichingWV` estabilizados {cite:p}`Antoniak2018EvaluatingTS`.
 
 ### Primera estrategia: Ajuste fino
 
@@ -72,7 +75,8 @@ Evaluación de diferentes transformadores mediante el proceso de ajuste fino. La
 
 En cambio, los enfoques basados en características utilizan el transformador solo para generar embeddings para cada palabra de una frase y las utilizan como entrada en una arquitectura de etiquetado de secuencias estándar, normalmente una LSTM-CRF {cite:p}`Huang2015BidirectionalLM`. Los pesos del transformador se congelan para que el entrenamiento se limite al LSTM-CRF. Conceptualmente, este enfoque se beneficia de un procedimiento de entrenamiento del modelo bien entendido que incluye un criterio de parada real. En la {numref}`Appendix-2` del anexo se dan más detalles sobre los parámetros y la arquitectura. En nuestros experimentos solo evaluamos una variante de las dos propuestas en {cite:p}`Schweter2020FLERTDF` porque suele dar los mejores resultados.
 
-**Media de todas las capas** Obtenemos embeddings para cada token utilizando la media de todas las capas producidas por el transformador, incluida la capa de embeddings de palabras. Esta representación tiene la misma longitud que el tamaño oculto de cada capa transformadora. Este enfoque se inspira del "scalar mix" del estilo ELMO {cite:p}`Peters2018DeepCW`.
+**Media de todas las capas**
+: Obtenemos embeddings para cada token utilizando la media de todas las capas producidas por el transformador, incluida la capa de embeddings de palabras. Esta representación tiene la misma longitud que el tamaño oculto de cada capa transformadora. Este enfoque se inspira del "scalar mix" del estilo ELMO {cite:p}`Peters2018DeepCW`.
 
 Los resultados se encuentran en la {numref}`tabla %s <feature-based approach>`.
 
@@ -101,9 +105,10 @@ Evaluación de la estrategia basada en características con los embeddings de Fl
 ### Resultados: Mejor configuración
 
 Evaluamos ambos enfoques en cada variante en todas las combinaciones posibles añadiendo embeddings de palabras estándar "(+ WE)" y características a nivel de documento "(+ Contexto)". Cada configuración se ejecuta tres veces para reportar el promedio de F1 y la desviación estándar para cada una de las 3 opciones: NER, Span y Span Merged.  
-**Results**. Para el ajuste fino, vemos que la adición de embeddings estáticos, así como el uso del contexto, parece bastante convincente con BETO pero no realmente con XLMR (véase {numref}`tabla %s <finetuning approach>`). Sin embargo, hay que señalar que, por falta de recursos, no hemos podido realizar el entrenamiento con la configuración XLMR + WE + CONTEXT que podia haber dado buenos resultados.
+**Results**
+: Para el ajuste fino, vemos que la adición de embeddings estáticos, así como el uso del contexto, parece bastante convincente con BETO pero no realmente con XLMR (véase {numref}`tabla %s <finetuning approach>`). Sin embargo, hay que señalar que, por falta de recursos, no hemos podido realizar el entrenamiento con la configuración "XLMR + WE + CONTEXT" que podia haber dado buenos resultados.
 Para el enfoque basado en características, encontramos que la adición de embeddings de palabras produce muy claramente los mejores resultados (véase {numref}`tabla %s <feature-based approach>`).
-Para el modelo de referencia con Flair + LSTM CRF la adición de embeddings estáticos (+ WE) tiene un impacto negativo (ver {numref}`tabla %s <flair approach>`).
+Para el modelo de referencia con "Flair + LSTM CRF" la adición de embeddings estáticos "(+ WE)" tiene un impacto negativo (véase {numref}`tabla %s <flair approach>`).
 
 (comparative_study)=
 ## Evaluación comparativa
@@ -135,7 +140,7 @@ Con los resultados obtenidos, Flert habría ganado la competición {cite}`Marimo
 
 En cuanto a los enfoques de "FINETUNE + LINEAR" y basado en "FEATURE BASED + LSTM CRF", los resultados son bastante similares, aunque el segundo enfoque se ve afectado negativamente por el contexto y el primero positivamente.
 Por otro lado, la estrategia "FEATURE BASED + LSTM CRF + CONTEXTO + WE" es la más beneficiada con la mejor puntuación F1 en las 3 tareas.
-Al contrario de los resultados obtenidos por los autores de Flert {cite}`Schweter2020FLERTDF` los resultados no son tan claros entre cada opción como en el caso del dataset CONLL03.
+Al contrario de los resultados obtenidos por los autores de Flert {cite}`Schweter2020FLERTDF` los resultados no son tan claros entre cada opción como en el caso del dataset CONLL03 {cite}`Sang2003IntroductionTT`.
 
 ```{glue:figure} compare_with_flair
 :name: flair comparison

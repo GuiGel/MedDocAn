@@ -4,7 +4,7 @@ Este concurso se ha creado porque la anonimización de la información sensible 
 
 
 ```{note}
-La amplia mayoría de las tablas, figuras y números facilitados en este documento son producidos gracias al uso de Jupyter Notebooks [^3]. Se almacenan los resultados del código e se insertar en nuestro informe de tal mañera que se puede averiguar la veracidad de los resultados mirando el código.
+La amplia mayoría de las tablas, figuras y números facilitados en este documento son producidos gracias al uso de Jupyter Notebooks [^3]. Se almacenan los resultados del código e se insertan en nuestro informe de tal mañera que se puede averiguar la veracidad de los resultados mirando el código.
 ```
 
 [^1]: http://ceur-ws.org/Vol-2421/

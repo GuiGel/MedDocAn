@@ -13,7 +13,10 @@ chapters:
     - file: meddocan/02_data.md
     - file: meddocan/03_training.md
     - file: meddocan/bibliography.md
-    - file: meddocan/appendix.md
-    - file: meddocan/code.ipynb
-    - file: meddocan/transformers.ipynb
+    - file: meddocan/a.md
+      sections:
+      - file: meddocan/a_transfer_learning.md
+      - file: meddocan/a_training.md
+      - file: meddocan/a_code.ipynb
+      - file: meddocan/a_transformers.ipynb
     # - file: api/meddocan/index

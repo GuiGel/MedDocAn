@@ -19,7 +19,7 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning) 
 ```
 
-# Anexo 1: Código
+# Código
 
 ```{note}
 El proyecto completo está disponible en [github](https://github.com/GuiGel/MedDocAn).
@@ -62,7 +62,12 @@ El objecto `doc_with_brat_pair` creado por `GsDocs` tiene 2 atributos.
 El atributo `brat_files_pair` es un objeto `meddocan.data.docs_iterators.BratFilesPair` que indica la ubicación de los ficheros originales correspondiendo al attributo `doc`.
 
 ```{code-cell} ipython3
-pd.DataFrame([type(doc_with_brat_pair.brat_files_pair).__qualname__, doc_with_brat_pair.brat_files_pair.ann.name, doc_with_brat_pair.brat_files_pair.txt.name], index=["type", "txt", "ann"]).T
+pd.DataFrame(
+    [type(doc_with_brat_pair.brat_files_pair).__qualname__,
+     doc_with_brat_pair.brat_files_pair.ann.name,
+     doc_with_brat_pair.brat_files_pair.txt.name],
+    index=["type", "txt", "ann"]
+).T
 ```
 
 Lo que hace `GsDocs` es crear un objecto `Doc` a partir de un objeto `meddocan.data.docs_iterators.DocWithBratPair` utilizando el `MedocanPipeline`.
@@ -93,7 +98,7 @@ En el ejemplo solo miramos las 3 primeras lineas del objeto ``Doc``.
 max_lines = 3
 
 for i, sent in enumerate(gold.sents):
-    print(f"---------------------- Sentence {i + 1} ------------------------------")
+    print(f"--------------- Sentence {i + 1} "---------------")
     a = zip(*((tok.text, tok.ent_iob_, tok.ent_type_) for tok in sent))
     df = pd.DataFrame(a, index=["text", "bio", "etiqueta"])
     display(df.T)
@@ -202,7 +207,10 @@ Options:
 La entidades anotadas se obtienen utilizando el atributo ``ents`` de nuestro objecto ``spacy.tokens.Doc``.
 
 ```{code-cell} ipython3
-pd.DataFrame(zip(*[(ent.text, ent.start_char, ent.end_char) for ent in gold.ents]), index=["Tag", "start", "end"])
+pd.DataFrame(
+    zip(*[(ent.text, ent.start_char, ent.end_char) for ent in gold.ents]),
+    index=["Tag", "start", "end"]
+).T
 ```
 
 Nuestras entidades son en este ejemplo compuestas del tag y del la position de la entidad en la cadena de caracteres original.
@@ -241,7 +249,7 @@ La única diferencia es la adición de las librerías hyperopt [^1] y Tensorboar
 ```
 
 [^1]: https://github.com/hyperopt/hyperopt
-[2*]: https://pytorch.org/docs/stable/tensorboard.html
+[^2]: https://pytorch.org/docs/stable/tensorboard.html
 
 +++
 
@@ -415,7 +423,11 @@ def f1(gold_label: List[T], sys_label: List[T]) -> float:
         f1 = 0.0
     return f1, recall, precision
 
-pd.DataFrame(f1(gold_labels, sys_labels), index=["f1", "recall", "precisión"], columns=["Subtrack1"]).T
+pd.DataFrame(
+    f1(gold_labels, sys_labels),
+    index=["f1", "recall", "precisión"],
+    columns=["Subtrack1"]
+).T
 ```
 
 El score f1 esta nulo simplemente porque el modelo utilizado no predice las mismas entidades y ademas esta entrenado sobre un dataset en inglès! Pero si se trata unicamente de anonimizar y que usamos solo los ``Span`` puede que no sea lo mismo dado que tanbien tiene que detectar personas o entidas sin etiqueta.
@@ -423,7 +435,11 @@ El score f1 esta nulo simplemente porque el modelo utilizado no predice las mism
 ```{code-cell} ipython3
 gold_spans = set(Span(ent.start, ent.end) for ent in gold.ents)
 sys_spans = set(Span(ent.start, ent.end) for ent in sys.ents)
-pd.DataFrame(f1(gold_spans, sys_spans), index=["f1", "recall", "precision"], columns=["Subtrack2[strict]"]).T
+pd.DataFrame(
+    f1(gold_spans, sys_spans),
+    index=["f1", "recall", "precision"],
+    columns=["Subtrack2[strict]"]
+).T
 ```
 
 De hecho, vemos que incluso con un modelo entrenado en un conjunto de datos muy diferente con tan sólo 4 entidades, conseguimos anonimizar un poco mas de un quarto de los span desados.

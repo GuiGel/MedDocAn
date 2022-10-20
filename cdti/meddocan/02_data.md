@@ -41,7 +41,7 @@
 |       OTRO NUMERO IDENTIF        |   0   |  0  |  0   |   0   |
 ```
 
-El corpus de MEDDOCAN se distribuyó en texto plano en codificación UTF-8, donde cada caso clínico se almacenó como un único archivo, mientras que las anotaciones de PHI se publicaron en el formato BRAT, lo que hace que la visualización de los resultados sea sencilla, como se puede ver en la {numref}`Figura {number}: {name} <brat annotator visualization>`. Para este tema, también facilitaron un script de conversión[^3] entre el formato de anotación BRAT y el formato de anotación utilizado por el esfuerzo anterior de i2b2, para facilitar la comparación y adaptación de los sistemas anteriores utilizados para los textos en inglés.
+El corpus de MEDDOCAN se distribuyó en texto plano en codificación UTF-8, donde cada caso clínico se almacenó como un único archivo, mientras que las anotaciones de PHI se publicaron en el formato BRAT, lo que hace que la visualización de los resultados sea sencilla, como se puede ver en la {numref}`Figura {number} <brat annotator visualization>`. Para este tema, también facilitaron un script de conversión[^3] entre el formato de anotación BRAT y el formato de anotación utilizado por el esfuerzo anterior de i2b2, para facilitar la comparación y adaptación de los sistemas anteriores utilizados para los textos en inglés.
 
 ```{figure} ../figures/meddocan-brat-visualization.png
 :align: center
@@ -71,13 +71,16 @@ El preprocesamiento y el formateo aplicados al corpus consistieron en los siguie
 
 TODO Create an anexe to explain all the process in python.
 
-1. **División en párrafos**. Los documentos se dividieron en párrafos utilizando los saltos de línea de los textos originales. Decidimos trabajar con párrafos en lugar de frases porque las frases reales son difíciles de detectar.
+**1. División en párrafos**
+: Los documentos se dividieron en párrafos utilizando los saltos de línea de los textos originales. Decidimos trabajar con párrafos en lugar de frases porque las frases reales son difíciles de detectar.
 
-2. **Tokenization**. Cada párrafo fue tokenizado utilizando un tokenizador personalizado creado con la biblioteca ``spaCy`` [^5] y algunas reglas de tokenización personalizadas adicionales, principalmente para dividir los símbolos de puntuación si no están dentro de una URL, una dirección de correo electrónico o una fecha. Para dividir ciertas palabras con el fin de tener en cuenta los errores de espaciado en el texto original. Por ejemplo, (p. ej. {glue:text}`spacing_error_ex`).
+**2. Tokenization**
+: Cada párrafo fue tokenizado utilizando un tokenizador personalizado creado con la biblioteca ``spaCy`` [^5] y algunas reglas de tokenización personalizadas adicionales, principalmente para dividir los símbolos de puntuación si no están dentro de una URL, una dirección de correo electrónico o una fecha. Para dividir ciertas palabras con el fin de tener en cuenta los errores de espaciado en el texto original. Por ejemplo, (p. ej. {glue:text}`spacing_error_ex`).
 
-3. **Formato de las etiquetas**. Las anotaciones con formato Brat de los juegos de datos de entrenamiento y desarrollo se convirtieron en etiquetas a nivel de token siguiendo el esquema **BIO** (Beginning, Inner, Outside) que convertimos en el esquema **BIOES**. Combinando este esquema de etiquetas con las 22 clases granulares originales de PHI (por ejemplo, para la clase granular **FECHA** tendríamos las etiquetas **B-FECHA**, **I-FECHA**, **E-FECHA**, **S-FECHA**, más la clase genérica O) se obtiene un conjunto final de etiquetas de 89 posibles etiquetas únicas.
+**3. Formato de las etiquetas**
+: Las anotaciones con formato Brat de los juegos de datos de entrenamiento y desarrollo se convirtieron en etiquetas a nivel de token siguiendo el esquema **BIO** (Beginning, Inner, Outside). Combinando este esquema de etiquetas con las 22 clases granulares originales de PHI (por ejemplo, para la clase granular **FECHA** tendríamos las etiquetas **B-FECHA**, ****I-FECHA**, más la clase genérica **O**) se obtiene un conjunto final de etiquetas de 45 posibles etiquetas únicas.
 
-Estos 3 pasos se ilustran en {numref}`Figure {number}: {name} <Preparación de los datos>`
+Estos 3 pasos se ilustran en {numref}`Figure {number} <Preparación de los datos>`.
 
 ```{glue:figure} data_preparation
 :figwidth: 800px
