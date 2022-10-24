@@ -98,7 +98,7 @@ En el ejemplo solo miramos las 3 primeras lineas del objeto ``Doc``.
 max_lines = 3
 
 for i, sent in enumerate(gold.sents):
-    print(f"--------------- Sentence {i + 1} "---------------")
+    print(f"--------------- Sentence {i + 1} ---------------")
     a = zip(*((tok.text, tok.ent_iob_, tok.ent_type_) for tok in sent))
     df = pd.DataFrame(a, index=["text", "bio", "etiqueta"])
     display(df.T)
@@ -114,9 +114,9 @@ pd.DataFrame(gs_docs.nlp.pipe_names, columns=["componentes"]).T
 
 1. El primer elemento de nuestro pipeline es el tokenizer seguido del componente `missaligned_splitter` que nos permite afinar la tokenización de tal forma que cada token se corresponda exactamente con una etiqueta al formato BIO.
 2. El segundo componente, `line_sentencizer` permite partir el texto en frases. En este caso se corresponde a un párrafo.
-3. El componente `predictor` nos permite utilizar un modelo de `Flair` de tal forma que se integra al pipeline. De esa mañera se puede hacer directamente predicciones utilizando un objeto `Doc` y un modelo entrenado previamente.
+3. El componente `predictor` nos permite utilizar un modelo de Flair de tal forma que se integra al pipeline. De esa mañera se puede hacer directamente predicciones utilizando un objeto `Doc` y un modelo entrenado previamente.
 4. El componente `write_methods` añade los métodos ``to_connl03`` y ``to_ann`` al objecto ``Doc`` que sirven a crear los ficheros necesarios para:
-    - Crear un `flair.data.Corpus` que va a permitir entrenar un modelo con `Flair`.
+    - Crear un `flair.data.Corpus` que va a permitir entrenar un modelo con Flair.
     - Evaluar un modelo utilizando el script de evaluación propio de la competición.
 
 ``````{note}
@@ -175,9 +175,9 @@ Evaluate the model with the `meddocan` metrics.
     And the temporary folder are removed.
 
     Args:
-        model (str): Path to the ``Flair`` model to evaluate.
+        model (str): Path to the Flair model to evaluate.
         name (str): Name of the folder that will holds the results produced by\
-            the ``Flair`` model.
+            the Flair model.
         evaluation_root (str): Path to the root folder where the
             results will be stored.
         sentence_splitting (Path): Path to the sub-directory
@@ -189,7 +189,7 @@ Evaluate the model with the `meddocan` metrics.
 Arguments:
   MODEL  Path to the Flair model to evaluate.  [required]
   NAME   Name of the folder that will holds the results produced by the
-         ``Flair`` model.  [required]
+         Flair model.  [required]
 
 Options:
   --evaluation-root PATH     Path to the root folder where the results will be
@@ -241,7 +241,7 @@ El corpus creado podemos utilizar los métodos de los cuales hereda nuestro obje
 print(corpus)
 ```
 
-Para entrenar los modelos con la libreria ``Flair`` basta seguir el ejemplo siguiente. 
+Para entrenar los modelos con la libreria Flair basta seguir el ejemplo siguiente. 
 
 ```{note}
 Todos nuestros experimentos se pueden encontrar en la carpeta [experiments](https://github.com/GuiGel/MedDocAn/tree/master/experiments) y siguen este formato.  
