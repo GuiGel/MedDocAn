@@ -236,13 +236,13 @@ from meddocan.data.corpus import MEDDOCAN
 corpus = MEDDOCAN(sentences=True, in_memory=True, document_separator_token="-DOCSTART-")
 ```
 
-El corpus creado podemos utilizar los métodos de los cuales hereda nuestro objeto como el método especial ``__str__`` que escribe en stdout el numero de objetos ``flair.tokens.Sentence`` contenido en cada subconjunto de datos. Es decir cuantos parafos tenemos en total en cada uno de nuetros conjuntos de datos.
+El corpus creado podemos utilizar los métodos de los cuales hereda nuestro objeto como el método especial ``__str__`` que escribe en stdout el numero de objetos ``flair.tokens.Sentence`` contenido en cada subconjunto de datos. Es decir cuantos párrafos tenemos en total en cada uno de nuestros conjuntos de datos.
 
 ```{code-cell} ipython3
 print(corpus)
 ```
 
-Para entrenar los modelos con la libreria Flair basta seguir el ejemplo siguiente. 
+Para entrenar los modelos con la librería Flair basta seguir el ejemplo siguiente. 
 
 ```{note}
 Todos nuestros experimentos se pueden encontrar en la carpeta [experiments](https://github.com/GuiGel/MedDocAn/tree/master/experiments) y siguen este formato.  
@@ -333,7 +333,7 @@ displacy.render(sys, style="ent")
 ```
 
 ```{note}
-Vemos a ojo que el modelo de Flair `flair/ner-english-fast´ parece detectar correctamente el span de ciertas endidades que el etiqueta como ``LOC`` o ``PERS`` y que effectivamente son direcciónes o personas. 
+Vemos a ojo que el modelo de Flair `flair/ner-english-fast´ parece detectar correctamente el span de ciertas entidades que el etiqueta como ``LOC`` o ``PERS`` y que efectivamente son direcciones o personas. 
 ```
 
 +++
@@ -342,7 +342,7 @@ Vemos a ojo que el modelo de Flair `flair/ner-english-fast´ parece detectar cor
 
 +++
 
-La evaluación originalmente provistas a través  del [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) que re-utilizamos, utiliza el texto original así como su anotación al formato *brat* para calcular las métricas segun las tareas ``Subtrack1``, ``Subtrack2 [Strict]`` y ``SubTrack2 [Merged]``.
+La evaluación originalmente provistas a través  del [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) que re-utilizamos, utiliza el texto original así como su anotación al formato *brat* para calcular las métricas según las tareas ``Subtrack1``, ``Subtrack2 [Strict]`` y ``SubTrack2 [Merged]``.
 
 Para evaluar nuestros modelos, utilizamos el texto original a partir del cual se ha creado el documento sys así como su atributo ``_.to_ann``. Ese método permite codificar el atributo ``ents`` del objeto sys en un fichero siguiendo el formado brat como se puede ver a continuación.
 
@@ -370,11 +370,11 @@ flair.device = torch.device("cuda:1")
 sys_docs = iter(SysDocs(archive_name=ArchiveFolder.test, model="flair/ner-spanish-large"))
 ```
 
-Gracias a las classe ``GsDocs`` y ``SysDocs`` podemos producir facilmente los ficheros requeridos para usar el script de evaluación provisto a través  de la la linea de comando *meddocan eval*.
+Gracias a las clase ``GsDocs`` y ``SysDocs`` podemos producir fácilmente los ficheros requeridos para usar el script de evaluación provisto a través  de la la linea de comando *meddocan eval*.
 
 +++
 
-Como curiosidad podemos explicar como se pueden calcular las metricas.
+Como curiosidad podemos explicar como se pueden calcular las métricas.
 
 ```{code-cell} ipython3
 gs_docs = iter(GsDocs(archive_name=ArchiveFolder.test))
