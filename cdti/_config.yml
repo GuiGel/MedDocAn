@@ -54,6 +54,10 @@ parse:
 sphinx:
   config:
     bibtex_reference_style: author_year
+    nb_custom_formats:
+        .Rmd:
+            - jupytext.reads
+            - fmt: md
 
 
 # sphinx:

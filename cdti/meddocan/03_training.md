@@ -6,7 +6,7 @@ Como lo hemos visto en la primera parte, el reconocimiento entidades nombradas (
 
 Los enfoques actuales para el NER consisten en aprovechar arquitecturas de transformadores pre-entrenados, como {cite:p}`Devlin2019BERTPO` o {cite:p}`Lample2019CrosslingualLM`. Esos transformadores an sido pre-entrenados en otras tareas sobre un corpus grande y sirven de base para entrenar modelos de NER transfiriendo su aprendizaje previo a esa tarea (véase la {numref}`transfer-learning-anexo` del anexo).
 
-Esos enfoques suelen considerar el texto a nivel de frase, exactamente como lo hemos hecho en el dominio jurídico, y por lo tanto no modelan la información que cruza los límites de la frase (Por una introducción a este enfoque véase {numref}`transformers`). Podemos hacerlo pasando una frase con su contexto circundante. Sin embargo, el uso de un modelo basado en transformadores para NER ofrece una opción natural para capturar características a nivel de documento. Como muestra {numref}`fig-flert-1`, este contexto puede influir en la representación de las palabras de una frase: La frase de ejemplo: "I love Paris", pasa por el transformador junto con la siguiente frase que comienza con "The city is", ayudando potencialmente a resolver la ambigüedad de la palabra "Paris". 
+Esos enfoques suelen considerar el texto a nivel de frase, exactamente como lo hemos hecho en el dominio jurídico, y por lo tanto no modelan la información que cruza los límites de la frase (Por una introducción a este enfoque asi como un ejemplo de uso completo véase {numref}`transformers`). Podemos hacerlo pasando una frase con su contexto circundante. Sin embargo, el uso de un modelo basado en transformadores para NER ofrece una opción natural para capturar características a nivel de documento. Como muestra {numref}`fig-flert-1`, este contexto puede influir en la representación de las palabras de una frase: La frase de ejemplo: "I love Paris", pasa por el transformador junto con la siguiente frase que comienza con "The city is", ayudando potencialmente a resolver la ambigüedad de la palabra "Paris". 
 
 ```{figure} ../figures/flert-1.png
 ---
@@ -105,6 +105,7 @@ Evaluación de la estrategia basada en características con los embeddings de Fl
 ### Resultados: Mejor configuración
 
 Evaluamos ambos enfoques en cada variante en todas las combinaciones posibles añadiendo embeddings de palabras estándar "(+ WE)" y características a nivel de documento "(+ Contexto)". Cada configuración se ejecuta tres veces para reportar el promedio de F1 y la desviación estándar para cada una de las 3 opciones: NER, Span y Span Merged.  
+
 **Results**
 : Para el ajuste fino, vemos que la adición de embeddings estáticos, así como el uso del contexto, parece bastante convincente con BETO pero no realmente con XLMR (véase {numref}`tabla %s <finetuning approach>`). Sin embargo, hay que señalar que, por falta de recursos, no hemos podido realizar el entrenamiento con la configuración "XLMR + WE + CONTEXT" que podia haber dado buenos resultados.
 Para el enfoque basado en características, encontramos que la adición de embeddings de palabras produce muy claramente los mejores resultados (véase {numref}`tabla %s <feature-based approach>`).
@@ -151,4 +152,6 @@ Evaluación de las mejoras en score F1 en los datos de test en comparación con 
 ## Conclusión
 
 El sistema basado en Transfer Learning y el uso de Transformadores (BERT / XLMR-Large) nos ha permitido obtener muy buenos resultados sobre el dataset MEDDOCAN, mostrando un score F1 superior en todas las variantes de evaluación en comparación con el uso de las tecnologías precedentes.
-No obstante esa mejorara conlleva un tiempo de entrenamiento mas largo asi que modelos con mas parámetros y entonces mas voluminosos (véase la {numref}`Tabla %s <model parameters>`).
+No obstante esa mejorara conlleva un tiempo de entrenamiento mas largo asi que modelos con mas parámetros y entonces mas voluminosos (véase la {numref}`Tabla %s <model parameters>`).  
+
+La anonimización de un documento en bruto utilizando uno de nuestros modelos se trata en la {numref}`meddocan-pipeline` del apéndice.

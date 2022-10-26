@@ -67,9 +67,7 @@ El número calculado de categorías PHI se puede encontrar en la {numref}`Figura
 Las categorías de PHI calculadas a partir de los conjuntos de datos
 ```
 
-El preprocesamiento y el formateo aplicados al corpus consistieron en los siguientes pasos:
-
-TODO Create an anexe to explain all the process in python.
+El preprocesamiento y el formateo aplicados al corpus consistieron en los siguientes pasos (véase {numref}`meddocan-pipeline`):
 
 **1. División en párrafos**
 : Los documentos se dividieron en párrafos utilizando los saltos de línea de los textos originales. Decidimos trabajar con párrafos en lugar de frases porque las frases reales son difíciles de detectar.

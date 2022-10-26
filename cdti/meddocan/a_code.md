@@ -22,11 +22,12 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 # Código
 
 ```{note}
-El proyecto completo está disponible en [github](https://github.com/GuiGel/MedDocAn).
+El proyecto completo está disponible en el repositorio [MedDocAn](https://github.com/GuiGel/MedDocAn) de nuestro github donde todo el código así como los experimentos del proyecto son disponibles.
 ```
 
 +++
 
+(meddocan-pipeline)=
 ## Meddocan pipeline
 
 +++
