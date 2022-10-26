@@ -1,5 +1,5 @@
 (content:evaluation)=
-# Evaluation
+# Evaluación
 
 La evaluación de las predicciones automáticas para esta tarea tenía dos escenarios o subvías diferentes:
 
@@ -23,5 +23,5 @@ Se puede consultar la {numref}`figura %s <evaluation subtrack comparison>` para 
 :align: center
 :name: evaluation subtrack comparison
 
-Comparación entre lo que se debe detectar en la tarea Subtrack2 [Merged] (index **SPAN MERGED**) y las 2 otras tareas, tanto la Subtrack1 y la Subtrack2 [Strict] en la lineas siguientes (index **NER**).
+Comparación entre lo que se debe detectar en la tarea Subtrack2 [Merged] (index **SPAN MERGED**) y las 2 otras tareas, tanto la Subtrack1 y la Subtrack2 [Strict] en la líneas siguientes (index **NER**).
 ```

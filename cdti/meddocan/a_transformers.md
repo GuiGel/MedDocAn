@@ -279,7 +279,7 @@ Normalización
 : Este paso corresponde al conjunto de operaciones que se aplican a una cadena sin procesar para hacerla más "limpia". Las operaciones más comunes son la eliminación de los espacios en blanco y de los caracteres acentuados. La [normalización Unicode](https://unicode.org/reports/tr15/) es otra operación de normalización común que aplican muchos tokenizadores para hacer frente al hecho de que a menudo existen varias formas de escribir el mismo carácter. Esto puede hacer que dos versiones de la "misma" cadena (es decir, con la misma secuencia de caracteres abstractos) parezcan diferentes; los esquemas de normalización Unicode como NFC, NFD, NFKC y NFKD sustituyen las diversas formas de escribir el mismo carácter por formas estándar. Otro ejemplo de normalización es el de las minúsculas. Si se espera que el modelo sólo acepte y utilice caracteres en minúsculas, esta técnica puede utilizarse para reducir el tamaño del vocabulario que requiere. Después de la normalización, nuestra cadena de ejemplo se vería como "¡Jack Sparrow ama Nueva York!". 
 
 ```{note}
-En le caso del corpus Meddocan, hemos quitado los espacios asi como los saltos a la linea a la hora de entrenar el modelo con Flair.
+En le caso del corpus Meddocan, hemos quitado los espacios así como los saltos a la linea a la hora de entrenar el modelo con Flair.
 ```
 
 Pretokenización

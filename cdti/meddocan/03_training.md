@@ -4,9 +4,9 @@
 
 Como lo hemos visto en la primera parte, el reconocimiento entidades nombradas (NER) es una tarea de NLP muy estudiada que consiste en predecir etiquetas semánticas superficiales para una secuencia de palabras.
 
-Los enfoques actuales para el NER consisten en aprovechar arquitecturas de transformadores pre-entrenados, como {cite:p}`Devlin2019BERTPO` o {cite:p}`Lample2019CrosslingualLM`. Esos transformadores an sido pre-entrenados en otras tareas sobre un corpus grande y sirven de base para entrenar modelos de NER transfiriendo su aprendizaje previo a esa tarea (véase la {numref}`transfer-learning-anexo` del anexo).
+Los enfoques actuales para el NER consisten en aprovechar arquitecturas de transformadores pre-entrenados, como {cite:p}`Devlin2019BERTPO` o {cite:p}`Lample2019CrosslingualLM`. Esos transformadores han sido pre-entrenados en otras tareas sobre un corpus grande y sirven de base para entrenar modelos de NER transfiriendo su aprendizaje previo a esa tarea (véase la {numref}`transfer-learning-anexo` del anexo).
 
-Esos enfoques suelen considerar el texto a nivel de frase, exactamente como lo hemos hecho en el dominio jurídico, y por lo tanto no modelan la información que cruza los límites de la frase (Por una introducción a este enfoque asi como un ejemplo de uso completo véase {numref}`transformers`). Podemos hacerlo pasando una frase con su contexto circundante. Sin embargo, el uso de un modelo basado en transformadores para NER ofrece una opción natural para capturar características a nivel de documento. Como muestra {numref}`fig-flert-1`, este contexto puede influir en la representación de las palabras de una frase: La frase de ejemplo: "I love Paris", pasa por el transformador junto con la siguiente frase que comienza con "The city is", ayudando potencialmente a resolver la ambigüedad de la palabra "Paris". 
+Esos enfoques suelen considerar el texto a nivel de frase, exactamente como lo hemos hecho en el dominio jurídico, y por lo tanto no modelan la información que cruza los límites de la frase (Por una introducción a este enfoque así como un ejemplo de uso completo véase {numref}`transformers`). Podemos hacerlo pasando una frase con su contexto circundante. Sin embargo, el uso de un modelo basado en transformadores para NER ofrece una opción natural para capturar características a nivel de documento. Como muestra {numref}`fig-flert-1`, este contexto puede influir en la representación de las palabras de una frase: La frase de ejemplo: "I love Paris", pasa por el transformador junto con la siguiente frase que comienza con "The city is", ayudando potencialmente a resolver la ambigüedad de la palabra "Paris". 
 
 ```{figure} ../figures/flert-1.png
 ---
@@ -18,7 +18,7 @@ Para obtener características a nivel de documento para una frase que deseamos e
 Esto es exactamente lo que propone el nuevo enfoque Flert {cite:p}`Schweter2020FLERTDF` disponible en la biblioteca **Flair** {cite:p}`Akbik2019FLAIRAE` que roza el estado del arte.
 
 ```{note}
-**Hacer respetar los límites de los documentos.** Los autores de Flert {cite:p}`Schweter2020FLERTDF` demuestran que el respeto de los límites de los documentos aumenta el escore F1 en casi todos sus experimentos y recomiendan su cumplimiento si es posible. Su expectativa inicial de que los transformadores aprenderían automáticamente a respetar los límites de los documentos no se materializó.
+**Hacer respetar los límites de los documentos.** Los autores de Flert {cite:p}`Schweter2020FLERTDF` demuestran que el respeto de los límites de los documentos aumenta el escore $F_{1} micro$ en casi todos sus experimentos y recomiendan su cumplimiento si es posible. Su expectativa inicial de que los transformadores aprenderían automáticamente a respetar los límites de los documentos no se materializó.
 La aplicación de los límites del documento consiste en una ablación en la que se truncan las características del documento en los bordes del mismo, lo que significa que el contexto sólo puede proceder del mismo documento.
 ```
 
@@ -44,10 +44,8 @@ En esta sección, presentamos brevemente las diferencias entre ambos enfoques y 
 
 ### Configuración
 
-**Data set** 
+**Dataset** 
 : Utilizamos el conjunto de datos de desarrollo de MEDDOCAN [^1].
-
-[^1]: https://github.com/PlanTL-GOB-ES/SPACCC_MEDDOCAN/tree/master/corpus
 
 **Modelo de transformador**
 : En todos los experimentos de esta sección, empleamos 2 modelos de transformadores:
@@ -57,6 +55,7 @@ En esta sección, presentamos brevemente las diferencias entre ambos enfoques y 
 **Embeddings (+ WE)**
 : Para cada configuración experimentamos concatenando embeddings de palabras clásicas a las representaciones a nivel de palabra obtenidas del modelo transformador. Utilizamos los embeddings de FastText en español {cite}`Bojanowski2017EnrichingWV` estabilizados {cite:p}`Antoniak2018EvaluatingTS`.
 
+[^1]: https://github.com/PlanTL-GOB-ES/SPACCC_MEDDOCAN/tree/master/corpus
 ### Primera estrategia: Ajuste fino
 
 Las estrategias de ajuste fino suelen añadir una sola capa lineal a un transformador y ajustan toda la arquitectura en la tarea NER. Para hacer el puente entre el modelado de subtokens y las predicciones a nivel de tokens, aplican la agrupación de subpalabras para crear representaciones a nivel de tokens que luego se pasan a la capa lineal final. Conceptualmente, este enfoque tiene la ventaja de que todo se modela en una única arquitectura que se ajusta en su conjunto. En la {numref}`Appendix-1` del anexo se dan más detalles sobre los parámetros y la arquitectura.
@@ -104,7 +103,7 @@ Evaluación de la estrategia basada en características con los embeddings de Fl
 
 ### Resultados: Mejor configuración
 
-Evaluamos ambos enfoques en cada variante en todas las combinaciones posibles añadiendo embeddings de palabras estándar "(+ WE)" y características a nivel de documento "(+ Contexto)". Cada configuración se ejecuta tres veces para reportar el promedio de F1 y la desviación estándar para cada una de las 3 opciones: NER, Span y Span Merged.  
+Evaluamos ambos enfoques en cada variante en todas las combinaciones posibles añadiendo embeddings de palabras estándar "(+ WE)" y características a nivel de documento "(+ Contexto)". Cada configuración se ejecuta tres veces para reportar el promedio de $F_{1} micro$ y la desviación estándar para cada una de las 3 opciones: NER, Span y Span Merged.  
 
 **Results**
 : Para el ajuste fino, vemos que la adición de embeddings estáticos, así como el uso del contexto, parece bastante convincente con BETO pero no realmente con XLMR (véase {numref}`tabla %s <finetuning approach>`). Sin embargo, hay que señalar que, por falta de recursos, no hemos podido realizar el entrenamiento con la configuración "XLMR + WE + CONTEXT" que podia haber dado buenos resultados.
@@ -132,7 +131,7 @@ El uso de Transformers sobre el dataset Meddocan nos permite una ganancia muy li
 :class: tip
 Con los resultados obtenidos, Flert habría ganado la competición {cite}`Marimon2019AutomaticDO` por delante del actual ganador Lukas Lange {cite}`Lange2019NLNDETN` (véase {numref}`Tabla %s <lukas lange>`) que uso la libraría FLair también.
 
-```{table} Mejor score F1 sobres cada una de las 3 Subtracks obtenidos por Luckas Lange.
+```{table} Mejor score $F_{1} micro$ sobres cada una de las 3 Subtracks obtenidos por Luckas Lange.
 :name: lukas lange
 | Subtrack1 | Subtrack2 [Strict] | Subtrack2 [Merged] |
 | :-------- | :----------------- | :----------------- |
@@ -140,18 +139,18 @@ Con los resultados obtenidos, Flert habría ganado la competición {cite}`Marimo
 ``````
 
 En cuanto a los enfoques de "FINETUNE + LINEAR" y basado en "FEATURE BASED + LSTM CRF", los resultados son bastante similares, aunque el segundo enfoque se ve afectado negativamente por el contexto y el primero positivamente.
-Por otro lado, la estrategia "FEATURE BASED + LSTM CRF + CONTEXTO + WE" es la más beneficiada con la mejor puntuación F1 en las 3 tareas.
+Por otro lado, la estrategia "FEATURE BASED + LSTM CRF + CONTEXTO + WE" es la más beneficiada con la mejor puntuación $F_{1} micro$ en las 3 tareas.
 Al contrario de los resultados obtenidos por los autores de Flert {cite}`Schweter2020FLERTDF` los resultados no son tan claros entre cada opción como en el caso del dataset CONLL03 {cite}`Sang2003IntroductionTT`.
 
 ```{glue:figure} compare_with_flair
 :name: flair comparison
 
-Evaluación de las mejoras en score F1 en los datos de test en comparación con la opción CARACTERÍSTICAS + FLAIR + LSTM CRF.
+Evaluación de las mejoras en score $F_{1} micro$ en los datos de test en comparación con la opción CARACTERÍSTICAS + FLAIR + LSTM CRF.
 ```
 
 ## Conclusión
 
-El sistema basado en Transfer Learning y el uso de Transformadores (BERT / XLMR-Large) nos ha permitido obtener muy buenos resultados sobre el dataset MEDDOCAN, mostrando un score F1 superior en todas las variantes de evaluación en comparación con el uso de las tecnologías precedentes.
-No obstante esa mejorara conlleva un tiempo de entrenamiento mas largo asi que modelos con mas parámetros y entonces mas voluminosos (véase la {numref}`Tabla %s <model parameters>`).  
+El sistema basado en Transfer Learning y el uso de Transformadores (BERT / XLMR-Large) nos ha permitido obtener muy buenos resultados sobre el dataset MEDDOCAN, mostrando un score $F_{1} micro$ superior en todas las variantes de evaluación en comparación con el uso de las tecnologías precedentes.
+No obstante esa mejorara conlleva un tiempo de entrenamiento más largo así que modelos con más parámetros y entonces más voluminosos (véase la {numref}`Tabla %s <model parameters>`).  
 
 La anonimización de un documento en bruto utilizando uno de nuestros modelos se trata en la {numref}`meddocan-pipeline` del apéndice.
