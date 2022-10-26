@@ -31,7 +31,7 @@ release of de-identified clinical documents, where the objective is to identify
 and to mask confidential data, regardless of the real type of entity or the
 correct identification of PHI type.
 
-We evaluate our models using the various evaluation scripts and report averaged F1-Score over treee runs.
+We evaluate our models using the various evaluation scripts and report averaged F1-Score over tree runs.
 
 +++
 
@@ -123,7 +123,7 @@ def make_pretty(styler):
         {'selector': 'th.col_heading.level0', 'props': 'font-size: 1.5em;'},
         {'selector': 'td', 'props': 'text-align: center; font-weight: bold;'},
     ], overwrite=False)
-    # .set_caption("Ajuste fino evaluado con distinctas métricas")
+    # .set_caption("Ajuste fino evaluado con distintas métricas")
     styler.hide(axis="index", level=2)
     styler.hide(axis="columns", level=1)
     styler.format(precision=2)
@@ -212,7 +212,7 @@ data = {
         ("BETO", "+ WE"): dfs[("FINETUNE", "BETO + WE")],
         ("BETO", "+ WE + Context"): dfs[("FINETUNE", "BETO + WE + CONTEXT")],
     }
-df = pd.concat(data.values(), axis=1, keys=data.keys(), names=["Transformador", "Estratgegía"]).T
+df = pd.concat(data.values(), axis=1, keys=data.keys(), names=["Transformador", "Estrategia"]).T
 glue("table_finetune_dev", visualize_df(df))
 ```
 

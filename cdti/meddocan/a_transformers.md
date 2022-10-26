@@ -132,14 +132,14 @@ def meddocan(folder: str = None) -> Dataset:
 ds = meddocan()
 ```
 
-Utilizamos la function ``meddocan()`` para crear una instancía de ``datasets.DatasetDict`` llamda ``ds``. Nuestro dictionario de dataset esta compuesto de 3 ``datasets.Dataset``, el de entrenamiento, de validación y de test.
+Utilizamos la function ``meddocan()`` para crear una instancia de ``datasets.DatasetDict`` llamda ``ds``. Nuestro diccionario de dataset esta compuesto de 3 ``datasets.Dataset``, el de entrenamiento, de validación y de test.
 
 ```{code-cell} ipython3
 for split in ds.keys():
     ds[split] = ds[split].shuffle(seed=0)
 ```
 
-Aqui utilizamos el método ``shuffle`` para evitar un sesgue accidental en los datos.
+Aquí utilizamos el método ``shuffle`` para evitar un sesgue accidental en los datos.
 
 Veamos cuántos ejemplos o frases tenemos por cada dataset accediendo al atributo ``Dataset.num_rows``:
 
@@ -238,7 +238,7 @@ XLM-R es una gran opción para las tareas de NLU multilingüe. En la siguiente s
 
 +++
 
-En lugar de utilizar un tokenizador de WordPiece, XLM-R utiliza un tokenizador llamado SentencePiece que está entrenado en el texto orignal de los cien idiomas. Para ver cómo se compara SentencePiece con WordPiece, carguemos los tokenizadores BERT para el castellano y XLM-R de la forma habitual con hugginface *Transformers*:
+En lugar de utilizar un tokenizador de WordPiece, XLM-R utiliza un tokenizador llamado SentencePiece que está entrenado en el texto original de los cien idiomas. Para ver cómo se compara SentencePiece con WordPiece, carguemos los tokenizadores BERT para el castellano y XLM-R de la forma habitual con HuggingFace *Transformers*:
 
 ```{code-cell} ipython3
 from transformers import AutoTokenizer
@@ -272,7 +272,7 @@ Hasta ahora hemos tratado la tokenización como una única operación que transf
 :align: center
 :name: brat-annotator-visualization
 
-Las etapas en la tuberia de tokenización
+Las etapas en la tubería de tokenización
 ```
 
 Veamos con más detalle cada paso del procesamiento e ilustremos su efecto con la frase de ejemplo "¡Jack Sparrow ama Nueva York!":
@@ -284,14 +284,14 @@ Normalización
 En le caso del corpus Meddocan, hemos quitado los espacios así como los saltos a la linea a la hora de entrenar el modelo con Flair.
 ```
 
-Pretokenización
+**Pretokenización**
 : Este paso divide un texto en objetos más pequeños que dan un límite superior a lo que serán sus tokens al final del entrenamiento (Es la tarea de la cual se encargar el ``meddocan.language.pipeline.meddocan_pipeline``. Una buena manera de pensar en esto es que el pretokenizador dividirá el texto en "palabras", y los tokens finales serán partes de esas palabras. En los idiomas que lo permiten (el inglés, el alemán y muchos idiomas indoeuropeos), las cadenas pueden dividirse en palabras a partir de los espacios en blanco y la puntuación. Por ejemplo, este paso podría transformar nuestras ["Jack", "Sparrow", "ama", "Nueva", "York", "!"]. A continuación, estas palabras son más sencillas de dividir en subpalabras con los algoritmos Byte-Pair Encoding (BPE) o Unigram en el siguiente paso de la cadena. Sin embargo, la división en "palabras" no siempre es una operación trivial y determinista, ni siquiera una operación que tenga sentido. Por ejemplo, en lenguas como el chino, el japonés o el coreano, la agrupación de símbolos en unidades semánticas como las palabras indoeuropeas puede ser una operación no determinista con varios grupos igualmente válidos. En este caso, podría ser mejor no pretokenizar el texto y, en su lugar, utilizar una biblioteca específica del idioma para la pretokenización.
 
-Modelo de tokenización
+**Modelo de tokenización**
 : Una vez normalizados y pre-tokenizados los textos de entrada, el tokenizador aplica un modelo de división de subpalabras a las palabras. Esta es la parte de la cadena de producción que debe ser entrenada en su corpus (o que ha sido entrenada si estamos utilizando un tokenizador pre-entrenado como en nuestro caso). La función del modelo es dividir las palabras en subpalabras para reducir el tamaño del vocabulario e intentar reducir el número de tokens fuera del vocabulario. Existen varios algoritmos de tokenización de subpalabras, como BPE, Unigram y WordPiece. Por ejemplo, nuestro ejemplo en marcha podría ser como [jack, spa, rrow, ama, new, york, !] después de aplicar el modelo de tokenización. Debemos tener en cuenta que en este punto ya no tenemos una lista de cadenas, sino una lista de enteros (IDs de entrada); para mantener el ejemplo ilustrativo, hemos mantenido las palabras pero hemos eliminado las comillas para indicar la transformación.
 
-Posprocesamiento
-: Este es el último paso del proceso de tokenización, en el que se pueden aplicar algunas transformaciones adicionales a la lista de tokens, por ejemplo, añadiendo tokens especiales al principio o al final de la secuencia de índices de entrada. Por ejemplo, un tokenizador de estilo BERT añadiría tokens de clasificación y separadores: [CLS, jack, spa, rrow, ama, new, york, !, SEP]. Esta secuencia (recuerdemos que será una secuencia de enteros, no los tokens que se ven aquí) se puede introducir en el modelo.
+**Posprocesamiento**
+: Este es el último paso del proceso de tokenización, en el que se pueden aplicar algunas transformaciones adicionales a la lista de tokens, por ejemplo, añadiendo tokens especiales al principio o al final de la secuencia de índices de entrada. Por ejemplo, un tokenizador de estilo BERT añadiría tokens de clasificación y separadores: [CLS, jack, spa, rrow, ama, new, york, !, SEP]. Esta secuencia (recordemos que será una secuencia de enteros, no los tokens que se ven aquí) se puede introducir en el modelo.
 
 Volviendo a nuestra comparación de XLM-R y BERT, ahora entendemos que SentencePiece añade \<s\> y \<\\s> en lugar de [CLS] y [SEP] en el paso de posprocesamiento (como convención, seguiremos usando [CLS] y [SEP] en las ilustraciones gráficas). Volvamos al tokenizador SentencePiece para ver qué lo hace especial.
 
@@ -301,7 +301,7 @@ Volviendo a nuestra comparación de XLM-R y BERT, ahora entendemos que SentenceP
 
 +++
 
-Aqui presentamos el modelo de transformador lineal. Cuando se utiliza BERT y otros transformadores de sólo codificación la representación de cada token de entrada individual se introduce en la una capa totalmente conectada para dar salida a la entidad del token. Por este motivo, la NER se suele plantear como una tarea de clasificación de tokens. El proceso se parece al diagrama de la Figura {numref}`ner-achitecture`.
+Aquí presentamos el modelo de transformador lineal. Cuando se utiliza BERT y otros transformadores de sólo codificación la representación de cada token de entrada individual se introduce en la una capa totalmente conectada para dar salida a la entidad del token. Por este motivo, la NER se suele plantear como una tarea de clasificación de tokens. El proceso se parece al diagrama de la Figura {numref}`ner-achitecture`.
 
 ```{figure} ../figures/transformers_ner-architecture.png
 :align: center
@@ -456,7 +456,7 @@ print(f"Número de tokens en la secuencia: {len(xlmr_tokens)}")
 print(f"Forma de la salida: {outputs.shape}")
 ```
 
-Aquí vemos que los logits tienen la forma ``[batch_size, num_tokens, num_tags]``, y que a cada token se le asigna un logit entre las quanrante y dos posibles etiquetas NER. Al enumerar sobre la secuencia, podemos ver rápidamente lo que predice el modelo pre-entrenado:
+Aquí vemos que los logits tienen la forma ``[batch_size, num_tokens, num_tags]``, y que a cada token se le asigna un logit entre las 42 posibles etiquetas NER. Al enumerar sobre la secuencia, podemos ver rápidamente lo que predice el modelo pre-entrenado:
 
 ```{code-cell} ipython3
 preds = [tags.names[p] for p in predictions[0].cpu().numpy()]
@@ -727,7 +727,7 @@ pretrained_loc = "/home/wave/Project/MedDocAn/training/xlm-roberta-large-finetun
 model = XLMRobertaForTokenClassification.from_pretrained(pretrained_loc).to(device)
 ```
 
-Vamos a evaluar este modelo para conocer sus metricas sobre el conjunto de datos de validación.
+Vamos a evaluar este modelo para conocer sus métricas sobre el conjunto de datos de validación.
 
 ```{code-cell} ipython3
 trainer.model = model
@@ -784,7 +784,7 @@ Funciona. Pero nunca debemos confiar demasiado en el rendimiento basándonos en 
 Vamos a dedicar un minuto a investigar los errores de nuestro modelo. Un análisis exhaustivo de los errores de nuestro modelo es uno de los aspectos más importantes a la hora de entrenar y depurar transformadores (y modelos de aprendizaje automático en general). Hay varios modos de fallo en los que puede parecer que el modelo funciona bien, mientras que en la práctica tiene algunos fallos graves. Algunos ejemplos en los que el entrenamiento puede fallar son
 
 . Podríamos enmascarar accidentalmente demasiados tokens y también enmascarar algunas de nuestras etiquetas para obtener una caída de pérdidas realmente prometedora.  
-. La función ``compute_metrics()`` podría tener un error que sobreestima el verdadero rendimiento.  
+. La función ``compute_metrics()`` podría tener un error que sobrestima el verdadero rendimiento.  
 . Podríamos incluir la clase cero o la entidad O en NER como una clase normal, lo que sesgaría mucho la precisión y la puntuación F1, ya que es la clase mayoritaria por un gran margen.
 
 Cuando el modelo funciona mucho peor de lo esperado, el examen de los errores puede aportar información útil y revelar fallos que serían difíciles de detectar con sólo mirar el código. E incluso si el modelo funciona bien y no hay errores en el código, el análisis de errores sigue siendo una herramienta útil para entender los puntos fuertes y débiles del modelo. Estos son aspectos que siempre debemos tener en cuenta cuando desplegamos un modelo en un entorno de producción.
