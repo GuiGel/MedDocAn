@@ -17,7 +17,9 @@ kernelspec:
 
 +++
 
-Para hacer una introducción practica a los transformadores, vamos a explorar como un modelo de transformador llamado XLM-RoBERTa nos permitte cumplir con la tarea.  Al igual que BERT, estos modelos utilizan el modelado lingüístico enmascarado como objetivo de preentrenamiento, pero se entrenan conjuntamente con textos en más de cien idiomas. Al entrenarse previamente en enormes corpus de muchas lenguas, estos transformadores multilingües permiten la transferencia multilingüe sin necesidad de realizar ningún disparo. Esto significa que un modelo perfeccionado en una lengua puede aplicarse a otras sin necesidad de más entrenamiento. Aunque no es nuestro objetivo en esta parte, sería interesante probarlo con nuestos datos jurídicos multilingue en concreto sobre los datos en catalan. Ademas es el modelo utilizado por los autores de Flert {cite}`Schweter2020FLERTDF` y tenemos resultados para el en 3 de las configuraciónes probadas.
+Para dar una introducción práctica a los transformadores, exploraremos cómo un modelo de transformador llamado XLM-RoBERTa nos permite realizar esta tarea.  Al igual que el BERT, este modelo utiliza la técnica del lenguaje enmascarado como objetivo de pre-entrenamiento, pero se entrena conjuntamente con textos en más de cien idiomas. Gracias al pre-entrenamiento en enormes corpus de muchas lenguas, estos transformadores multilingües permiten la transferencia multilingüe sin necesidad de hornear. Esto significa que un modelo perfeccionado en una lengua puede aplicarse a otras lenguas sin necesidad de formación adicional. Aunque no es nuestro objetivo en esta sección, sería interesante probarlo en nuestros datos jurídicos multilingües, especialmente en los datos catalanes. Además, este es el modelo utilizado por los autores de Flert {cite}`Schweter2020FLERTDF` y tenemos resultados para él en 3 de las configuraciones probadas.
+
+Traducción realizada con la versión gratuita del traductor www.DeepL.com/Translator
 
 ```{code-cell} ipython3
 :tags: [remove-input, remove-output]
@@ -137,7 +139,7 @@ for split in ds.keys():
     ds[split] = ds[split].shuffle(seed=0)
 ```
 
-Aqui utilizamos el metodo ``shuffle`` para evitar un sesgue accidental en los datos.
+Aqui utilizamos el método ``shuffle`` para evitar un sesgue accidental en los datos.
 
 Veamos cuántos ejemplos o frases tenemos por cada dataset accediendo al atributo ``Dataset.num_rows``:
 
@@ -209,12 +211,12 @@ Esto tiene buena pinta: las distribuciones de las frecuencias de nuestras etique
 
 +++
 
-Los transformadores multilingües tienen arquitecturas y procedimientos de entrenamiento similares a los de sus homólogos monolingües, con la salvedad de que el corpus utilizado para el preentrenamiento consta de documentos en muchos idiomas. Una característica notable de este enfoque es que, a pesar de no recibir información explícita para diferenciar entre las lenguas, las representaciones lingüísticas resultantes son capaces de generalizar bien entre las lenguas para una variedad de tareas posteriores. En algunos casos, esta capacidad de transferencia entre lenguas puede producir resultados que compiten con los de los modelos monolingües, lo que evita la necesidad de entrenar un modelo por lengua.
+Los transformadores multilingües tienen arquitecturas y procedimientos de entrenamiento similares a los de sus homólogos monolingües, con la salvedad de que el corpus utilizado para el pre-entrenamiento consta de documentos en muchos idiomas. Una característica notable de este enfoque es que, a pesar de no recibir información explícita para diferenciar entre las lenguas, las representaciones lingüísticas resultantes son capaces de generalizar bien entre las lenguas para una variedad de tareas posteriores. En algunos casos, esta capacidad de transferencia entre lenguas puede producir resultados que compiten con los de los modelos monolingües, lo que evita la necesidad de entrenar un modelo por lengua.
 
 Para medir el progreso de la transferencia multilingüe para la NER, se suelen utilizar los conjuntos de datos ``CoNLL-2002`` y ``CoNLL-2003`` como referencia para el inglés, el holandés, el español y el alemán. Esta referencia consiste en artículos de noticias anotados con las categorías ``LOC``, ``PER`` y ``ORG`` que son diferentes de las categorías de MEDDOCAN. Los modelos de transformadores multilingües suelen evaluarse de tres maneras diferentes:
 
 en
-: Se ajustan a los datos de entrenamiento en inglés y luego se evalúan en el conjunto de pruebas de cada idioma. En el caso de nuetros datos jurídicos se podria ajustar sobre nuestros datos en castellano y evaluar sobre nuestros datos en catalan.
+: Se ajustan a los datos de entrenamiento en inglés y luego se evalúan en el conjunto de pruebas de cada idioma. En el caso de nuestros datos jurídicos se podría ajustar sobre nuestros datos en castellano y evaluar sobre nuestros datos en catalán.
 
 Cada uno de ellos
 : Se ajustan y evalúan en datos de prueba monolingües para medir el rendimiento por idioma.
@@ -222,11 +224,11 @@ Cada uno de ellos
 Todos
 : Ajuste fino en todos los datos de entrenamiento para evaluar en todos los conjuntos de prueba de cada idioma.
 
-En nuestra tarea NER solo nos centraremos en la primera parte. Uno de los primeros transformadores multilingües fue mBERT, que utiliza la misma arquitectura y el mismo objetivo de preentrenamiento que BERT, pero añade artículos de Wikipedia de muchos idiomas al corpus de preentrenamiento. Desde entonces, mBERT ha sido sustituido por XLM-RoBERTa (o XLM-R para abreviar), por lo que ese es el modelo que consideraremos en este capítulo.
+En nuestra tarea NER solo nos centraremos en la primera parte. Uno de los primeros transformadores multilingües fue mBERT, que utiliza la misma arquitectura y el mismo objetivo de pre-entrenamiento que BERT, pero añade artículos de Wikipedia de muchos idiomas al corpus de pre-entrenamiento. Desde entonces, mBERT ha sido sustituido por XLM-RoBERTa (o XLM-R para abreviar), por lo que ese es el modelo que consideraremos en este capítulo.
 
-XLM-R sólo utiliza MLM (Masked Language Model) como objetivo de preentrenamiento para 100 idiomas, pero se distingue por el enorme tamaño de su corpus de preentrenamiento en comparación con sus predecesores: Volcados de Wikipedia para cada idioma y 2,5 terabytes de datos de Common Crawl de la web. Este corpus es varios órdenes de magnitud más grande que los utilizados en modelos anteriores y proporciona un aumento significativo de la señal para las lenguas con pocos recursos, como el birmano y el suajili, donde sólo existe un pequeño número de artículos de Wikipedia.
+XLM-R sólo utiliza MLM (Masked Language Model) como objetivo de pre-entrenamiento para 100 idiomas, pero se distingue por el enorme tamaño de su corpus de pre-entrenamiento en comparación con sus predecesores: Volcados de Wikipedia para cada idioma y 2,5 terabytes de datos de Common Crawl de la web. Este corpus es varios órdenes de magnitud más grande que los utilizados en modelos anteriores y proporciona un aumento significativo de la señal para las lenguas con pocos recursos, como el birmano y el suajili, donde sólo existe un pequeño número de artículos de Wikipedia.
 
-La parte RoBERTa {cite}`Liu2019RoBERTaAR` del nombre del modelo hace referencia al hecho de que el enfoque de preentrenamiento es el mismo que el de los modelos monolingües RoBERTa. Los desarrolladores de RoBERTa mejoraron varios aspectos de BERT, en particular eliminando por completo la tarea de predicción de la siguiente frase. XLM-R también abandona los embeddings lingüísticos utilizados en XLM y utiliza SentencePiece {cite}`Kudo2018SentencePieceAS` para tokenizar los textos en bruto directamente. Además de su naturaleza multilingüe, una diferencia notable entre XLM-R y RoBERTa es el tamaño de los respectivos vocabularios: ¡250.000 tokens frente a 55.000!
+La parte RoBERTa {cite}`Liu2019RoBERTaAR` del nombre del modelo hace referencia al hecho de que el enfoque de pre-entrenamiento es el mismo que el de los modelos monolingües RoBERTa. Los desarrolladores de RoBERTa mejoraron varios aspectos de BERT, en particular eliminando por completo la tarea de predicción de la siguiente frase. XLM-R también abandona los embeddings lingüísticos utilizados en XLM y utiliza SentencePiece {cite}`Kudo2018SentencePieceAS` para tokenizar los textos en bruto directamente. Además de su naturaleza multilingüe, una diferencia notable entre XLM-R y RoBERTa es el tamaño de los respectivos vocabularios: ¡250.000 tokens frente a 55.000!
 
 XLM-R es una gran opción para las tareas de NLU multilingüe. En la siguiente sección, exploraremos cómo puede tokenizar eficientemente en castellano.
 
@@ -247,7 +249,7 @@ bert_tokenizer = AutoTokenizer.from_pretrained(bert_model_name)
 xlmr_tokenizer = AutoTokenizer.from_pretrained(xlmr_model_name)
 ```
 
-Al codificar una pequeña secuencia de texto también podemos recuperar los tokens especiales que cada modelo utilizó durante el preentrenamiento:
+Al codificar una pequeña secuencia de texto también podemos recuperar los tokens especiales que cada modelo utilizó durante el pre-entrenamiento:
 
 ```{code-cell} ipython3
 text = "Jack Sparrow ama Nueva York!"
@@ -286,7 +288,7 @@ Pretokenización
 : Este paso divide un texto en objetos más pequeños que dan un límite superior a lo que serán sus tokens al final del entrenamiento (Es la tarea de la cual se encargar el ``meddocan.language.pipeline.meddocan_pipeline``. Una buena manera de pensar en esto es que el pretokenizador dividirá el texto en "palabras", y los tokens finales serán partes de esas palabras. En los idiomas que lo permiten (el inglés, el alemán y muchos idiomas indoeuropeos), las cadenas pueden dividirse en palabras a partir de los espacios en blanco y la puntuación. Por ejemplo, este paso podría transformar nuestras ["Jack", "Sparrow", "ama", "Nueva", "York", "!"]. A continuación, estas palabras son más sencillas de dividir en subpalabras con los algoritmos Byte-Pair Encoding (BPE) o Unigram en el siguiente paso de la cadena. Sin embargo, la división en "palabras" no siempre es una operación trivial y determinista, ni siquiera una operación que tenga sentido. Por ejemplo, en lenguas como el chino, el japonés o el coreano, la agrupación de símbolos en unidades semánticas como las palabras indoeuropeas puede ser una operación no determinista con varios grupos igualmente válidos. En este caso, podría ser mejor no pretokenizar el texto y, en su lugar, utilizar una biblioteca específica del idioma para la pretokenización.
 
 Modelo de tokenización
-: Una vez normalizados y pretokenizados los textos de entrada, el tokenizador aplica un modelo de división de subpalabras a las palabras. Esta es la parte de la cadena de producción que debe ser entrenada en su corpus (o que ha sido entrenada si estamos utilizando un tokenizador preentrenado como en nuestro caso). La función del modelo es dividir las palabras en subpalabras para reducir el tamaño del vocabulario e intentar reducir el número de tokens fuera del vocabulario. Existen varios algoritmos de tokenización de subpalabras, como BPE, Unigram y WordPiece. Por ejemplo, nuestro ejemplo en marcha podría ser como [jack, spa, rrow, ama, new, york, !] después de aplicar el modelo de tokenización. Debemos tener en cuenta que en este punto ya no tenemos una lista de cadenas, sino una lista de enteros (IDs de entrada); para mantener el ejemplo ilustrativo, hemos mantenido las palabras pero hemos eliminado las comillas para indicar la transformación.
+: Una vez normalizados y pre-tokenizados los textos de entrada, el tokenizador aplica un modelo de división de subpalabras a las palabras. Esta es la parte de la cadena de producción que debe ser entrenada en su corpus (o que ha sido entrenada si estamos utilizando un tokenizador pre-entrenado como en nuestro caso). La función del modelo es dividir las palabras en subpalabras para reducir el tamaño del vocabulario e intentar reducir el número de tokens fuera del vocabulario. Existen varios algoritmos de tokenización de subpalabras, como BPE, Unigram y WordPiece. Por ejemplo, nuestro ejemplo en marcha podría ser como [jack, spa, rrow, ama, new, york, !] después de aplicar el modelo de tokenización. Debemos tener en cuenta que en este punto ya no tenemos una lista de cadenas, sino una lista de enteros (IDs de entrada); para mantener el ejemplo ilustrativo, hemos mantenido las palabras pero hemos eliminado las comillas para indicar la transformación.
 
 Posprocesamiento
 : Este es el último paso del proceso de tokenización, en el que se pueden aplicar algunas transformaciones adicionales a la lista de tokens, por ejemplo, añadiendo tokens especiales al principio o al final de la secuencia de índices de entrada. Por ejemplo, un tokenizador de estilo BERT añadiría tokens de clasificación y separadores: [CLS, jack, spa, rrow, ama, new, york, !, SEP]. Esta secuencia (recuerdemos que será una secuencia de enteros, no los tokens que se ven aquí) se puede introducir en el modelo.
@@ -322,7 +324,7 @@ Afortunadamente, todos los aspectos de la arquitectura que hemos visto en BERT s
 
 *Transformers* está organizada en torno a clases dedicadas a cada arquitectura y tarea. Las clases del modelo asociadas a las diferentes tareas se nombran según la convención ``<NombreDelModelo>For<Tarea>``, o ``AutoModelFor<Tarea>`` cuando se utilizan las clases AutoModel.
 
-Para profundizar en la API de la liberia *Transformers*, vamos a ampliar el modelo existente para resolver nuestro problema de NLP. Podemos cargar los pesos de los modelos preentrenados y tenemos acceso a funciones de ayuda específicas para cada tarea. Esto nos permite construir modelos personalizados para objetivos específicos con muy poca sobrecarga. En esta sección, veremos cómo podemos implementar nuestro propio modelo personalizado.
+Para profundizar en la API de la libaría *Transformers*, vamos a ampliar el modelo existente para resolver nuestro problema de NLP. Podemos cargar los pesos de los modelos pre-entrenados y tenemos acceso a funciones de ayuda específicas para cada tarea. Esto nos permite construir modelos personalizados para objetivos específicos con muy poca sobrecarga. En esta sección, veremos cómo podemos implementar nuestro propio modelo personalizado.
 
 +++
 
@@ -330,7 +332,7 @@ Para profundizar en la API de la liberia *Transformers*, vamos a ampliar el mode
 
 +++
 
-El concepto principal que hace que los transformers sean tan versátiles es la división de la arquitectura en un cuerpo y una cabeza. Ya hemos visto {numref}`transfer-learning-anexo` que cuando pasamos de la tarea de preentrenamiento a la tarea posterior, tenemos que sustituir la última capa del modelo por una que sea adecuada para la tarea. Esta última capa se llama cabeza del modelo; es la parte que es específica de la tarea. El resto del modelo se denomina cuerpo, e incluye las capas de embeddings de tokens y de transformación que son independientes de la tarea. Esta estructura se refleja también en el código de la librería *Transformers*: el cuerpo de un modelo se implementa en una clase como ``BertModel`` o ``GPT2Model`` que devuelve los estados ocultos de la última capa. Los modelos específicos de tareas como ``BertForMaskedLM`` o ``BertForSequenceClassification`` utilizan el modelo base y añaden la cabeza necesaria sobre los estados ocultos, como se muestra en la Figura {numref}`bert-body-head`.
+El concepto principal que hace que los transformers sean tan versátiles es la división de la arquitectura en un cuerpo y una cabeza. Ya hemos visto {numref}`transfer-learning-anexo` que cuando pasamos de la tarea de pre-entrenamiento a la tarea posterior, tenemos que sustituir la última capa del modelo por una que sea adecuada para la tarea. Esta última capa se llama cabeza del modelo; es la parte que es específica de la tarea. El resto del modelo se denomina cuerpo, e incluye las capas de embeddings de tokens y de transformación que son independientes de la tarea. Esta estructura se refleja también en el código de la librería *Transformers*: el cuerpo de un modelo se implementa en una clase como ``BertModel`` o ``GPT2Model`` que devuelve los estados ocultos de la última capa. Los modelos específicos de tareas como ``BertForMaskedLM`` o ``BertForSequenceClassification`` utilizan el modelo base y añaden la cabeza necesaria sobre los estados ocultos, como se muestra en la Figura {numref}`bert-body-head`.
 
 ```{figure} ../figures/transformers_bert-body-head.png
 :align: center
@@ -339,7 +341,7 @@ El concepto principal que hace que los transformers sean tan versátiles es la d
 La clase ``BertModel`` sólo contiene el cuerpo del modelo, mientras que las clases ``BertFor<Task>`` combinan el cuerpo con una cabeza dedicada a una tarea determinada
 ```
 
-Como vamos a ver a continuación, esta separación de cuerpos y cabezas nos permite construir una cabeza personalizada para cualquier tarea y simplemente montarla sobre un modelo preentrenado.
+Como vamos a ver a continuación, esta separación de cuerpos y cabezas nos permite construir una cabeza personalizada para cualquier tarea y simplemente montarla sobre un modelo pre-entrenado.
 
 +++
 
@@ -347,7 +349,7 @@ Como vamos a ver a continuación, esta separación de cuerpos y cabezas nos perm
 
 +++
 
-Hagamos el ejercicio de construir un cabezal de clasificación de tokens personalizado para XLM-R. Dado que XLM-R utiliza la misma arquitectura de modelo que RoBERTa, utilizaremos RoBERTa como modelo base, pero aumentado con ajustes específicos para XLM-R. Tenga en cuenta que este es un ejercicio educativo para mostrarle cómo construir un modelo personalizado que se prodria modificar facilmente. Para la clasificación de tokens, ya existe una clase ``XLMRobertaForTokenClassification`` que se puede importar desde huggingface *Transformers*.
+Hagamos el ejercicio de construir un cabezal de clasificación de tokens personalizado para XLM-R. Dado que XLM-R utiliza la misma arquitectura de modelo que RoBERTa, utilizaremos RoBERTa como modelo base, pero aumentado con ajustes específicos para XLM-R. Tenga en cuenta que este es un ejercicio educativo para mostrarle cómo construir un modelo personalizado que se podría modificar fácilmente. Para la clasificación de tokens, ya existe una clase ``XLMRobertaForTokenClassification`` que se puede importar desde huggingface *Transformers*.
 
 Para empezar, necesitamos una estructura de datos que represente nuestro etiquetador XLM-R NER. Como primera aproximación, necesitaremos un objeto de configuración para inicializar el modelo y una función ``forward()`` para generar las salidas. Sigamos adelante y construyamos nuestra clase XLM-R para la clasificación de tokens:
 
@@ -391,11 +393,11 @@ class XLMRobertaForTokenClassification(RobertaPreTrainedModel):
                                      attentions=outputs.attentions)
 ```
 
-La ``config_class`` asegura que se usen los parámetros estándar de XLM-R cuando inicializamos un nuevo modelo. Si queremos cambiar los parámetros por defecto, podemos hacerlo sobrescribiendo los ajustes por defecto en la configuración. Con el método ``super()`` llamamos a la función de inicialización de la clase ``RobertaPreTrainedModel``. Esta clase abstracta se encarga de la inicialización o carga de los pesos pre-entrenados. Luego cargamos el cuerpo de nuestro modelo, que es ``RobertaModel``, y lo extendemos con nuestra propia cabeza de clasificación que consiste en un dropout y una capa feed-forward estándar. Hay que notar que establecemos ``add_pooling_layer=False`` para asegurarnos de que se devuelven todos los estados ocultos y no sólo el asociado al token [CLS]. Finalmente, inicializamos todos los pesos llamando al método ``init_weights()`` que heredamos de ``RobertaPreTrainedModel``, que cargará los pesos preentrenados para el cuerpo del modelo e inicializará aleatoriamente los pesos de nuestra cabeza de clasificación de tokens.
+La ``config_class`` asegura que se usen los parámetros estándar de XLM-R cuando inicializamos un nuevo modelo. Si queremos cambiar los parámetros por defecto, podemos hacerlo sobrescribiendo los ajustes por defecto en la configuración. Con el método ``super()`` llamamos a la función de inicialización de la clase ``RobertaPreTrainedModel``. Esta clase abstracta se encarga de la inicialización o carga de los pesos pre-entrenados. Luego cargamos el cuerpo de nuestro modelo, que es ``RobertaModel``, y lo extendemos con nuestra propia cabeza de clasificación que consiste en un dropout y una capa feed-forward estándar. Hay que notar que establecemos ``add_pooling_layer=False`` para asegurarnos de que se devuelven todos los estados ocultos y no sólo el asociado al token [CLS]. Finalmente, inicializamos todos los pesos llamando al método ``init_weights()`` que heredamos de ``RobertaPreTrainedModel``, que cargará los pesos pre-entrenados para el cuerpo del modelo e inicializará aleatoriamente los pesos de nuestra cabeza de clasificación de tokens.
 
 Lo único que queda por hacer es definir lo que el modelo debe hacer en un pase hacia adelante con un método ``forward()`` como es de uso con ``Pytorch`` [^5]. Durante el pase hacia adelante, los datos son primero alimentados a través del cuerpo del modelo. Hay un número de variables de entrada, pero las únicas que necesitamos por ahora son ``input_ids`` y ``attention_mask``. El estado oculto, que forma parte de la salida del cuerpo del modelo, se alimenta entonces a través de las capas de "dropout" y clasificación. Si también proporcionamos etiquetas en el pase forward, podemos calcular directamente la pérdida. Si hay una máscara de atención, tenemos que hacer un poco más de trabajo para asegurarnos de que sólo calculamos la pérdida de los tokens no enmascarados. Por último, envolvemos todas las salidas en un objeto ``TokenClassifierOutput`` que nos permite acceder a los elementos de una tupla.
 
-Con sólo implementar dos funciones de una clase simple, podemos construir nuestro propio modelo de transformador personalizado. Y como heredamos de un ``PreTrainedModel``, obtenemos instantáneamente acceso a todas las utilidades de huggingface Transformer, como ``from_pretrained()``. Veamos cómo podemos cargar los pesos preentrenados en nuestro modelo personalizado.
+Con sólo implementar dos funciones de una clase simple, podemos construir nuestro propio modelo de transformador personalizado. Y como heredamos de un ``PreTrainedModel``, obtenemos instantáneamente acceso a todas las utilidades de huggingface Transformer, como ``from_pretrained()``. Veamos cómo podemos cargar los pesos pre-entrenados en nuestro modelo personalizado.
 
 [^5]: https://pytorch.org/
 
@@ -424,7 +426,7 @@ xlmr_config = AutoConfig.from_pretrained(xlmr_model_name,
 
 La clase ``AutoConfig`` contiene el plano de la arquitectura de un modelo. Cuando cargamos un modelo con ``AutoModel.from_pretrained(model_ckpt)``, el archivo de configuración asociado a ese modelo se descarga automáticamente. Sin embargo, si queremos modificar algo como el número de clases o los nombres de las etiquetas, podemos cargar primero la configuración con los parámetros que queremos personalizar.
 
-Ahora, podemos cargar los pesos del modelo como siempre con la función ``from_pretrained()`` con el argumento adicional config. Hay que tener en cuenta que no hemos implementado la carga de pesos preentrenados en nuestra clase de modelo personalizada; la obtenemos gratuitamente al heredar de ``RobertaPreTrainedModel``:
+Ahora, podemos cargar los pesos del modelo como siempre con la función ``from_pretrained()`` con el argumento adicional config. Hay que tener en cuenta que no hemos implementado la carga de pesos pre-entrenados en nuestra clase de modelo personalizada; la obtenemos gratuitamente al heredar de ``RobertaPreTrainedModel``:
 
 ```{code-cell} ipython3
 :tags: [remove-output]
@@ -454,7 +456,7 @@ print(f"Número de tokens en la secuencia: {len(xlmr_tokens)}")
 print(f"Forma de la salida: {outputs.shape}")
 ```
 
-Aquí vemos que los logits tienen la forma ``[batch_size, num_tokens, num_tags]``, y que a cada token se le asigna un logit entre las quanrante y dos posibles etiquetas NER. Al enumerar sobre la secuencia, podemos ver rápidamente lo que predice el modelo preentrenado:
+Aquí vemos que los logits tienen la forma ``[batch_size, num_tokens, num_tags]``, y que a cada token se le asigna un logit entre las quanrante y dos posibles etiquetas NER. Al enumerar sobre la secuencia, podemos ver rápidamente lo que predice el modelo pre-entrenado:
 
 ```{code-cell} ipython3
 preds = [tags.names[p] for p in predictions[0].cpu().numpy()]
@@ -584,7 +586,7 @@ Ahora que tenemos un modelo y un conjunto de datos, tenemos que definir una mét
 
 +++
 
-Como lo sabemos, la evaluación de un modelo NER es similar a la evaluación de un modelo de clasificación de textos, y es habitual informar de los resultados de precisión, recuperación y puntuación $F_{1}$. La única sutileza es que todas las palabras de una entidad deben predecirse correctamente para que la predicción se considere correcta. Para cambiar vamos a utlizar una ingeniosa biblioteca llamada *seqeval* que está diseñada para este tipo de tareas. Por ejemplo, dadas algunas etiquetas NER y predicciones del modelo, podemos calcular las métricas mediante la función ``classification_report()`` de *seqeval*:
+Como lo sabemos, la evaluación de un modelo NER es similar a la evaluación de un modelo de clasificación de textos, y es habitual informar de los resultados de precisión, recuperación y puntuación $F_{1}$. La única sutileza es que todas las palabras de una entidad deben predecirse correctamente para que la predicción se considere correcta. Para cambiar vamos a utilizar una ingeniosa biblioteca llamada *seqeval* que está diseñada para este tipo de tareas. Por ejemplo, dadas algunas etiquetas NER y predicciones del modelo, podemos calcular las métricas mediante la función ``classification_report()`` de *seqeval*:
 
 ```{code-cell} ipython3
 from seqeval.metrics import classification_report
@@ -597,7 +599,7 @@ print(classification_report(y_true, y_pred))
 ```
 
 ```{note}
-Hay que subrayar que la métricas definida por ``seqeval`` se calculan aquí a nivel de tokens, mientras que en la evaluación final, véase cápitulo {numref}`content:evaluation` se calculan a nivel de Spans.
+Hay que subrayar que la métricas definida por ``seqeval`` se calculan aquí a nivel de tokens, mientras que en la evaluación final, véase capítulo {numref}`content:evaluation` se calculan a nivel de Spans.
 ```
 
 +++
@@ -697,7 +699,7 @@ for split in ["train", "dev"]:
     indexes[split] = range(int(meddocan_encoded[split].num_rows * downsample))
 ```
 
-Usamos el metodo ``select`` para dividir el tamaño de nuestro dataset a fin de acortar el entrenamiento.
+Usamos el método ``select()`` para dividir el tamaño de nuestro dataset a fin de acortar el entrenamiento.
 
 ```{code-cell} ipython3
 from transformers import Trainer
@@ -775,14 +777,14 @@ Funciona. Pero nunca debemos confiar demasiado en el rendimiento basándonos en 
 
 +++
 
-## Analysis del Error
+## Análisis del Error
 
 +++
 
 Vamos a dedicar un minuto a investigar los errores de nuestro modelo. Un análisis exhaustivo de los errores de nuestro modelo es uno de los aspectos más importantes a la hora de entrenar y depurar transformadores (y modelos de aprendizaje automático en general). Hay varios modos de fallo en los que puede parecer que el modelo funciona bien, mientras que en la práctica tiene algunos fallos graves. Algunos ejemplos en los que el entrenamiento puede fallar son
 
 . Podríamos enmascarar accidentalmente demasiados tokens y también enmascarar algunas de nuestras etiquetas para obtener una caída de pérdidas realmente prometedora.  
-. La función compute_metrics() podría tener un error que sobreestima el verdadero rendimiento.  
+. La función ``compute_metrics()`` podría tener un error que sobreestima el verdadero rendimiento.  
 . Podríamos incluir la clase cero o la entidad O en NER como una clase normal, lo que sesgaría mucho la precisión y la puntuación F1, ya que es la clase mayoritaria por un gran margen.
 
 Cuando el modelo funciona mucho peor de lo esperado, el examen de los errores puede aportar información útil y revelar fallos que serían difíciles de detectar con sólo mirar el código. E incluso si el modelo funciona bien y no hay errores en el código, el análisis de errores sigue siendo una herramienta útil para entender los puntos fuertes y débiles del modelo. Estos son aspectos que siempre debemos tener en cuenta cuando desplegamos un modelo en un entorno de producción.
@@ -796,7 +798,8 @@ from torch.nn.functional import cross_entropy
 
 def forward_pass_with_label(batch):
     # Remove keys from batch
-    batch = dict(filter(lambda x: x[0] not in ["text", "origin", "ner_tags_str"], batch.items()))
+    batch = dict(filter(lambda x: x[0] not in ["text", "origin", "ner_tags_str"],
+                 batch.items()))
     # Convert dict of lists to list of dicts suitable for data collator
     features = [dict(zip(batch, t)) for t in zip(*batch.values())]
     # Pad inputs and labels and put all tensors on device
@@ -890,9 +893,9 @@ mean_loss_per_tag
 
 Vemos que ``I-ID_EMPLEO_PERSONAL_SANITARIO`` junto con ``ID_EMPLEO_PERSONAL_SANITARIO`` tiene la mayor pérdida media, lo que significa que determinar el inicio del ID de un empleo de personal sanitario supone un reto para nuestro modelo.
 
-Es un resultado esperado sabiendo que la etiqueta ``ID_EMPLEO_PERSONAL_SANITARIO`` no aparece en nuestro conjunto de datos de entrenamiento!
+¡Es un resultado esperado sabiendo que la etiqueta ``ID_EMPLEO_PERSONAL_SANITARIO`` no aparece en nuestro conjunto de datos de entrenamiento!
 
-Para comprobar que las classes menos representada en el conjunto de datos de entrenamiento son tambien las que tienen una perdída media mas elevada vamos a calcular la frecuencia de las classes en el conjunto de entrenamiento y visulizar la en la nueva columna ``train_freq`` de ``mean_loss_per_tag``.
+Para comprobar que las clases menos representada en el conjunto de datos de entrenamiento son también las que tienen una pérdida media más elevada vamos a calcular la frecuencia de las clases en el conjunto de entrenamiento y visualizar la en la nueva columna ``train_freq`` de ``mean_loss_per_tag``.
 
 ```{code-cell} ipython3
 :tags: [hide-ouput]
@@ -905,14 +908,14 @@ df_train = df_train[df_train["labels"] != "IGN"]
 train_labels_freq = df_train["labels"].value_counts(ascending=True)
 ```
 
- Ahora visualizamos por cada labels son frequencia en la columna ``train_freq`` de ``mean_loss_per_tag``.
+ Ahora visualizamos por cada etiqueta su frecuencia en la columna ``train_freq`` de ``mean_loss_per_tag``.
 
 ```{code-cell} ipython3
 mean_loss_per_tag["train_freq"] = mean_loss_per_tag.T.apply(lambda x: train_labels_freq.to_dict().get(x["labels"], 0))
 mean_loss_per_tag
 ```
 
-Comprobamos que ``ID_EMPLEO_PERSONAL_SANITARIO`` no existe en nuestros datos de entrenamiento y que varias de las etiqueta con una pérdida elevada tienen un frecuencía baja en el conjunto de entrenamiento.
+Comprobamos que ``ID_EMPLEO_PERSONAL_SANITARIO`` no existe en nuestros datos de entrenamiento y que varias de las etiquetas con una pérdida elevada tienen un frecuencia baja en el conjunto de entrenamiento.
 
 Podemos desglosar esto aún más trazando la matriz de confusión de la clasificación de tokens, donde vemos que el comienzo del sexo de un sujeto de asistencia se confunde a menudo con el token ``I-SEXO_SUJETO_ASISTENCIA`` posterior, o que el comienzo de otro sujeto de asistencia se confunde con tokens similares como ``I-FAMILIARES_SUJETO_ASISTENCIA`` o ``B-ID_SUJETO_ASISTENCIA`` o con ``O``.
 
@@ -921,15 +924,17 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix, classification_report
 import string
 
-cm = confusion_matrix(df_tokens["labels"], df_tokens["predicted_label"], normalize="true", labels=tags.names)
+cm = confusion_matrix(df_tokens["labels"], df_tokens["predicted_label"], 
+                      normalize="true", labels=tags.names)
 fig, ax = plt.subplots(figsize=(20, 20))
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=tags.names)
-disp.plot(cmap="Blues", values_format=".2f", ax=ax, colorbar=False, xticks_rotation="vertical")
+disp.plot(cmap="Blues", values_format=".2f", ax=ax, colorbar=False,
+          xticks_rotation="vertical")
 plt.title("Normalized confusion matrix")
 plt.show()
 ```
 
-A partir del gráfico, podemos ver que nuestro modelo tiende a confundir tambien las entidades ``B-FAMILIARES_SUJETO_ASISTENCIA`` y ``I-FAMILIARES_SUJETO_ASISTENCIA`` entre ellas y con ``O``. Por lo demás, es bastante bueno en la clasificación de las entidades restantes, lo que queda claro por la naturaleza casi diagonal de la matriz de confusión.
+A partir del gráfico, podemos ver que nuestro modelo tiende a confundir también las entidades ``B-FAMILIARES_SUJETO_ASISTENCIA`` y ``I-FAMILIARES_SUJETO_ASISTENCIA`` entre ellas y con ``O``. Por lo demás, es bastante bueno en la clasificación de las entidades restantes, lo que queda claro por la naturaleza casi diagonal de la matriz de confusión.
 
 +++
 
