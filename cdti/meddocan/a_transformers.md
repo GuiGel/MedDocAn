@@ -19,8 +19,6 @@ kernelspec:
 
 Para dar una introducción práctica a los transformadores, exploraremos cómo un modelo de transformador llamado XLM-RoBERTa nos permite realizar esta tarea.  Al igual que el BERT, este modelo utiliza la técnica del lenguaje enmascarado como objetivo de pre-entrenamiento, pero se entrena conjuntamente con textos en más de cien idiomas. Gracias al pre-entrenamiento en enormes corpus de muchas lenguas, estos transformadores multilingües permiten la transferencia multilingüe sin necesidad de hornear. Esto significa que un modelo perfeccionado en una lengua puede aplicarse a otras lenguas sin necesidad de formación adicional. Aunque no es nuestro objetivo en esta sección, sería interesante probarlo en nuestros datos jurídicos multilingües, especialmente en los datos catalanes. Además, este es el modelo utilizado por los autores de Flert {cite}`Schweter2020FLERTDF` y tenemos resultados para él en 3 de las configuraciones probadas.
 
-Traducción realizada con la versión gratuita del traductor www.DeepL.com/Translator
-
 ```{code-cell} ipython3
 :tags: [remove-input, remove-output]
 
@@ -132,7 +130,7 @@ def meddocan(folder: str = None) -> Dataset:
 ds = meddocan()
 ```
 
-Utilizamos la function ``meddocan()`` para crear una instancia de ``datasets.DatasetDict`` llamda ``ds``. Nuestro diccionario de dataset esta compuesto de 3 ``datasets.Dataset``, el de entrenamiento, de validación y de test.
+Utilizamos la función ``meddocan()`` para crear una instancia de ``datasets.DatasetDict`` llamada ``ds``. Nuestro diccionario de conjunto de datos está compuesto de 3 ``datasets.Dataset``, el de entrenamiento, de validación y de test.
 
 ```{code-cell} ipython3
 for split in ds.keys():
@@ -155,7 +153,7 @@ Veamos un ejemplo extraído del conjunto de datos
 pd.DataFrame(ds["train"][11:12], index=["Sentence"]).T
 ```
 
-En nuestros objetos ``Dataset``, las claves de nuestro ejemplo corresponden a los nombres de las columnas de una tabla Arrow [^4], mientras que los valores denotan las entradas de cada columna. En particular, vemos que la columna ``ner_tags`` corresponde a la asignación de cada entidad a un ID de clase. Esto es un poco críptico para el ojo humano, así que vamos a crear una nueva columna con las conocidas etiquetas. Para ello, lo primero que hay que observar es que nuestro objeto ``Dataset`` tiene un atributo features que especifica los tipos de datos subyacentes asociados a cada columna:
+En nuestros objetos ``Dataset``, las claves de nuestro ejemplo corresponden a los nombres de las columnas de una tabla Arrow [^4], mientras que los valores denotan las entradas de cada columna. En particular, vemos que la columna ``ner_tags`` corresponde a la asignación de cada entidad a un ID de clase. Esto es un poco críptico para el ojo humano, así que vamos a crear una nueva columna con las conocidas etiquetas. Para ello, lo primero que hay que observar es que nuestro objeto ``Dataset`` tiene un atributo ``features`` que especifica los tipos de datos subyacentes asociados a cada columna:
 
 [^4]: https://huggingface.co/docs/datasets/about_arrow
 
@@ -915,7 +913,7 @@ mean_loss_per_tag["train_freq"] = mean_loss_per_tag.T.apply(lambda x: train_labe
 mean_loss_per_tag
 ```
 
-Comprobamos que ``ID_EMPLEO_PERSONAL_SANITARIO`` no existe en nuestros datos de entrenamiento y que varias de las etiquetas con una pérdida elevada tienen un frecuencia baja en el conjunto de entrenamiento.
+Comprobamos que ``ID_EMPLEO_PERSONAL_SANITARIO`` no existe en nuestros datos de entrenamiento y que varias de las etiquetas con una pérdida elevada tienen una frecuencia baja en el conjunto de entrenamiento.
 
 Podemos desglosar esto aún más trazando la matriz de confusión de la clasificación de tokens, donde vemos que el comienzo del sexo de un sujeto de asistencia se confunde a menudo con el token ``I-SEXO_SUJETO_ASISTENCIA`` posterior, o que el comienzo de otro sujeto de asistencia se confunde con tokens similares como ``I-FAMILIARES_SUJETO_ASISTENCIA`` o ``B-ID_SUJETO_ASISTENCIA`` o con ``O``.
 

@@ -77,7 +77,7 @@ El preprocesamiento y el formateo aplicados al corpus consistieron en los siguie
 : Cada párrafo fue tokenizado utilizando un tokenizador personalizado creado con la biblioteca ``spaCy`` [^6] y algunas reglas de tokenización personalizadas adicionales, principalmente para dividir los símbolos de puntuación si no están dentro de una URL, una dirección de correo electrónico o una fecha. Para dividir ciertas palabras con el fin de tener en cuenta los errores de espaciado en el texto original. Por ejemplo, (p. ej. {glue:text}`spacing_error_ex`).
 
 **3. Formato de las etiquetas**
-: Las anotaciones con formato Brat de los juegos de datos de entrenamiento y desarrollo se convirtieron en etiquetas a nivel de token siguiendo el esquema **BIO** (Beginning, Inner, Outside). Combinando este esquema de etiquetas con las 22 clases granulares originales de PHI (por ejemplo, para la clase granular **FECHA** tendríamos las etiquetas **B-FECHA**, ****I-FECHA**, más la clase genérica **O**) se obtiene un conjunto final de etiquetas de 45 posibles etiquetas únicas.
+: Las anotaciones con formato Brat de los juegos de datos de entrenamiento y desarrollo se convirtieron en etiquetas a nivel de token siguiendo el esquema **BIO** (Beginning, Inner, Outside). Combinando este esquema de etiquetas con las 22 clases granulares originales de PHI (por ejemplo, para la clase granular **FECHA** tendríamos las etiquetas **B-FECHA**, **I-FECHA**, más la clase genérica **O**) se obtiene un conjunto final de etiquetas de 45 posibles etiquetas únicas.
 
 Estos 3 pasos se ilustran en {numref}`Figure {number} <Preparación de los datos>`.
 

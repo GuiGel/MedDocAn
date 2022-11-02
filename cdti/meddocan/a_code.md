@@ -54,7 +54,7 @@ docs_with_brat_pair = iter(gs_docs)
 doc_with_brat_pair = next(docs_with_brat_pair)
 ```
 
-El objecto `doc_with_brat_pair` creado por `GsDocs` tiene 2 atributos.
+El objetó`doc_with_brat_pair` creado por `GsDocs` tiene 2 atributos.
 
 ```{code-cell} ipython3
 [attr for attr in vars(doc_with_brat_pair).keys()]
@@ -71,9 +71,9 @@ pd.DataFrame(
 ).T
 ```
 
-Lo que hace `GsDocs` es crear un objecto `Doc` a partir de un objeto `meddocan.data.docs_iterators.DocWithBratPair` utilizando el `MedocanPipeline`.
+Lo que hace `GsDocs` es crear un objetó`Doc` a partir de un objeto `meddocan.data.docs_iterators.DocWithBratPair` utilizando el `MedocanPipeline`.
 
-En una primera fase el ``MedocanPipeline`` recibe el texto contenido en el fichero original *S0004-06142005000500011-1.txt* como argumento.  
+En una primera fase el ``MeddocanPipeline`` recibe el texto contenido en el fichero original *S0004-06142005000500011-1.txt* como argumento.  
 
 Miramos el contenido del fichero utilizando el atributo `doc`.
 
@@ -116,7 +116,7 @@ pd.DataFrame(gs_docs.nlp.pipe_names, columns=["componentes"]).T
 1. El primer elemento de nuestro pipeline es el tokenizer seguido del componente `missaligned_splitter` que nos permite afinar la tokenización de tal forma que cada token se corresponda exactamente con una etiqueta al formato BIO.
 2. El segundo componente, `line_sentencizer` permite partir el texto en frases. En este caso se corresponde a un párrafo.
 3. El componente `predictor` nos permite utilizar un modelo de Flair de tal forma que se integra al pipeline. De esa mañera se puede hacer directamente predicciones utilizando un objeto `Doc` y un modelo entrenado previamente.
-4. El componente `write_methods` añade los métodos ``to_connl03`` y ``to_ann`` al objecto ``Doc`` que sirven a crear los ficheros necesarios para:
+4. El componente `write_methods` añade los métodos ``to_connl03`` y ``to_ann`` al objetó ``Doc`` que sirven a crear los ficheros necesarios para:
     - Crear un `flair.data.Corpus` que va a permitir entrenar un modelo con Flair.
     - Evaluar un modelo utilizando el script de evaluación propio de la competición.
 
@@ -205,7 +205,7 @@ Options:
 
 +++
 
-La entidades anotadas se obtienen utilizando el atributo ``ents`` de nuestro objecto ``spacy.tokens.Doc``.
+La entidades anotadas se obtienen utilizando el atributo ``ents`` de nuestro objetó``spacy.tokens.Doc``.
 
 ```{code-cell} ipython3
 pd.DataFrame(
@@ -216,7 +216,7 @@ pd.DataFrame(
 
 Nuestras entidades son en este ejemplo compuestas del tag y del la position de la entidad en la cadena de caracteres original.
 
-Ahora si queremos algo más visual podemos utilizar la function ``spacy.displacy.render()`` que nos permite trabajar con el objecto ``Doc``.
+Ahora si queremos algo más visual podemos utilizar la function ``spacy.displacy.render()`` que nos permite trabajar con el objetó``Doc``.
 
 ```{code-cell} ipython3
 displacy.render(gold, style="ent")
@@ -322,9 +322,9 @@ nlp = meddocan_pipeline("flair/ner-english-fast")
 sys = nlp(gold.text)
 ```
 
-El objeto sys es un objeto ``spacy.tokens.Doc`` al igual de el objeto ``gold``.  
+El objeto ``sys`` es un objeto ``spacy.tokens.Doc`` al igual de el objeto ``gold``.  
 
-La única diferencia entre sys y gold es que sys contiene entidades que le son asignadas por un modelo entrenado con los algoritmos de Flair, mientras que en el caso de gold provienen de la lectura de un archivo *.ann*.
+La única diferencia entre ``sys`` y ``gold`` es que ``sys`` contiene entidades que le son asignadas por un modelo entrenado con los algoritmos de Flair, mientras que en el caso de ``gold`` provienen de la lectura de un archivo *.ann*.
 
 Entonces para visualizar las predicciones de nuestro model, lo tenemos igual de fácil que antes. Basta utilizar la function ``spacy.displacy.render()``.
 
@@ -333,7 +333,7 @@ displacy.render(sys, style="ent")
 ```
 
 ```{note}
-Vemos a ojo que el modelo de Flair `flair/ner-english-fast´ parece detectar correctamente el span de ciertas entidades que el etiqueta como ``LOC`` o ``PERS`` y que efectivamente son direcciones o personas. 
+Vemos a ojo que el modelo de Flair ``flair/ner-english-fast`` parece detectar correctamente el span de ciertas entidades que el etiqueta como ``LOC`` o ``PERS`` y que efectivamente son direcciones o personas. 
 ```
 
 +++

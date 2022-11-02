@@ -75,7 +75,6 @@ Ilustración de la primera agrupación de subpalabras. La entrada "The Eiffel To
 
 Para entrenar esta arquitectura, los trabajos anteriores suelen utilizar el optimizador AdamW {cite}`Loshchilov2019DecoupledWD`, un ritmo de aprendizaje muy pequeña y un número pequeño y fijo de iteraciones como criterio de parada codificado {cite}`Lample2019CrosslingualLM`. En Flert adoptan una estrategia de entrenamiento de un ciclo {cite}`Smith2018ADA`, inspirada en la implementación de los transformadores HuggingFace {cite}`Wolf2019HuggingFacesTS`, en la que el ritmo de aprendizaje disminuye linealmente hasta llegar a 0 al final del entrenamiento. Aquí realizamos un calentamiento lineal antes del decrecimiento de el ritmo de aprendizaje (Linear Warmup With Linear Decay). {numref}`fine-tuning parameters` enumera los parámetros de arquitectura que utilizamos en todos nuestros experimentos.
 
-Traducción realizada con la versión gratuita del traductor www.DeepL.com/Translator
 
 ```{table} Parámetros utilizados para el ajuste fino
 :name: fine-tuning parameters

@@ -89,7 +89,7 @@ Evaluación de la estrategia basada en características. La evaluación se reali
 
 ### Flair baseline
 
-De la misma mañera usamos los embeddings contextuales de Flair {cite}`Akbik2018ContextualSE` como entrada de la arquitectura LSTM-CRF {cite:p}`Huang2015BidirectionalLM`. En la {numref}`Appendix-3` del anexo se dan más detalles sobre los parámetros y la arquitectura. Esa arquitectura nos sirve de referencia con los resultados anteriores obtenidos con la datos jurídicos.
+De la misma mañera usamos los embeddings contextuales de Flair {cite}`Akbik2018ContextualSE` como entrada de la arquitectura LSTM-CRF {cite:p}`Huang2015BidirectionalLM`. En la {numref}`Appendix-3` del anexo se dan más detalles sobre los parámetros y la arquitectura. Esa arquitectura nos sirve de referencia con los resultados anteriores obtenidos con los datos jurídicos.
 
 Los resultados se encuentran en la {numref}`tabla %s <flair approach>`.
 
@@ -106,7 +106,7 @@ Evaluación de la estrategia basada en características con los embeddings de Fl
 Evaluamos ambos enfoques en cada variante en todas las combinaciones posibles añadiendo embeddings de palabras estándar "(+ WE)" y características a nivel de documento "(+ Contexto)". Cada configuración se ejecuta tres veces para reportar el promedio de $F_{1} micro$ y la desviación estándar para cada una de las 3 opciones: NER, Span y Span Merged.  
 
 **Results**
-: Para el ajuste fino, vemos que la adición de embeddings estáticos, así como el uso del contexto, parece bastante convincente con BETO pero no realmente con XLMR (véase {numref}`tabla %s <finetuning approach>`). Sin embargo, hay que señalar que, por falta de recursos, no hemos podido realizar el entrenamiento con la configuración "XLMR + WE + CONTEXT" que podia haber dado buenos resultados.
+: Para el ajuste fino, vemos que la adición de embeddings estáticos, así como el uso del contexto, parece bastante convincente con BETO pero no realmente con XLMR (véase {numref}`tabla %s <finetuning approach>`). Sin embargo, hay que señalar que, por falta de recursos, no hemos podido realizar el entrenamiento con la configuración "XLMR + WE + CONTEXT" que podía haber dado buenos resultados.
 Para el enfoque basado en características, encontramos que la adición de embeddings de palabras produce muy claramente los mejores resultados (véase {numref}`tabla %s <feature-based approach>`).
 Para el modelo de referencia con "Flair + LSTM CRF" la adición de embeddings estáticos "(+ WE)" tiene un impacto negativo (véase {numref}`tabla %s <flair approach>`).
 
