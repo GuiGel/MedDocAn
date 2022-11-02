@@ -105,4 +105,9 @@ with c22:
     sys_doc = get_sys_doc(model, text)
     visualize_ner(sys_doc, labels=labels, key="sys", title="System")
 
-st.text(f"Analyzed using Flair model {Path(model).parents[1].name}")
+st.markdown(
+    f"""
+**Analyzed using Flair model {Path(model).parents[1].name}**.   
+{model}
+"""
+)

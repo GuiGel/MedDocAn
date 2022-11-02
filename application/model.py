@@ -1,6 +1,8 @@
 import spacy
 import streamlit as st
 
+from meddocan.data.containers import BratSpan
+from meddocan.data.utils import set_ents_from_brat_spans
 from meddocan.language.pipeline import meddocan_pipeline
 
 
@@ -19,10 +21,6 @@ def get_sys_doc(model_name: str, text: str) -> spacy.tokens.Doc:
     """Process a text and create a Doc object."""
     nlp = load_model(model_name)
     return nlp(text)
-
-
-from meddocan.data.containers import BratSpan
-from meddocan.data.utils import set_ents_from_brat_spans
 
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
