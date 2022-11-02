@@ -868,11 +868,11 @@ Con los datos en esta forma, ahora podemos agruparlos por los tokens de entrada 
 
 Podemos observar varios patrones en esta lista:
 
-. El espacio en blanco tiene la mayor pérdida total, lo que no es sorprendente, ya que también es el símbolo más común de la lista. Sin embargo, su pérdida media es menor que la de los demás símbolos de la lista a parte de ["de", "y", "la", "/", "en"] que se encuentra en el mismo caso. Esto significa que el modelo no tiene problemas para clasificarlos.
+- El espacio en blanco tiene la mayor pérdida total, lo que no es sorprendente, ya que también es el símbolo más común de la lista. Sin embargo, su pérdida media es menor que la de los demás símbolos de la lista a parte de ["de", "y", "la", "/", "en"] que se encuentra en el mismo caso. Esto significa que el modelo no tiene problemas para clasificarlos.
 
-. Palabras como "-", "años", "meses" y "dos" aparecen con relativa frecuencia. A menudo aparecen junto a entidades con nombre y a veces forman parte de ellas, lo que explica que el modelo pueda confundirlas.
+- Palabras como "-", "años", "meses" y "dos" aparecen con relativa frecuencia. A menudo aparecen junto a entidades con nombre y a veces forman parte de ellas, lo que explica que el modelo pueda confundirlas.
 
-. Algunas palabras como "pareja", "Merc", "matern" o "Edi" tienen una pérdida media muy alta a la vez que son poco frecuentes. Los investigaremos más a fondo.
+- Algunas palabras como "pareja", "Merc", "matern" o "Edi" tienen una pérdida media muy alta a la vez que son poco frecuentes. Los investigaremos más a fondo.
 
 También podemos agrupar las identificaciones de las etiquetas y observar las pérdidas de cada clase:
 
