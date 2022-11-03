@@ -975,7 +975,7 @@ for sample in get_samples(df_tmp):
     display(sample.T)
 ```
 
-Otra cosa que hemos observado antes es que los tokens "pareja", "Merc" o "matern" tienen una pérdida relativamente alta. Veamos algunos ejemplos de secuencias con un paréntesis de apertura:
+Otra cosa que hemos observado antes es que los tokens "pareja", "Merc" o "matern" tienen una pérdida relativamente alta. Veamos algunos ejemplos de secuencias con el token "pareja":
 
 ```{code-cell} ipython3
 pd.set_option('display.max_rows', None)

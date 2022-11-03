@@ -150,7 +150,6 @@ Evaluación de las mejoras en score $F_{1} micro$ en los datos de test en compar
 
 ## Conclusión
 
-El sistema basado en Transfer Learning y el uso de Transformadores (BERT / XLMR-Large) nos ha permitido obtener muy buenos resultados sobre el dataset MEDDOCAN, mostrando un score $F_{1} micro$ superior en todas las variantes de evaluación en comparación con el uso de las tecnologías precedentes.
-No obstante esa mejorara conlleva un tiempo de entrenamiento más largo así que modelos con más parámetros y entonces más voluminosos (véase la {numref}`Tabla %s <model parameters>`).  
+El sistema basado en Transfer Learning y el uso de Transformadores (BERT / XLMR-Large) nos ha permitido obtener muy buenos resultados sobre el conjunto de datos MEDDOCAN, pero nos ha mostrado un score $F_{1} micro$ que no siempre es superior en comparación con el uso de las tecnologías precedentes como los embeddings contextuales de Flair. No obstante esa mejora relativa conlleva un tiempo de entrenamiento más largo así que modelos con más parámetros y entonces más voluminosos  (véase la {numref}`Tabla %s <model parameters>`).  
 
 La anonimización de un documento en bruto utilizando uno de nuestros modelos se trata en la {numref}`meddocan-pipeline` del apéndice.
