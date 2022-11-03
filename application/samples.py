@@ -6,8 +6,8 @@ import streamlit as st
 from github import Github
 from github.ContentFile import ContentFile
 
-GIT_REPO = "PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script"
-FOLDER_PATH = "gold/brat/sample"
+GIT_REPO = "PlanTL-GOB-ES/SPACCC_MEDDOCAN"
+FOLDER_PATH = "corpus/test/brat"
 
 
 @st.cache(allow_output_mutation=True, suppress_st_warning=True)
@@ -18,10 +18,10 @@ def get_samples(
     branch: str = "master",
 ) -> Dict[str, ContentFile]:
     files = github_repository_file_names(
-        repository=GIT_REPO,
-        path="gold/brat/sample",
+        repository=repository,
+        path=path,
         git_token=git_token,
-        branch="master",
+        branch=branch,
     )
     return files
 
