@@ -295,6 +295,20 @@ Volviendo a nuestra comparación de XLM-R y BERT, ahora entendemos que SentenceP
 
 +++
 
+### El Tokenizador SentencePiece
+
++++
+
+El tokenizador de SentencePiece se basa en un tipo de segmentación de subpalabras llamado Unigram y codifica cada texto de entrada como una secuencia de caracteres Unicode. Esta última característica es especialmente útil para los corpus multilingües, ya que permite a SentencePiece ser agnóstico respecto a los acentos, la puntuación y el hecho de que muchos idiomas, como el japonés, no tienen caracteres de espacio en blanco. Otra característica especial de SentencePiece es que a los espacios en blanco se les asigna el símbolo Unicode U+2581, o el carácter ▁, también llamado carácter de cuarto de bloque inferior. Esto permite a SentencePiece destokenizar una secuencia sin ambigüedades y sin depender de pretokenizadores específicos del idioma. En nuestro ejemplo de la sección anterior, por ejemplo, podemos ver que WordPiece ha perdido la información de que no hay espacios en blanco entre "York" y "!". Por el contrario, SentencePiece conserva los espacios en blanco en el texto tokenizado, de modo que podemos volver a convertirlo en texto crudo sin ambigüedades:
+
+```{code-cell} ipython3
+"".join(xlmr_tokens).replace(u"\u2581", " ")
+```
+
+Ahora que entendemos cómo funciona SentencePiece, vamos a ver cómo podemos codificar nuestro sencillo ejemplo en una forma adecuada para NER. Lo primero que hay que hacer es cargar el modelo preentrenado con una cabeza de clasificación de tokens. Pero en lugar de cargar esta cabeza directamente desde HuggingFace Transformers, ¡la construiremos nosotros mismos! Profundizando en la API de HuggingFace Transformers, podemos hacer esto con sólo unos pocos pasos.
+
++++
+
 ## Transformadores para el NER
 
 +++
@@ -781,9 +795,9 @@ Funciona. Pero nunca debemos confiar demasiado en el rendimiento basándonos en 
 
 Vamos a dedicar un minuto a investigar los errores de nuestro modelo. Un análisis exhaustivo de los errores de nuestro modelo es uno de los aspectos más importantes a la hora de entrenar y depurar transformadores (y modelos de aprendizaje automático en general). Hay varios modos de fallo en los que puede parecer que el modelo funciona bien, mientras que en la práctica tiene algunos fallos graves. Algunos ejemplos en los que el entrenamiento puede fallar son
 
-. Podríamos enmascarar accidentalmente demasiados tokens y también enmascarar algunas de nuestras etiquetas para obtener una caída de pérdidas realmente prometedora.  
-. La función ``compute_metrics()`` podría tener un error que sobrestima el verdadero rendimiento.  
-. Podríamos incluir la clase cero o la entidad O en NER como una clase normal, lo que sesgaría mucho la precisión y la puntuación F1, ya que es la clase mayoritaria por un gran margen.
+- Podríamos enmascarar accidentalmente demasiados tokens y también enmascarar algunas de nuestras etiquetas para obtener una caída de pérdidas realmente prometedora.  
+- La función ``compute_metrics()`` podría tener un error que sobrestima el verdadero rendimiento.  
+- Podríamos incluir la clase cero o la entidad O en NER como una clase normal, lo que sesgaría mucho la precisión y la puntuación F1, ya que es la clase mayoritaria por un gran margen.
 
 Cuando el modelo funciona mucho peor de lo esperado, el examen de los errores puede aportar información útil y revelar fallos que serían difíciles de detectar con sólo mirar el código. E incluso si el modelo funciona bien y no hay errores en el código, el análisis de errores sigue siendo una herramienta útil para entender los puntos fuertes y débiles del modelo. Estos son aspectos que siempre debemos tener en cuenta cuando desplegamos un modelo en un entorno de producción.
 

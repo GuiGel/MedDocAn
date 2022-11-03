@@ -204,10 +204,10 @@ Visualize the results for the finetuning strategy with different flavours and th
 
 ```{code-cell} ipython3
 data = {
-        ("XLMR LARGE", "transformador lineal"): dfs[("FINETUNE", "XLMRL")],
-        ("XLMR LARGE", "+ context"): dfs[("FINETUNE", "XLMRL + CONTEXT")],
-        ("XLMR LARGE", "+ we"): dfs[("FINETUNE", "XLMRL + WE")],
-        ("BETO", "transformador lineal"): dfs[("FINETUNE", "BETO")],
+        ("XLMR LARGE", "Transformador lineal"): dfs[("FINETUNE", "XLMRL")],
+        ("XLMR LARGE", "+ Context"): dfs[("FINETUNE", "XLMRL + CONTEXT")],
+        ("XLMR LARGE", "+ WE"): dfs[("FINETUNE", "XLMRL + WE")],
+        ("BETO", "Transformador lineal"): dfs[("FINETUNE", "BETO")],
         ("BETO", "+ Context"): dfs[("FINETUNE", "BETO + CONTEXT")],
         ("BETO", "+ WE"): dfs[("FINETUNE", "BETO + WE")],
         ("BETO", "+ WE + Context"): dfs[("FINETUNE", "BETO + WE + CONTEXT")],
