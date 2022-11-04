@@ -7,7 +7,7 @@ license = "MIT License"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8,<3.11"
 flair = "^0.11"
 spacy = "^3.2.3"
 typer = {extras = ["all"], version = "^0.4.1"}
@@ -24,6 +24,7 @@ cookiecutter = "^2.1.1"
 pyppeteer = "^1.0.2"
 fastcore = "^1.5.27"
 PyGithub = "^1.56"
+pandas-stubs = "^1.5.1"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
