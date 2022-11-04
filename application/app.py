@@ -190,14 +190,12 @@ def main():
     """
     )
 
-
     app = App()
 
     app._max_width_()
 
     with st.sidebar:
         names = app.chose_reports()
-
 
     if names:
         c11, c12, c13 = st.columns([0.5, 0.5, 0.3])
