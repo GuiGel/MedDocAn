@@ -23,7 +23,7 @@ The evaluation of automatic predictions had two different scenarios or sub-track
 
 1.  **NER offset and entity type classification**: the first sub-track was focused
 on the identification and classification of sensitive information (e.g., patient
-names, telephones, addresses, etc.).  
+names, telephones, addresses, numbers, etc.).  
 
 2.  **Sensitive span detection**: the second sub-track was focused on the detection
 of sensitive text more specific to the practical scenario necessary for the
@@ -169,19 +169,18 @@ dataset = "dev"
 def get_results(metric: str = "f1", dataset: str = "dev") -> pd.DataFrame:
     get_scores_as_df_with_seed = partial(get_scores_as_df,  [1, 12, 33])
     get_folders_all = {
-        # ("LSTM CRF", "FLAIR + WE"): lambda seed: base_folder / f"experiments/corpus_sentence_flair_we_lstm_crf/results_seed_{seed}/evals/{dataset}",
-        ("LSTM CRF", "FLAIR"): lambda seed: base_folder / f"experiments/corpus_sentence_flair_lstm_crf/an_wh_rs_True_dpt_0.08716810045694838_emb_seed_{seed}_Stack(0_lm-es-forward.pt, 1_lm-es-backward.pt)_hdn_sz_256_lr_0.1_it_150_bs_4_opti_SGD_pjct_emb_True_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",
-        ("LSTM CRF", "BETO + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_context_lstm_crf/an_wh_rs_False_dpt_0_emb_beto_Ly_all_mean_context_seed_{seed}_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",
-        ("LSTM CRF", "BETO"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_lstm_crf/an_wh_rs_False_dpt_0_emb_beto_Ly_all_mean_seed_{seed}_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",
-        ("LSTM CRF", "BETO + WE + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_context_we_lstm_crf/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-beto_Ly_all_mean_context_seed_{seed})_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",
-        ("LSTM CRF", "BETO + WE"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_we_lstm_crf/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-beto_Ly_all_mean_seed_{seed})_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",
-        ("FINETUNE", "BETO + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_context_finetune/an_wh_rs_False_dpt_0_emb_beto-cased-context_FT_True_Ly_-1_seed_{seed}_lr_5e-06_it_150_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.1/0/evals/{dataset}",
-        ("FINETUNE", "BETO + WE + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_context_we_finetune_it_150/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-beto-cased_FT_True_Ly_-1_seed_{seed})_lr_5e-06_it_150_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.1/0/evals/{dataset}",
         ("FINETUNE", "BETO"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_finetune_it_150/an_wh_rs_False_dpt_0_emb_beto-cased_FT_True_Ly_-1_seed_{seed}_lr_5e-06_it_150_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.1/0/evals/{dataset}",
+        ("FINETUNE", "BETO + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_context_finetune/an_wh_rs_False_dpt_0_emb_beto-cased-context_FT_True_Ly_-1_seed_{seed}_lr_5e-06_it_150_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.1/0/evals/{dataset}",
         ("FINETUNE", "BETO + WE"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_we_finetune_it_150/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-beto-cased_FT_True_Ly_-1_seed_{seed})_lr_5e-06_it_150_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.1/0/evals/{dataset}",
-        ("FINETUNE", "XLMRL + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_xlmrl_context_finetune/an_wh_rs_False_dpt_0_emb_xlm-roberta-large-cased-context_FT_True_Ly_-1_seed_{seed}_lr_5e-06_it_40_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.1/0/evals/{dataset}",
+        ("FINETUNE", "BETO + WE + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_context_we_finetune_it_150/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-beto-cased_FT_True_Ly_-1_seed_{seed})_lr_5e-06_it_150_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.1/0/evals/{dataset}",
         ("FINETUNE", "XLMRL"): lambda seed: base_folder / f"experiments/corpus_sentence_xlmrl_finetune/an_wh_rs_False_dpt_0_emb_xlm-roberta-large-cased_FT_True_Ly_-1_seed_{seed}_lr_5e-06_it_40_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.05/0/evals/{dataset}",
         ("FINETUNE", "XLMRL + WE"): lambda seed: base_folder / f"experiments/corpus_sentence_xlmrl_we_finetune/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-xlm-roberta-large-cased_FT_True_Ly_-1_seed_{seed})_lr_5e-06_it_40_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.05/0/evals/{dataset}",
+        ("FINETUNE", "XLMRL + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_xlmrl_context_finetune/an_wh_rs_False_dpt_0_emb_xlm-roberta-large-cased-context_FT_True_Ly_-1_seed_{seed}_lr_5e-06_it_40_bs_4_opti_AdamW_pjct_emb_False_sdl_LinearSchedulerWithWarmup_use_crf_False_use_rnn_False_wup_0.1/0/evals/{dataset}",
+        ("LSTM CRF", "BETO"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_lstm_crf/an_wh_rs_False_dpt_0_emb_beto_Ly_all_mean_seed_{seed}_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",
+        ("LSTM CRF", "BETO + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_context_lstm_crf/an_wh_rs_False_dpt_0_emb_beto_Ly_all_mean_context_seed_{seed}_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",        
+        ("LSTM CRF", "BETO + WE"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_we_lstm_crf/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-beto_Ly_all_mean_seed_{seed})_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",
+        ("LSTM CRF", "BETO + WE + CONTEXT"): lambda seed: base_folder / f"experiments/corpus_sentence_bert_context_we_lstm_crf/an_wh_rs_False_dpt_0_emb_Stack(0_es-wiki-fasttext-300d-1M, 1_1-beto_Ly_all_mean_context_seed_{seed})_hdn_sz_256_lr_0.1_it_500_bs_4_opti_SGD_pjct_emb_False_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",
+        ("LSTM CRF", "FLAIR"): lambda seed: base_folder / f"experiments/corpus_sentence_flair_lstm_crf/an_wh_rs_True_dpt_0.08716810045694838_emb_seed_{seed}_Stack(0_lm-es-forward.pt, 1_lm-es-backward.pt)_hdn_sz_256_lr_0.1_it_150_bs_4_opti_SGD_pjct_emb_True_rnn_ly_2_sdl_AnnealOnPlateau_use_crf_True_use_rnn_True/0/evals/{dataset}",
     }
     dfs_all = {k: get_scores_as_df_with_seed(v).T.describe().T[["mean", "std"]].loc[pd.IndexSlice[:, [f"{metric}"]], :] for k,v in get_folders_all.items()}
 
@@ -196,7 +195,7 @@ def get_results(metric: str = "f1", dataset: str = "dev") -> pd.DataFrame:
     return dfs
 
 dfs = get_results()
-result_metrics = pd.concat(dfs.values(), axis=1, keys=sorted(dfs.keys()), names=["Embedding", "Estrategia"]).T
+result_metrics = pd.concat(dfs.values(), axis=1, keys=dfs.keys(), names=["Embedding", "Estrategia"]).T
 visualize_df(result_metrics)
 ```
 
@@ -244,7 +243,7 @@ glue("table_flair_dev", visualize_df(df))
 
 ```{code-cell} ipython3
 data = get_results(dataset="test")
-result_metrics = pd.concat(data.values(), axis=1, keys=sorted(data.keys()), names=["Estrategia", "Embeddings"]).T
+result_metrics = pd.concat(data.values(), axis=1, keys=data.keys(), names=["Estrategia", "Embeddings"]).T
 
 glue("table_test", visualize_df(result_metrics))
 ```
