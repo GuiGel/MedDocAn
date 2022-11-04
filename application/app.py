@@ -21,9 +21,9 @@ from meddocan.language.colors import displacy_colors
 
 flair.device = torch.device("cpu")
 
-# ------ APP
+# ------ APP PAGE CONFIG
 st.set_page_config(
-    page_title="Anonimización aplicada al ámbito medico",
+    page_title="Anonimización applied to the medical field",
     page_icon="👨🏼‍⚕️",
     layout="wide",
 )
@@ -178,68 +178,70 @@ class App:
             )
 
 
-st.title("👨🏼‍⚕️ Anonimización aplicada al ámbito medico")
-st.markdown(
-    """     
--   The *MEDDOCAN* app is an easy-to-use interface built in Streamlit for the MedDocAn library!
--   It use Spacy and Flair to perform NER on the the SPACCC MEDDOCAN dataset.
+def main():
 
-----
-"""
-)
+    st.title("👨🏼‍⚕️ Anonimización aplicada al ámbito medico")
+    st.markdown(
+        """     
+    -   The *MEDDOCAN* app is an easy-to-use interface built in Streamlit for the MedDocAn library!
+    -   It use Spacy and Flair to perform NER on the the SPACCC MEDDOCAN dataset.
 
-
-app = App()
-
-app._max_width_()
-
-with st.sidebar:
-    names = app.chose_reports()
+    ----
+    """
+    )
 
 
-if names:
-    c11, c12, c13 = st.columns([0.5, 0.5, 0.3])
-    with c11:
-        st.markdown(f"File")
-    with c12:
-        st.markdown(f"f1 micro")
-    st.markdown("---")
+    app = App()
 
-    for i, name in enumerate(names):
+    app._max_width_()
 
-        text = app.get_text(name)
-        annotations = app.get_annotations(name)
+    with st.sidebar:
+        names = app.chose_reports()
 
-        # ------ Predict
-        gold = app.get_gold(text, annotations)
-        sys = app.get_sys(MODEL, text)
 
-        # Compute metrics
-        df = app.compute_scores(gold, sys)
-
+    if names:
         c11, c12, c13 = st.columns([0.5, 0.5, 0.3])
         with c11:
-            st.markdown(f"**{name}**")
+            st.markdown(f"File")
         with c12:
-            st.markdown(f"**{df['SubTrack1']['f1']}**")
-        with c13:
-            visualize = st.button(
-                f"Visualize",
-                key=name,
-                help="""Click on this button to view the reference document \
-                    and the prediction made by the model. To remove this view\
-                    , simply deselect the corresponding file in the sidebar.\
-                """,
-            )
-
-        if visualize:
-            app._visualize_chosen_report(text, annotations)
-
-            with st.expander(f"Detailed metrics"):
-                st.table(df)
-
-            # ------ Visualize NER
-            with st.expander("Visualize NER"):
-                app.visualize_ner(gold, sys)
-
+            st.markdown(f"f1 micro")
         st.markdown("---")
+
+        for i, name in enumerate(names):
+
+            text = app.get_text(name)
+            annotations = app.get_annotations(name)
+
+            # ------ Predict
+            gold = app.get_gold(text, annotations)
+            sys = app.get_sys(MODEL, text)
+
+            # Compute metrics
+            df = app.compute_scores(gold, sys)
+
+            c11, c12, c13 = st.columns([0.5, 0.5, 0.3])
+            with c11:
+                st.markdown(f"**{name}**")
+            with c12:
+                st.markdown(f"**{df['SubTrack1']['f1']}**")
+            with c13:
+                visualize = st.button(
+                    f"Visualize",
+                    key=name,
+                    help="""Click on this button to view the reference document \
+                        and the prediction made by the model. To remove this view\
+                        , simply deselect the corresponding file in the sidebar.\
+                    """,
+                )
+
+            if visualize:
+                app._visualize_chosen_report(text, annotations)
+
+                with st.expander(f"Detailed metrics"):
+                    st.table(df)
+
+                # ------ Visualize NER
+                with st.expander("Visualize NER"):
+                    app.visualize_ner(gold, sys)
+
+            st.markdown("---")
