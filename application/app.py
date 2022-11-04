@@ -23,7 +23,7 @@ flair.device = torch.device("cpu")
 
 # ------ APP PAGE CONFIG
 st.set_page_config(
-    page_title="Anonimización applied to the medical field",
+    page_title="Automatic anonimization of clinical reports",
     page_icon="👨🏼‍⚕️",
     layout="wide",
 )
