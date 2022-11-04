@@ -28,7 +28,7 @@ st.set_page_config(
     layout="wide",
 )
 
-MODEL = "GuiGel/meddocan"
+MODEL = "GuiGel/meddocan-flair-lstm-crf"
 
 
 class App:
