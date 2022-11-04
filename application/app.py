@@ -243,3 +243,7 @@ def main():
                     app.visualize_ner(gold, sys)
 
             st.markdown("---")
+
+
+if __name__ == "__main__":
+    main()
