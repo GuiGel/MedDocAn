@@ -106,8 +106,8 @@ Evaluación de la estrategia basada en características con los embeddings de Fl
 Evaluamos ambos enfoques en cada variante en todas las combinaciones posibles añadiendo embeddings de palabras estándar "(+ WE)" y características a nivel de documento "(+ Contexto)". Cada configuración se ejecuta tres veces para reportar el promedio de $F_{1} micro$ y la desviación estándar para cada una de las 3 opciones: NER, Span y Span Merged.  
 
 **Results**
-: Para el ajuste fino, vemos que la adición de embeddings estáticos, así como el uso del contexto, parece bastante convincente con BETO pero no realmente con XLMR (véase {numref}`tabla %s <finetuning approach>`). Sin embargo, hay que señalar que, por falta de recursos, no hemos podido realizar el entrenamiento con la configuración "XLMR + WE + CONTEXT" que podía haber dado buenos resultados.
-Para el enfoque basado en características, encontramos que la adición de embeddings de palabras produce muy claramente los mejores resultados (véase {numref}`tabla %s <feature-based approach>`).
+: Para el ajuste fino, vemos que la adición de embeddings estáticos, así como el uso del contexto, no parecen mejorar los resultados tanto para BETO como para XLMR (véase {numref}`tabla %s <finetuning approach>`). La configuración "WE + CONTEXT" parece dar los mejores resultados. Sin embargo, hay que señalar que, por falta de recursos, no hemos podido realizar el entrenamiento con la configuración "XLMR + WE + CONTEXT" que podía haber dado buenos resultados. Vemos que el uso de XLMR permite mejorar los resultados en comparación con BETO.
+Para el enfoque basado en características, encontramos también que la configuración "WE + CONTEXT" produce muy claramente los mejores resultados (véase {numref}`tabla %s <feature-based approach>`).
 Para el modelo de referencia con "Flair + LSTM CRF" la adición de embeddings estáticos "(+ WE)" tiene un impacto negativo (véase {numref}`tabla %s <flair approach>`).
 
 (comparative_study)=
@@ -125,7 +125,7 @@ Los resultados de la evaluación se recogen en la {numref}`Tabla %s <table test>
 Evaluación comparativa de las mejores configuraciones de los enfoques de ajuste fino y basados en características en los datos de test.
 ```
 
-El uso de Transformers sobre el dataset Meddocan nos permite una ganancia muy ligera en comparación con el uso de Flair (véase la {numref}`Tabla %s <flair comparison>`).
+El uso de Transformers sobre el dataset Meddocan nos permite una ganancia en todas las configuraciones en comparación con el uso de Flair (véase la {numref}`Tabla %s <flair comparison>`). El mejor modelo se obtiene con la configuración "FINETUNE + XMLR".
 
 ``````{admonition} Note
 :class: tip
@@ -139,7 +139,7 @@ Con los resultados obtenidos, Flert habría ganado la competición {cite}`Marimo
 ``````
 
 En cuanto a los enfoques de "FINETUNE + LINEAR" y basado en "FEATURE BASED + LSTM CRF", los resultados son bastante similares, aunque el segundo enfoque se ve afectado negativamente por el contexto y el primero positivamente.
-Por otro lado, la estrategia "FEATURE BASED + LSTM CRF + CONTEXTO + WE" es la más beneficiada con la mejor puntuación $F_{1} micro$ en las 3 tareas.
+Por otro lado, la estrategia "FEATURE BASED + LSTM CRF + CONTEXTO + WE" es la más beneficiada con la mejor puntuación $F_{1} micro$ en las 3 tareas si usamos BETO. Como no hemos usado la estrategia "FEATURE BASED + LSTM CRF" para XLMR nos podemos concluir.
 Al contrario de los resultados obtenidos por los autores de Flert {cite}`Schweter2020FLERTDF` los resultados no son tan claros entre cada opción como en el caso del dataset CONLL03 {cite}`Sang2003IntroductionTT`.
 
 ```{glue:figure} compare_with_flair
@@ -150,6 +150,6 @@ Evaluación de las mejoras en score $F_{1} micro$ en los datos de test en compar
 
 ## Conclusión
 
-El sistema basado en Transfer Learning y el uso de Transformadores (BERT / XLMR-Large) nos ha permitido obtener muy buenos resultados sobre el conjunto de datos MEDDOCAN, pero nos ha mostrado un score $F_{1} micro$ que no siempre es superior en comparación con el uso de las tecnologías precedentes como los embeddings contextuales de Flair. No obstante esa mejora relativa conlleva un tiempo de entrenamiento más largo así que modelos con más parámetros y entonces más voluminosos  (véase la {numref}`Tabla %s <model parameters>`).  
+El sistema basado en Transfer Learning y el uso de Transformadores (BERT / XLMR-Large) nos ha permitido obtener muy buenos resultados sobre el conjunto de datos MEDDOCAN, nos ha mostrado un score $F_{1} micro$ superior en comparación con el uso de las tecnologías precedentes como los embeddings contextuales de Flair. No obstante esa mejora conlleva un tiempo de entrenamiento más largo así que modelos con más parámetros y entonces más voluminosos  (véase la {numref}`Tabla %s <model parameters>`).  
 
 La anonimización de un documento en bruto utilizando uno de nuestros modelos se trata en la {numref}`meddocan-pipeline` del apéndice.
