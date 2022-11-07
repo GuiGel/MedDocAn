@@ -735,7 +735,7 @@ Vamos a cargar un modelo que hemos entrenado previamente con todos los datos y c
 ```{code-cell} ipython3
 from pathlib import Path
 import torch
-pretrained_loc = "/home/wave/Project/MedDocAn/training/xlm-roberta-large-finetuned-meddocan-big"
+pretrained_loc = "GuiGel/xlm-roberta-large-finetuned-meddocan"
 model = XLMRobertaForTokenClassification.from_pretrained(pretrained_loc).to(device)
 ```
 
