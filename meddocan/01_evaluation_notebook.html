@@ -1,0 +1,789 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Evaluation &#8212; Anonimización aplicada al ámbito médico</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo-serikat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Anonimización aplicada al ámbito médico</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_evaluation.html">
+   1. Evaluación
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_data.html">
+   2. Clinical Corpus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_training.html">
+   3. Entrenamiento
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   4. Referencias
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="a.html">
+   5. Apéndice
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_transfer_learning.html">
+     5.1. El concepto de transfer learning en NLP
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_training.html">
+     5.2. Training
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_code.html">
+     5.3. Código
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_transformers.html">
+     5.4. Transformers para NER
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/GuiGel/MedDocAn/cdti?urlpath=tree/cdti/meddocan/01_evaluation_notebook.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn/issues/new?title=Issue%20on%20page%20%2Fmeddocan/01_evaluation_notebook.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/meddocan/01_evaluation_notebook.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../_sources/meddocan/01_evaluation_notebook.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Evaluation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">myst_nb</span> <span class="kn">import</span> <span class="n">glue</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="evaluation">
+<h1>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">meddocan.evaluation.classes</span> <span class="kn">import</span> <span class="n">BratAnnotation</span><span class="p">,</span> <span class="n">EvaluateSubtrack1</span><span class="p">,</span> <span class="n">EvaluateSubtrack2</span><span class="p">,</span> <span class="n">EvaluateSubtrack2merged</span><span class="p">,</span> <span class="n">Evaluate</span><span class="p">,</span> <span class="n">Span</span>
+
+
+<span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;https://api.github.com/repos/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script/contents&quot;</span>
+<span class="c1"># The api where the text can be reach.</span>
+
+<span class="k">def</span> <span class="nf">get_sample</span><span class="p">(</span><span class="n">base</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="c1"># Get sample content from the folder located at https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script/tree/master/gold/brat/sample via the Github api.</span>
+    <span class="c1"># Use the Stackoverflow reponse: https://stackoverflow.com/questions/38491722/reading-a-github-file-using-python-returns-html-tags</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">base</span><span class="p">,</span> <span class="n">name</span><span class="p">])</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">req</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">requests</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="c1"># the response is JSON</span>
+        <span class="c1"># req is now a dict with keys: name, encoding, url, size ...</span>
+        <span class="c1"># and content. But it is encoded with base64.</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">req</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Content was not found&#39;</span><span class="p">)</span>
+
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">write_text_to_tempdir</span><span class="p">(</span><span class="n">seq_file_text</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    <span class="c1"># Context manager that write a sequence of (filename, text content) tuple</span>
+    <span class="c1"># to a temporary directory and return the directory name.</span>
+    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmpdirname</span><span class="p">:</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tmpdirname</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">loc</span><span class="p">,</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">seq_file_text</span><span class="p">:</span>
+            <span class="p">(</span><span class="n">root</span> <span class="o">/</span> <span class="n">loc</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+        <span class="k">yield</span>  <span class="n">Path</span><span class="p">(</span><span class="n">tmpdirname</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_brat_annotation_from_github</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BratAnnotation</span><span class="p">:</span>
+    <span class="n">ann</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.ann&quot;</span><span class="p">)</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.txt&quot;</span><span class="p">)</span>
+
+    <span class="n">seq_file_text</span> <span class="o">=</span> <span class="p">((</span><span class="n">loc</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">get_sample</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">loc</span><span class="p">)))</span> <span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ann</span><span class="p">,</span> <span class="n">txt</span><span class="p">])</span>
+
+    <span class="k">with</span> <span class="n">write_text_to_tempdir</span><span class="p">(</span><span class="n">seq_file_text</span><span class="p">)</span> <span class="k">as</span> <span class="n">dir_loc</span><span class="p">:</span>
+        <span class="n">gold_annotation</span> <span class="o">=</span> <span class="n">BratAnnotation</span><span class="p">(</span><span class="n">dir_loc</span> <span class="o">/</span> <span class="n">Path</span><span class="p">(</span><span class="n">ann</span><span class="p">)</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gold_annotation</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">meddocan.evaluation.classes</span> <span class="kn">import</span> <span class="n">BratAnnotation</span><span class="p">,</span> <span class="n">EvaluateSubtrack1</span><span class="p">,</span> <span class="n">EvaluateSubtrack2</span><span class="p">,</span> <span class="n">EvaluateSubtrack2merged</span><span class="p">,</span> <span class="n">Evaluate</span><span class="p">,</span> <span class="n">Span</span>
+
+<span class="n">gold_annotation</span> <span class="o">=</span> <span class="n">get_brat_annotation_from_github</span><span class="p">(</span><span class="s2">&quot;gold/brat/sample/S0004-06142005000700014-1.ann&quot;</span><span class="p">)</span>
+<span class="n">sys_annotation</span> <span class="o">=</span> <span class="n">get_brat_annotation_from_github</span><span class="p">(</span><span class="s2">&quot;system/brat/subtrack2/sample/baseline/S0004-06142005000700014-1.ann&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="n">EvaluateSubtrack1</span><span class="p">({</span><span class="n">sys_annotation</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">sys_annotation</span><span class="p">},</span> <span class="p">{</span><span class="n">gold_annotation</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">gold_annotation</span><span class="p">})</span>
+<span class="n">e</span><span class="o">.</span><span class="n">print_report</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File &#39;freeling/sentence_splitted/S0004-06142005000700014-1.ann&#39; not found.
+                                                                      
+Report (tmp57ygromi):
+------------------------------------------------------------
+Subtrack 1 [NER]                   Measure        Micro               
+------------------------------------------------------------
+Total (1 docs)                     Leak           NA                  
+                                   Precision      0.2941              
+                                   Recall         0.2                 
+                                   F1             0.2381              
+------------------------------------------------------------
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">e</span> <span class="o">=</span> <span class="n">EvaluateSubtrack1</span><span class="p">({</span><span class="n">sys_annotation</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">sys_annotation</span><span class="p">},</span> <span class="p">{</span><span class="n">gold_annotation</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">gold_annotation</span><span class="p">})</span>
+<span class="n">e</span><span class="o">.</span><span class="n">print_docs</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File &#39;freeling/sentence_splitted/S0004-06142005000700014-1.ann&#39; not found.
+
+
+Report (tmp57ygromi):
+------------------------------------------------------------
+Document ID                        Measure        Micro               
+------------------------------------------------------------
+S0004-06142005000700014-1          Leak           NA                  
+                                   Precision      0.2941              
+                                   Recall         0.2                 
+                                   F1             0.2381              
+------------------------------------------------------------
+</pre></div>
+</div>
+</div>
+</div>
+<p>Extraemos los distintos objetos que contienen la información a detectar.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ner</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Evaluate</span><span class="o">.</span><span class="n">get_tagset_ner</span><span class="p">(</span><span class="n">gold_annotation</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">span</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Evaluate</span><span class="o">.</span><span class="n">get_tagset_span</span><span class="p">(</span><span class="n">gold_annotation</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+<span class="n">span_merged</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">Evaluate</span><span class="o">.</span><span class="n">get_tagset_span_merged</span><span class="p">(</span><span class="n">gold_annotation</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Podemos visualizar un ejemplo al azar para hacerse una idea de las características que se debe detectar en cada variante.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">zip_longest</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">zip_longest</span><span class="p">((</span><span class="n">ner</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">span</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">span_merged</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;NER&quot;</span><span class="p">,</span> <span class="s2">&quot;SPAN&quot;</span><span class="p">,</span> <span class="s2">&quot;SPAN MERGED&quot;</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;START&quot;</span><span class="p">,</span> <span class="s2">&quot;END&quot;</span><span class="p">,</span> <span class="s2">&quot;TAG&quot;</span><span class="p">])</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NER</th>
+      <th>SPAN</th>
+      <th>SPAN MERGED</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>START</th>
+      <td>47</td>
+      <td>47.0</td>
+      <td>47.0</td>
+    </tr>
+    <tr>
+      <th>END</th>
+      <td>62</td>
+      <td>62.0</td>
+      <td>62.0</td>
+    </tr>
+    <tr>
+      <th>TAG</th>
+      <td>NOMBRE_SUJETO_ASISTENCIA</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Para entender las diferencias, pongamos un ejemplo ilustrativo donde span y spam merged son distintos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="n">diff</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">span_merged</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">span</span><span class="p">)</span>  <span class="c1"># difference between merge span and span</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">_diff</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">diff</span><span class="p">):</span>
+
+    <span class="n">indexes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">span_merged_array</span> <span class="o">=</span> <span class="p">(</span><span class="n">_diff</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">_diff</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gold_annotation</span><span class="o">.</span><span class="n">text</span><span class="p">[</span><span class="n">_diff</span><span class="o">.</span><span class="n">start</span><span class="p">:</span> <span class="n">_diff</span><span class="o">.</span><span class="n">end</span><span class="p">]</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">indexes</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;SPAN MERGED&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">ner_array</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># List of ner object &quot;include&quot; in span_merged</span>
+
+    <span class="n">cpt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">_ner</span> <span class="ow">in</span> <span class="n">ner</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">_ner</span><span class="o">.</span><span class="n">end</span> <span class="o">&lt;=</span> <span class="n">_diff</span><span class="o">.</span><span class="n">end</span> <span class="ow">and</span> <span class="n">_ner</span><span class="o">.</span><span class="n">start</span> <span class="o">&gt;=</span> <span class="n">_diff</span><span class="o">.</span><span class="n">start</span><span class="p">:</span>
+            <span class="n">cpt</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">ner_array</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">_ner</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">_ner</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gold_annotation</span><span class="o">.</span><span class="n">text</span><span class="p">[</span><span class="n">_ner</span><span class="o">.</span><span class="n">start</span><span class="p">:</span> <span class="n">_ner</span><span class="o">.</span><span class="n">end</span><span class="p">]</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">_ner</span><span class="o">.</span><span class="n">tag</span><span class="p">))</span>
+            <span class="n">indexes</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="s2">&quot;NER&quot;</span><span class="p">,</span> <span class="n">cpt</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cpt</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">df_index</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">indexes</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Track&quot;</span><span class="p">,</span> <span class="s2">&quot;Num&quot;</span><span class="p">])</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">span_merged_array</span><span class="p">]</span> <span class="o">+</span> <span class="n">ner_array</span><span class="p">,</span>
+        <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;START&quot;</span><span class="p">,</span> <span class="s2">&quot;END&quot;</span><span class="p">,</span> <span class="s2">&quot;TEXT&quot;</span><span class="p">,</span> <span class="s2">&quot;TAG&quot;</span><span class="p">],</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_frame</span><span class="p">(</span><span class="n">df_index</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span>
+        <span class="s2">&quot;display.min_rows&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="s2">&quot;display.max_rows&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> \
+        <span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="mi">150</span><span class="p">):</span>
+        <span class="n">glue</span><span class="p">(</span><span class="s2">&quot;evaluation_subtrack_comparison&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+        <span class="k">pass</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">break</span>
+    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>START</th>
+      <th>END</th>
+      <th>TEXT</th>
+      <th>TAG</th>
+    </tr>
+    <tr>
+      <th>Track</th>
+      <th>Num</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>SPAN MERGED</th>
+      <th>1</th>
+      <td>3576</td>
+      <td>3635</td>
+      <td>'Carretera de Toledo km 12,500 28905 Getafe - Madrid (España'</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">NER</th>
+      <th>1</th>
+      <td>3576</td>
+      <td>3605</td>
+      <td>'Carretera de Toledo km 12,500'</td>
+      <td>CALLE</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3606</td>
+      <td>3611</td>
+      <td>'28905'</td>
+      <td>TERRITORIO</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3612</td>
+      <td>3618</td>
+      <td>'Getafe'</td>
+      <td>TERRITORIO</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3621</td>
+      <td>3627</td>
+      <td>'Madrid'</td>
+      <td>TERRITORIO</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>3629</td>
+      <td>3635</td>
+      <td>'España'</td>
+      <td>PAIS</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Obtain the ner annotation in common between gold and sys doc</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gold_ner</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Evaluate</span><span class="o">.</span><span class="n">get_tagset_ner</span><span class="p">(</span><span class="n">sys_annotation</span><span class="p">))</span>
+<span class="n">sys_ner</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Evaluate</span><span class="o">.</span><span class="n">get_tagset_ner</span><span class="p">(</span><span class="n">gold_annotation</span><span class="p">))</span>
+
+<span class="n">fp</span> <span class="o">=</span> <span class="n">sys_ner</span> <span class="o">-</span> <span class="n">gold_ner</span>  <span class="c1"># Annotation detected that are not in the gold standard Annotation set.</span>
+<span class="n">tp</span> <span class="o">=</span> <span class="n">gold_ner</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">sys_ner</span><span class="p">)</span>
+<span class="n">fn</span> <span class="o">=</span> <span class="n">gold_ner</span> <span class="o">-</span> <span class="n">sys_ner</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">precision</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">fn</span><span class="p">))</span>
+<span class="n">precision</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.29411764705882354
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./meddocan"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillaume Gelabert<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

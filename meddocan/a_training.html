@@ -1,0 +1,812 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5.2. Training &#8212; Anonimización aplicada al ámbito médico</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.3. Código" href="a_code.html" />
+    <link rel="prev" title="5.1. El concepto de transfer learning en NLP" href="a_transfer_learning.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo-serikat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Anonimización aplicada al ámbito médico</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_evaluation.html">
+   1. Evaluación
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_data.html">
+   2. Clinical Corpus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_training.html">
+   3. Entrenamiento
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   4. Referencias
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="a.html">
+   5. Apéndice
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_transfer_learning.html">
+     5.1. El concepto de transfer learning en NLP
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.2. Training
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_code.html">
+     5.3. Código
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_transformers.html">
+     5.4. Transformers para NER
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn/issues/new?title=Issue%20on%20page%20%2Fmeddocan/a_training.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/meddocan/a_training.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#entrenamiento-metodo-de-ajuste-fino">
+   5.2.1. Entrenamiento: Método de ajuste fino
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#procedimiento-de-entrenamiento">
+     5.2.1.1. Procedimiento de entrenamiento
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#entrenamiento-metodo-basado-en-caracteristicas">
+   5.2.2. Entrenamiento: Método basado en características
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#procedimiento-caracteristicas">
+     5.2.2.1. Procedimiento de entrenamiento
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#entrenamiento-flair-lstm-crf">
+     5.2.2.2. Entrenamiento: Flair + LSTM-CRF
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     5.2.2.3. Procedimiento de entrenamiento
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#numero-de-parametros-del-modelo">
+   5.2.3. Numero de parámetros del modelo
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-time">
+   5.2.4. Training time
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Training</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#entrenamiento-metodo-de-ajuste-fino">
+   5.2.1. Entrenamiento: Método de ajuste fino
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#procedimiento-de-entrenamiento">
+     5.2.1.1. Procedimiento de entrenamiento
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#entrenamiento-metodo-basado-en-caracteristicas">
+   5.2.2. Entrenamiento: Método basado en características
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#procedimiento-caracteristicas">
+     5.2.2.1. Procedimiento de entrenamiento
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#entrenamiento-flair-lstm-crf">
+     5.2.2.2. Entrenamiento: Flair + LSTM-CRF
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id10">
+     5.2.2.3. Procedimiento de entrenamiento
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#numero-de-parametros-del-modelo">
+   5.2.3. Numero de parámetros del modelo
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#training-time">
+   5.2.4. Training time
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <!-- #region -->
+<section class="tex2jax_ignore mathjax_ignore" id="training">
+<h1><span class="section-number">5.2. </span>Training<a class="headerlink" href="#training" title="Permalink to this headline">#</a></h1>
+<p>Este anexo presenta algunos aspectos prácticos del entrenamiento.</p>
+<section id="entrenamiento-metodo-de-ajuste-fino">
+<span id="appendix-1"></span><h2><span class="section-number">5.2.1. </span>Entrenamiento: Método de ajuste fino<a class="headerlink" href="#entrenamiento-metodo-de-ajuste-fino" title="Permalink to this headline">#</a></h2>
+<p>Los enfoques de ajuste fino suelen añadir una sola capa lineal a un transformador y ajustan toda la arquitectura en la tarea NER. Para hacer el puente entre el modelado de subtokens y las predicciones a nivel de tokens, los autores de Flert aplican la agrupación de subpalabras para crear representaciones a nivel de tokens que luego se pasan a la capa lineal final. Conceptualmente, este enfoque tiene la ventaja de que todo se modela en una única arquitectura que se ajusta en su conjunto.</p>
+<p>Una estrategia común de agrupación de subpalabras es “first” <span id="id1">[<a class="reference internal" href="bibliography.html#id5" title="Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. Bert: pre-training of deep bidirectional transformers for language understanding. ArXiv, 2019.">Devlin <em>et al.</em>, 2019</a>]</span>, que utiliza la representación del primer subtoken para todo el token. Véase la <a class="reference internal" href="#fig-flert-2"><span class="std std-numref">Fig. 5.3</span></a> para una ilustración.</p>
+<figure class="align-center" id="fig-flert-2">
+<a class="reference internal image-reference" href="../_images/flert-2.png"><img alt="../_images/flert-2.png" src="../_images/flert-2.png" style="height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.3 </span><span class="caption-text">Ilustración de la primera agrupación de subpalabras. La entrada “The Eiffel Tower” se subdivide, dividiendo la palabra “Eiffel” en tres subpalabras (sombreadas en verde). Sólo la primera (“E”) se utiliza como representación de “Eiffel”.</span><a class="headerlink" href="#fig-flert-2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="procedimiento-de-entrenamiento">
+<h3><span class="section-number">5.2.1.1. </span>Procedimiento de entrenamiento<a class="headerlink" href="#procedimiento-de-entrenamiento" title="Permalink to this headline">#</a></h3>
+<p>Para entrenar esta arquitectura, los trabajos anteriores suelen utilizar el optimizador AdamW <span id="id2">[<a class="reference internal" href="bibliography.html#id23" title="Ilya Loshchilov and Frank Hutter. Decoupled weight decay regularization. In ICLR. 2019.">Loshchilov and Hutter, 2019</a>]</span>, un ritmo de aprendizaje muy pequeña y un número pequeño y fijo de iteraciones como criterio de parada codificado <span id="id3">[<a class="reference internal" href="bibliography.html#id8" title="Guillaume Lample and Alexis Conneau. Cross-lingual language model pretraining. In NeurIPS. 2019.">Lample and Conneau, 2019</a>]</span>. En Flert adoptan una estrategia de entrenamiento de un ciclo <span id="id4">[<a class="reference internal" href="bibliography.html#id21" title="Leslie N. Smith. A disciplined approach to neural network hyper-parameters: part 1 - learning rate, batch size, momentum, and weight decay. ArXiv, 2018.">Smith, 2018</a>]</span>, inspirada en la implementación de los transformadores HuggingFace <span id="id5">[<a class="reference internal" href="bibliography.html#id22" title="Thomas Wolf, Lysandre Debut, Victor Sanh, Julien Chaumond, Clement Delangue, Anthony Moi, Pierric Cistac, Tim Rault, Rémi Louf, Morgan Funtowicz, and Jamie Brew. Huggingface's transformers: state-of-the-art natural language processing. ArXiv, 2019.">Wolf <em>et al.</em>, 2019</a>]</span>, en la que el ritmo de aprendizaje disminuye linealmente hasta llegar a 0 al final del entrenamiento. Aquí realizamos un calentamiento lineal antes del decrecimiento del ritmo de aprendizaje (Linear Warmup With Linear Decay). La <a class="reference internal" href="#fine-tuning-parameters-beto"><span class="std std-numref">Table 5.1</span></a> enumera los parámetros de arquitectura que utilizamos en todos nuestros experimentos con Beto.</p>
+<table class="colwidths-auto table" id="fine-tuning-parameters-beto">
+<caption><span class="caption-number">Table 5.1 </span><span class="caption-text">Parámetros utilizados para el ajuste fino de Beto</span><a class="headerlink" href="#fine-tuning-parameters-beto" title="Permalink to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Parameter</p></th>
+<th class="text-align:center head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>Transformer layers</p></td>
+<td class="text-align:center"><p>last</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Learning rate</p></td>
+<td class="text-align:center"><p>5e-6</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Mini Batch size</p></td>
+<td class="text-align:center"><p>4</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Max epochs</p></td>
+<td class="text-align:center"><p>150</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Optimizer</p></td>
+<td class="text-align:center"><p>AdamW</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Scheduler</p></td>
+<td class="text-align:center"><p>Linear Warmup With Linear Decay</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Warmup</p></td>
+<td class="text-align:center"><p>0.1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Subword pooling</p></td>
+<td class="text-align:center"><p>first</p></td>
+</tr>
+</tbody>
+</table>
+<p>La <a class="reference internal" href="#fine-tuning-parameters-xlmr"><span class="std std-numref">Table 5.2</span></a> enumera los hiperparámetros utilizados para entrenar con de XLM RoBERTa Large. La única diferencia es el uso de una tasa de aprendizaje de 40 para XLM RoBERTa en lugar de 150 para BETO debido a la insuficiente memoria de la GPU.</p>
+<table class="colwidths-auto table" id="fine-tuning-parameters-xlmr">
+<caption><span class="caption-number">Table 5.2 </span><span class="caption-text">Parámetros utilizados para el ajuste fino de XLM RoBERTa Large</span><a class="headerlink" href="#fine-tuning-parameters-xlmr" title="Permalink to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Parameter</p></th>
+<th class="text-align:center head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>Transformer layers</p></td>
+<td class="text-align:center"><p>last</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Learning rate</p></td>
+<td class="text-align:center"><p>5e-6</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Mini Batch size</p></td>
+<td class="text-align:center"><p>4</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Max epochs</p></td>
+<td class="text-align:center"><p>40</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Optimizer</p></td>
+<td class="text-align:center"><p>AdamW</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Scheduler</p></td>
+<td class="text-align:center"><p>Linear Warmup With Linear Decay</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Warmup</p></td>
+<td class="text-align:center"><p>0.1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Subword pooling</p></td>
+<td class="text-align:center"><p>first</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="entrenamiento-metodo-basado-en-caracteristicas">
+<span id="appendix-2"></span><h2><span class="section-number">5.2.2. </span>Entrenamiento: Método basado en características<a class="headerlink" href="#entrenamiento-metodo-basado-en-caracteristicas" title="Permalink to this headline">#</a></h2>
+<p>La <a class="reference internal" href="#fig-flert-3"><span class="std std-numref">Fig. 5.4</span></a> ofrece una visión general del enfoque basado en características: Las representaciones de las palabras se extraen del transformador promediando todas las capas (all-layer-mean) o concatenando las representaciones de las cuatro últimas capas (last four-layers). A continuación, se introducen en una arquitectura LSTM-CRF estándar <span id="id6">[<a class="reference internal" href="bibliography.html#id9" title="Zhiheng Huang, Wei Xu, and Kai Yu. Bidirectional lstm-crf models for sequence tagging. ArXiv, 2015.">Huang <em>et al.</em>, 2015</a>]</span> como características. Volvemos a utilizar la estrategia de agrupación de subpalabras ilustrada en la <a class="reference internal" href="#fig-flert-2"><span class="std std-numref">Fig. 5.3</span></a>.</p>
+<figure class="align-center" id="fig-flert-3">
+<a class="reference internal image-reference" href="../_images/flert-3.png"><img alt="../_images/flert-3.png" src="../_images/flert-3.png" style="height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.4 </span><span class="caption-text">Visión general del enfoque basado en características. La autoatención se calcula sobre todos los tokens de entrada (incluyendo el contexto izquierdo y derecho).
+contexto). La representación final de cada elemento de la frase (“I love Paris”, sombreada en verde) puede calcularse como
+a) media sobre todas las capas del modelo basado en transformadores o b) concatenando las cuatro últimas capas.</span><a class="headerlink" href="#fig-flert-3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>En nuestros experimentos hemos elegido la primera variante, crear representaciones de las palabras promediando todas las capas (all-layer-mean).</p>
+<section id="procedimiento-caracteristicas">
+<span id="id7"></span><h3><span class="section-number">5.2.2.1. </span>Procedimiento de entrenamiento<a class="headerlink" href="#procedimiento-caracteristicas" title="Permalink to this headline">#</a></h3>
+<p>Adoptamos el procedimiento de entrenamiento estándar utilizado en trabajos anteriores. Entrenamos la red con SGD con una tasa de aprendizaje mayor que se rectifica con los datos de desarrollo. El entrenamiento finaliza cuando el ritmo de aprendizaje es demasiado pequeño. Los parámetros utilizados para entrenar un modelo basado en características se muestran en <a class="reference internal" href="#feature-based-parameters"><span class="std std-numref">Table 5.3</span></a>.</p>
+<table class="colwidths-auto table" id="feature-based-parameters">
+<caption><span class="caption-number">Table 5.3 </span><span class="caption-text">Parámetros utilizados para el método basado en características</span><a class="headerlink" href="#feature-based-parameters" title="Permalink to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Parameter</p></th>
+<th class="text-align:center head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>Transformer layers</p></td>
+<td class="text-align:center"><p>last</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Learning rate</p></td>
+<td class="text-align:center"><p>0.1</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Mini Batch size</p></td>
+<td class="text-align:center"><p>4</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Max epochs</p></td>
+<td class="text-align:center"><p>500</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Optimizer</p></td>
+<td class="text-align:center"><p>SGD</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Scheduler</p></td>
+<td class="text-align:center"><p>Anneal On Plateau</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Subword pooling</p></td>
+<td class="text-align:center"><p>first</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="entrenamiento-flair-lstm-crf">
+<span id="appendix-3"></span><h3><span class="section-number">5.2.2.2. </span>Entrenamiento: Flair + LSTM-CRF<a class="headerlink" href="#entrenamiento-flair-lstm-crf" title="Permalink to this headline">#</a></h3>
+<p>La <a class="reference internal" href="#fig-flair-1"><span class="std std-numref">Fig. 5.5</span></a> ofrece una visión general del enfoque basado en características: Las representaciones de las palabras se extraen de modelos de idiomas. A continuación, se introducen en una arquitectura LSTM-CRF estándar <span id="id8">[<a class="reference internal" href="bibliography.html#id9" title="Zhiheng Huang, Wei Xu, and Kai Yu. Bidirectional lstm-crf models for sequence tagging. ArXiv, 2015.">Huang <em>et al.</em>, 2015</a>]</span> como características.</p>
+<figure class="align-center" id="fig-flair-1">
+<a class="reference internal image-reference" href="../_images/flair-1.png"><img alt="../_images/flair-1.png" src="../_images/flair-1.png" style="height: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.5 </span><span class="caption-text">Visión general del enfoque basado en características usando los embeddings contextuales de Flair <span id="id9">[<a class="reference internal" href="bibliography.html#id10" title="A. Akbik, Duncan A. J. Blythe, and Roland Vollgraf. Contextual string embeddings for sequence labeling. In COLING. 2018.">Akbik <em>et al.</em>, 2018</a>]</span>.</span><a class="headerlink" href="#fig-flair-1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id10">
+<h3><span class="section-number">5.2.2.3. </span>Procedimiento de entrenamiento<a class="headerlink" href="#id10" title="Permalink to this headline">#</a></h3>
+<p>Procedemos exactamente como en el <a class="reference internal" href="#procedimiento-caracteristicas"><span class="std std-ref">Método basado en características</span></a>. Los parámetros utilizados para entrenar un modelo basado en características con Flair se muestran en <a class="reference internal" href="#feature-based-parameters-flair"><span class="std std-numref">Table 5.4</span></a>.</p>
+<table class="colwidths-auto table" id="feature-based-parameters-flair">
+<caption><span class="caption-number">Table 5.4 </span><span class="caption-text">Parámetros utilizados para el método basado en características con Flair</span><a class="headerlink" href="#feature-based-parameters-flair" title="Permalink to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="text-align:center head"><p>Parameter</p></th>
+<th class="text-align:center head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-align:center"><p>Learning rate</p></td>
+<td class="text-align:center"><p>0.1</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Mini Batch size</p></td>
+<td class="text-align:center"><p>4</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Max epochs</p></td>
+<td class="text-align:center"><p>150</p></td>
+</tr>
+<tr class="row-odd"><td class="text-align:center"><p>Optimizer</p></td>
+<td class="text-align:center"><p>SGD</p></td>
+</tr>
+<tr class="row-even"><td class="text-align:center"><p>Scheduler</p></td>
+<td class="text-align:center"><p>Anneal On Plateau</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Realizamos experimentos en una NVIDIA Quadro M6000 (24GB) para el ajuste fino y el enfoque basado en características. Informamos de los tiempos medios de entrenamiento de nuestras mejores configuraciones en la <a class="reference internal" href="#id11"><span class="std std-numref">Tabla 5.7</span></a>.</p>
+</div>
+</section>
+</section>
+<section id="numero-de-parametros-del-modelo">
+<h2><span class="section-number">5.2.3. </span>Numero de parámetros del modelo<a class="headerlink" href="#numero-de-parametros-del-modelo" title="Permalink to this headline">#</a></h2>
+<figure class="align-center" id="model-parameters">
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_9440b th.col_heading.level0 {
+  text-align: center;
+  font-size: 1.5em;
+}
+#T_9440b  {
+  border: 1px solid grey;
+}
+#T_9440b tbody td {
+  border: 1px solid grey;
+}
+#T_9440b th {
+  border: 1px solid grey;
+}
+#T_9440b_row0_col0 {
+  background-color: #081d58;
+  color: #f1f1f1;
+}
+#T_9440b_row0_col1 {
+  background-color: #1d90c0;
+  color: #f1f1f1;
+}
+#T_9440b_row0_col2 {
+  background-color: #63c3bf;
+  color: #000000;
+}
+#T_9440b_row0_col3, #T_9440b_row0_col6 {
+  background-color: #ffffd9;
+  color: #000000;
+}
+#T_9440b_row0_col4 {
+  background-color: #f6fbc5;
+  color: #000000;
+}
+#T_9440b_row0_col5 {
+  background-color: #61c2bf;
+  color: #000000;
+}
+#T_9440b_row0_col7 {
+  background-color: #7ecdbb;
+  color: #000000;
+}
+</style>
+<table id="T_9440b">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_9440b_level0_col0" class="col_heading level0 col0" colspan="4">FINETUNE</th>
+      <th id="T_9440b_level0_col4" class="col_heading level0 col4" colspan="4">LSTM CRF</th>
+    </tr>
+    <tr>
+      <th class="blank level1" >&nbsp;</th>
+      <th id="T_9440b_level1_col0" class="col_heading level1 col0" >XLMR + WE</th>
+      <th id="T_9440b_level1_col1" class="col_heading level1 col1" >XLMR</th>
+      <th id="T_9440b_level1_col2" class="col_heading level1 col2" >BETO + WE</th>
+      <th id="T_9440b_level1_col3" class="col_heading level1 col3" >BETO</th>
+      <th id="T_9440b_level1_col4" class="col_heading level1 col4" >BETO</th>
+      <th id="T_9440b_level1_col5" class="col_heading level1 col5" >BETO + WE</th>
+      <th id="T_9440b_level1_col6" class="col_heading level1 col6" >FLAIR</th>
+      <th id="T_9440b_level1_col7" class="col_heading level1 col7" >FLAIR + WE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_9440b_level0_row0" class="row_heading level0 row0" >Numero de parámetros en Million</th>
+      <td id="T_9440b_row0_col0" class="data row0 col0" >856</td>
+      <td id="T_9440b_row0_col1" class="data row0 col1" >560</td>
+      <td id="T_9440b_row0_col2" class="data row0 col2" >406</td>
+      <td id="T_9440b_row0_col3" class="data row0 col3" >64</td>
+      <td id="T_9440b_row0_col4" class="data row0 col4" >114</td>
+      <td id="T_9440b_row0_col5" class="data row0 col5" >410</td>
+      <td id="T_9440b_row0_col6" class="data row0 col6" >64</td>
+      <td id="T_9440b_row0_col7" class="data row0 col7" >361</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+<figcaption>
+<p><span class="caption-number">Fig. 5.6 </span><span class="caption-text">Numero de parámetros contenido en cada unos de los modelos utilizados</span><a class="headerlink" href="#model-parameters" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Podemos ver que los embeddings de menor a mayor son Flair, Beto y XLM RoBERTa Large. Los embeddings estáticos (WE) son en sí mismos muy grandes ya que tienen un vocabulario muy amplio. Por lo tanto, aumentan en gran medida el tamaño del modelo final. Por último, el uso de una red del tipo LSTM-CRF añade más parámetros que el uso de una simple proyección lineal sobre el espacio de soluciones.</p>
+</section>
+<section id="training-time">
+<h2><span class="section-number">5.2.4. </span>Training time<a class="headerlink" href="#training-time" title="Permalink to this headline">#</a></h2>
+<figure class="align-center" id="id11">
+<div class="cell_output docutils container">
+<img alt="../_images/a_training_notebook_9_0.png" src="../_images/a_training_notebook_9_0.png" />
+</div>
+<figcaption>
+<p><span class="caption-number">Fig. 5.7 </span><span class="caption-text">Tiempo de entrenamiento por cada configuración. El punto es mas grande cuando la desviación estándar aumenta.</span><a class="headerlink" href="#id11" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Optar por la estrategia basada en el ajuste fino de un modelo de Transformers multiplica el tiempo de entrenamiento por 4 para el mismo número de iteraciones. Añadir un contexto, porque aumenta el número de tokens que el modelo tendrá que ingerir al mismo tiempo, hace que el entrenamiento sea aún más lento. Y, por último, el uso de modelos más grandes, como XLM RoBERTa Large, ralentiza aún más el entrenamiento.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./meddocan"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="a_transfer_learning.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">5.1. </span>El concepto de transfer learning en NLP</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="a_code.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.3. </span>Código</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillaume Gelabert<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

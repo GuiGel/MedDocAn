@@ -1,0 +1,994 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Data exploration &#8212; Anonimización aplicada al ámbito médico</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo-serikat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Anonimización aplicada al ámbito médico</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_evaluation.html">
+   1. Evaluación
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_data.html">
+   2. Clinical Corpus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_training.html">
+   3. Entrenamiento
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   4. Referencias
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="a.html">
+   5. Apéndice
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_transfer_learning.html">
+     5.1. El concepto de transfer learning en NLP
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_training.html">
+     5.2. Training
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_code.html">
+     5.3. Código
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_transformers.html">
+     5.4. Transformers para NER
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/GuiGel/MedDocAn/cdti?urlpath=tree/cdti/meddocan/02_data_notebook.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn/issues/new?title=Issue%20on%20page%20%2Fmeddocan/02_data_notebook.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/meddocan/02_data_notebook.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../_sources/meddocan/02_data_notebook.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Data exploration</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">myst_nb</span> <span class="kn">import</span> <span class="n">glue</span>
+<span class="kn">from</span> <span class="nn">meddocan.data.docs_iterators</span> <span class="kn">import</span> <span class="n">GsDocs</span>
+<span class="kn">from</span> <span class="nn">meddocan.data</span> <span class="kn">import</span> <span class="n">ArchiveFolder</span><span class="p">,</span> <span class="n">meddocan_zip</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">spacy.tokens</span> <span class="kn">import</span> <span class="n">Token</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="k">def</span> <span class="nf">get_number_of_doc</span><span class="p">(</span><span class="n">archive_folder</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ArchiveFolder</span><span class="p">],</span> <span class="n">attr</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="mi">1</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">meddocan_zip</span><span class="o">.</span><span class="n">brat_files</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">archive_folder</span><span class="p">,</span> <span class="n">attr</span><span class="p">))])</span>
+    <span class="k">return</span> <span class="n">total</span>
+
+<span class="k">def</span> <span class="nf">get_labels</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="n">Token</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">ent_iob_</span> <span class="o">==</span> <span class="s2">&quot;O&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">token</span><span class="o">.</span><span class="n">ent_iob_</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">ent_iob_</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">token</span><span class="o">.</span><span class="n">ent_type_</span><span class="si">}</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="data-exploration">
+<h1>Data exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline">#</a></h1>
+<p>Extract a clinical case as well as the associated annotation at the <strong>Brat</strong> format.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gs_docs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">GsDocs</span><span class="p">(</span><span class="n">ArchiveFolder</span><span class="o">.</span><span class="n">train</span><span class="p">)))</span>  <span class="c1"># Gold Standard Document</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">gs_docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">doc</span>
+<span class="n">brat</span> <span class="o">=</span> <span class="n">gs_docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">brat_files_pair</span><span class="o">.</span><span class="n">ann</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;txt_ex&quot;</span><span class="p">,</span> <span class="n">doc</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;brat_ex&quot;</span><span class="p">,</span> <span class="n">brat</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Visualize the document as rendered by <strong>spaCy</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">displacy_ex</span> <span class="o">=</span> <span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">doc</span><span class="p">[</span><span class="mi">17</span><span class="p">:</span> <span class="mi">44</span><span class="p">],</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ent&quot;</span><span class="p">,</span> <span class="n">page</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">minify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">jupyter</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="c1"># glue(&quot;display_ex&quot;, displacy_ex, display=False)</span>
+
+<span class="c1"># output_path = Path(&quot;../figures/displacy_ner.svg&quot;) # you can keep there only &quot;dependency_plot.svg&quot; if you want to save it in the same folder where you run the script</span>
+<span class="c1"># output_path.touch(exist_ok=True)</span>
+<span class="c1"># output_path.open(&quot;w&quot;, encoding=&quot;utf-8&quot;).write(displacy_ex)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Visualize data sentence, tokenization and labels</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sentences</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">sents</span><span class="p">)[</span><span class="mi">3</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;Sentence&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">sentence</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">],</span>
+        <span class="s2">&quot;Tokens&quot;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">],</span>
+        <span class="s2">&quot;Labels&quot;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="p">[</span><span class="n">get_labels</span><span class="p">(</span><span class="n">token</span><span class="p">)</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">],</span>
+        <span class="s2">&quot;Idx&quot;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)),</span>
+    <span class="p">},</span>
+<span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;Idx&quot;</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;data_preparation&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="n">display</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Sentence</th>
+      <th>Tokens</th>
+      <th>Labels</th>
+    </tr>
+    <tr>
+      <th>Idx</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NHC: 368503.\n</td>
+      <td>['NHC', ':', '368503', '.', '\n']</td>
+      <td>['O', 'O', 'B_ID_SUJETO_ASISTENCIA', 'O', 'O']</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NASS: 26 63514095.\n</td>
+      <td>['NASS', ':', '26', '63514095', '.', '\n']</td>
+      <td>['O', 'O', 'B_ID_ASEGURAMIENTO', 'I_ID_ASEGURAMIENTO', 'O', 'O']</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Domicilio:  Calle Miguel Benitez 90.\n</td>
+      <td>['Domicilio', ':', ' ', 'Calle', 'Miguel', 'Benitez', '90', '.', '\n']</td>
+      <td>['O', 'O', 'O', 'B_CALLE', 'I_CALLE', 'I_CALLE', 'I_CALLE', 'O', 'O']</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Localidad/ Provincia: Madrid.\n</td>
+      <td>['Localidad', '/', 'Provincia', ':', 'Madrid', '.', '\n']</td>
+      <td>['O', 'O', 'O', 'O', 'B_TERRITORIO', 'O', 'O']</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The special example of “DominguezCorreo”</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">meddocan.language.pipeline</span> <span class="kn">import</span> <span class="n">meddocan_pipeline</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">meddocan_pipeline</span><span class="p">()</span>
+<span class="n">sentence</span> <span class="o">=</span> <span class="s2">&quot;DominguezCorreo&quot;</span>
+<span class="n">spacing_error_ex</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sentence</span><span class="si">!r}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">nlp</span><span class="p">(</span><span class="n">sentence</span><span class="p">)]</span><span class="si">!r}</span><span class="s2">&quot;</span>
+<span class="n">spacing_error_ex</span> <span class="o">=</span> <span class="n">glue</span><span class="p">(</span><span class="s2">&quot;spacing_error_ex&quot;</span><span class="p">,</span> <span class="n">spacing_error_ex</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&quot;&#39;DominguezCorreo&#39; -&gt; [&#39;Dominguez&#39;, &#39;Correo&#39;]&quot;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Extract statistics about corpus</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">meddocan.data.corpus</span> <span class="kn">import</span> <span class="n">MEDDOCAN</span>
+
+<span class="n">corpus</span> <span class="o">=</span> <span class="n">MEDDOCAN</span><span class="p">(</span><span class="n">sentences</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">document_separator_token</span><span class="o">=</span><span class="s2">&quot;-DOCSTART-&quot;</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">stats</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">obtain_statistics</span><span class="p">(</span><span class="n">pretty_print</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 09:25:39,764 Reading data from /tmp/tmp4kz0b94t
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 09:25:39,765 Train: /tmp/tmp4kz0b94t/train
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 09:25:39,766 Dev: /tmp/tmp4kz0b94t/dev
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 09:25:39,766 Test: /tmp/tmp4kz0b94t/test
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v_name</span> <span class="o">=</span> <span class="s2">&quot;number_of_documents_per_class&quot;</span>
+<span class="n">df_phi_stats</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">v_name</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">stats</span><span class="o">.</span><span class="n">keys</span><span class="p">()})</span>
+    <span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;TRAIN&quot;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">df_phi_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;TOTAL&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_phi_stats</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;phi_statistics&quot;</span><span class="p">,</span> <span class="n">df_phi_stats</span><span class="p">)</span>
+<span class="n">unique_phi_classes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_phi_stats</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;phi_class_num&quot;</span><span class="p">,</span> <span class="n">unique_phi_classes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TRAIN</th>
+      <th>TEST</th>
+      <th>DEV</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>TERRITORIO</th>
+      <td>1875</td>
+      <td>956</td>
+      <td>987</td>
+    </tr>
+    <tr>
+      <th>FECHAS</th>
+      <td>1231</td>
+      <td>611</td>
+      <td>724</td>
+    </tr>
+    <tr>
+      <th>EDAD_SUJETO_ASISTENCIA</th>
+      <td>1035</td>
+      <td>518</td>
+      <td>521</td>
+    </tr>
+    <tr>
+      <th>NOMBRE_SUJETO_ASISTENCIA</th>
+      <td>1009</td>
+      <td>502</td>
+      <td>503</td>
+    </tr>
+    <tr>
+      <th>NOMBRE_PERSONAL_SANITARIO</th>
+      <td>1000</td>
+      <td>501</td>
+      <td>497</td>
+    </tr>
+    <tr>
+      <th>SEXO_SUJETO_ASISTENCIA</th>
+      <td>925</td>
+      <td>461</td>
+      <td>455</td>
+    </tr>
+    <tr>
+      <th>CALLE</th>
+      <td>862</td>
+      <td>413</td>
+      <td>434</td>
+    </tr>
+    <tr>
+      <th>PAIS</th>
+      <td>713</td>
+      <td>363</td>
+      <td>347</td>
+    </tr>
+    <tr>
+      <th>ID_SUJETO_ASISTENCIA</th>
+      <td>567</td>
+      <td>283</td>
+      <td>292</td>
+    </tr>
+    <tr>
+      <th>ID_TITULACION_PERSONAL_SANITARIO</th>
+      <td>471</td>
+      <td>234</td>
+      <td>226</td>
+    </tr>
+    <tr>
+      <th>CORREO_ELECTRONICO</th>
+      <td>469</td>
+      <td>249</td>
+      <td>241</td>
+    </tr>
+    <tr>
+      <th>ID_ASEGURAMIENTO</th>
+      <td>391</td>
+      <td>198</td>
+      <td>194</td>
+    </tr>
+    <tr>
+      <th>HOSPITAL</th>
+      <td>255</td>
+      <td>130</td>
+      <td>140</td>
+    </tr>
+    <tr>
+      <th>FAMILIARES_SUJETO_ASISTENCIA</th>
+      <td>243</td>
+      <td>81</td>
+      <td>92</td>
+    </tr>
+    <tr>
+      <th>INSTITUCION</th>
+      <td>98</td>
+      <td>67</td>
+      <td>72</td>
+    </tr>
+    <tr>
+      <th>ID_CONTACTO_ASISTENCIAL</th>
+      <td>77</td>
+      <td>39</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>NUMERO_TELEFONO</th>
+      <td>58</td>
+      <td>26</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>PROFESION</th>
+      <td>24</td>
+      <td>9</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>NUMERO_FAX</th>
+      <td>15</td>
+      <td>7</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>OTROS_SUJETO_ASISTENCIA</th>
+      <td>9</td>
+      <td>7</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>CENTRO_SALUD</th>
+      <td>6</td>
+      <td>6</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>ID_EMPLEO_PERSONAL_SANITARIO</th>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>TOTAL</th>
+      <td>11333</td>
+      <td>5661</td>
+      <td>5801</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>22
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">flair.data</span> <span class="kn">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">_iter_dataset</span><span class="p">,</span> <span class="n">Dictionary</span>
+
+<span class="k">def</span> <span class="nf">_get_all_tokens</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">assert</span> <span class="n">dataset</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">((</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">tokens</span><span class="p">),</span> <span class="n">_iter_dataset</span><span class="p">(</span><span class="n">dataset</span><span class="p">)))</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">((</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">text</span><span class="p">),</span> <span class="n">tokens</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">_get_most_common_tokens</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">max_tokens</span><span class="p">,</span> <span class="n">min_freq</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="n">tokens_and_frequencies</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">_get_all_tokens</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
+
+    <span class="n">tokens</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">token</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">tokens_and_frequencies</span><span class="o">.</span><span class="n">most_common</span><span class="p">():</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">min_freq</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">freq</span> <span class="o">&lt;</span> <span class="n">min_freq</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">max_tokens</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span> <span class="o">==</span> <span class="n">max_tokens</span><span class="p">):</span>
+            <span class="k">break</span>
+        <span class="n">tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tokens</span>
+
+<span class="k">def</span> <span class="nf">make_vocab_dictionary</span><span class="p">(</span><span class="n">dataset</span><span class="p">:</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">max_tokens</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_freq</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dictionary</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a dictionary of all tokens contained in the corpus.</span>
+<span class="sd">    By defining `max_tokens` you can set the maximum number of tokens that should be contained in the dictionary.</span>
+<span class="sd">    If there are more than `max_tokens` tokens in the corpus, the most frequent tokens are added first.</span>
+<span class="sd">    If `min_freq` is set the a value greater than 1 only tokens occurring more than `min_freq` times are considered</span>
+<span class="sd">    to be added to the dictionary.</span>
+<span class="sd">    :param max_tokens: the maximum number of tokens that should be added to the dictionary (-1 = take all tokens)</span>
+<span class="sd">    :param min_freq: a token needs to occur at least `min_freq` times to be added to the dictionary (-1 = there is no limitation)</span>
+<span class="sd">    :return: dictionary of tokens</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">_get_most_common_tokens</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">max_tokens</span><span class="p">,</span> <span class="n">min_freq</span><span class="p">)</span>
+
+    <span class="n">vocab_dictionary</span><span class="p">:</span> <span class="n">Dictionary</span> <span class="o">=</span> <span class="n">Dictionary</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+        <span class="n">vocab_dictionary</span><span class="o">.</span><span class="n">add_item</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">vocab_dictionary</span>
+
+
+<span class="n">df_doc_stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;num docs&quot;</span><span class="p">:</span> <span class="n">get_number_of_doc</span><span class="p">(</span><span class="n">ArchiveFolder</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()),</span>
+            <span class="s2">&quot;num sentences&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;total_number_of_documents&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;num tokens&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;number_of_tokens&quot;</span><span class="p">][</span><span class="s2">&quot;total&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;vocabulary&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">make_vocab_dictionary</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">corpus</span><span class="p">,</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()))),</span>
+            <span class="s2">&quot;Min token per sentence&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;number_of_tokens&quot;</span><span class="p">][</span><span class="s2">&quot;min&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Max token per sentence&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;number_of_tokens&quot;</span><span class="p">][</span><span class="s2">&quot;max&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Avg token per sentence&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;number_of_tokens&quot;</span><span class="p">][</span><span class="s2">&quot;avg&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;num PHI&quot;</span><span class="p">:</span> <span class="n">df_phi_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;TOTAL&quot;</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
+        <span class="p">}</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;TRAIN&quot;</span><span class="p">,</span> <span class="s2">&quot;DEV&quot;</span><span class="p">,</span> <span class="s2">&quot;TEST&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">df_sentence_stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;num sentences&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;total_number_of_documents&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Min token per sentence&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;number_of_tokens&quot;</span><span class="p">][</span><span class="s2">&quot;min&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Max token per sentence&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;number_of_tokens&quot;</span><span class="p">][</span><span class="s2">&quot;max&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Avg token per sentence&quot;</span><span class="p">:</span> <span class="n">stats</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;number_of_tokens&quot;</span><span class="p">][</span><span class="s2">&quot;avg&quot;</span><span class="p">],</span>
+        <span class="p">}</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;TRAIN&quot;</span><span class="p">,</span> <span class="s2">&quot;DEV&quot;</span><span class="p">,</span> <span class="s2">&quot;TEST&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;doc_statistics&quot;</span><span class="p">,</span> <span class="n">df_doc_stats</span><span class="p">)</span>
+<span class="n">glue</span><span class="p">(</span><span class="s2">&quot;sent_statistics&quot;</span><span class="p">,</span> <span class="n">df_sentence_stats</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>num docs</th>
+      <th>num sentences</th>
+      <th>num tokens</th>
+      <th>vocabulary</th>
+      <th>Min token per sentence</th>
+      <th>Max token per sentence</th>
+      <th>Avg token per sentence</th>
+      <th>num PHI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>TRAIN</th>
+      <td>500</td>
+      <td>10811</td>
+      <td>263963</td>
+      <td>22695</td>
+      <td>1</td>
+      <td>712</td>
+      <td>24</td>
+      <td>11333</td>
+    </tr>
+    <tr>
+      <th>DEV</th>
+      <td>250</td>
+      <td>5518</td>
+      <td>139400</td>
+      <td>15466</td>
+      <td>1</td>
+      <td>571</td>
+      <td>25</td>
+      <td>5801</td>
+    </tr>
+    <tr>
+      <th>TEST</th>
+      <td>250</td>
+      <td>5405</td>
+      <td>132698</td>
+      <td>14933</td>
+      <td>1</td>
+      <td>477</td>
+      <td>24</td>
+      <td>5661</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>num sentences</th>
+      <th>Min token per sentence</th>
+      <th>Max token per sentence</th>
+      <th>Avg token per sentence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>TRAIN</th>
+      <td>10811</td>
+      <td>1</td>
+      <td>712</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>DEV</th>
+      <td>5518</td>
+      <td>1</td>
+      <td>571</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>TEST</th>
+      <td>5405</td>
+      <td>1</td>
+      <td>477</td>
+      <td>24</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./meddocan"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillaume Gelabert<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5.1. El concepto de transfer learning en NLP &#8212; Anonimización aplicada al ámbito médico</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.2. Training" href="a_training.html" />
+    <link rel="prev" title="5. Apéndice" href="a.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo-serikat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Anonimización aplicada al ámbito médico</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_evaluation.html">
+   1. Evaluación
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_data.html">
+   2. Clinical Corpus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_training.html">
+   3. Entrenamiento
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   4. Referencias
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="a.html">
+   5. Apéndice
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.1. El concepto de transfer learning en NLP
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_training.html">
+     5.2. Training
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_code.html">
+     5.3. Código
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_transformers.html">
+     5.4. Transformers para NER
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn/issues/new?title=Issue%20on%20page%20%2Fmeddocan/a_transfer_learning.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/meddocan/a_transfer_learning.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>El concepto de transfer learning en NLP</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="el-concepto-de-transfer-learning-en-nlp">
+<span id="transfer-learning-anexo"></span><h1><span class="section-number">5.1. </span>El concepto de transfer learning en NLP<a class="headerlink" href="#el-concepto-de-transfer-learning-en-nlp" title="Permalink to this headline">#</a></h1>
+<p>Hoy en día, es una práctica habitual en visión por ordenador consiste en utilizar el transfer learning para entrenar una red neuronal convolucional como ResNet en una tarea, y luego adaptarla o ajustarla en una nueva tarea. Esto permite a la red hacer uso de los conocimientos aprendidos en la tarea original. Desde el punto de vista de la arquitectura, esto implica dividir el modelo en un cuerpo y una cabeza, donde la cabeza es una red específica de la tarea. Durante el entrenamiento, los pesos del cuerpo aprenden características generales del dominio de origen, y estos pesos se utilizan para inicializar un nuevo modelo para la nueva tarea <a class="footnote-reference brackets" href="#id6" id="id1">1</a>. En comparación con el aprendizaje supervisado tradicional, este enfoque suele producir modelos de alta calidad que pueden entrenarse de forma mucho más eficiente en una variedad de tareas posteriores, y con muchos menos datos etiquetados. En la <a class="reference internal" href="#transfer-learning-img"><span class="std std-numref">Fig. 5.1</span></a> se muestra una comparación de los dos enfoques.</p>
+<figure class="align-center" id="transfer-learning-img">
+<img alt="../_images/transformers-1.png" src="../_images/transformers-1.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Comparación entre el aprendizaje supervisado tradicional (izquierda) y el transfer learning (derecha)</span><a class="headerlink" href="#transfer-learning-img" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>En la visión por ordenador, los modelos se entrenan primero en conjuntos de datos a gran escala, como <a class="reference external" href="https://image-net.org/">ImageNet</a>, que contienen millones de imágenes. Este proceso se denomina preentrenamiento y su principal objetivo es enseñar a los modelos las características básicas de las imágenes, como los bordes o los colores. A continuación, estos modelos pre-entrenados pueden afinarse en una tarea posterior, como la clasificación de especies florales, con un número relativamente pequeño de ejemplos etiquetados (normalmente unos cientos por clase). Los modelos perfeccionados suelen alcanzar una mayor precisión que los modelos supervisados entrenados desde cero con la misma cantidad de datos etiquetados.</p>
+<p>Aunque el transfer learning se ha convertido en el enfoque estándar de la visión por ordenador, durante muchos años no estaba claro cuál era el proceso de preentrenamiento análogo para la PNL. En consecuencia, las aplicaciones de PNL solían requerir grandes cantidades de datos etiquetados para lograr un alto rendimiento. E incluso entonces, ese rendimiento no se comparaba con lo que se lograba en el dominio de la visión.</p>
+<p>En 2017 y 2018, varios grupos de investigación propusieron nuevos enfoques que finalmente hicieron que el transfer learning funcionara para la PNL. Comenzó con una idea de los investigadores de OpenAI, que obtuvieron un fuerte rendimiento en una tarea de clasificación de sentimientos mediante el uso de características extraídas del preentrenamiento no supervisado <span id="id2">[<a class="reference internal" href="bibliography.html#id25" title="Alec Radford, Rafal Józefowicz, and Ilya Sutskever. Learning to generate reviews and discovering sentiment. ArXiv, 2017.">Radford <em>et al.</em>, 2017</a>]</span>.  A esto le siguió ULMFiT, que introdujo un marco general para adaptar los modelos LSTM pre-entrenados para diversas tareas <a class="footnote-reference brackets" href="#id7" id="id3">2</a>.</p>
+<p>Como se ilustra en la <a class="reference internal" href="#ulmfit"><span class="std std-numref">Fig. 5.2</span></a>, ULMFiT consta de tres pasos principales:</p>
+<dl class="simple myst">
+<dt><em>preentrenamiento</em></dt><dd><p>El objetivo inicial del entrenamiento es bastante sencillo: predecir la siguiente palabra basándose en las palabras anteriores. Esta tarea se denomina modelado del lenguaje. La elegancia de este enfoque reside en el hecho de que no se necesitan datos etiquetados, y se puede hacer uso de textos disponibles en abundancia en fuentes como Wikipedia <a class="footnote-reference brackets" href="#id8" id="id4">3</a>.</p>
+</dd>
+</dl>
+<dl class="simple myst">
+<dt><em>Adaptación de dominio</em></dt><dd><p>Una vez que el modelo lingüístico se ha pre-entrenado en un corpus a gran escala, el siguiente paso es adaptarlo al corpus del dominio (por ejemplo, de Wikipedia al corpus de críticas de cine de IMDb, como en la <a class="reference internal" href="#ulmfit"><span class="std std-numref">Fig. 5.2</span></a>). En esta etapa se sigue utilizando el modelado del lenguaje, pero ahora el modelo tiene que predecir la siguiente palabra en el corpus de destino.</p>
+</dd>
+<dt><em>Ajuste fino</em></dt><dd><p>En esta etapa, el modelo lingüístico se ajusta con una capa de clasificación para la tarea objetivo (por ejemplo, clasificar el sentimiento de las críticas de películas en la <a class="reference internal" href="#ulmfit"><span class="std std-numref">Fig. 5.2</span></a>).</p>
+</dd>
+</dl>
+<figure class="align-default" id="ulmfit">
+<img alt="../_images/tranformers-2.png" src="../_images/tranformers-2.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.2 </span><span class="caption-text">El proceso ULMFiT (Taken from Jeremy Howard course)</span><a class="headerlink" href="#ulmfit" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Al introducir un marco viable para el preentrenamiento y el transfer learning en PNL, ULMFiT proporcionó la pieza que faltaba para que los transformadores despegaran. En 2018, se lanzaron dos transformadores que combinaban la auto-atención con el transfer learning:</p>
+<dl class="simple myst">
+<dt><em>GPT</em></dt><dd><p>Utiliza solo la parte del decodificador de la arquitectura del transformador, y el mismo enfoque de modelado del lenguaje que ULMFiT. GPT fue pre-entrenado en el BookCorpus <span id="id5">[<a class="reference internal" href="bibliography.html#id26" title="Yukun Zhu, Ryan Kiros, Richard S. Zemel, Ruslan Salakhutdinov, Raquel Urtasun, Antonio Torralba, and Sanja Fidler. Aligning books and movies: towards story-like visual explanations by watching movies and reading books. 2015 IEEE International Conference on Computer Vision (ICCV), pages 19-27, 2015.">Zhu <em>et al.</em>, 2015</a>]</span>, que consiste en 7.000 libros inéditos de una variedad de géneros, incluyendo Aventura, Fantasía y Romance.</p>
+</dd>
+<dt><em>BERT</em></dt><dd><p>Utiliza la parte del codificador de la arquitectura Transformer y una forma especial de modelado del lenguaje denominada modelado del lenguaje enmascarado. El objetivo del modelado del lenguaje enmascarado es predecir palabras enmascaradas al azar en un texto. Por ejemplo, dada una frase como “Miré mi [MASK] y vi que [MASK] llegaba tarde”, el modelo necesita predecir los candidatos más probables para las palabras enmascaradas que se denotan con [MASK]. BERT se pre-entrenó con el BookCorpus y la Wikipedia en inglés.</p>
+</dd>
+</dl>
+<p>GPT y BERT establecieron un nuevo estado de la técnica en una variedad de puntos de referencia de PNL y marcaron el comienzo de la era de los transformadores.</p>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="id6"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Recordamos que los pesos son los parámetros que se pueden aprender de una red neuronal.</p>
+</dd>
+<dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p>Un trabajo relacionado con esta época fue ELMo (Embeddings from Language Models), que mostró cómo el preentrenamiento de los LSTM podía producir embeddings de palabras de alta calidad para tareas posteriores.</p>
+</dd>
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id4">3</a></span></dt>
+<dd><p>Esto es más cierto en el caso del inglés que en el de la mayoría de las lenguas del mundo, donde puede ser difícil obtener un gran corpus de texto digitalizado. La búsqueda de formas de superar esta carencia es un área activa de la investigación y el activismo en PNL.</p>
+</dd>
+</dl>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./meddocan"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="a.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">5. </span>Apéndice</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="a_training.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.2. </span>Training</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillaume Gelabert<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

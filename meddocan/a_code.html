@@ -1,0 +1,1797 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5.3. Código &#8212; Anonimización aplicada al ámbito médico</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.4. Transformers para NER" href="a_transformers.html" />
+    <link rel="prev" title="5.2. Training" href="a_training.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo-serikat.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Anonimización aplicada al ámbito médico</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Introducción
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_evaluation.html">
+   1. Evaluación
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_data.html">
+   2. Clinical Corpus
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_training.html">
+   3. Entrenamiento
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   4. Referencias
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="a.html">
+   5. Apéndice
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_transfer_learning.html">
+     5.1. El concepto de transfer learning en NLP
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_training.html">
+     5.2. Training
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.3. Código
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="a_transformers.html">
+     5.4. Transformers para NER
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/GuiGel/MedDocAn/cdti?urlpath=tree/cdti/meddocan/a_code.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/GuiGel/MedDocAn/issues/new?title=Issue%20on%20page%20%2Fmeddocan/a_code.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/meddocan/a_code.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download notebook file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-code"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="../_sources/meddocan/a_code.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#meddocan-pipeline">
+   5.3.1. Meddocan pipeline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#entrenar-un-modelo-con-flair">
+   5.3.2. Entrenar un modelo con Flair
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inferencia">
+   5.3.3. Inferencia
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation">
+   5.3.4. Evaluation
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Código</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#meddocan-pipeline">
+   5.3.1. Meddocan pipeline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#entrenar-un-modelo-con-flair">
+   5.3.2. Entrenar un modelo con Flair
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inferencia">
+   5.3.3. Inferencia
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#evaluation">
+   5.3.4. Evaluation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <div class="cell tag_hide-output tag_remove-input docutils container">
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="codigo">
+<h1><span class="section-number">5.3. </span>Código<a class="headerlink" href="#codigo" title="Permalink to this headline">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>El proyecto completo está disponible en el repositorio <a class="reference external" href="https://github.com/GuiGel/MedDocAn">MedDocAn</a> de nuestro github donde todo el código así como los experimentos del proyecto son disponibles.</p>
+</div>
+<section id="meddocan-pipeline">
+<span id="id1"></span><h2><span class="section-number">5.3.1. </span>Meddocan pipeline<a class="headerlink" href="#meddocan-pipeline" title="Permalink to this headline">#</a></h2>
+<p>Una de las tareas es obtener un preprocesso correcto de los informes clínicos a través  de un objeto <code class="docutils literal notranslate"><span class="pre">spacy.tokens.Doc</span></code> a partir de cualquier cadena de caracteres. Por ello utilizaremos el <code class="docutils literal notranslate"><span class="pre">meddocan.language.pipeline.meddocan_pipeline</span></code> creado con la ayuda de la biblioteca <a class="reference external" href="https://spacy.io/">spaCy</a> para adaptarlo a nuestras necesidades. El código relativo a la creación del pipeline se puede encontrar en el paquete <a class="reference external" href="https://github.com/GuiGel/MedDocAn/tree/master/meddocan/language">meddocan/language</a>.</p>
+<p>Por otra parte, tenemos que poder leer y extraer la información relevante de los documentos provisto en el formato Brat. Es decir que cada informe clínico esta compuesto de 2 ficheros. Uno contiene el texto bruto y el otro las anotaciones. El código relativo de esa parte se encuentra en el paquete <a class="reference external" href="https://github.com/GuiGel/MedDocAn/tree/master/meddocan/data">meddocan/data</a>.</p>
+<p>Para ver cómo funciona, seleccionamos un informe médico gracias al objeto <code class="docutils literal notranslate"><span class="pre">meddocan.data.docs_iterators.GsDocs</span></code> que permite acceder a los documentos del conjunto de datos meddocan directamente como objetos <code class="docutils literal notranslate"><span class="pre">spacy.tokens.Doc</span></code> con varios atributos específicos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">displacy</span>
+
+<span class="kn">from</span> <span class="nn">meddocan.data</span> <span class="kn">import</span> <span class="n">meddocan_zip</span><span class="p">,</span> <span class="n">ArchiveFolder</span>
+<span class="kn">from</span> <span class="nn">meddocan.data.containers</span> <span class="kn">import</span> <span class="n">BratAnnotations</span><span class="p">,</span> <span class="n">BratFilesPair</span><span class="p">,</span> <span class="n">BratSpan</span>
+<span class="kn">from</span> <span class="nn">meddocan.data.docs_iterators</span> <span class="kn">import</span> <span class="n">GsDocs</span>
+
+<span class="n">gs_docs</span> <span class="o">=</span> <span class="n">GsDocs</span><span class="p">(</span><span class="n">ArchiveFolder</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+<span class="n">docs_with_brat_pair</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">gs_docs</span><span class="p">)</span>
+<span class="n">doc_with_brat_pair</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">docs_with_brat_pair</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>El objeto <code class="docutils literal notranslate"><span class="pre">doc_with_brat_pair</span></code> creado por <code class="docutils literal notranslate"><span class="pre">GsDocs</span></code> tiene 2 atributos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="n">doc_with_brat_pair</span><span class="p">)</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;brat_files_pair&#39;, &#39;doc&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>El atributo <code class="docutils literal notranslate"><span class="pre">brat_files_pair</span></code> es un objeto <code class="docutils literal notranslate"><span class="pre">meddocan.data.docs_iterators.BratFilesPair</span></code> que indica la ubicación de los ficheros originales correspondiendo al atributo <code class="docutils literal notranslate"><span class="pre">doc</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">doc_with_brat_pair</span><span class="o">.</span><span class="n">brat_files_pair</span><span class="p">)</span><span class="o">.</span><span class="vm">__qualname__</span><span class="p">,</span>
+     <span class="n">doc_with_brat_pair</span><span class="o">.</span><span class="n">brat_files_pair</span><span class="o">.</span><span class="n">ann</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+     <span class="n">doc_with_brat_pair</span><span class="o">.</span><span class="n">brat_files_pair</span><span class="o">.</span><span class="n">txt</span><span class="o">.</span><span class="n">name</span><span class="p">],</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;txt&quot;</span><span class="p">,</span> <span class="s2">&quot;ann&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>type</th>
+      <th>txt</th>
+      <th>ann</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>BratFilesPair</td>
+      <td>S0004-06142005000500011-1.ann</td>
+      <td>S0004-06142005000500011-1.txt</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Lo que hace <code class="docutils literal notranslate"><span class="pre">GsDocs</span></code> es crear un objeto <code class="docutils literal notranslate"><span class="pre">Doc</span></code> a partir de un objeto <code class="docutils literal notranslate"><span class="pre">meddocan.data.docs_iterators.DocWithBratPair</span></code> utilizando el <code class="docutils literal notranslate"><span class="pre">MedocanPipeline</span></code>.</p>
+<p>En una primera fase el <code class="docutils literal notranslate"><span class="pre">MeddocanPipeline</span></code> recibe el texto contenido en el fichero original <em>S0004-06142005000500011-1.txt</em> como argumento.</p>
+<p>Miramos el contenido del fichero utilizando el atributo <code class="docutils literal notranslate"><span class="pre">doc</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gold</span> <span class="o">=</span> <span class="n">doc_with_brat_pair</span><span class="o">.</span><span class="n">doc</span>
+<span class="n">gold</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Datos del paciente.
+Nombre:  Ernesto.
+Apellidos: Rivera Bueno.
+NHC: 368503.
+NASS: 26 63514095.
+Domicilio:  Calle Miguel Benitez 90.
+Localidad/ Provincia: Madrid.
+CP: 28016.
+Datos asistenciales.
+Fecha de nacimiento: 03/03/1946.
+País: España.
+Edad: 70 años Sexo: H.
+Fecha de Ingreso: 12/12/2016.
+Médico:  Ignacio Navarro Cuéllar NºCol: 28 28 70973.
+Informe clínico del paciente: Paciente de 70 años de edad, minero jubilado, sin alergias medicamentosas conocidas, que presenta como antecedentes personales: accidente laboral antiguo con fracturas vertebrales y costales; intervenido de enfermedad de Dupuytren en mano derecha y by-pass iliofemoral izquierdo; Diabetes Mellitus tipo II, hipercolesterolemia e hiperuricemia; enolismo activo, fumador de 20 cigarrillos / día.
+Es derivado desde Atención Primaria por presentar hematuria macroscópica postmiccional en una ocasión y microhematuria persistente posteriormente, con micciones normales.
+En la exploración física presenta un buen estado general, con abdomen y genitales normales; tacto rectal compatible con adenoma de próstata grado I/IV.
+En la analítica de orina destaca la existencia de 4 hematíes/ campo y 0-5 leucocitos/campo; resto de sedimento normal.
+Hemograma normal; en la bioquímica destaca una glucemia de 169 mg/dl y triglicéridos de 456 mg/dl; función hepática y renal normal. PSA de 1.16 ng/ml.
+Las citologías de orina son repetidamente sospechosas de malignidad.
+En la placa simple de abdomen se valoran cambios degenerativos en columna lumbar y calcificaciones vasculares en ambos hipocondrios y en pelvis.
+La ecografía urológica pone de manifiesto la existencia de quistes corticales simples en riñón derecho, vejiga sin alteraciones con buena capacidad y próstata con un peso de 30 g.
+En la UIV se observa normofuncionalismo renal bilateral, calcificaciones sobre silueta renal derecha y uréteres arrosariados con imágenes de adición en el tercio superior de ambos uréteres, en relación a pseudodiverticulosis ureteral. El cistograma demuestra una vejiga con buena capacidad, pero paredes trabeculadas en relación a vejiga de esfuerzo. La TC abdominal es normal.
+La cistoscopia descubre la existencia de pequeñas tumoraciones vesicales, realizándose resección transuretral con el resultado anatomopatológico de carcinoma urotelial superficial de vejiga.
+Remitido por: Ignacio Navarro Cuéllar c/ del Abedul 5-7, 2º dcha 28036 Madrid, España E-mail: nnavcu@hotmail.com.
+</pre></div>
+</div>
+</div>
+</div>
+<p>En una segunda fase se le asigna las entidades extraídas del fichero <em>S0004-06142005000500011-1.ann</em> utilizando el método <code class="docutils literal notranslate"><span class="pre">spacy.tokens.Doc.set_ents</span></code>.<br />
+Miramos el fichero al formato <em>.brat</em> que contiene las anotaciones para hacerse una idea.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">doc_with_brat_pair</span><span class="o">.</span><span class="n">brat_files_pair</span><span class="o">.</span><span class="n">ann</span><span class="o">.</span><span class="n">read_text</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T1	FECHAS 215 225	03/03/1946
+T2	CORREO_ELECTRONICO 2421 2439	nnavcu@hotmail.com
+T3	PAIS 2406 2412	España
+T4	TERRITORIO 2398 2404	Madrid
+T5	TERRITORIO 2392 2397	28036
+T6	CALLE 2365 2391	c/ del Abedul 5-7, 2º dcha
+T7	NOMBRE_PERSONAL_SANITARIO 303 326	Ignacio Navarro Cuéllar
+T8	NOMBRE_PERSONAL_SANITARIO 2341 2364	Ignacio Navarro Cuéllar
+T9	EDAD_SUJETO_ASISTENCIA 389 396	70 años
+T10	ID_TITULACION_PERSONAL_SANITARIO 334 345	28 28 70973
+T11	FECHAS 282 292	12/12/2016
+T12	SEXO_SUJETO_ASISTENCIA 261 262	H
+T13	EDAD_SUJETO_ASISTENCIA 247 254	70 años
+T14	PAIS 233 239	España
+T15	TERRITORIO 166 171	28016
+T16	TERRITORIO 154 160	Madrid
+T17	CALLE 107 130	Calle Miguel Benitez 90
+T18	ID_ASEGURAMIENTO 82 93	26 63514095
+T19	ID_SUJETO_ASISTENCIA 68 74	368503
+T20	NOMBRE_SUJETO_ASISTENCIA 49 61	Rivera Bueno
+T21	NOMBRE_SUJETO_ASISTENCIA 29 36	Ernesto
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ahora que tenemos una idea más clara de nuestros datos originales, observamos la serie de pre-procesos aplicados por el <code class="docutils literal notranslate"><span class="pre">meddocan_pipeline</span></code> y <code class="docutils literal notranslate"><span class="pre">GsDocs</span></code> gracias a la instancia <code class="docutils literal notranslate"><span class="pre">gold</span></code> del objeto <code class="docutils literal notranslate"><span class="pre">Doc</span></code> para preparar el conjunto de datos a fin de entrenar una red neuronal con Flair.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>En el ejemplo solo miramos las 3 primeras lineas del objeto <code class="docutils literal notranslate"><span class="pre">Doc</span></code>.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">max_lines</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gold</span><span class="o">.</span><span class="n">sents</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--------------- Sentence </span><span class="si">{</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> ---------------&quot;</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="n">tok</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">tok</span><span class="o">.</span><span class="n">ent_iob_</span><span class="p">,</span> <span class="n">tok</span><span class="o">.</span><span class="n">ent_type_</span><span class="p">)</span> <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">sent</span><span class="p">))</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="s2">&quot;bio&quot;</span><span class="p">,</span> <span class="s2">&quot;etiqueta&quot;</span><span class="p">])</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">max_lines</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">break</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------- Sentence 1 ---------------
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>text</th>
+      <th>bio</th>
+      <th>etiqueta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Datos</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>del</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>paciente</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>.</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>\n</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------- Sentence 2 ---------------
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>text</th>
+      <th>bio</th>
+      <th>etiqueta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Nombre</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>:</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td></td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Ernesto</td>
+      <td>B</td>
+      <td>NOMBRE_SUJETO_ASISTENCIA</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>.</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>\n</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--------------- Sentence 3 ---------------
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>text</th>
+      <th>bio</th>
+      <th>etiqueta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Apellidos</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>:</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Rivera</td>
+      <td>B</td>
+      <td>NOMBRE_SUJETO_ASISTENCIA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bueno</td>
+      <td>I</td>
+      <td>NOMBRE_SUJETO_ASISTENCIA</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>.</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>\n</td>
+      <td>O</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Para entender un poco mejor lo que hacemos miramos los diferentes componentes del <code class="docutils literal notranslate"><span class="pre">MeddocanPipeline</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">gs_docs</span><span class="o">.</span><span class="n">nlp</span><span class="o">.</span><span class="n">pipe_names</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;componentes&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>componentes</th>
+      <td>missaligned_splitter</td>
+      <td>line_sentencizer</td>
+      <td>predictor</td>
+      <td>write_methods</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ol class="simple">
+<li><p>El primer elemento de nuestro pipeline es el tokenizer seguido del componente <code class="docutils literal notranslate"><span class="pre">missaligned_splitter</span></code> que nos permite afinar la tokenización de tal forma que cada token se corresponda exactamente con una etiqueta al formato BIO.</p></li>
+<li><p>El segundo componente, <code class="docutils literal notranslate"><span class="pre">line_sentencizer</span></code> permite partir el texto en frases. En este caso se corresponde a un párrafo.</p></li>
+<li><p>El componente <code class="docutils literal notranslate"><span class="pre">predictor</span></code> nos permite utilizar un modelo de Flair de tal forma que se integra al pipeline. De esa mañera se puede hacer directamente predicciones utilizando un objeto <code class="docutils literal notranslate"><span class="pre">Doc</span></code> y un modelo entrenado previamente.</p></li>
+<li><p>El componente <code class="docutils literal notranslate"><span class="pre">write_methods</span></code> añade los métodos <code class="docutils literal notranslate"><span class="pre">to_connl03</span></code> y <code class="docutils literal notranslate"><span class="pre">to_ann</span></code> al objeto <code class="docutils literal notranslate"><span class="pre">Doc</span></code> que sirven a crear los ficheros necesarios para:</p>
+<ul class="simple">
+<li><p>Crear un <code class="docutils literal notranslate"><span class="pre">flair.data.Corpus</span></code> que va a permitir entrenar un modelo con Flair.</p></li>
+<li><p>Evaluar un modelo utilizando el script de evaluación propio de la competición.</p></li>
+</ul>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Hemos integrado el <a class="reference external" href="https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script">script de evaluación</a> dentro de nuestra librería con algunas modificaciones y un poco más de documentación, con el objetivo de unificar el workflow del entrenamiento hasta la evaluación.<br />
+La evaluación se hace entonces directamente desde nuestra librería gracias al commando:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>meddocan <span class="nb">eval</span> --help
+<span class="go">Usage: meddocan eval [OPTIONS] MODEL NAME</span>
+<span class="go">Evaluate the model with the `meddocan` metrics.</span>
+<span class="go">    </span>
+<span class="go">    Compute f1-score for Ner (start, end, tag), Span (start, end) and merged</span>
+<span class="go">    span if not there is no number or letter between consecutive span.</span>
+
+<span class="go">    The function produce the following temporary folder hierarchy:</span>
+
+<span class="go">    evaluation_root</span>
+<span class="go">    ├── golds</span>
+<span class="go">    │   ├── dev</span>
+<span class="go">    |   |    └── brat</span>
+<span class="go">    |   |       ├── file-1.ann</span>
+<span class="go">    |   |       ├── file-1.txt</span>
+<span class="go">    |   |       ├── ...</span>
+<span class="go">    |   |       └── file-n.ann</span>
+<span class="go">    |   └── test</span>
+<span class="go">    |        └── brat</span>
+<span class="go">    |           ├── file-1.ann</span>
+<span class="go">    |           ├── file-1.txt</span>
+<span class="go">    |           ├── ...</span>
+<span class="go">    |           └── file-n.ann</span>
+<span class="go">    │       </span>
+<span class="go">    └── name</span>
+<span class="go">        ├── dev</span>
+<span class="go">        |    └── brat</span>
+<span class="go">        |       ├── file-1.ann</span>
+<span class="go">        |       ├── file-1.txt</span>
+<span class="go">        |       ├── ...</span>
+<span class="go">        |       └── file-n.ann</span>
+<span class="go">        └── test</span>
+<span class="go">             └── brat</span>
+<span class="go">                ├── file-1.ann</span>
+<span class="go">                ├── file-1.txt</span>
+<span class="go">                ├── ...</span>
+<span class="go">                └── file-n.ann</span>
+
+<span class="go">    Then the model is evaluate producing the following files:</span>
+
+<span class="go">    evaluation_root/name</span>
+<span class="go">    ├── dev</span>
+<span class="go">    │   ├── ner</span>
+<span class="go">    │   └── spans</span>
+<span class="go">    └── test</span>
+<span class="go">        ├── ner</span>
+<span class="go">        └── spans</span>
+
+<span class="go">    And the temporary folder are removed.</span>
+
+<span class="go">    Args:</span>
+<span class="go">        model (str): Path to the Flair model to evaluate.</span>
+<span class="go">        name (str): Name of the folder that will holds the results produced by\</span>
+<span class="go">            the Flair model.</span>
+<span class="go">        evaluation_root (str): Path to the root folder where the</span>
+<span class="go">            results will be stored.</span>
+<span class="go">        sentence_splitting (Path): Path to the sub-directory</span>
+<span class="go">            `sentence_splitting`. This directory is mandatory to compute the</span>
+<span class="go">            `leak score` evaluation metric.</span>
+<span class="go">        force (bool, optional): Force to create again the golds standard files.</span>
+<span class="go">            Defaults to False.</span>
+
+<span class="go">Arguments:</span>
+<span class="go">  MODEL  Path to the Flair model to evaluate.  [required]</span>
+<span class="go">  NAME   Name of the folder that will holds the results produced by the</span>
+<span class="go">         Flair model.  [required]</span>
+
+<span class="go">Options:</span>
+<span class="go">  --evaluation-root PATH     Path to the root folder where the results will be</span>
+<span class="go">                             stored.</span>
+<span class="go">  --sentence-splitting PATH  The sub-directory `sentence_splitting` is</span>
+<span class="go">                             mandatory to compute the `leak score` evaluation</span>
+<span class="go">                             metric.</span>
+<span class="go">  --device TEXT              Device to use.  [default: cuda:0]</span>
+<span class="go">  --help                     Show this message and exit.        </span>
+</pre></div>
+</div>
+</div>
+<p>La entidades anotadas se obtienen utilizando el atributo <code class="docutils literal notranslate"><span class="pre">ents</span></code> de nuestro objeto <code class="docutils literal notranslate"><span class="pre">spacy.tokens.Doc</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">[(</span><span class="n">ent</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">start_char</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">end_char</span><span class="p">)</span> <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">gold</span><span class="o">.</span><span class="n">ents</span><span class="p">]),</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Tag&quot;</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Tag</th>
+      <th>start</th>
+      <th>end</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Ernesto</td>
+      <td>29</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Rivera Bueno</td>
+      <td>49</td>
+      <td>61</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>368503</td>
+      <td>68</td>
+      <td>74</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>26 63514095</td>
+      <td>82</td>
+      <td>93</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Calle Miguel Benitez 90</td>
+      <td>107</td>
+      <td>130</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Madrid</td>
+      <td>154</td>
+      <td>160</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>28016</td>
+      <td>166</td>
+      <td>171</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>03/03/1946</td>
+      <td>215</td>
+      <td>225</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>España</td>
+      <td>233</td>
+      <td>239</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>70 años</td>
+      <td>247</td>
+      <td>254</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>H</td>
+      <td>261</td>
+      <td>262</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>12/12/2016</td>
+      <td>282</td>
+      <td>292</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>Ignacio Navarro Cuéllar</td>
+      <td>303</td>
+      <td>326</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>28 28 70973</td>
+      <td>334</td>
+      <td>345</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>70 años</td>
+      <td>389</td>
+      <td>396</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>Ignacio Navarro Cuéllar</td>
+      <td>2341</td>
+      <td>2364</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>c/ del Abedul 5-7, 2º dcha</td>
+      <td>2365</td>
+      <td>2391</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>28036</td>
+      <td>2392</td>
+      <td>2397</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>Madrid</td>
+      <td>2398</td>
+      <td>2404</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>España</td>
+      <td>2406</td>
+      <td>2412</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>nnavcu@hotmail.com</td>
+      <td>2421</td>
+      <td>2439</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Nuestras entidades son en este ejemplo compuestas del tag y del a position de la entidad en la cadena de caracteres original.</p>
+<p>Ahora si queremos algo más visual podemos utilizar la function <code class="docutils literal notranslate"><span class="pre">spacy.displacy.render()</span></code> que nos permite trabajar con el objeto <code class="docutils literal notranslate"><span class="pre">Doc</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">gold</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ent&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">Datos del paciente.</br>Nombre:  
+<mark class="entity" style="background: #FF6600; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Ernesto
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">NOMBRE_SUJETO_ASISTENCIA</span>
+</mark>
+.</br>Apellidos: 
+<mark class="entity" style="background: #FF6600; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Rivera Bueno
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">NOMBRE_SUJETO_ASISTENCIA</span>
+</mark>
+.</br>NHC: 
+<mark class="entity" style="background: #FF9900; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    368503
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ID_SUJETO_ASISTENCIA</span>
+</mark>
+.</br>NASS: 
+<mark class="entity" style="background: #00FF7F; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    26 63514095
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ID_ASEGURAMIENTO</span>
+</mark>
+.</br>Domicilio:  
+<mark class="entity" style="background: #ADFF2F; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Calle Miguel Benitez 90
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">CALLE</span>
+</mark>
+.</br>Localidad/ Provincia: 
+<mark class="entity" style="background: #CCFFFF; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Madrid
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">TERRITORIO</span>
+</mark>
+.</br>CP: 
+<mark class="entity" style="background: #CCFFFF; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    28016
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">TERRITORIO</span>
+</mark>
+.</br>Datos asistenciales.</br>Fecha de nacimiento: 
+<mark class="entity" style="background: #FFCCFF; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    03/03/1946
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">FECHAS</span>
+</mark>
+.</br>País: 
+<mark class="entity" style="background: #FFA07A; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    España
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PAIS</span>
+</mark>
+.</br>Edad: 
+<mark class="entity" style="background: #7FFF00; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    70 años
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">EDAD_SUJETO_ASISTENCIA</span>
+</mark>
+ Sexo: 
+<mark class="entity" style="background: #99CCFF; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    H
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">SEXO_SUJETO_ASISTENCIA</span>
+</mark>
+.</br>Fecha de Ingreso: 
+<mark class="entity" style="background: #FFCCFF; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    12/12/2016
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">FECHAS</span>
+</mark>
+.</br>Médico:  
+<mark class="entity" style="background: #FFD700; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Ignacio Navarro Cuéllar
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">NOMBRE_PERSONAL_SANITARIO</span>
+</mark>
+ NºCol: 
+<mark class="entity" style="background: #FF0000; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    28 28 70973
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ID_TITULACION_PERSONAL_SANITARIO</span>
+</mark>
+.</br>Informe clínico del paciente: Paciente de 
+<mark class="entity" style="background: #7FFF00; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    70 años
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">EDAD_SUJETO_ASISTENCIA</span>
+</mark>
+ de edad, minero jubilado, sin alergias medicamentosas conocidas, que presenta como antecedentes personales: accidente laboral antiguo con fracturas vertebrales y costales; intervenido de enfermedad de Dupuytren en mano derecha y by-pass iliofemoral izquierdo; Diabetes Mellitus tipo II, hipercolesterolemia e hiperuricemia; enolismo activo, fumador de 20 cigarrillos / día.</br>Es derivado desde Atención Primaria por presentar hematuria macroscópica postmiccional en una ocasión y microhematuria persistente posteriormente, con micciones normales.</br>En la exploración física presenta un buen estado general, con abdomen y genitales normales; tacto rectal compatible con adenoma de próstata grado I/IV.</br>En la analítica de orina destaca la existencia de 4 hematíes/ campo y 0-5 leucocitos/campo; resto de sedimento normal.</br>Hemograma normal; en la bioquímica destaca una glucemia de 169 mg/dl y triglicéridos de 456 mg/dl; función hepática y renal normal. PSA de 1.16 ng/ml.</br>Las citologías de orina son repetidamente sospechosas de malignidad.</br>En la placa simple de abdomen se valoran cambios degenerativos en columna lumbar y calcificaciones vasculares en ambos hipocondrios y en pelvis.</br>La ecografía urológica pone de manifiesto la existencia de quistes corticales simples en riñón derecho, vejiga sin alteraciones con buena capacidad y próstata con un peso de 30 g.</br>En la UIV se observa normofuncionalismo renal bilateral, calcificaciones sobre silueta renal derecha y uréteres arrosariados con imágenes de adición en el tercio superior de ambos uréteres, en relación a pseudodiverticulosis ureteral. El cistograma demuestra una vejiga con buena capacidad, pero paredes trabeculadas en relación a vejiga de esfuerzo. La TC abdominal es normal.</br>La cistoscopia descubre la existencia de pequeñas tumoraciones vesicales, realizándose resección transuretral con el resultado anatomopatológico de carcinoma urotelial superficial de vejiga.</br>Remitido por: 
+<mark class="entity" style="background: #FFD700; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Ignacio Navarro Cuéllar
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">NOMBRE_PERSONAL_SANITARIO</span>
+</mark>
+
+<mark class="entity" style="background: #ADFF2F; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    c/ del Abedul 5-7, 2º dcha
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">CALLE</span>
+</mark>
+
+<mark class="entity" style="background: #CCFFFF; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    28036
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">TERRITORIO</span>
+</mark>
+
+<mark class="entity" style="background: #CCFFFF; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Madrid
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">TERRITORIO</span>
+</mark>
+, 
+<mark class="entity" style="background: #FFA07A; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    España
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PAIS</span>
+</mark>
+ E-mail: 
+<mark class="entity" style="background: #FF4500; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    nnavcu@hotmail.com
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">CORREO_ELECTRONICO</span>
+</mark>
+.</br></div></span></div></div>
+</div>
+</section>
+<section id="entrenar-un-modelo-con-flair">
+<h2><span class="section-number">5.3.2. </span>Entrenar un modelo con Flair<a class="headerlink" href="#entrenar-un-modelo-con-flair" title="Permalink to this headline">#</a></h2>
+<p>La clase <code class="docutils literal notranslate"><span class="pre">GsDocs</span></code> sirve a preparar los datos de forma que puedan ser leídos por Flair.  Esto lo hacemos a través del objeto <code class="docutils literal notranslate"><span class="pre">meddocan.data.corpus.MEDDOCAN</span></code> que hereda de <code class="docutils literal notranslate"><span class="pre">flair.datasets.ColumnCorpus</span></code>.</p>
+<p>Este corpus permite a la biblioteca Flair acceder directamente a los conjuntos de datos de entrenamiento, validación y prueba.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">meddocan.data.corpus</span> <span class="kn">import</span> <span class="n">MEDDOCAN</span>
+
+<span class="n">corpus</span> <span class="o">=</span> <span class="n">MEDDOCAN</span><span class="p">(</span><span class="n">sentences</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">in_memory</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">document_separator_token</span><span class="o">=</span><span class="s2">&quot;-DOCSTART-&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 11:12:52,616 Reading data from /tmp/tmp7uu7l1fq
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 11:12:52,617 Train: /tmp/tmp7uu7l1fq/train
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 11:12:52,618 Dev: /tmp/tmp7uu7l1fq/dev
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 11:12:52,618 Test: /tmp/tmp7uu7l1fq/test
+</pre></div>
+</div>
+</div>
+</div>
+<p>Una vez creado nuestro corpus podemos utilizar los métodos de los que hereda nuestro objeto como el método especial <code class="docutils literal notranslate"><span class="pre">__str__</span></code> que escribe en stdout el número de objetos <code class="docutils literal notranslate"><span class="pre">flair.tokens.Sentence</span></code> que contiene cada subconjunto del conjunto de datos. Es decir, cuántos párrafos tenemos en total en cada uno de nuestros conjuntos de datos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Corpus: 10811 train + 5518 dev + 5405 test sentences
+</pre></div>
+</div>
+</div>
+</div>
+<p>Para entrenar los modelos con la librería Flair basta seguir el ejemplo siguiente.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Todos nuestros experimentos se pueden encontrar en la carpeta <a class="reference external" href="https://github.com/GuiGel/MedDocAn/tree/master/experiments">experiments</a> y siguen este formato.<br />
+La única diferencia es la adición de las librerías hyperopt <a class="footnote-reference brackets" href="#id4" id="id2">1</a> y Tensorboard <a class="footnote-reference brackets" href="#id5" id="id3">2</a> para obtener una trazabilidad de los entrenamientos mediante el registro de diversos parámetros y resultados.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flair.data</span> <span class="kn">import</span> <span class="n">Corpus</span>
+<span class="kn">from</span> <span class="nn">flair.embeddings</span> <span class="kn">import</span> <span class="n">TransformerWordEmbeddings</span>
+<span class="kn">from</span> <span class="nn">flair.models</span> <span class="kn">import</span> <span class="n">SequenceTagger</span>
+<span class="kn">from</span> <span class="nn">flair.trainers</span> <span class="kn">import</span> <span class="n">ModelTrainer</span>
+
+<span class="kn">from</span> <span class="nn">meddocan.data.corpus</span> <span class="kn">import</span> <span class="n">MEDDOCAN</span>
+
+<span class="c1"># 1. Obtener el corpus</span>
+<span class="n">corpus</span><span class="p">:</span> <span class="n">Corpus</span> <span class="o">=</span> <span class="n">MEDDOCAN</span><span class="p">(</span>
+    <span class="n">sentences</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">document_separator_token</span><span class="o">=</span><span class="s2">&quot;-DOCSTART-&quot;</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">corpus</span><span class="p">)</span>
+
+<span class="c1"># 2. Que label se quiere predecir?</span>
+<span class="n">label_type</span> <span class="o">=</span> <span class="s1">&#39;ner&#39;</span>
+
+<span class="c1"># 3. Crear el diccionario de labels a partir del corpus</span>
+<span class="n">label_dict</span> <span class="o">=</span> <span class="n">corpus</span><span class="o">.</span><span class="n">make_label_dictionary</span><span class="p">(</span><span class="n">label_type</span><span class="o">=</span><span class="n">label_type</span><span class="p">,</span> <span class="n">add_unk</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">label_dict</span><span class="p">)</span>
+
+<span class="c1"># 4. Inicializar los embeddings generados por el transformador utilizando el contexto</span>
+<span class="n">embeddings</span> <span class="o">=</span> <span class="n">TransformerWordEmbeddings</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;dccuchile/bert-base-spanish-wwm-cased&#39;</span><span class="p">,</span>
+                                       <span class="n">layers</span><span class="o">=</span><span class="s2">&quot;-1&quot;</span><span class="p">,</span>
+                                       <span class="n">subtoken_pooling</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span>
+                                       <span class="n">fine_tune</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                       <span class="n">use_context</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                       <span class="p">)</span>
+
+<span class="c1"># 5. Inicializar etiquedator simple (no CRF, no RNN, no reprojección)</span>
+<span class="n">tagger</span> <span class="o">=</span> <span class="n">SequenceTagger</span><span class="p">(</span><span class="n">hidden_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+                        <span class="n">embeddings</span><span class="o">=</span><span class="n">embeddings</span><span class="p">,</span>
+                        <span class="n">tag_dictionary</span><span class="o">=</span><span class="n">label_dict</span><span class="p">,</span>
+                        <span class="n">tag_type</span><span class="o">=</span><span class="s1">&#39;ner&#39;</span><span class="p">,</span>
+                        <span class="n">use_crf</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">use_rnn</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="n">reproject_embeddings</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="p">)</span>
+
+<span class="c1"># 6. Initializar el trainer</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">ModelTrainer</span><span class="p">(</span><span class="n">tagger</span><span class="p">,</span> <span class="n">corpus</span><span class="p">)</span>
+
+<span class="c1"># 7. Ejecutar el fine-tuning</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">fine_tune</span><span class="p">(</span><span class="s1">&#39;experiments/meddocan&#39;</span><span class="p">,</span>
+                  <span class="n">learning_rate</span><span class="o">=</span><span class="mf">5.0e-6</span><span class="p">,</span>
+                  <span class="n">mini_batch_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                  <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="inferencia">
+<h2><span class="section-number">5.3.3. </span>Inferencia<a class="headerlink" href="#inferencia" title="Permalink to this headline">#</a></h2>
+<p>Una vez el modelo entrenado, la inferencia se hace gracias al <code class="docutils literal notranslate"><span class="pre">meddocan_pipeline</span></code> justamente porque nos permite integrar un modelo de <code class="docutils literal notranslate"><span class="pre">Flair</span> </code> gracias a su componente <code class="docutils literal notranslate"><span class="pre">predictor</span></code> como lo vamos a ver a continuación.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Aquí utilizamos por el ejemplo un modelo de FLair pre-entrenado con los embeddings de Flair y una red LSTM-CRF y entrenado sobre el conjunto de datos <em>CONLL-2002</em> en inglés. Este conjunto de datos consiste en artículos de noticias anotados con las categorías LOC, PER y ORG que son diferentes de las categorías de MEDDOCAN.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">meddocan.language.pipeline</span> <span class="kn">import</span> <span class="n">meddocan_pipeline</span>
+
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">meddocan_pipeline</span><span class="p">(</span><span class="s2">&quot;flair/ner-english-fast&quot;</span><span class="p">)</span>
+<span class="n">sys</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="n">gold</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 11:13:00,076 loading file /home/wave/.meddocan/models/ner-english-fast/4c58e7191ff952c030b82db25b3694b58800b0e722ff15427f527e1631ed6142.e13c7c4664ffe2bbfa8f1f5375bd0dced866b8c1dd7ff89a6d705518abf0a611
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 11:13:02,946 SequenceTagger predicts: Dictionary with 20 tags: &lt;unk&gt;, O, S-ORG, S-MISC, B-PER, E-PER, S-LOC, B-ORG, E-ORG, I-PER, S-PER, B-MISC, I-MISC, E-MISC, I-ORG, B-LOC, E-LOC, I-LOC, &lt;START&gt;, &lt;STOP&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>El objeto <code class="docutils literal notranslate"><span class="pre">sys</span></code> es un objeto <code class="docutils literal notranslate"><span class="pre">spacy.tokens.Doc</span></code> al igual de el objeto <code class="docutils literal notranslate"><span class="pre">gold</span></code>.</p>
+<p>La única diferencia entre <code class="docutils literal notranslate"><span class="pre">sys</span></code> y <code class="docutils literal notranslate"><span class="pre">gold</span></code> es que <code class="docutils literal notranslate"><span class="pre">sys</span></code> contiene entidades que le son asignadas por un modelo entrenado con los algoritmos de Flair, mientras que en el caso de <code class="docutils literal notranslate"><span class="pre">gold</span></code> provienen de la lectura de un archivo <em>.ann</em>.</p>
+<p>Entonces para visualizar las predicciones de nuestro model, lo tenemos igual de fácil que antes. Basta utilizar la function <code class="docutils literal notranslate"><span class="pre">spacy.displacy.render()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">displacy</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;ent&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><span class="tex2jax_ignore"><div class="entities" style="line-height: 2.5; direction: ltr">
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Datos del paciente
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+.</br>Nombre:  
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Ernesto
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PER</span>
+</mark>
+.</br>Apellidos: 
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Rivera Bueno
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PER</span>
+</mark>
+.</br>NHC: 368503.</br>
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    NASS
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+: 26 63514095.</br>Domicilio:  
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Calle Miguel Benitez
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PER</span>
+</mark>
+ 90.</br>
+<mark class="entity" style="background: #ff9561; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Localidad
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">LOC</span>
+</mark>
+/ 
+<mark class="entity" style="background: #ff9561; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Provincia
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">LOC</span>
+</mark>
+: 
+<mark class="entity" style="background: #ff9561; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Madrid
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">LOC</span>
+</mark>
+.</br>
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    CP
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+: 28016.</br>Datos asistenciales.</br>
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Fecha de nacimiento
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">MISC</span>
+</mark>
+: 03/03/1946.</br>País: 
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    España
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+.</br>
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Edad
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+: 70 años Sexo: H.</br>
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Fecha de Ingreso
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+: 12/12/2016.</br>
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Médico
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+:  
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Ignacio Navarro Cuéllar NºCol
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+: 28 28 70973.</br>Informe clínico del paciente: 
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Paciente de 70 años de edad
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">MISC</span>
+</mark>
+, minero jubilado, sin alergias medicamentosas conocidas, que presenta como antecedentes personales: accidente laboral antiguo con fracturas vertebrales y costales; intervenido de enfermedad de Dupuytren en mano derecha y by-pass iliofemoral izquierdo; Diabetes Mellitus tipo II, hipercolesterolemia e hiperuricemia; enolismo activo, fumador de 20 cigarrillos / día.</br>Es derivado desde Atención Primaria por presentar hematuria macroscópica postmiccional en una ocasión y microhematuria persistente posteriormente, con micciones normales.</br>En la exploración física presenta un buen estado general, con abdomen y genitales normales; tacto rectal compatible con adenoma de próstata grado I/IV.</br>En la analítica de orina destaca la existencia de 4 hematíes/ campo y 0-5 leucocitos/campo; resto de sedimento normal.</br>Hemograma normal; en la bioquímica destaca una glucemia de 169 mg/dl y triglicéridos de 456 mg/dl; función hepática y renal normal. PSA de 1.16 ng/ml.</br>Las citologías de orina son repetidamente sospechosas de malignidad.</br>En la placa simple de abdomen se valoran cambios degenerativos en columna lumbar y calcificaciones vasculares en ambos hipocondrios y en pelvis.</br>La ecografía urológica pone de manifiesto la existencia de quistes corticales simples en riñón derecho, vejiga sin alteraciones con buena capacidad y próstata con un peso de 30 g.</br>
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    En la UIV
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">MISC</span>
+</mark>
+ se observa normofuncionalismo renal bilateral, calcificaciones sobre silueta renal derecha y uréteres arrosariados con imágenes de adición en el tercio superior de ambos uréteres, en relación a pseudodiverticulosis ureteral. El cistograma demuestra una vejiga con buena capacidad, pero paredes trabeculadas en relación a vejiga de esfuerzo. La TC abdominal es normal.</br>La cistoscopia descubre la existencia de pequeñas tumoraciones vesicales, realizándose resección transuretral con el resultado anatomopatológico de carcinoma urotelial superficial de vejiga.</br>Remitido por: 
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Ignacio Navarro Cuéllar
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PER</span>
+</mark>
+ c/ 
+<mark class="entity" style="background: #ddd; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    del Abedul
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PER</span>
+</mark>
+ 5-7, 2º dcha 28036 
+<mark class="entity" style="background: #ff9561; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    Madrid
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">LOC</span>
+</mark>
+, 
+<mark class="entity" style="background: #7aecec; padding: 0.45em 0.6em; margin: 0 0.25em; line-height: 1; border-radius: 0.35em;">
+    España E
+    <span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ORG</span>
+</mark>
+-mail: nnavcu@hotmail.com.</br></div></span></div></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Vemos a ojo que el modelo de Flair <code class="docutils literal notranslate"><span class="pre">flair/ner-english-fast</span></code> parece detectar correctamente el span de ciertas entidades. Les asigna una etiqueta como <code class="docutils literal notranslate"><span class="pre">LOC</span></code> o <code class="docutils literal notranslate"><span class="pre">PERS</span></code> y efectivamente son direcciones o personas aunque por supuesto no tiene el mismo etiquetado.</p>
+</div>
+</section>
+<section id="evaluation">
+<h2><span class="section-number">5.3.4. </span>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">#</a></h2>
+<p>La evaluación originalmente provistas a través  del <a class="reference external" href="https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script">script de evaluación</a> que re-utilizamos, utiliza el texto original así como su anotación al formato <em>brat</em> para calcular las métricas según las tareas <code class="docutils literal notranslate"><span class="pre">Subtrack1</span></code>, <code class="docutils literal notranslate"><span class="pre">Subtrack2</span> <span class="pre">[Strict]</span></code> y <code class="docutils literal notranslate"><span class="pre">SubTrack2</span> <span class="pre">[Merged]</span></code>.</p>
+<p>Para evaluar nuestros modelos, utilizamos el texto original a partir del cual se ha creado el documento <code class="docutils literal notranslate"><span class="pre">sys</span></code> así como su atributo <code class="docutils literal notranslate"><span class="pre">_.to_ann</span></code>. Ese método permite codificar el atributo <code class="docutils literal notranslate"><span class="pre">ents</span></code> del objeto <code class="docutils literal notranslate"><span class="pre">sys</span></code> en un fichero siguiendo el formado brat como se puede ver a continuación.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+
+<span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
+    <span class="n">pth</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="s2">&quot;file.txt&quot;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">_</span><span class="o">.</span><span class="n">to_ann</span><span class="p">(</span><span class="n">pth</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pth</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>T_0	ORG 0 18	Datos del paciente
+T_1	PER 29 36	Ernesto
+T_2	PER 49 61	Rivera Bueno
+T_3	ORG 76 80	NASS
+T_4	PER 107 127	Calle Miguel Benitez
+T_5	LOC 132 141	Localidad
+T_6	LOC 143 152	Provincia
+T_7	LOC 154 160	Madrid
+T_8	ORG 162 164	CP
+T_9	MISC 194 213	Fecha de nacimiento
+T_10	ORG 233 239	España
+T_11	ORG 241 245	Edad
+T_12	ORG 264 280	Fecha de Ingreso
+T_13	ORG 294 300	Médico
+T_14	ORG 303 332	Ignacio Navarro Cuéllar NºCol
+T_15	MISC 377 404	Paciente de 70 años de edad
+T_16	MISC 1758 1767	En la UIV
+T_17	PER 2341 2364	Ignacio Navarro Cuéllar
+T_18	PER 2368 2378	del Abedul
+T_19	LOC 2398 2404	Madrid
+T_20	ORG 2406 2414	España E
+</pre></div>
+</div>
+</div>
+</div>
+<p>Para hacer esto más automatizado, al igual que la clase <code class="docutils literal notranslate"><span class="pre">meddocan.data.docs_iterators.GsDocs</span></code>, tenemos la clase <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">meddocan.data.docs_iterators.SysDocs</span></code> que utiliza un modelo de Flair para detectar entidades sobre los documentos de cada sub-conjunto de datos. Veamos un ejemplo:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">meddocan.data.docs_iterators</span> <span class="kn">import</span> <span class="n">SysDocs</span>
+<span class="kn">from</span> <span class="nn">meddocan.data</span> <span class="kn">import</span> <span class="n">ArchiveFolder</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">flair</span>
+
+<span class="n">flair</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda:1&quot;</span><span class="p">)</span>
+
+<span class="n">sys_docs</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">SysDocs</span><span class="p">(</span><span class="n">archive_name</span><span class="o">=</span><span class="n">ArchiveFolder</span><span class="o">.</span><span class="n">test</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s2">&quot;flair/ner-spanish-large&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 11:13:05,538 loading file /home/wave/.meddocan/models/ner-spanish-large/045ad6c7dc21e0eb85935dce0544eec65f8c63c58412154df4dee7ff5f11665b.d4d3456316d2951bc100d060bd63a690b33af6d273adffa1b90df32328ed3257
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-11-08 11:13:34,905 SequenceTagger predicts: Dictionary with 20 tags: &lt;unk&gt;, O, S-LOC, S-ORG, B-PER, I-PER, E-PER, S-MISC, B-ORG, E-ORG, S-PER, I-ORG, B-LOC, E-LOC, B-MISC, E-MISC, I-MISC, I-LOC, &lt;START&gt;, &lt;STOP&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>Gracias a las clase <code class="docutils literal notranslate"><span class="pre">GsDocs</span></code> y <code class="docutils literal notranslate"><span class="pre">SysDocs</span></code> podemos producir fácilmente los ficheros requeridos para usar el script de evaluación provisto a través  de la la linea de comando <em>meddocan eval</em>.</p>
+<p>Como curiosidad podemos explicar como se pueden calcular las métricas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gs_docs</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">GsDocs</span><span class="p">(</span><span class="n">archive_name</span><span class="o">=</span><span class="n">ArchiveFolder</span><span class="o">.</span><span class="n">test</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Recuperamos los iteradores <code class="docutils literal notranslate"><span class="pre">sys_doc</span></code> y <code class="docutils literal notranslate"><span class="pre">gold_doc</span></code> y comprobamos que corresponden a los mismos documentos originales, tanto en su origen como en su contenido.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_doc</span><span class="p">,</span> <span class="n">gold_doc</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">sys_docs</span><span class="p">),</span> <span class="nb">next</span><span class="p">(</span><span class="n">gs_docs</span><span class="p">)</span>
+
+<span class="k">assert</span> <span class="n">sys_doc</span><span class="o">.</span><span class="n">brat_files_pair</span><span class="o">.</span><span class="n">ann</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">gold_doc</span><span class="o">.</span><span class="n">brat_files_pair</span><span class="o">.</span><span class="n">ann</span><span class="o">.</span><span class="n">name</span>
+<span class="k">assert</span> <span class="n">sys_doc</span><span class="o">.</span><span class="n">brat_files_pair</span><span class="o">.</span><span class="n">txt</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">gold_doc</span><span class="o">.</span><span class="n">brat_files_pair</span><span class="o">.</span><span class="n">txt</span><span class="o">.</span><span class="n">name</span>
+<span class="k">assert</span> <span class="n">sys_doc</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">text</span> <span class="o">==</span> <span class="n">gold_doc</span><span class="o">.</span><span class="n">doc</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Ahora recuperamos las entidades originales en <code class="docutils literal notranslate"><span class="pre">gold_labels</span></code> y las predicciones <code class="docutils literal notranslate"><span class="pre">sys_labels</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">meddocan.evaluation.classes</span> <span class="kn">import</span> <span class="n">Ner</span><span class="p">,</span> <span class="n">Span</span>
+
+<span class="n">gold_labels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Ner</span><span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span> <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">gold</span><span class="o">.</span><span class="n">ents</span><span class="p">)</span>
+<span class="n">sys_labels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Ner</span><span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">end</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">label_</span><span class="p">)</span> <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">ents</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Por fin calculamos el score <span class="math notranslate nohighlight">\(F_{1} micro\)</span> para el documento así como el recall y la precision.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TypeVar</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="n">Ner</span><span class="p">,</span> <span class="n">Span</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">gold_label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">sys_label</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="n">tp</span> <span class="o">=</span> <span class="n">gold_label</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">sys_label</span><span class="p">)</span>
+    <span class="n">fp</span> <span class="o">=</span> <span class="n">sys_label</span> <span class="o">-</span> <span class="n">gold_label</span>
+    <span class="n">fn</span> <span class="o">=</span> <span class="n">gold_label</span> <span class="o">-</span> <span class="n">sys_label</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">recall</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+        <span class="n">recall</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">precision</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">fn</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+        <span class="n">precision</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">recall</span> <span class="o">*</span> <span class="n">precision</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">recall</span> <span class="o">+</span> <span class="n">precision</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="n">f1</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">precision</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">f1</span><span class="p">(</span><span class="n">gold_labels</span><span class="p">,</span> <span class="n">sys_labels</span><span class="p">),</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;recall&quot;</span><span class="p">,</span> <span class="s2">&quot;precisión&quot;</span><span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Subtrack1&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>f1</th>
+      <th>recall</th>
+      <th>precisión</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Subtrack1</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>¡El score <span class="math notranslate nohighlight">\(F_{1} micro\)</span> esta nulo simplemente porque el modelo utilizado no predice las mismas entidades y ademas esta entrenado sobre un conjunto de datos en inglés! Pero si se trata únicamente de anonimizar y que usamos solo los <code class="docutils literal notranslate"><span class="pre">Span</span></code> puede que no sea lo mismo dado que ahora no importan las etiquetas sino solo la posición de las entidades.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gold_spans</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Span</span><span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">end</span><span class="p">)</span> <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">gold</span><span class="o">.</span><span class="n">ents</span><span class="p">)</span>
+<span class="n">sys_spans</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Span</span><span class="p">(</span><span class="n">ent</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">ent</span><span class="o">.</span><span class="n">end</span><span class="p">)</span> <span class="k">for</span> <span class="n">ent</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">ents</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">f1</span><span class="p">(</span><span class="n">gold_spans</span><span class="p">,</span> <span class="n">sys_spans</span><span class="p">),</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;f1&quot;</span><span class="p">,</span> <span class="s2">&quot;recall&quot;</span><span class="p">,</span> <span class="s2">&quot;precision&quot;</span><span class="p">],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Subtrack2[strict]&quot;</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>f1</th>
+      <th>recall</th>
+      <th>precision</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Subtrack2[strict]</th>
+      <td>0.285714</td>
+      <td>0.285714</td>
+      <td>0.285714</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>De hecho, vemos que incluso con un modelo entrenado en un conjunto de datos muy diferente con tan sólo 4 entidades, conseguimos anonimizar un poco más de un cuartos de los span deseados.</p>
+<hr class="footnotes docutils" />
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">1</a></span></dt>
+<dd><p><a class="reference external" href="https://github.com/hyperopt/hyperopt">https://github.com/hyperopt/hyperopt</a></p>
+</dd>
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">2</a></span></dt>
+<dd><p><a class="reference external" href="https://pytorch.org/docs/stable/tensorboard.html">https://pytorch.org/docs/stable/tensorboard.html</a></p>
+</dd>
+</dl>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./meddocan"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="a_training.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">5.2. </span>Training</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="a_transformers.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5.4. </span>Transformers para NER</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Guillaume Gelabert<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
