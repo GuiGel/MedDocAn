@@ -1,6 +1,8 @@
 <!-- #region -->
 # Training
 
+Este anexo presenta algunos aspectos prácticos del entrenamiento.
+
 (Appendix-1)=
 ## Entrenamiento: Método de ajuste fino
 
@@ -35,7 +37,7 @@ Para entrenar esta arquitectura, los trabajos anteriores suelen utilizar el opti
 
 ```
 
-La {numref}`fine-tuning parameters xlmr` enumera los de XLM RoBERTa Large. La única diferencia es el uso de una tasa de aprendizaje de 40 para XLM RoBERTa en lugar de 150 para BETO debido a la insuficiente memoria de la GPU.
+La {numref}`fine-tuning parameters xlmr` enumera los hiperparámetros utilizados para entrenar con de XLM RoBERTa Large. La única diferencia es el uso de una tasa de aprendizaje de 40 para XLM RoBERTa en lugar de 150 para BETO debido a la insuficiente memoria de la GPU.
 
 
 ```{table} Parámetros utilizados para el ajuste fino de XLM RoBERTa Large
@@ -93,7 +95,7 @@ Adoptamos el procedimiento de entrenamiento estándar utilizado en trabajos ante
 (Appendix-3)=
 ### Entrenamiento: Flair + LSTM-CRF
 
-La {numref}`fig-flair-1` ofrece una visión general del enfoque basado en características: Las representaciones de las palabras se extraen de model de idiomas. A continuación, se introducen en una arquitectura LSTM-CRF estándar {cite}`Huang2015BidirectionalLM` como características.
+La {numref}`fig-flair-1` ofrece una visión general del enfoque basado en características: Las representaciones de las palabras se extraen de modelos de idiomas. A continuación, se introducen en una arquitectura LSTM-CRF estándar {cite}`Huang2015BidirectionalLM` como características.
 
 ```{figure} ../figures/flair-1.png
 ---
@@ -132,6 +134,9 @@ Realizamos experimentos en una NVIDIA Quadro M6000 (24GB) para el ajuste fino y 
 
 Numero de parámetros contenido en cada unos de los modelos utilizados
 ```
+
+Podemos ver que los embeddings de menor a mayor son Flair, Beto y XLM RoBERTa Large. Los embeddings estáticos (WE) son en sí mismos muy grandes ya que tienen un vocabulario muy amplio. Por lo tanto, aumentan en gran medida el tamaño del modelo final. Por último, el uso de una red del tipo LSTM-CRF añade más parámetros que el uso de una simple proyección lineal sobre el espacio de soluciones.
+
 ## Training time
 
 ```{glue:figure} training_time
@@ -140,3 +145,4 @@ Numero de parámetros contenido en cada unos de los modelos utilizados
 
 Tiempo de entrenamiento por cada configuración. El punto es mas grande cuando la desviación estándar aumenta.
 ```
+Optar por la estrategia basada en el ajuste fino de un modelo de Transformers multiplica el tiempo de entrenamiento por 4 para el mismo número de iteraciones. Añadir un contexto, porque aumenta el número de tokens que el modelo tendrá que ingerir al mismo tiempo, hace que el entrenamiento sea aún más lento. Y, por último, el uso de modelos más grandes, como XLM RoBERTa Large, ralentiza aún más el entrenamiento.

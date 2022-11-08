@@ -145,7 +145,7 @@ Al contrario de los resultados obtenidos por los autores de Flert {cite}`Schwete
 ```{glue:figure} compare_with_flair
 :name: flair comparison
 
-Evaluación de las mejoras en score $F_{1} micro$ en los datos de test en comparación con la opción CARACTERÍSTICAS + FLAIR + LSTM CRF.
+Evaluación de las mejoras en score $F_{1} micro$ en los datos de test en comparación con la opción “FLAIR + WE + LSTM CRF“.
 ```
 
 ## Conclusión

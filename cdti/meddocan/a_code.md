@@ -121,7 +121,7 @@ pd.DataFrame(gs_docs.nlp.pipe_names, columns=["componentes"]).T
     - Evaluar un modelo utilizando el script de evaluación propio de la competición.
 
 ``````{note}
-Hemos integrado el [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) dentro de nuestra librería con algunas modificaciones y un poco más de documentación, con el objetivo de unificar el workflow del entrenamiento hasta la evaluación.  
+Hemos integrado el [script de evaluación](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) dentro de nuestra librería con algunas modificaciones y un poco más de documentación, con el objetivo de unificar el workflow del entrenamiento hasta la evaluación.  
 La evaluación se hace entonces directamente desde nuestra librería gracias al commando: 
 
 ```console
@@ -342,7 +342,7 @@ Vemos a ojo que el modelo de Flair ``flair/ner-english-fast`` parece detectar co
 
 +++
 
-La evaluación originalmente provistas a través  del [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) que re-utilizamos, utiliza el texto original así como su anotación al formato *brat* para calcular las métricas según las tareas ``Subtrack1``, ``Subtrack2 [Strict]`` y ``SubTrack2 [Merged]``.
+La evaluación originalmente provistas a través  del [script de evaluación](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) que re-utilizamos, utiliza el texto original así como su anotación al formato *brat* para calcular las métricas según las tareas ``Subtrack1``, ``Subtrack2 [Strict]`` y ``SubTrack2 [Merged]``.
 
 Para evaluar nuestros modelos, utilizamos el texto original a partir del cual se ha creado el documento ``sys`` así como su atributo ``_.to_ann``. Ese método permite codificar el atributo ``ents`` del objeto ``sys`` en un fichero siguiendo el formado brat como se puede ver a continuación.
 
