@@ -120,11 +120,8 @@ Procedemos exactamente como en el [Método basado en características](procedimi
 |     Scheduler      | Anneal On Plateau |
 ```
 
-TODO Average training runtime. 
-
 ```{note}
-We conduct experiments on a NVIDIA Quadro M6000 (24GB) for fine-tuning
-and feature-based approach. We report average training times for our best configurations in Table 9.
+Realizamos experimentos en una NVIDIA Quadro M6000 (24GB) para el ajuste fino y el enfoque basado en características. Informamos de los tiempos medios de entrenamiento de nuestras mejores configuraciones en la {numref}`Tabla %s <training time>`.
 ```
 
 ## Numero de parámetros del modelo
@@ -137,5 +134,9 @@ Numero de parámetros contenido en cada unos de los modelos utilizados
 ```
 ## Training time
 
-TODO Compute training time?
-<!-- #endregion -->
+```{glue:figure} training_time
+:align: center
+:name: "training time"
+
+Tiempo de entrenamiento por cada configuración. El punto es mas grande cuando la desviación estándar aumenta.
+```

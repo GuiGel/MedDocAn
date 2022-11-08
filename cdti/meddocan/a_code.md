@@ -54,7 +54,7 @@ docs_with_brat_pair = iter(gs_docs)
 doc_with_brat_pair = next(docs_with_brat_pair)
 ```
 
-El objetó`doc_with_brat_pair` creado por `GsDocs` tiene 2 atributos.
+El objeto `doc_with_brat_pair` creado por `GsDocs` tiene 2 atributos.
 
 ```{code-cell} ipython3
 [attr for attr in vars(doc_with_brat_pair).keys()]
@@ -71,7 +71,7 @@ pd.DataFrame(
 ).T
 ```
 
-Lo que hace `GsDocs` es crear un objetó`Doc` a partir de un objeto `meddocan.data.docs_iterators.DocWithBratPair` utilizando el `MedocanPipeline`.
+Lo que hace `GsDocs` es crear un objeto `Doc` a partir de un objeto `meddocan.data.docs_iterators.DocWithBratPair` utilizando el `MedocanPipeline`.
 
 En una primera fase el ``MeddocanPipeline`` recibe el texto contenido en el fichero original *S0004-06142005000500011-1.txt* como argumento.  
 
@@ -116,7 +116,7 @@ pd.DataFrame(gs_docs.nlp.pipe_names, columns=["componentes"]).T
 1. El primer elemento de nuestro pipeline es el tokenizer seguido del componente `missaligned_splitter` que nos permite afinar la tokenización de tal forma que cada token se corresponda exactamente con una etiqueta al formato BIO.
 2. El segundo componente, `line_sentencizer` permite partir el texto en frases. En este caso se corresponde a un párrafo.
 3. El componente `predictor` nos permite utilizar un modelo de Flair de tal forma que se integra al pipeline. De esa mañera se puede hacer directamente predicciones utilizando un objeto `Doc` y un modelo entrenado previamente.
-4. El componente `write_methods` añade los métodos ``to_connl03`` y ``to_ann`` al objetó ``Doc`` que sirven a crear los ficheros necesarios para:
+4. El componente `write_methods` añade los métodos ``to_connl03`` y ``to_ann`` al objeto ``Doc`` que sirven a crear los ficheros necesarios para:
     - Crear un `flair.data.Corpus` que va a permitir entrenar un modelo con Flair.
     - Evaluar un modelo utilizando el script de evaluación propio de la competición.
 
@@ -205,7 +205,7 @@ Options:
 
 +++
 
-La entidades anotadas se obtienen utilizando el atributo ``ents`` de nuestro objetó``spacy.tokens.Doc``.
+La entidades anotadas se obtienen utilizando el atributo ``ents`` de nuestro objeto ``spacy.tokens.Doc``.
 
 ```{code-cell} ipython3
 pd.DataFrame(
@@ -214,9 +214,9 @@ pd.DataFrame(
 ).T
 ```
 
-Nuestras entidades son en este ejemplo compuestas del tag y del la position de la entidad en la cadena de caracteres original.
+Nuestras entidades son en este ejemplo compuestas del tag y del a position de la entidad en la cadena de caracteres original.
 
-Ahora si queremos algo más visual podemos utilizar la function ``spacy.displacy.render()`` que nos permite trabajar con el objetó``Doc``.
+Ahora si queremos algo más visual podemos utilizar la function ``spacy.displacy.render()`` que nos permite trabajar con el objeto ``Doc``.
 
 ```{code-cell} ipython3
 displacy.render(gold, style="ent")
@@ -236,7 +236,7 @@ from meddocan.data.corpus import MEDDOCAN
 corpus = MEDDOCAN(sentences=True, in_memory=True, document_separator_token="-DOCSTART-")
 ```
 
-El corpus creado podemos utilizar los métodos de los cuales hereda nuestro objeto como el método especial ``__str__`` que escribe en stdout el numero de objetos ``flair.tokens.Sentence`` contenido en cada subconjunto de datos. Es decir cuantos párrafos tenemos en total en cada uno de nuestros conjuntos de datos.
+Una vez creado nuestro corpus podemos utilizar los métodos de los que hereda nuestro objeto como el método especial ``__str__`` que escribe en stdout el número de objetos ``flair.tokens.Sentence`` que contiene cada subconjunto del conjunto de datos. Es decir, cuántos párrafos tenemos en total en cada uno de nuestros conjuntos de datos.
 
 ```{code-cell} ipython3
 print(corpus)
@@ -333,7 +333,7 @@ displacy.render(sys, style="ent")
 ```
 
 ```{note}
-Vemos a ojo que el modelo de Flair ``flair/ner-english-fast`` parece detectar correctamente el span de ciertas entidades que el etiqueta como ``LOC`` o ``PERS`` y que efectivamente son direcciones o personas. 
+Vemos a ojo que el modelo de Flair ``flair/ner-english-fast`` parece detectar correctamente el span de ciertas entidades. Les asigna una etiqueta como ``LOC`` o ``PERS`` y efectivamente son direcciones o personas aunque por supuesto no tiene el mismo etiquetado.
 ```
 
 +++
@@ -344,7 +344,7 @@ Vemos a ojo que el modelo de Flair ``flair/ner-english-fast`` parece detectar co
 
 La evaluación originalmente provistas a través  del [script de evaluation](https://github.com/PlanTL-GOB-ES/MEDDOCAN-Evaluation-Script) que re-utilizamos, utiliza el texto original así como su anotación al formato *brat* para calcular las métricas según las tareas ``Subtrack1``, ``Subtrack2 [Strict]`` y ``SubTrack2 [Merged]``.
 
-Para evaluar nuestros modelos, utilizamos el texto original a partir del cual se ha creado el documento sys así como su atributo ``_.to_ann``. Ese método permite codificar el atributo ``ents`` del objeto sys en un fichero siguiendo el formado brat como se puede ver a continuación.
+Para evaluar nuestros modelos, utilizamos el texto original a partir del cual se ha creado el documento ``sys`` así como su atributo ``_.to_ann``. Ese método permite codificar el atributo ``ents`` del objeto ``sys`` en un fichero siguiendo el formado brat como se puede ver a continuación.
 
 ```{code-cell} ipython3
 from tempfile import TemporaryDirectory
@@ -356,7 +356,7 @@ with TemporaryDirectory() as td:
         print(line)
 ```
 
-Para hacer esto más automatizado, al igual que la clase ``from meddocan.data.docs_iterators.GsDocs``, tenemos la clase ``from meddocan.data.docs_iterators.SysDocs`` que utiliza un modelo de Flair para detectar entidades sobre los documentos de cada sub-conjunto de datos. Veamos un ejemplo:
+Para hacer esto más automatizado, al igual que la clase ``meddocan.data.docs_iterators.GsDocs``, tenemos la clase ``from meddocan.data.docs_iterators.SysDocs`` que utiliza un modelo de Flair para detectar entidades sobre los documentos de cada sub-conjunto de datos. Veamos un ejemplo:
 
 ```{code-cell} ipython3
 from meddocan.data.docs_iterators import SysDocs
@@ -380,7 +380,7 @@ Como curiosidad podemos explicar como se pueden calcular las métricas.
 gs_docs = iter(GsDocs(archive_name=ArchiveFolder.test))
 ```
 
-Recuperamos los ``Iterator`` sys_doc y gold_doc y comprobamos que corresponden a los mismos documentos originales, tanto en su origen como en su contenido.
+Recuperamos los iteradores ``sys_doc`` y ``gold_doc`` y comprobamos que corresponden a los mismos documentos originales, tanto en su origen como en su contenido.
 
 ```{code-cell} ipython3
 sys_doc, gold_doc = next(sys_docs), next(gs_docs)
@@ -399,7 +399,7 @@ gold_labels = set(Ner(ent.start, ent.end, ent.label_) for ent in gold.ents)
 sys_labels = set(Ner(ent.start, ent.end, ent.label_) for ent in sys.ents)
 ```
 
-Por fin calculamos el score $F_1$ para el documento así como el recall y la precision.
+Por fin calculamos el score $F_{1} micro$ para el documento así como el recall y la precision.
 
 ```{code-cell} ipython3
 from typing import TypeVar
@@ -431,7 +431,7 @@ pd.DataFrame(
 ).T
 ```
 
-¡El score $F_{1} micro$ esta nulo simplemente porque el modelo utilizado no predice las mismas entidades y ademas esta entrenado sobre un conjunto de datos en inglés! Pero si se trata únicamente de anonimizar y que usamos solo los ``Span`` puede que no sea lo mismo dado que también tiene que detectar personas o entidades sin etiqueta.
+¡El score $F_{1} micro$ esta nulo simplemente porque el modelo utilizado no predice las mismas entidades y ademas esta entrenado sobre un conjunto de datos en inglés! Pero si se trata únicamente de anonimizar y que usamos solo los ``Span`` puede que no sea lo mismo dado que ahora no importan las etiquetas sino solo la posición de las entidades.
 
 ```{code-cell} ipython3
 gold_spans = set(Span(ent.start, ent.end) for ent in gold.ents)
