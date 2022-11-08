@@ -255,7 +255,3 @@ diff = result_metrics[::2] - result_metrics.loc[("LSTM CRF", "FLAIR")].loc["mean
 diff = diff.drop([("LSTM CRF", "FLAIR"), ("LSTM CRF", "FLAIR + WE")])*100
 glue("compare_with_flair", diff.style.pipe(make_pretty).hide(axis="index", level=[2, 3]).background_gradient("plasma"))
 ```
-
-```{code-cell} ipython3
-
-```
