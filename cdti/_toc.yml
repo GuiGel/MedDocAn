@@ -1,0 +1,22 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: index
+
+options:
+  numbered: True
+
+
+chapters:
+    - file: meddocan/01_evaluation.md
+    - file: meddocan/02_data.md
+    - file: meddocan/03_training.md
+    - file: meddocan/bibliography.md
+    - file: meddocan/a.md
+      sections:
+      - file: meddocan/a_transfer_learning.md
+      - file: meddocan/a_training.md
+      - file: meddocan/a_code.md
+      - file: meddocan/a_transformers.md
+    # - file: api/meddocan/index
