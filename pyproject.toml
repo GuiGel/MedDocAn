@@ -62,6 +62,12 @@ write_methods = "meddocan.language.method_extensions:create_write_methods"
 [tool.poetry.plugins."spacy_displacy_colors"]
 spacy_displacy_colors = "meddocan.language.colors:displacy_colors"
 
+
+[tool.poetry.group.presentation.dependencies]
+jupyterlab = "^3.6.1"
+rise = "^5.7.1"
+jupyterlab-rise = "^0.1.1"
+
 [tool.isort]
 profile = "black"
 
