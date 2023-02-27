@@ -11,6 +11,13 @@
 
 *Our results on the Medical Document Anonymization Track (track 9 of the <abbr title="Iberian Languages Evaluation Forum 2019"> [IberLEF 2019](http://ceur-ws.org/Vol-2421/)).</abbr>*
 
+---
+
+**Documentation**: <a href="https://guigel.github.io/MedDocAn/" target="_blank">https://guigel.github.io/MedDocAn/</a>
+
+**Source Code for MEDDOCAN**: <a href="https://github.com/GuiGel/MedDocAn" target="_blank">https://github.com/GuiGel/MedDocAn</a>
+
+---
 ## About the task
 
 Clinical records with protected health information (PHI) cannot be directly shared “as is”, due to privacy constraints, making it particularly cumbersome to carry out NLP research in the medical domain. A necessary precondition for accessing clinical records outside of hospitals is their de-identification, i.e., the exhaustive removal, or replacement, of all mentioned PHI phrases.

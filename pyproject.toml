@@ -50,6 +50,10 @@ ipywidgets = "^7.7.0"
 line-profiler = "^3.5.1"
 pytest-xdist = "^2.5.0"
 
+[project.urls]
+Homepage = "https://guigel.github.io/MedDocAn/"
+Documentation = "https://github.com/GuiGel/MedDocAn"
+
 [tool.poetry.scripts]
 meddocan = "meddocan.__main__:app"
 
