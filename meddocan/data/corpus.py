@@ -1,6 +1,7 @@
 import logging
 import tempfile
 from pathlib import Path
+from typing import Optional
 
 import flair
 import flair.datasets
@@ -36,7 +37,7 @@ class MEDDOCAN(ColumnCorpus):
         self,
         sentences: bool = False,
         in_memory: bool = True,
-        document_separator_token: str = None,
+        document_separator_token: Optional[str] = None,
         **corpusargs,
     ) -> None:
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -72,4 +73,4 @@ class MEDDOCAN(ColumnCorpus):
             )
 
 
-flair.datasets.MEDDOCAN = MEDDOCAN
+flair.datasets.MEDDOCAN = MEDDOCAN  # typing
