@@ -55,3 +55,27 @@ def glue_iob_label(iob: str, label: str) -> str:
         return f"{iob}_{label}"
     else:
         return iob
+
+def get_parameter_num(model_path: Path) -> int:
+    """Obtain the number of parameter in a model
+
+    Args:
+        model_path (Path): Path to a SequenceTagger model
+
+    Returns:
+        int: Number of parameters of the model
+    """
+    model = SequenceTagger.load(model_path)
+    parameters = model.parameters()
+    return sum(map(torch.numel, parameters))
+
+def make_pretty(styler):
+    styler.background_gradient(axis=None, cmap="YlGnBu")
+    styler.set_table_styles([
+        {'selector': 'th.col_heading.level0', 'props': 'text-align: center; font-size: 1.5em;'},
+        {"selector": "", "props": [("border", "1px solid grey")]},
+        {"selector": "tbody td", "props": [("border", "1px solid grey")]},
+        {"selector": "th", "props": [("border", "1px solid grey")]},
+    ], overwrite=False)
+    styler.format( "{:.0f}",)
+    return styler
