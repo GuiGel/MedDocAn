@@ -1,7 +1,7 @@
 import itertools as it
 import logging
 
-import importlib_metadata as metadata
+import setuptools._vendor.importlib_metadata as metadata
 
 logger = logging.getLogger(__name__)
 

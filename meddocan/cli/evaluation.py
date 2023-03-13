@@ -75,8 +75,8 @@ def eval(
 ) -> None:
     """Evaluate the model with the `meddocan` metrics.
     
-    Compute f1-score for Ner (start, end, tag), Span (start, end) and merged
-    span if not there is no number or letter between consecutive span.
+    Calculate the f1 score for Ner (start, end, tag), Span (start, end) and 
+    the merged span if there is no number or letter between consecutive spans.
 
     The function produce the following temporary folder hierarchy:
 
