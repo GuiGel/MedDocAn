@@ -2,12 +2,29 @@ import base64
 import tempfile
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Iterable, Iterator, Tuple
+from tempfile import TemporaryDirectory
+from typing import Iterable, Iterator, Optional, Tuple
 
 import requests
 from IPython.display import Markdown, display
+from spacy.tokens import Doc
 
 from meddocan.evaluation.classes import BratAnnotation
+
+
+def visualize_conll03(doc: Doc, nb_lines: Optional[int] = None):
+    assert doc._.is_meddocan_doc, f"The doc must be a meddocan document!"
+
+    if nb_lines is None:
+        nb_lines = 100000000000000
+
+    with TemporaryDirectory() as td:
+        pth = Path(td, "file.txt")
+        doc._.to_connl03(pth)
+        for i, line in enumerate(pth.read_text().split("\n")):
+            print(line)
+            if i == nb_lines:
+                break
 
 
 def display_script(loc: Path, language: str) -> None:
